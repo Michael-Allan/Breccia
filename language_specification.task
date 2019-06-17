@@ -1,0 +1,278 @@
+Breccia: specification of the markup language
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────────
+    Aside point`
+    - bulleted ‘/’
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────────
+    Bullet`
+    - all points begin with a bullet
+    * form
+        - perfectly indented
+        - first character, one of
+            ∪ neither backslash nor whitespace
+            ∪ backslash
+                - immediately followed by zero or more backslashes
+                  and a character that is neither whitespace nor a backslash
+        - end boundary, one of
+            ∪ non-alphanumeric character immediately followed by a space
+                < allows for embedded spacing, but only where it follows an alphanumeric character
+            ∪ newline
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────────
+    Character`
+    * horizontal whitespace
+        - the space character (Unicode 20) is allowed
+        - others are disallowed
+            - too confusing in this context
+            - too difficult to deal with
+    * tab
+        - likewise disallowed
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────────
+    Citation`
+    * inline citation
+        - URI in a descriptor, comment or divider
+            - not in a bullet, that is
+            - not a URI reference
+                - here URI references go unrecognized by the parser
+                ( for lack of any reliable distinguishing mark
+        - when followed immediately by punctuation (such as ‘.’)
+          that might otherwise be taken as part of the URI,
+          the URI must be quoted, e.g. by backquotes or angle braces
+    * associative citation
+        < § command point § associative citation
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────────
+    Command point`
+    - bulleted ‘:’
+    - commands execute in document order
+    + associative citation
+        < a type of command point
+        - associates for citation purposes a character sequence of a preceding construct (the referrer)
+          with a particular referent
+        = factor out the particular associative subform `@` -
+            - from the general associative form '…', which may have (in future) other subforms
+            - considering ‘;’ as a separator of multiple subforms within the same associative form
+        * form
+
+              : ['PATTERN']  @  REFERENT-URI
+
+              : ['PATTERN']  @  REFERENT-CONSTRUCT-INDICATOR  [[@] REFERENT-URI]
+
+            - quoting with either ‘"’ (Unicode 22) or ‘'’ (Unicode 27)
+            - PATTERN
+                - a Perl compatible regular expression
+                - indicates the referrer
+                - if omitted then the referrer is the whole of superior construct S, as defined below
+                - else the referrer is the result of applying the pattern to some part (P)
+                  of superior construct S, as follows:
+                     - if the command point has a principal construct as its parent
+                        - then S is that construct
+                        - if S is a point
+                            - then P is S’s descriptor
+                        - else S must be a divider
+                            - then P is S
+                    - else S is the document descriptor and P is S
+                    - else the command point is misplaced and the document is malformed
+            - REFERENT-CONSTRUCT-INDICATOR
+                - a construct indicator
+                    ( § principal construct § construct indicator
+                - used only to cite a Breccian source
+                - indicates the referent as a Breccian principal construct
+            - REFERENT-URI
+                - a URI reference, indicator of either the referent
+                  or (in the presence of a construct indicator) the referent’s document
+                - optional in the presence of a construct indicator,
+                  where it defaults to the same document as the referrer
+    + null command
+        < a type of command point
+        - does nothing
+        * form
+
+              :
+
+    + set perfect indentation
+        < a type of command point
+        - specifies the number of space characters in each unit of perfect indentation
+            - the default is 4
+      / - applies to subsequent siblings and their ancestors
+      // it would overburden syntax highlighters, such as that of `Emacs/Breccia_mode.el`
+        - not yet implemented, pending need
+        * form
+
+              : indent NUMBER
+
+            - the minimum is 2
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────────
+    Commentary`
+    * form
+        ( per line
+        - begins with one or more consecutive backslashes ‘\’ (Unicode 5c)
+            - immediately preceded by a space or the line start
+            - immediately followed by a space or the line end
+        - continues to the line end
+    + inline commentary
+        - commentary subsequent to non-commentary on the same line
+        ( ‘commentary’ not ‘comment’, because the comment as a whole may extend across lines
+    + comment block
+        - a sequence of lines comprising commentary alone
+        * comment block label
+            - in a comment block
+            - in a line of commentary delimited by two or more consecutive backslashes ‘\\’
+            - the label is the part subsequent to the backslash delimiter,
+              exclusive of terminal whitespace
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────────
+    Divider`
+    - a principal construct
+    * form
+        - begins with a perfectly indented line headed by a drawing character or inversion mark
+        - end boundary is the next principal construct headed by a non-drawing character,
+          or the end of the document
+        - it follows that no two dividers are contiguous
+            - rather the whole construct is a single divider
+            ( what would be separate, contiguous dividers are effectively fused into one
+    * drawing character
+        - Unicode 2500-2587, 2589-258f, 2591-259f
+    + divider label
+        - a sequence of non-drawing characters in a divider, exclusive of terminal whitespace
+        - normally the label is presented in bold face
+        * inversion mark
+            - Unicode 2588 (full block), 2590 (right half block)
+        * inverse label
+            - a divider label preceded by an inversion mark,
+              with at most space characters between the two
+            - normally the inverse label, together with any terminal whitespace,
+              is presented in inverse video
+                - except that any inline commentary is still presented in plain video
+            - where a full block character succeeds an inversion mark on the same line,
+              with no drawing character in between, the succeeding full block is rendered
+              inactive as an inversion mark
+                - viz. the full block pairs with the preceding inversion mark,
+                  and by itself does not start a new inverse label
+                - viz. a single full block trailing an inverse label cannot start a second inverse label
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────────
+    Document`
+    - comprising any number of principle constructs, possibly preceded by a document descriptor
+    * document descriptor
+        - any text prior to a principal construct
+    * document title
+        - any document title is determined by the first construct in document order that yields
+          a non-empty result after collapsing the whitespace of the relevant part of its content,
+          according to the construct type:
+            | document descriptor
+                - its non-commentary content
+            | point
+                - the non-commentary content of its bullet and descriptor lines
+            | divider
+                - its first label
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────────
+    Exception point`
+    - bullet terminated ‘!!’
+    - justified by the purpose of drafting, where the ability to note exceptions is a useful aid
+        ( /project.brec § definition
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────────
+    Jointer`
+    - a type of point
+    * example
+
+          ⋱⋱ etc/whatever.br
+
+    * form
+
+          ⋱[⋱]  ['CONSTRUCT-PATTERN']  [CONSTRUCT-SCOPER]  [[@] URI-REFERENCE]
+
+        - the diagonal ellipsis (Unicode 22f1) may be single ‘⋱’ or double ‘⋱⋱’
+        - quoting with either ‘"’ (Unicode 22) or ‘'’ (Unicode 27)
+        - CONSTRUCT-PATTERN
+            - the pattern of the subjoint principal construct
+                ( § principal construct § construct pattern
+            - optional, defaults to the text of the jointer’s parent construct modified thus:
+                - in the case of a point
+                    - trimmed of all but bullet and descriptor lines
+                - trimmed of commentary
+                - trimmed of leading whitespace on the first line
+                - regexp quoted
+                - all whitespace collapsed to \s+
+                    ( neutralizing differences in indentation and line wrapping
+                - in the case of a divider
+                    - all repeats of a drawing character C collapsed to C+
+                        ( neutralizing differences in horizontal length, e.g. owing to indentation
+                - anchored by prepending with `\i` -
+            - will not match a jointer
+                = move to a functional §
+            - modification to the pattern form in this context
+                - `\q` expands to the default modified thus\
+                    - in the case of point, trimmed to the portion of text following the first letter
+                      of the descriptor
+                        ( excluded as one may wish to alter its case
+                        - if there is no descriptor, or it ends with its first letter,
+                          then `\q` is misplaced, and therefore the pattern is malformed
+        - CONSTRUCT-SCOPER
+            - the scope qualifier of the CONSTRUCT-PATTERN
+                ( § principal construct § construct scoper
+        - URI-REFERENCE
+            - URI reference of the document of the subjoint construct
+            - the use of the ‘@’ separator is optional, a matter of preference
+            - optional, defaults to the same document as the jointer
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────────
+    Principal construct`
+    - one of a point or a divider
+    * construct indicator
+        - form
+
+              'CONSTRUCT-PATTERN'  [@ CONSTRUCT-SCOPER]
+
+            - quoting with either ‘"’ (Unicode 22) or ‘'’ (Unicode 27)
+            - CONSTRUCT-PATTERN
+                - the pattern of the indicated principal construct
+                    ( § construct pattern
+            - CONSTRUCT-SCOPER
+                - the scope qualifier of the given CONSTRUCT-PATTERN
+                    ( § construct scoper
+    * construct pattern
+        - a modified, Perl compatible regular expression
+        - modifications:
+            - `\t` symbolizes not a tab, but one unit of perfect indentation
+            - `\i` expands to `^\t*`,
+              an anchored, leading sequence of perfect indentation
+                = improve it
+                    - it will be ubiquitous in texts
+                    | using `^^` for greater clarity
+                    | shortening it to a single symbol
+    * construct scoper
+        - a scope qualifier for a construct pattern
+        - form
+
+              @ SUPER-CONSTRUCT-INDICATOR
+
+            - SUPER-CONSTRUCT-INDICATOR
+                - a construct indicator
+                    ( § construct indicator
+                - indicator of the super-construct (container) of the construct of the pattern,
+                  within whose content the pattern is to be sought
+                - likewise the super-construct may be scoped by indication of its own super-construct,
+                  and so on, as the form is self referential
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────────
+    Point`
+    - a principal construct
+    * form
+        - begins with a bullet
+        - end boundary is the next principal construct, or the end of the document
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────────
+    Task point`
+    - bullet terminated ‘+’
+    - justified by the purpose of drafting, for which inline tasking is a useful aid
+        ( /project.brec § definition
+
+
+
+                                          Copyright © 2019 Michael Allan and contributors.  Licence MIT.
