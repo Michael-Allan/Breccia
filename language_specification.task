@@ -51,6 +51,8 @@ Breccia: specification of the markup language
         < a type of command point
         - associates for citation purposes a character sequence of a preceding construct (the referrer)
           with a particular referent
+        - separate referrers within the same construct may overlap or nest in any manner
+        - a single referrer may associate with multiple referents
         = factor out the particular associative subform `@` -
             - from the general associative form '…', which may have (in future) other subforms
             - considering ‘;’ as a separator of multiple subforms within the same associative form
@@ -75,16 +77,17 @@ Breccia: specification of the markup language
                             - then P is S
                     - else S is the document descriptor and P is S
                     - else the command point is misplaced and the document is malformed
-            - REFERENT-CONSTRUCT-INDICATOR
-                - a construct indicator
-                    ( § principal construct § construct indicator
-                - used only to cite a Breccian source
-                - indicates the referent as a Breccian principal construct
-            - REFERENT-URI
-                - a URI reference, indicator of either the referent
-                  or (in the presence of a construct indicator) the referent’s document
-                - optional in the presence of a construct indicator,
-                  where it defaults to the same document as the referrer
+            - referent indicator
+                - REFERENT-CONSTRUCT-INDICATOR
+                    - a construct indicator
+                        ( § principal construct § construct indicator
+                    - used only to cite a Breccian source
+                    - indicates the referent as a Breccian principal construct
+                - REFERENT-URI
+                    - a URI reference, indicator of either the referent
+                      or (in the presence of a construct indicator) the referent’s document
+                    - optional in the presence of a construct indicator,
+                      where it defaults to the same document as the referrer
     + null command
         < a type of command point
         - does nothing
