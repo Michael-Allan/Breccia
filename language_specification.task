@@ -225,6 +225,13 @@ Breccia: specification of the markup language
             - optional, defaults to the same document as the jointer
 
     ────────────────────────────────────────────────────────────────────────────────────────────────────
+    Point`
+    - a principal construct
+    * form
+        - begins with a bullet
+        - end boundary is the next principal construct, or the end of the document
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────────
     Principal construct`
     - one of a point or a divider
     * construct indicator
@@ -262,13 +269,6 @@ Breccia: specification of the markup language
                   within whose content the pattern is to be sought
                 - likewise the super-construct may be scoped by indication of its own super-construct,
                   and so on, as the form is self referential
-
-    ────────────────────────────────────────────────────────────────────────────────────────────────────
-    Point`
-    - a principal construct
-    * form
-        - begins with a bullet
-        - end boundary is the next principal construct, or the end of the document
 
     ────────────────────────────────────────────────────────────────────────────────────────────────────
     Task point`
