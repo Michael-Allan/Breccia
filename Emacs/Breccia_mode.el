@@ -32,7 +32,7 @@
 (define-derived-mode breccia-mode text-mode
   "Breccia"
   "A major mode for editing Breccian text"
-  (set 'font-lock-multiline t) ; For sake of aside and command-point bodies.
+  (set 'font-lock-multiline t); For sake of aside and command-point bodies.
   (add-hook 'font-lock-extend-region-functions 'brecExtendSearch) ; [FLE]
  ;(set (make-local-variable 'font-lock-defaults)… )
  ;;; ‘It automatically becomes buffer-local when set.’ [FLB]
@@ -56,8 +56,8 @@
   "Returns the end position of the present fontification chunk, provided that point is *not*
 at the beginning of the chunk.  If point is at the beginning, then the result is undefined."
   (save-excursion
-    (if (re-search-forward brecPrincipalLeaderPattern nil t) ; Cf. `brecExtendSearchDown`.
-        (end-of-line 0) ; Moving to the end of the previous line.
+    (if (re-search-forward brecPrincipalLeaderPattern nil t); Cf. `brecExtendSearchDown`.
+        (end-of-line 0); Moving to the end of the previous line.
       (goto-char (point-max)))
     (point)))
 
@@ -133,8 +133,8 @@ as necessary.  Returns nil if no change was required, non-nil otherwise."
     (end-of-line)) ; Thus far at least the present construct must extend; extend it now,
                  ;;; that `re-search-forward` (below) must miss its leader.
   (let (is-changed)
-    (if (re-search-forward brecPrincipalLeaderPattern nil t) ; Cf. `brecChunkEndFromMidChunk`.
-        (end-of-line 0) ; Moving to the end of the previous line.
+    (if (re-search-forward brecPrincipalLeaderPattern nil t); Cf. `brecChunkEndFromMidChunk`.
+        (end-of-line 0); Moving to the end of the previous line.
       (goto-char (point-max)))
     (when (< font-lock-end (point))
       (set 'font-lock-end (point))
@@ -147,7 +147,7 @@ as necessary.  Returns nil if no change was required, non-nil otherwise."
   "Ensures that `font-lock-beg` bisects no fontification chunk, moving it backward in the buffer
 as necessary.  Returns nil if no change was required, non-nil otherwise."
   (goto-char font-lock-beg)
-  (end-of-line) ; That `re-search-backward` (below) finds any leader on the present line.
+  (end-of-line); That `re-search-backward` (below) finds any leader on the present line.
   (let (is-changed)
     (if (re-search-backward brecPrincipalLeaderPattern nil t)
         (beginning-of-line)
@@ -159,86 +159,30 @@ as necessary.  Returns nil if no change was required, non-nil otherwise."
 
 
 
+(defface brecGenericBulletFace
+  `((default . (:inherit (brecBulletFace font-lock-keyword-face))))
+  "The face for the bullet of a generic point.")
+
+
+
 (defconst brecKeywords
   (let* ((drawingChar "[\u2500-\u2587\u2589-\u258f\u2591-\u259f]")
-           ;;; The union of `drawingChar ∪ inversionMark` is `\u2500-\u259f`, namely a ‘division mark’.
          (drawingI (concat "\\(" drawingChar "+\\(?: +" drawingChar "+\\)*\\)"))
-           ;;; Capturing (I) a divider drawing sequence exclusive of embedded newlines.
-         (labelingChar "[^[:space:]\u2500-\u259f]") ; Exclusive of whitespace.
+           ;;; Capturing (I) a sequence of `drawingChar` inclusive of embedded spaces,
+           ;;; yet exclusive of embedded newlines.
+
+         (labelingChar "[^[:space:]\u2500-\u259f]"); Yet exclusive of whitespace.
          (labeling (concat labelingChar "+\\(?: +" labelingChar "+\\)*"))
-           ;;; A divider labeling sequence exclusive of embedded newlines.
-         (labelingI (concat "\\(" labeling "\\)"))
-           ;;; Capturing (I) a `labeling` sequence.
+           ;;; A sequence of `labelingChar` inclusive of embedded spaces,
+           ;;; yet exclusive of embedded newlines.
+         (labelingI (concat "\\(" labeling "\\)")); Capturing (I) an instance of `labeling`.
+
          (inversionMark "[\u2588\u2590]")
          (inverseLabelingIII
           (concat "\\(" inversionMark "\\)\\( *\\(?:" labeling " *\\)?\\)\\(\u2588\\)?")))
-           ;;; Capturing (I) an inversion mark, (II) any sequence of labeling and space characters,
-           ;;; and (III) any full block character.
+           ;;; Capturing (I) an inversion mark, (II) any `labeling` together with any space characters
+           ;;; around it, and (III) any full block character.
     (list
-
-     ;; ════════════
-     ;; Plain bullet, with inadvertent exceptions as noted.
-     ;; ════════════
-     ;; First the case of a non-alphanumeric singleton.  Such a bullet comprises a single perfectly
-     ;; indented (│␢⇥) character — neither alphanumeric nor whitespace, neither a backslash (\),
-     ;; division mark (D) nor specialized bullet symbol (S) — terminated by a space or newline.
-     ;;
-     ;;         │␢⇥
-     ;;     ┌────────┐  ┌──────────────────────────────────────────┐
-     (cons "^ \\{4\\}*\\([^[:alnum:][:space:]\\\u2500-\u259f/:⋱+]\\)\\(?: \\|$\\)"
-           ;;                                └─┴───────────┴────┘
-           ;;                               ¬ \      D        S
-           '(1 'brecPlainBulletFace))
-
-     ;; Next the case of a bullet comprising a non-alphanumeric sequence without an initial backslash.
-     ;; It begins with perfect indentation (│␢⇥) and a character (C) that is neither alphanumeric nor
-     ;; whitespace, neither a backslash (\) nor division mark (D).
-     ;;
-     ;;            │␢⇥                     C
-     (cons ;   ┌────────┐  ┌───────────────────────────────────┐
-      (concat "^ \\{4\\}*\\([^[:alnum:][:space:]\\\u2500-\u259f]"
-        ;;;                                     └─┴────────────┘
-        ;;;                                    ¬ \      D
-        ;;;
-        ;;; It continues with one or more non-alphanumeric, non-whitespace characters,
-        ;;; the last of which (Cn) is not a specialized terminator (T).
-        ;;;
-        ;;;                                    Cn
-        ;;;    ┌──────┈     ┈──────┐ ┌────────────────────┐
-              "[^[:alnum:][:space:]]*[^[:alnum:][:space:]+]\\)")
-        ;;;                                              │
-        ;;;                                            ¬ T
-        ;;;
-        ;;; Note: this matcher inadvertently fontifies exception and non-singleton jointer bullets,
-        ;;; requiring they be refontified further below.
-
-      '(1 'brecPlainBulletFace))
-
-     ;; Finally the bullets that begin with backslashes, or contain alphanumeric characters, or both.
-     ;; These are handled by a single matcher.  A positive match begins with perfect indentation (│␢⇥)
-     ;; and a character sequence (C⋯) comprising either one or more backslashes and a non-alphanumeric
-     ;; character, or zero or more backslashes and an alphanumeric character.
-     ;;
-     ;;            │␢⇥
-     (cons ;   ┌────────┐     ┌─────────────────────┈     ┈──────────────────────────┐
-      (concat "^ \\{4\\}*\\(\\(?:\\\\+[^[:alnum:][:space:]\\]\\|\\\\*[[:alnum:]]+ *\\)"
-
-        ;;; It continues with any number of character sequences.
-        ;;;
-        ;;;      ┌─────────────────┈     ┈───────────────────┐
-
-              "\\(?:[[:alnum:]]+ *\\|[^[:alnum:][:space:]]+\\)*\\)")
-        ;;;
-        ;;; It ends either with a non-alphanumeric character followed by a space, or with a newline.
-        ;;;
-        ;;; Note: this matcher inadvertently fontifies exception and non-singleton task bullets,
-        ;;; requiring they be refontified further below
-
-      '(1 'brecPlainBulletFace))
-
-
-   ;;; ──  S p e c i a l i z e d   c o n s t r u c t s  ────────────────────────────────────────────────
-
 
      ;; ═══════════
      ;; Aside point
@@ -249,10 +193,71 @@ as necessary.  Returns nil if no change was required, non-nil otherwise."
            ;;   │␢⇥       /
 
            '(1 'brecAsideBulletFace)
-           (list                        ; Usually a descriptor follows the bullet,
-            "\\(\\(?:.\\|\n\\)+\\)"     ; extending thence to the end of the point.
-            '(brecChunkEndFromMidChunk) ; Before seeking to fontify it, bring in the whole of it. [PSE]
+           (list                       ; Usually a descriptor follows the bullet,
+            "\\(\\(?:.\\|\n\\)+\\)"    ; extending thence to the end of the point.
+            '(brecChunkEndFromMidChunk); Before seeking to fontify it, bring in the whole of it. [PSE]
             nil '(1 'brecAsidePointFace)))
+
+
+     ;; ══════
+     ;; Bullet of a point type that has an unfontified descriptor
+     ;; ══════
+     (list
+      (lambda( limit )
+        (catch 'result
+          (while (re-search-forward
+                  (concat
+                   "^ \\{4\\}*\\(\\\\*"; Perfectly indented (│␢⇥), it starts with
+                   ;; ┈──────┘   └───┘   zero or more backslashes (\⋯) and a character
+                   ;;   │␢⇥        \⋯    that is neither whitespace nor a backslash.
+                   ;;
+                   "\\(?:[[:alnum:]]+ *\\|[^[:alnum:][:space:]\\]\\)"
+
+                   ;; Thence it continues.  It ends before a space that comes immediately after
+                   ;; a non-alphanumeric character, or before a newline.
+                   "\\(?:[[:alnum:]]+ *\\|[^[:alnum:][:space:]]+\\)*\\)")
+
+                  limit t); Further conditions apply, which are enforced below.
+            (let ((m1Beg (match-beginning 1))
+                  (m1End (match-end 1))
+                  m2Beg m2End isMatchChanged)
+
+              (let ((end m1End)); Trim from the match any unwanted end boundary missed above.
+                 ;; It is either a delimiter of inline commentary (regexp pattern " +\\\\+")
+                 ;; or a sequence of trailing space at the line end (" +$").  Trim it thus:
+                (while (char-equal (char-before end) ?\\); For any trailing backslashes captured,
+                  (set 'end (1- end)))                   ; scan backward past them.
+                (while (char-equal (char-before end) ?\s); For any trailing space characters,
+                  (set 'end (1- end))                    ; scan backward past them, and trim
+                  (set 'm1End end)                       ; the whole from the captive group.
+                  (set 'isMatchChanged t)))
+              (when
+                  (catch 'isMatched
+                    (when (char-equal ?+ (char-before m1End)); If a task bullet is captured, then
+                      (set 'm2Beg m1Beg)                     ; recapture it as group 2 instead of 1.
+                      (set 'm1Beg nil)
+                      (set 'm2End m1End)
+                      (set 'm1End nil)
+                      (set 'isMatchChanged t)
+                      (throw 'isMatched t))
+
+                    (let ((c (char-after m1Beg))); Exclude any unwanted match: either a non-bullet
+                      ;; (division sequence), or a bullet of a point type with a fontified descriptor
+                      ;; (aside or command).  Exclude it by abandoning the match and seeking the next.
+                      (when (and (>= c ?\u2500) (<= c ?\u259f)); If a division mark leads the match,
+                        (throw 'isMatched nil))                ; then abandon it and continue seeking.
+                      (when (= 1 (- m1End m1Beg)); If a single character is captured, and it is either
+                        (when (or (char-equal ?/ c) (char-equal ?: c)); an aside or command bullet,
+                          (throw 'isMatched nil)))); then abandon the match and continue seeking.
+                    t)
+                (when isMatchChanged
+                  (set-match-data
+                   (append
+                    (list (match-beginning 0) (match-end 0) m1Beg m1End m2Beg m2End)
+                    (list (current-buffer)))))
+                (throw 'result t))))
+          (throw 'result nil)))
+      '(1 'brecGenericBulletFace nil t) '(2 'brecTaskBulletFace nil t))
 
 
      ;; ═════════════
@@ -264,9 +269,9 @@ as necessary.  Returns nil if no change was required, non-nil otherwise."
            ;;   │␢⇥       :
 
            '(1 'brecCommandBulletFace)
-           (list                        ; Usually a command descriptor follows the bullet,
-            "\\(\\(?:.\\|\n\\)+\\)"     ; extending thence to the end of the point.
-            '(brecChunkEndFromMidChunk) ; Before seeking to fontify it, bring in the whole of it. [PSE]
+           (list                       ; Usually a command descriptor follows the bullet,
+            "\\(\\(?:.\\|\n\\)+\\)"    ; extending thence to the end of the point.
+            '(brecChunkEndFromMidChunk); Before seeking to fontify it, bring in the whole of it. [PSE]
             nil '(1 'brecCommandPointFace)))
 
 
@@ -280,30 +285,29 @@ as necessary.  Returns nil if no change was required, non-nil otherwise."
       ;;           │␢⇥
 
       '(1 'brecDividerFace nil t) ; `drawingI`
-      '(2 'brecDividerFace nil t)             ; I,
-      '(3 'brecDividerInverseLabelFace nil t) ; II and
-      '(4 'brecDividerFace nil t)             ; III of `inverseLabelingIII`.
+      '(2 'brecDividerFace nil t)            ; I,
+      '(3 'brecDividerInverseLabelFace nil t); II and
+      '(4 'brecDividerFace nil t)            ; III of `inverseLabelingIII`.
 
       ;; Thence it may include any mix of drawing, labeling and inverse labeling sequences.
       (list (concat drawingI "\\|" labelingI "\\|" inverseLabelingIII)
-            '(brecChunkEndFromMidChunk) ; Before seeking to fontify these, ensure the search region
-            nil                         ; extends far enough to include all of them. [PSE]
-            '(1 'brecDividerFace nil t) ; `drawingI`
+            '(brecChunkEndFromMidChunk); Before seeking to fontify these, ensure the search region
+            nil                        ; extends far enough to include all of them. [PSE]
+            '(1 'brecDividerFace nil t); `drawingI`
             '(2 'brecDividerLabelFace nil t) ; `labelingI`
-            '(3 'brecDividerFace nil t)             ; I,
-            '(4 'brecDividerInverseLabelFace nil t) ; II and
-            '(5 'brecDividerFace nil t)))           ; III of `inverseLabelingIII`.
+            '(3 'brecDividerFace nil t)            ; I,
+            '(4 'brecDividerInverseLabelFace nil t); II and
+            '(5 'brecDividerFace nil t)))          ; III of `inverseLabelingIII`.
 
 
-   ;;; ──  L a t e   f o n t i f i c a t i o n  ────────────────────────────────────────────────────────
-
+   ;;; ──  D e f e r r e d   f o n t i f i c a t i o n  ────────────────────────────────────────────────
 
      ;; ══════════
      ;; Commentary
      ;; ══════════
      ;; Commentary is delimited per line by one or more backslashes (\⋯) together isolated
      ;; in whitespace (␢).  Usually the delimiter is followed by content (C) too.
-     (list "\\(?:^\\| \\)\\(\\\\+\\)\\( +.*\\)?$" ; [CIL, SPC]
+     (list "\\(?:^\\| \\)\\(\\\\+\\)\\( +.*\\)?$"; [CIL, SPC]
            ;; └─────────┘  └───────┘  └──────┘
            ;;      ␢           \⋯         C
 
@@ -312,7 +316,7 @@ as necessary.  Returns nil if no change was required, non-nil otherwise."
 
      ;; Moreover where a line of pure commentary is delimited by two or more backslashes (\\⋯),
      ;; any content is taken to be a block label (L).
-     (cons "^ *\\\\\\{2,\\}\\( +.+\\)$" '(1 'brecCommentBlockLabelFace t)))) ; [CIL, SPC]
+     (cons "^ *\\\\\\{2,\\}\\( +.+\\)$" '(1 'brecCommentBlockLabelFace t)))); [CIL, SPC]
        ;;;  └─┘└──────────┘  └──────┘   `⋯face t`: Override any pre-applied face. [OCF]
        ;;;   ␢     \\⋯           L
 
@@ -321,18 +325,18 @@ as necessary.  Returns nil if no change was required, non-nil otherwise."
 
 
 
-(defface brecPlainBulletFace
-  `((default . (:inherit (brecBulletFace font-lock-keyword-face))))
-  "The face for the bullet of a plain point, as opposed to a specialized type of point.")
-
-
-
-(defconst brecPrincipalLeaderPattern ; Perfect indentation (│␢⇥),          [SPC]
-  "^ \\{4\\}*\\\\*[^[:space:]\\]"   ; zero or more backslashes (\⋯)
-  ;; ┈──────┘└───┘└────────────┘   ; and a character (C) that is neither
-  ;;   │␢⇥     \⋯       C         ; whitespace nor a backslash.
+(defconst brecPrincipalLeaderPattern; Perfect indentation (│␢⇥),          [SPC]
+  "^ \\{4\\}*\\\\*[^[:space:]\\]"  ; zero or more backslashes (\⋯)
+  ;; ┈──────┘└───┘└────────────┘  ; and a character (C) that is neither
+  ;;   │␢⇥     \⋯       C        ; whitespace nor a backslash.
 
   "The regexp pattern of the sequence marking the start of a fontification principal.")
+
+
+
+(defface brecTaskBulletFace
+  `((default . (:inherit (brecBulletFace font-lock-function-name-face))))
+  "The face for the bullet of a task point.")
 
 
 

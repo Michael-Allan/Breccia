@@ -1,7 +1,12 @@
 Breccia: specification of the markup language
 
+    = define syntax graphically
+        - as in the JavaScript specification
+        - instead of textually
+
     ────────────────────────────────────────────────────────────────────────────────────────────────────
     Aside point`
+    < a type of material point
     - bulleted ‘/’
 
     ────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -9,15 +14,17 @@ Breccia: specification of the markup language
     - all points begin with a bullet
     * form
         - perfectly indented
-        - first character, one of
-            ∪ neither backslash nor whitespace
-            ∪ backslash
+        - first character, one of:
+            ∪ neither whitespace nor a backslash
+            ∪ a backslash
                 - immediately followed by zero or more backslashes
                   and a character that is neither whitespace nor a backslash
-        - end boundary, one of
-            ∪ non-alphanumeric character immediately followed by a space
-                < allows for embedded spacing, but only where it follows an alphanumeric character
-            ∪ newline
+                ( viz. not block commentary
+        - end boundary, one of:
+            ∪ inline commentary
+            ∪ a space immediately after a non-alphanumeric character
+                < allows for embedded spacing, but only after an alphanumeric character
+            ∪ a newline and any spaces that precede it
 
     ────────────────────────────────────────────────────────────────────────────────────────────────────
     Character`
@@ -45,6 +52,7 @@ Breccia: specification of the markup language
 
     ────────────────────────────────────────────────────────────────────────────────────────────────────
     Command point`
+    < a type of formal point
     - bulleted ‘:’
     - commands execute in document order
     + associative citation
@@ -119,8 +127,9 @@ Breccia: specification of the markup language
     + inline commentary
         - commentary subsequent to non-commentary on the same line
         ( ‘commentary’ not ‘comment’, because the comment as a whole may extend across lines
-    + comment block
-        - a sequence of lines comprising commentary alone
+    + block commentary
+        * comment block
+            - a sequence of lines comprising commentary alone
         * comment block label
             - in a comment block
             - in a line of commentary delimited by two or more consecutive backslashes ‘\\’
@@ -129,30 +138,32 @@ Breccia: specification of the markup language
 
     ────────────────────────────────────────────────────────────────────────────────────────────────────
     Divider`
-    - a principal construct
+    < a type of principal construct
     * form
-        - begins with a perfectly indented line headed by a drawing character or inversion mark
-        - end boundary is the next principal construct headed by a non-drawing character,
-          or the end of the document
-        - it follows that no two dividers are contiguous
-            - rather the whole construct is a single divider
-            ( what would be separate, contiguous dividers are effectively fused into one
-    * drawing character
-        - Unicode 2500-2587, 2589-258f, 2591-259f
-    + divider label
-        - a sequence of non-drawing characters in a divider, exclusive of terminal whitespace
-        - normally the label is presented in bold face
+        - begins with a perfectly indented line headed by a division mark
+        - the end boundary is the next principal construct headed by a character
+          other than a division mark, or the end of the document
+        - it follows that no two dividers are contiguous, rather their combination forms one divider
+    + division mark
+        - Unicode 2500-259f
+        < division mark = drawing character ∪ inversion mark
+        * drawing character
+            - Unicode 2500-2587, 2589-258f, 2591-259f
         * inversion mark
             - Unicode 2588 (full block), 2590 (right half block)
+    + divider label
+        - a sequence of non-division-mark characters in a divider, exclusive of terminal whitespace
+        - normally the label is presented in bold face
         * inverse label
-            - a divider label preceded by an inversion mark,
+            - a sequence of non-division-mark, non-newline characters in a divider,
+              exclusive of terminal whitespace, which is preceded on the same line by an inversion mark
               with at most space characters between the two
             - normally the inverse label, together with any terminal whitespace,
               is presented in inverse video
                 - except that any inline commentary is still presented in plain video
             - where a full block character succeeds an inversion mark on the same line,
-              with no drawing character in between, the succeeding full block is rendered
-              inactive as an inversion mark
+              with at most non-division-mark characters in between,
+              that full block is disabled as an inversion mark
                 - viz. the full block pairs with the preceding inversion mark,
                   and by itself does not start a new inverse label
                 - viz. a single full block trailing an inverse label cannot start a second inverse label
@@ -175,13 +186,19 @@ Breccia: specification of the markup language
 
     ────────────────────────────────────────────────────────────────────────────────────────────────────
     Exception point`
+    < a type of material point
     - bullet terminated ‘!!’
     - justified by the purpose of drafting, where the ability to note exceptions is a useful aid
         ( /project.brec § definition
 
     ────────────────────────────────────────────────────────────────────────────────────────────────────
+    Generic point`
+    < a type of material point
+    - a material point of a form here assigned no special role
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────────
     Jointer`
-    - a type of point
+    < a type of formal point
     * example
 
           ⋱⋱ etc/whatever.br
@@ -226,14 +243,27 @@ Breccia: specification of the markup language
 
     ────────────────────────────────────────────────────────────────────────────────────────────────────
     Point`
-    - a principal construct
+    * typology
+        < principal construct
+            < point
+                < formal point
+                    - command point
+                    - jointer
+                < material point
+                    - aside point
+                    - exception point
+                    - generic point
+                    - task point
     * form
         - begins with a bullet
         - end boundary is the next principal construct, or the end of the document
 
     ────────────────────────────────────────────────────────────────────────────────────────────────────
     Principal construct`
-    - one of a point or a divider
+    * typology
+        < principal construct
+            - divider
+            - point
     * construct indicator
         - form
 
@@ -272,6 +302,7 @@ Breccia: specification of the markup language
 
     ────────────────────────────────────────────────────────────────────────────────────────────────────
     Task point`
+    < a type of material point
     - bullet terminated ‘+’
     - justified by the purpose of drafting, for which inline tasking is a useful aid
         ( /project.brec § definition
