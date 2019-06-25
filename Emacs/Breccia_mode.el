@@ -159,6 +159,13 @@ as necessary.  Returns nil if no change was required, non-nil otherwise."
 
 
 
+(defface brecForbiddenWhitespaceFace
+  `((default . (:inherit (font-lock-warning-face)))
+    (t :inverse-video t))
+  "The face for disallowed, horizontal whitespace characters.")
+
+
+
 (defface brecGenericBulletFace
   `((default . (:inherit (brecBulletFace font-lock-keyword-face))))
   "The face for the bullet of a generic point.")
@@ -166,12 +173,12 @@ as necessary.  Returns nil if no change was required, non-nil otherwise."
 
 
 (defconst brecKeywords
-  (let* ((drawingChar "[\u2500-\u2587\u2589-\u258f\u2591-\u259f]")
+  (let* ((drawingChar "[\u2500-\u2587\u2589-\u258F\u2591-\u259F]")
          (drawingI (concat "\\(" drawingChar "+\\(?: +" drawingChar "+\\)*\\)"))
            ;;; Capturing (I) a sequence of `drawingChar` inclusive of embedded spaces,
            ;;; yet exclusive of embedded newlines.
 
-         (labelingChar "[^[:space:]\u2500-\u259f]"); Yet exclusive of whitespace.
+         (labelingChar "[^[:space:]\u2500-\u259F]"); Yet exclusive of whitespace.
          (labeling (concat labelingChar "+\\(?: +" labelingChar "+\\)*"))
            ;;; A sequence of `labelingChar` inclusive of embedded spaces,
            ;;; yet exclusive of embedded newlines.
@@ -244,7 +251,7 @@ as necessary.  Returns nil if no change was required, non-nil otherwise."
                     (let ((c (char-after m1Beg))); Exclude any unwanted match: either a non-bullet
                       ;; (division sequence), or a bullet of a point type with a fontified descriptor
                       ;; (aside or command).  Exclude it by abandoning the match and seeking the next.
-                      (when (and (>= c ?\u2500) (<= c ?\u259f)); If a division mark leads the match,
+                      (when (and (>= c ?\u2500) (<= c ?\u259F)); If a division mark leads the match,
                         (throw 'isMatched nil))                ; then abandon it and continue seeking.
                       (when (= 1 (- m1End m1Beg)); If a single character is captured, and it is either
                         (when (or (char-equal ?/ c) (char-equal ?: c)); an aside or command bullet,
@@ -316,9 +323,16 @@ as necessary.  Returns nil if no change was required, non-nil otherwise."
 
      ;; Moreover where a line of pure commentary is delimited by two or more backslashes (\\⋯),
      ;; any content is taken to be a block label (L).
-     (cons "^ *\\\\\\{2,\\}\\( +.+\\)$" '(1 'brecCommentBlockLabelFace t)))); [CIL, SPC]
+     (cons "^ *\\\\\\{2,\\}\\( +.+\\)$" '(1 'brecCommentBlockLabelFace t)); [CIL, SPC]
        ;;;  └─┘└──────────┘  └──────┘   `⋯face t`: Override any pre-applied face. [OCF]
        ;;;   ␢     \\⋯           L
+
+
+     ;; ════════════════════
+     ;; Forbidden whitespace
+     ;; ════════════════════
+     (cons "[\t\u00A0\u2000-\u200A\u202F\u205F\u3000]" '(0 'brecForbiddenWhitespaceFace t))))
+       ;;;    9,   A0, 2000 - 200A, 202F, 205F, 3000
 
 
   "The value of `font-lock-keywords` for the search-based fontification of Breccian text.")

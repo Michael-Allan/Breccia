@@ -27,16 +27,6 @@ Breccia: specification of the markup language
             ∪ a newline and any spaces that precede it
 
     ────────────────────────────────────────────────────────────────────────────────────────────────────
-    Character`
-    * horizontal whitespace
-        - the space character (Unicode 20) is allowed
-        - others are disallowed
-            - too confusing in this context
-            - too difficult to deal with
-    * tab
-        - likewise disallowed
-
-    ────────────────────────────────────────────────────────────────────────────────────────────────────
     Citation`
     * inline citation
         - URI in a descriptor, comment or divider
@@ -120,7 +110,7 @@ Breccia: specification of the markup language
     Commentary`
     * form
         ( per line
-        - begins with one or more consecutive backslashes ‘\’ (Unicode 5c)
+        - begins with one or more consecutive backslashes ‘\’ (Unicode 5C)
             - immediately preceded by a space or the line start
             - immediately followed by a space or the line end
         - continues to the line end
@@ -145,10 +135,10 @@ Breccia: specification of the markup language
           other than a division mark, or the end of the document
         - it follows that no two dividers are contiguous, rather their combination forms one divider
     + division mark
-        - Unicode 2500-259f
+        - Unicode 2500-259F
         < division mark = drawing character ∪ inversion mark
         * drawing character
-            - Unicode 2500-2587, 2589-258f, 2591-259f
+            - Unicode 2500-2587, 2589-258F, 2591-259F
         * inversion mark
             - Unicode 2588 (full block), 2590 (right half block)
     + divider label
@@ -207,7 +197,7 @@ Breccia: specification of the markup language
 
           ⋱[⋱]  ['CONSTRUCT-PATTERN']  [CONSTRUCT-SCOPER]  [[@] URI-REFERENCE]
 
-        - the diagonal ellipsis (Unicode 22f1) may be single ‘⋱’ or double ‘⋱⋱’
+        - the diagonal ellipsis (Unicode 22F1) may be single ‘⋱’ or double ‘⋱⋱’
         - quoting with either ‘"’ (Unicode 22) or ‘'’ (Unicode 27)
         - CONSTRUCT-PATTERN
             - the pattern of the subjoint principal construct
@@ -306,6 +296,17 @@ Breccia: specification of the markup language
     - bullet terminated ‘+’
     - justified by the purpose of drafting, for which inline tasking is a useful aid
         ( /project.brec § definition
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────────
+    Whitespace`
+    - the space character is allowed
+        < Unicode 20
+    - newline characters are allowed
+        < Unicode A, D
+    - other horizontal whitespace is forbidden, including the tab character
+        < Unicode 9, A0, 2000-200A, 202F, 205F, 3000
+        - too confusing in a context where spacing determines syntax
+        - too difficult to deal with
 
 
 
