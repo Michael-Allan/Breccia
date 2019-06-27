@@ -45,6 +45,18 @@
 ;; ═════════════════════════════════════════════════════════════════════════════════════════════════════
 
 
+(defface brecAsideBulletFace
+  `((default . (:inherit (brecBulletFace brecAsidePointFace))))
+  "The face for the bullet of an aside point.")
+
+
+
+(defface brecAsidePointFace
+  `((default . (:inherit font-lock-doc-face)))
+  "The face for the descriptor of an aside point.")
+
+
+
 (defface brecBulletFace
   `((default . (:inherit bold)))
   "The face for the bullet of a point.")
@@ -59,18 +71,6 @@ at the beginning of the chunk.  If point is at the beginning, then the result is
         (end-of-line 0); Moving to the end of the previous line.
       (goto-char (point-max)))
     (point)))
-
-
-
-(defface brecAsideBulletFace
-  `((default . (:inherit (brecBulletFace brecAsidePointFace))))
-  "The face for the bullet of an aside point.")
-
-
-
-(defface brecAsidePointFace
-  `((default . (:inherit font-lock-doc-face)))
-  "The face for the descriptor of an aside point.")
 
 
 
