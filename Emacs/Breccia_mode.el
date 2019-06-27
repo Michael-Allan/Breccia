@@ -36,8 +36,7 @@
   (add-hook 'font-lock-extend-region-functions 'brecExtendSearch) ; [FLE]
  ;(set (make-local-variable 'font-lock-defaults)… )
  ;;; ‘It automatically becomes buffer-local when set.’ [FLB]
-  (set 'font-lock-defaults '(brecKeywords))
-  )
+  (set 'font-lock-defaults '(brecKeywords)))
 
 
 
@@ -227,11 +226,11 @@ as necessary.  Returns nil if no change was required, non-nil otherwise."
                   limit t); Further conditions apply, which are enforced below.
             (let ((m1Beg (match-beginning 1))
                   (m1End (match-end 1))
-                  m2Beg m2End isMatchChanged)
+                  m2Beg m2End m3Beg m3End isMatchChanged)
 
               (let ((end m1End)); Trim from the match any unwanted end boundary missed above.
-                 ;; It is either a delimiter of inline commentary (regexp pattern " +\\\\+")
-                 ;; or a sequence of trailing space at the line end (" +$").  Trim it thus:
+                 ;; It is either a delimiter of inline commentary (regexp pattern ‘ +\\+’)
+                 ;; or a sequence of trailing space at the line end (‘ +$’).  Trim it thus:
                 (while (char-equal (char-before end) ?\\); For any trailing backslashes captured,
                   (set 'end (1- end)))                   ; scan backward past them.
                 (while (char-equal (char-before end) ?\s); For any trailing space characters,
@@ -240,10 +239,14 @@ as necessary.  Returns nil if no change was required, non-nil otherwise."
                   (set 'isMatchChanged t)))
               (when
                   (catch 'isMatched
-                    (when (char-equal ?+ (char-before m1End)); If a task bullet is captured, then
-                      (set 'm2Beg m1Beg)                     ; recapture it as group 2 instead of 1.
+                    (when (char-equal ?+ (char-before m1End)); Then a task bullet is captured.
+                      (set 'm2Beg m1Beg)       ; Recapture it as follows.
+                      (if (= 1 (- m1End m1Beg)); If it comprises ‘+’ alone,
+                          (set 'm2End m1End)   ; then recapture it as group 2.
+                        (set 'm2End (1- m1End)); Else it has a ‘body’, too.
+                        (set 'm3Beg m2End)     ; Recapture its body as group 2
+                        (set 'm3End m1End))    ; and its ‘+’ terminator as group 3.
                       (set 'm1Beg nil)
-                      (set 'm2End m1End)
                       (set 'm1End nil)
                       (set 'isMatchChanged t)
                       (throw 'isMatched t))
@@ -260,11 +263,12 @@ as necessary.  Returns nil if no change was required, non-nil otherwise."
                 (when isMatchChanged
                   (set-match-data
                    (append
-                    (list (match-beginning 0) (match-end 0) m1Beg m1End m2Beg m2End)
+                    (list (match-beginning 0) (match-end 0) m1Beg m1End m2Beg m2End m3Beg m3End)
                     (list (current-buffer)))))
                 (throw 'result t))))
           (throw 'result nil)))
-      '(1 'brecGenericBulletFace nil t) '(2 'brecTaskBulletFace nil t))
+      '(1 'brecGenericBulletFace nil t)
+      '(2 'brecTaskBulletFace nil t) '(3 'brecTaskBulletTerminatorFace nil t))
 
 
      ;; ═════════════
@@ -350,7 +354,13 @@ as necessary.  Returns nil if no change was required, non-nil otherwise."
 
 (defface brecTaskBulletFace
   `((default . (:inherit (brecBulletFace font-lock-function-name-face))))
-  "The face for the bullet of a task point.")
+  "The face for the bullet body of a task point.")
+
+
+
+(defface brecTaskBulletTerminatorFace
+  `((default . (:inherit font-lock-comment-face)))
+  "The face for the bullet terminator ‘!!’ of a task point.")
 
 
 

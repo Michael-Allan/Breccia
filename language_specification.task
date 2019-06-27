@@ -177,7 +177,7 @@ Breccia: specification of the markup language
     ────────────────────────────────────────────────────────────────────────────────────────────────────
     Exception point`
     < a type of material point
-    - bullet terminated ‘!!’
+    - bullet comprising or terminated ‘!!’
     - justified by the purpose of drafting, where the ability to note exceptions is a useful aid
         ( /project.brec § definition
 
@@ -293,7 +293,7 @@ Breccia: specification of the markup language
     ────────────────────────────────────────────────────────────────────────────────────────────────────
     Task point`
     < a type of material point
-    - bullet terminated ‘+’
+    - bullet comprising or terminated ‘+’
     - justified by the purpose of drafting, for which inline tasking is a useful aid
         ( /project.brec § definition
 
