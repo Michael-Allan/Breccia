@@ -111,6 +111,19 @@ at the beginning of the chunk.  If point is at the beginning, then the result is
 
 
 
+(defface brecExceptionBulletFace
+  `((default . (:inherit (brecBulletFace font-lock-warning-face))))
+  "The face for the bullet body of an exception point.")
+
+
+
+(defface brecExceptionBulletTerminatorFace
+  `((default . (:inherit brecExceptionBulletFace))
+    (t :weight normal))
+  "The face for the bullet terminator ‘!!’ of an exception point.")
+
+
+
 (defun brecExtendSearch()
   "Ensures that the font-lock search region extends to cover the whole of its fontification chunks,
 bisecting none of them.  Returns nil if already it does, non-nil otherwise."
@@ -209,11 +222,11 @@ as necessary.  Returns nil if no change was required, non-nil otherwise."
      ;; Bullet of a point type that has an unfontified descriptor
      ;; ══════
      (list
-      (lambda( limit )
+      (lambda( limit ); Seek the next such bullet.
         (catch 'result
-          (while (re-search-forward
+          (while (re-search-forward; Start with a naive search, the best a regexp can do here.
                   (concat
-                   "^ \\{4\\}*\\(\\\\*"; Perfectly indented (│␢⇥), it starts with
+                   "^ \\{4\\}*\\(\\\\*"; Perfectly indented (│␢⇥), the bullet starts with
                    ;; ┈──────┘   └───┘   zero or more backslashes (\⋯) and a character
                    ;;   │␢⇥        \⋯    that is neither whitespace nor a backslash.
                    ;;
@@ -223,10 +236,10 @@ as necessary.  Returns nil if no change was required, non-nil otherwise."
                    ;; a non-alphanumeric character, or before a newline.
                    "\\(?:[[:alnum:]]+ *\\|[^[:alnum:][:space:]]+\\)*\\)")
 
-                  limit t); Further conditions apply, which are enforced below.
-            (let ((m1Beg (match-beginning 1))
+                  limit t)
+            (let ((m1Beg (match-beginning 1)); Now ensure the resulting (naive) match is correct.
                   (m1End (match-end 1))
-                  m2Beg m2End m3Beg m3End isMatchChanged)
+                  m2Beg m2End m3Beg m3End m4Beg m4End m5Beg m5End isMatchChanged)
 
               (let ((end m1End)); Trim from the match any unwanted end boundary missed above.
                  ;; It is either a delimiter of inline commentary (regexp pattern ‘ +\\+’)
@@ -239,17 +252,31 @@ as necessary.  Returns nil if no change was required, non-nil otherwise."
                   (set 'isMatchChanged t)))
               (when
                   (catch 'isMatched
-                    (when (char-equal ?+ (char-before m1End)); Then a task bullet is captured.
-                      (set 'm2Beg m1Beg)       ; Recapture it as follows.
-                      (if (= 1 (- m1End m1Beg)); If it comprises ‘+’ alone,
-                          (set 'm2End m1End)   ; then recapture it as group 2.
-                        (set 'm2End (1- m1End)); Else it has a ‘body’, too.
-                        (set 'm3Beg m2End)     ; Recapture its body as group 2
-                        (set 'm3End m1End))    ; and its ‘+’ terminator as group 3.
-                      (set 'm1Beg nil)
-                      (set 'm1End nil)
-                      (set 'isMatchChanged t)
-                      (throw 'isMatched t))
+                    (let ((c (char-before m1End)))
+                      (when (char-equal ?+ c)     ; If a task bullet is captured,
+                        (set 'm2Beg m1Beg)        ; then recapture it as follows.
+                        (if (= 1 (- m1End m1Beg)) ; If it comprises ‘+’ alone,
+                            (set 'm2End m1End)    ; then recapture it as group 2.
+                          (set 'm2End (- m1End 1)); Else it has a ‘body’, too.
+                          (set 'm3Beg m2End)      ; Recapture its body as group 2
+                          (set 'm3End m1End))     ; and its ‘+’ terminator as group 3.
+                        (set 'm1Beg nil)
+                        (set 'm1End nil)
+                        (set 'isMatchChanged t)
+                        (throw 'isMatched t))
+
+                      (when (and (char-equal ?! c); If an exception bullet is captured,
+                                 (char-equal ?! (char-before (1- m1End))))
+                        (set 'm4Beg m1Beg)        ; then recapture it as follows.
+                        (if (= 2 (- m1End m1Beg)) ; If it comprises ‘!!’ alone,
+                            (set 'm4End m1End)    ; then recapture it as group 4.
+                          (set 'm4End (- m1End 2)); Else it has a ‘body’, too.
+                          (set 'm5Beg m4End)      ; Recapture its body as group 4
+                          (set 'm5End m1End))     ; and its ‘!!’ terminator as group 5.
+                        (set 'm1Beg nil)
+                        (set 'm1End nil)
+                        (set 'isMatchChanged t)
+                        (throw 'isMatched t)))
 
                     (let ((c (char-after m1Beg))); Exclude any unwanted match: either a non-bullet
                       ;; (division sequence), or a bullet of a point type with a fontified descriptor
@@ -263,12 +290,15 @@ as necessary.  Returns nil if no change was required, non-nil otherwise."
                 (when isMatchChanged
                   (set-match-data
                    (append
-                    (list (match-beginning 0) (match-end 0) m1Beg m1End m2Beg m2End m3Beg m3End)
+                    (list (match-beginning 0) (match-end 0) m1Beg m1End
+                          m2Beg m2End m3Beg m3End
+                          m4Beg m4End m5Beg m5End)
                     (list (current-buffer)))))
                 (throw 'result t))))
           (throw 'result nil)))
       '(1 'brecGenericBulletFace nil t)
-      '(2 'brecTaskBulletFace nil t) '(3 'brecTaskBulletTerminatorFace nil t))
+      '(2 'brecTaskBulletFace nil t) '(3 'brecTaskBulletTerminatorFace nil t)
+      '(4 'brecExceptionBulletFace nil t) '(5 'brecExceptionBulletTerminatorFace nil t))
 
 
      ;; ═════════════
