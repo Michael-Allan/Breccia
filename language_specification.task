@@ -217,7 +217,7 @@ Breccia: specification of the markup language
             - will not match a jointer
                 = move to a functional §
             - modification to the pattern form in this context
-                - `\q` expands to the default modified thus\
+                - `\q` expands to the default modified thus:
                     - in the case of point, trimmed to the portion of text following the first letter
                       of the descriptor
                         ( excluded as one may wish to alter its case
@@ -257,7 +257,7 @@ Breccia: specification of the markup language
     * construct indicator
         - form
 
-              'CONSTRUCT-PATTERN'  [@ CONSTRUCT-SCOPER]
+              'CONSTRUCT-PATTERN'  [CONSTRUCT-SCOPER]
 
             - quoting with either ‘"’ (Unicode 22) or ‘'’ (Unicode 27)
             - CONSTRUCT-PATTERN
