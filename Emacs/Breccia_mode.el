@@ -184,6 +184,17 @@ as necessary.  Returns nil if no change was required, non-nil otherwise."
 
 
 
+(defface brecJointerBulletFace `()
+  "The face for the bullet of a jointer.")
+
+
+
+(defface brecJointerFace
+  `((default . (:inherit brecCommandPointFace)))
+  "The face for the reference part of a jointer.")
+
+
+
 (defconst brecKeywords
   (let* ((drawingChar "[\u2500-\u2587\u2589-\u258F\u2591-\u259F]")
          (drawingI (concat "\\(" drawingChar "+\\(?: +" drawingChar "+\\)*\\)"))
@@ -252,40 +263,52 @@ as necessary.  Returns nil if no change was required, non-nil otherwise."
                   (set 'isMatchChanged t)))
               (when
                   (catch 'isMatched
-                    (let ((c (char-before m1End)))
-                      (when (char-equal ?+ c)     ; If a task bullet is captured,
-                        (set 'm2Beg m1Beg)        ; then recapture it as follows.
-                        (if (= 1 (- m1End m1Beg)) ; If it comprises ‘+’ alone,
-                            (set 'm2End m1End)    ; then recapture it as group 2.
-                          (set 'm2End (- m1End 1)); Else it has a ‘body’, too.
-                          (set 'm3Beg m2End)      ; Recapture its body as group 2
-                          (set 'm3End m1End))     ; and its ‘+’ terminator as group 3.
+                    (let ((charLast (char-before m1End)))
+                      (when (char-equal ?+ charLast); If a task bullet is captured,
+                        (set 'm2Beg m1Beg)          ; then recapture it as follows.
+                        (if (= 1 (- m1End m1Beg))   ; If it comprises ‘+’ alone,
+                            (set 'm2End m1End)      ; then recapture it as group 2.
+                          (set 'm2End (- m1End 1))  ; Else it has a ‘body’, too.
+                          (set 'm3Beg m2End)        ; Recapture its body as group 2
+                          (set 'm3End m1End))       ; and its ‘+’ terminator as group 3.
                         (set 'm1Beg nil)
                         (set 'm1End nil)
                         (set 'isMatchChanged t)
                         (throw 'isMatched t))
 
-                      (when (and (char-equal ?! c); If an exception bullet is captured,
-                                 (char-equal ?! (char-before (1- m1End))))
-                        (set 'm4Beg m1Beg)        ; then recapture it as follows.
-                        (if (= 2 (- m1End m1Beg)) ; If it comprises ‘!!’ alone,
-                            (set 'm4End m1End)    ; then recapture it as group 4.
-                          (set 'm4End (- m1End 2)); Else it has a ‘body’, too.
-                          (set 'm5Beg m4End)      ; Recapture its body as group 4
-                          (set 'm5End m1End))     ; and its ‘!!’ terminator as group 5.
-                        (set 'm1Beg nil)
-                        (set 'm1End nil)
-                        (set 'isMatchChanged t)
-                        (throw 'isMatched t)))
+                      (let ((length (- m1End m1Beg)))
+                        (when (and (> length 1)     ; If an exception bullet is captured,
+                                   (char-equal ?! charLast)
+                                   (char-equal ?! (char-before (1- m1End))))
+                          (set 'm4Beg m1Beg)        ; then recapture it as follows.
+                          (if (= 2 (- m1End m1Beg)) ; If it comprises ‘!!’ alone,
+                              (set 'm4End m1End)    ; then recapture it as group 4.
+                            (set 'm4End (- m1End 2)); Else it has a ‘body’, too.
+                            (set 'm5Beg m4End)      ; Recapture its body as group 4
+                            (set 'm5End m1End))     ; and its ‘!!’ terminator as group 5.
+                          (set 'm1Beg nil)
+                          (set 'm1End nil)
+                          (set 'isMatchChanged t)
+                          (throw 'isMatched t))
 
-                    (let ((c (char-after m1Beg))); Exclude any unwanted match: either a non-bullet
-                      ;; (division sequence), or a bullet of a point type with a fontified descriptor
-                      ;; (aside or command).  Exclude it by abandoning the match and seeking the next.
-                      (when (and (>= c ?\u2500) (<= c ?\u259F)); If a division mark leads the match,
-                        (throw 'isMatched nil))                ; then abandon it and continue seeking.
-                      (when (= 1 (- m1End m1Beg)); If a single character is captured, and it is either
-                        (when (or (char-equal ?/ c) (char-equal ?: c)); an aside or command bullet,
-                          (throw 'isMatched nil)))); then abandon the match and continue seeking.
+                        (let ((charFirst (char-after m1Beg))); Abandon any unwanted match:
+                          ;; either a non-bullet (division sequence), or a bullet of a point type
+                          ;; with a fontified descriptor (aside, command or jointer), as follows.
+                          (cond
+                           ((= 1 length); If exactly one character is captured and it is
+                            (when (or (char-equal ?/ charFirst) ; either an aside bullet,
+                                      (char-equal ?: charFirst) ; command bullet
+                                      (char-equal ?⋱ charFirst)); or jointer bullet,
+                              (throw 'isMatched nil))); then abandon the match and continue seeking.
+
+                           ((= 2 length); If exactly two characters are captured and each is
+                            (when (and (char-equal ?⋱ charFirst); a ‘⋱’,  so that together they
+                                       (char-equal ?⋱ charLast)); comprise a jointer bullet,
+                              (throw 'isMatched nil)))); then abandon the match and continue seeking.
+
+                          (when (and (>= charFirst ?\u2500) ; If a division mark leads the match,
+                                     (<= charFirst ?\u259F)); then abandon it and continue seeking.
+                            (throw 'isMatched nil)))))
                     t)
                 (when isMatchChanged
                   (set-match-data
@@ -339,6 +362,22 @@ as necessary.  Returns nil if no change was required, non-nil otherwise."
             '(3 'brecDividerFace nil t)            ; I,
             '(4 'brecDividerInverseLabelFace nil t); II and
             '(5 'brecDividerFace nil t)))          ; III of `inverseLabelingIII`.
+
+
+     ;; ═══════
+     ;; Jointer
+     ;; ═══════
+     ;; A jointer starts with a perfectly indented (│␢⇥) bullet comprising one or two
+     ;; diagonal ellipses (⋱⋯).
+     (list "^ \\{4\\}*\\(⋱⋱?\\)\\(?: +\\|$\\)"
+           ;; ┈──────┘  └─────┘
+           ;;   │␢⇥        ⋱⋯
+
+           '(1 'brecJointerBulletFace)
+           (list                       ; A reference may follow the bullet,
+            "\\(\\(?:.\\|\n\\)+\\)"    ; extending thence to the end of the jointer.
+            '(brecChunkEndFromMidChunk); Before seeking to fontify it, bring in the whole of it. [PSE]
+            nil '(1 'brecJointerFace)))
 
 
    ;;; ──  D e f e r r e d   f o n t i f i c a t i o n  ────────────────────────────────────────────────
