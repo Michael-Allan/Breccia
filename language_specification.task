@@ -63,10 +63,10 @@ Breccia: specification of the markup language
             - quoting with either ‘"’ (Unicode 22) or ‘'’ (Unicode 27)
             - PATTERN
                 - a Perl compatible regular expression
-                - indicates the referrer as the part of the parent surface which matches the pattern
-                    - failing a parent surface, the command point is misplaced and the document malformed
-                        < this occurs only when the parent is a (surfaceless) document node
-                - optional, by default the referrer is the whole of the parent surface
+                - indicates the referrer as the part of the parent head which matches the pattern
+                    - failing a parent head, the command point is misplaced and the document malformed
+                        < this occurs only when the parent is a (headless) document node
+                - optional, by default the referrer is the whole of the parent head
             - referent indicator
                 - NODAL-REFERENT-INDICATOR
                     - a nodal indicator
@@ -112,7 +112,8 @@ Breccia: specification of the markup language
     + block commentary
         * comment block
             - a sequence of lines comprising commentary alone
-            - a comment block is part of the surface that starts before it in document order
+            - a comment block is part of the node head that starts before it in document order
+                - in the case of document node, the head may comprise a comment block alone
         * comment block label
             - in a comment block
             - in a line of commentary delimited by two or more consecutive backslashes ‘\\’
@@ -122,12 +123,12 @@ Breccia: specification of the markup language
     ────────────────────────────────────────────────────────────────────────────────────────────────────
     Divider`
     < a type of child node
-    * surface form
+    * head form
         - begins with a perfectly indented line headed by a division mark
         - the end boundary is the next node headed by a character
           other than a division mark, or the end of the document
-        - it follows that no two divider surfaces are contiguous,
-          rather their combination forms one divider surface
+        - it follows that no two divider heads are contiguous,
+          rather their combination forms one divider head
     + division mark
         - Unicode 2500-259F
         < division mark = drawing character ∪ inversion mark
@@ -136,11 +137,11 @@ Breccia: specification of the markup language
         * inversion mark
             - Unicode 2588 (full block), 2590 (right half block)
     + divider label
-        - a sequence of non-division-mark characters in a divider surface,
+        - a sequence of non-division-mark characters in a divider head,
           exclusive of terminal whitespace
         - normally the label is presented in bold face
         * inverse label
-            - a sequence of non-division-mark, non-newline characters in a divider surface,
+            - a sequence of non-division-mark, non-newline characters in a divider head,
               exclusive of terminal whitespace, which is preceded on the same line by an inversion mark
               with at most space characters between the two
             - normally the inverse label, together with any terminal whitespace,
@@ -156,16 +157,16 @@ Breccia: specification of the markup language
     ────────────────────────────────────────────────────────────────────────────────────────────────────
     Document`
     < a type of node
-    - comprising any number of child nodes, possibly preceded by a document surface
+    - comprising any number of child nodes, possibly preceded by a document head
     * document title
-        - any document title is determined by the first surface in document order that yields
-          a non-empty result after collapsing the whitespace of the relevant part of its content
-          according to the surface type:
-            | document or point surface
-                - its non-commentary content
-            | divider surface
-                - its first label
-    * document surface
+        - any document title is determined by the first nodal head in document order that yields
+          a non-empty result after collapsing the whitespace of the relevant part of its content,
+          according to the node type:
+            | document or point
+                - the non-commentary content of its head
+            | divider
+                - the first label of its head
+    * document head
         - any text prior to the first child node of the document
 
     ────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -196,7 +197,7 @@ Breccia: specification of the markup language
         - NODAL-PATTERN
             - the pattern of the subjoint node
                 ( § node § nodal pattern
-            - optional, defaults to the surface text of the jointer’s parent modified thus:
+            - optional, defaults to the head of the jointer’s parent modified thus:
                 - trimmed of commentary
                 - trimmed of leading whitespace on the first line
                 - regexp quoted
@@ -233,10 +234,10 @@ Breccia: specification of the markup language
                 * point
     + form
         < node
-            * surface
+            * head
                 - the part of the node exclusive of its children
-            * subsurface
-                - the part of the node comprising its children
+            * body
+                - the part of the node comprising its children alone
     + relations
         * parent
             - the parent of a node is its nearest nodal precedecessor
@@ -292,7 +293,7 @@ Breccia: specification of the markup language
                     - exception point
                     - generic point
                     - task point
-    * surface form
+    * head form
         - begins with a bullet
         - end boundary is the next node in document order, or the end of the document
 
