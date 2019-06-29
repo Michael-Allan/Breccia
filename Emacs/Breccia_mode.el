@@ -17,12 +17,13 @@
 ;; DEFINITION OF TERMS  (additional to those of `http://reluk.ca/project/Breccia/`)
 ;; ───────────────────
 ;;   fontification chunk
-;;       A document descriptor or fontification principal.
+;;       A document descriptor, or surface of a fontification principal.
 ;;
 ;;   fontification principal
 ;;       A principal construct with one exception: in the case of a divider, each perfectly indented
-;;       line starts a new fontification principal, such that a multi-line divider, while a single
-;;       principal construct, may nevertheless comprise several contiguous fontification principals.
+;;       line outside of a comment block starts a new fontification principal, such that a multi-line
+;;       divider, while a single principal construct, may nevertheless comprise several contiguous
+;;       fontification principals.
 ;;
 ;;
 ;; NOTES  (see at bottom)
@@ -142,7 +143,7 @@ as necessary.  Returns nil if no change was required, non-nil otherwise."
     ;; region bisects the text of the line, which means the text of a fontification chunk;
     ;; a Breccian document comprises at most a document descriptor and principal constructs [D],
     ;; both in turn comprising fontification chunks, and each covers the whole of its lines.
-    (end-of-line)) ; Thus far at least the present construct must extend; extend it now,
+    (end-of-line)) ; Thus far at least the present chunk must extend; extend it now,
                  ;;; that `re-search-forward` (below) must miss its leader.
   (let (is-changed)
     (if (re-search-forward brecPrincipalLeaderPattern nil t); Cf. `brecChunkEndFromMidChunk`.

@@ -29,8 +29,8 @@ Breccia: specification of the markup language
     ────────────────────────────────────────────────────────────────────────────────────────────────────
     Citation`
     * inline citation
-        - URI in a descriptor, comment or divider
-            - not in a bullet, that is
+        - a URI in a place that does not call for a URI
+            ( e.g. mixed in with ordinary text
             - not a URI reference
                 - here URI references go unrecognized by the parser
                 ( for lack of any reliable distinguishing mark
@@ -47,9 +47,9 @@ Breccia: specification of the markup language
     - commands execute in document order
     + associative citation
         < a type of command point
-        - associates for citation purposes a character sequence of a preceding construct (the referrer)
+        - associates for citation purposes a preceding character sequence (the referrer)
           with a particular referent
-        - separate referrers within the same construct may overlap or nest in any manner
+        - referrers may overlap or nest in any manner
         - a single referrer may associate with multiple referents
         = factor out the particular associative subform `@` -
             - from the general associative form '…', which may have (in future) other subforms
@@ -64,16 +64,16 @@ Breccia: specification of the markup language
             - PATTERN
                 - a Perl compatible regular expression
                 - indicates the referrer
-                - if omitted then the referrer is the whole of superior construct S, as defined below
-                - else the referrer is the result of applying the pattern to some part (P)
-                  of superior construct S, as follows:
+                - if omitted then the referrer is the whole of parent P, as defined below
+                - else the referrer is the result of applying the pattern to some component (C)
+                  of parent P, as follows:
                      - if the command point has a principal construct as its parent
-                        - then S is that construct
-                        - if S is a point
-                            - then P is S’s descriptor
-                        - else S must be a divider
-                            - then P is S
-                    - else S is the document descriptor and P is S
+                        - then P is that construct
+                        - if P is a point
+                            - then C is P’s descriptor
+                        - else P must be a divider
+                            - then C is P
+                    - else P is the document descriptor and C is the whole of P
                     - else the command point is misplaced and the document is malformed
             - referent indicator
                 - REFERENT-CONSTRUCT-INDICATOR
@@ -120,6 +120,8 @@ Breccia: specification of the markup language
     + block commentary
         * comment block
             - a sequence of lines comprising commentary alone
+            - a comment block either succeeds the start of a principal surface,
+              whereby it is part of that surface, or it is part of the document descriptor
         * comment block label
             - in a comment block
             - in a line of commentary delimited by two or more consecutive backslashes ‘\\’
@@ -129,11 +131,12 @@ Breccia: specification of the markup language
     ────────────────────────────────────────────────────────────────────────────────────────────────────
     Divider`
     < a type of principal construct
-    * form
+    * surface form
         - begins with a perfectly indented line headed by a division mark
         - the end boundary is the next principal construct headed by a character
           other than a division mark, or the end of the document
-        - it follows that no two dividers are contiguous, rather their combination forms one divider
+        - it follows that no two divider surfaces are contiguous,
+          rather their combination forms one divider surface
     + division mark
         - Unicode 2500-259F
         < division mark = drawing character ∪ inversion mark
@@ -142,10 +145,11 @@ Breccia: specification of the markup language
         * inversion mark
             - Unicode 2588 (full block), 2590 (right half block)
     + divider label
-        - a sequence of non-division-mark characters in a divider, exclusive of terminal whitespace
+        - a sequence of non-division-mark characters in a divider surface,
+          exclusive of terminal whitespace
         - normally the label is presented in bold face
         * inverse label
-            - a sequence of non-division-mark, non-newline characters in a divider,
+            - a sequence of non-division-mark, non-newline characters in a divider surface,
               exclusive of terminal whitespace, which is preceded on the same line by an inversion mark
               with at most space characters between the two
             - normally the inverse label, together with any terminal whitespace,
@@ -160,7 +164,7 @@ Breccia: specification of the markup language
 
     ────────────────────────────────────────────────────────────────────────────────────────────────────
     Document`
-    - comprising any number of principle constructs, possibly preceded by a document descriptor
+    - comprising any number of principal constructs, possibly preceded by a document descriptor
     * document descriptor
         - any text prior to a principal construct
     * document title
@@ -170,7 +174,7 @@ Breccia: specification of the markup language
             | document descriptor
                 - its non-commentary content
             | point
-                - the non-commentary content of its bullet and descriptor lines
+                - the non-commentary content of its surface
             | divider
                 - its first label
 
@@ -202,15 +206,13 @@ Breccia: specification of the markup language
         - CONSTRUCT-PATTERN
             - the pattern of the subjoint principal construct
                 ( § principal construct § construct pattern
-            - optional, defaults to the text of the jointer’s parent construct modified thus:
-                - in the case of a point
-                    - trimmed of all but bullet and descriptor lines
+            - optional, defaults to the text of the jointer’s parent surface modified thus:
                 - trimmed of commentary
                 - trimmed of leading whitespace on the first line
                 - regexp quoted
                 - all whitespace collapsed to \s+
                     ( neutralizing differences in indentation and line wrapping
-                - in the case of a divider
+                - in the case of a parent divider
                     - all repeats of a drawing character C collapsed to C+
                         ( neutralizing differences in horizontal length, e.g. owing to indentation
                 - anchored by prepending with `\i` -
@@ -218,9 +220,9 @@ Breccia: specification of the markup language
                 = move to a functional §
             - modification to the pattern form in this context
                 - `\q` expands to the default modified thus:
-                    - in the case of point, trimmed to the portion of text following the first letter
-                      of the descriptor
-                        ( excluded as one may wish to alter its case
+                    - in the case of point, exclusive of the leading portion
+                      comprised of the bullet through the first letter of the descriptor
+                        ( excluded as one may wish to alter the case of the first letter
                         - if there is no descriptor, or it ends with its first letter,
                           then `\q` is misplaced, and therefore the pattern is malformed
         - CONSTRUCT-SCOPER
@@ -244,17 +246,29 @@ Breccia: specification of the markup language
                     - exception point
                     - generic point
                     - task point
-    * form
+    * surface form
         - begins with a bullet
-        - end boundary is the next principal construct, or the end of the document
+        - end boundary is the next principal construct in document order, or the end of the document
 
     ────────────────────────────────────────────────────────────────────────────────────────────────────
     Principal construct`
-    * typology
+    + typology
         < principal construct
-            - divider
-            - point
-    * construct indicator
+            * divider
+            * point
+    + form
+        < principal construct
+            * surface
+                - the construct exclusive of its children
+            * subsurface
+                - the children of the construct
+    + relations
+        * parent
+            - the parent of a principal construct is its nearest principal precedecessor
+              (in document order) of less indentation
+        * child
+            - a principal construct that has a parent
+    + construct indicator
         - form
 
               'CONSTRUCT-PATTERN'  [CONSTRUCT-SCOPER]
@@ -266,7 +280,7 @@ Breccia: specification of the markup language
             - CONSTRUCT-SCOPER
                 - the scope qualifier of the given CONSTRUCT-PATTERN
                     ( § construct scoper
-    * construct pattern
+    + construct pattern
         - a modified, Perl compatible regular expression
         - modifications:
             - `\t` symbolizes not a tab, but one unit of perfect indentation
@@ -276,7 +290,7 @@ Breccia: specification of the markup language
                     - it will be ubiquitous in texts
                     | using `^^` for greater clarity
                     | shortening it to a single symbol
-    * construct scoper
+    + construct scoper
         - a scope qualifier for a construct pattern
         - form
 
@@ -285,7 +299,7 @@ Breccia: specification of the markup language
             - SUPER-CONSTRUCT-INDICATOR
                 - a construct indicator
                     ( § construct indicator
-                - indicator of the super-construct (container) of the construct of the pattern,
+                - indicator of the super-construct (ancestor) of the construct of the pattern,
                   within whose content the pattern is to be sought
                 - likewise the super-construct may be scoped by indication of its own super-construct,
                   and so on, as the form is self referential
