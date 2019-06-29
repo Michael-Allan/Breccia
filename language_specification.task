@@ -58,33 +58,25 @@ Breccia: specification of the markup language
 
               : ['PATTERN']  @  REFERENT-URI
 
-              : ['PATTERN']  @  REFERENT-CONSTRUCT-INDICATOR  [[@] REFERENT-URI]
+              : ['PATTERN']  @  NODAL-REFERENT-INDICATOR  [[@] REFERENT-URI]
 
             - quoting with either ‘"’ (Unicode 22) or ‘'’ (Unicode 27)
             - PATTERN
                 - a Perl compatible regular expression
-                - indicates the referrer
-                - if omitted then the referrer is the whole of parent P, as defined below
-                - else the referrer is the result of applying the pattern to some component (C)
-                  of parent P, as follows:
-                     - if the command point has a principal construct as its parent
-                        - then P is that construct
-                        - if P is a point
-                            - then C is P’s descriptor
-                        - else P must be a divider
-                            - then C is P
-                    - else P is the document descriptor and C is the whole of P
-                    - else the command point is misplaced and the document is malformed
+                - indicates the referrer as the part of the parent surface which matches the pattern
+                    - failing a parent surface, the command point is misplaced and the document malformed
+                        < this occurs only when the parent is a (surfaceless) document node
+                - optional, by default the referrer is the whole of the parent surface
             - referent indicator
-                - REFERENT-CONSTRUCT-INDICATOR
-                    - a construct indicator
-                        ( § principal construct § construct indicator
+                - NODAL-REFERENT-INDICATOR
+                    - a nodal indicator
+                        ( § node § nodal indicator
                     - used only to cite a Breccian source
-                    - indicates the referent as a Breccian principal construct
+                    - indicates the referent as a Breccian child node
                 - REFERENT-URI
                     - a URI reference, indicator of either the referent
-                      or (in the presence of a construct indicator) the referent’s document
-                    - optional in the presence of a construct indicator,
+                      or (in the presence of a nodal indicator) the referent’s document
+                    - optional in the presence of a nodal indicator,
                       where it defaults to the same document as the referrer
     + null command
         < a type of command point
@@ -120,8 +112,7 @@ Breccia: specification of the markup language
     + block commentary
         * comment block
             - a sequence of lines comprising commentary alone
-            - a comment block either succeeds the start of a principal surface,
-              whereby it is part of that surface, or it is part of the document descriptor
+            - a comment block is part of the surface that starts before it in document order
         * comment block label
             - in a comment block
             - in a line of commentary delimited by two or more consecutive backslashes ‘\\’
@@ -130,10 +121,10 @@ Breccia: specification of the markup language
 
     ────────────────────────────────────────────────────────────────────────────────────────────────────
     Divider`
-    < a type of principal construct
+    < a type of child node
     * surface form
         - begins with a perfectly indented line headed by a division mark
-        - the end boundary is the next principal construct headed by a character
+        - the end boundary is the next node headed by a character
           other than a division mark, or the end of the document
         - it follows that no two divider surfaces are contiguous,
           rather their combination forms one divider surface
@@ -164,19 +155,18 @@ Breccia: specification of the markup language
 
     ────────────────────────────────────────────────────────────────────────────────────────────────────
     Document`
-    - comprising any number of principal constructs, possibly preceded by a document descriptor
-    * document descriptor
-        - any text prior to a principal construct
+    < a type of node
+    - comprising any number of child nodes, possibly preceded by a document surface
     * document title
-        - any document title is determined by the first construct in document order that yields
-          a non-empty result after collapsing the whitespace of the relevant part of its content,
-          according to the construct type:
-            | document descriptor
+        - any document title is determined by the first surface in document order that yields
+          a non-empty result after collapsing the whitespace of the relevant part of its content
+          according to the surface type:
+            | document or point surface
                 - its non-commentary content
-            | point
-                - the non-commentary content of its surface
-            | divider
+            | divider surface
                 - its first label
+    * document surface
+        - any text prior to the first child node of the document
 
     ────────────────────────────────────────────────────────────────────────────────────────────────────
     Exception point`
@@ -199,14 +189,14 @@ Breccia: specification of the markup language
 
     * form
 
-          ⋱[⋱]  ['CONSTRUCT-PATTERN']  [CONSTRUCT-SCOPER]  [[@] URI-REFERENCE]
+          ⋱[⋱]  ['NODAL-PATTERN']  [NODAL-SCOPER]  [[@] URI-REFERENCE]
 
         - the diagonal ellipsis (Unicode 22F1) may be single ‘⋱’ or double ‘⋱⋱’
         - quoting with either ‘"’ (Unicode 22) or ‘'’ (Unicode 27)
-        - CONSTRUCT-PATTERN
-            - the pattern of the subjoint principal construct
-                ( § principal construct § construct pattern
-            - optional, defaults to the text of the jointer’s parent surface modified thus:
+        - NODAL-PATTERN
+            - the pattern of the subjoint node
+                ( § node § nodal pattern
+            - optional, defaults to the surface text of the jointer’s parent modified thus:
                 - trimmed of commentary
                 - trimmed of leading whitespace on the first line
                 - regexp quoted
@@ -225,18 +215,74 @@ Breccia: specification of the markup language
                         ( excluded as one may wish to alter the case of the first letter
                         - if there is no descriptor, or it ends with its first letter,
                           then `\q` is misplaced, and therefore the pattern is malformed
-        - CONSTRUCT-SCOPER
-            - the scope qualifier of the CONSTRUCT-PATTERN
-                ( § principal construct § construct scoper
+        - NODAL-SCOPER
+            - the scope qualifier of the NODAL-PATTERN
+                ( § node § nodal scoper
         - URI-REFERENCE
-            - URI reference of the document of the subjoint construct
+            - URI reference of the document of the subjoint node
             - the use of the ‘@’ separator is optional, a matter of preference
             - optional, defaults to the same document as the jointer
 
     ────────────────────────────────────────────────────────────────────────────────────────────────────
+    Node`
+    + typology
+        < node
+            * document
+            < child node
+                * divider
+                * point
+    + form
+        < node
+            * surface
+                - the part of the node exclusive of its children
+            * subsurface
+                - the part of the node comprising its children
+    + relations
+        * parent
+            - the parent of a node is its nearest nodal precedecessor
+              (in document order) of less indentation, or (failing that) the document node
+        * child
+            - a node that has a parent is thereby a child
+            - all nodes are children except the document node
+    + nodal indicator
+        - form
+
+              'NODAL-PATTERN'  [NODAL-SCOPER]
+
+            - quoting with either ‘"’ (Unicode 22) or ‘'’ (Unicode 27)
+            - NODAL-PATTERN
+                - the pattern of the indicated node
+                    ( § nodal pattern
+            - NODAL-SCOPER
+                - the scope qualifier of the given NODAL-PATTERN
+                    ( § nodal scoper
+    + nodal pattern
+        - a modified, Perl compatible regular expression
+        - modifications:
+            - `\t` symbolizes not a tab, but one unit of perfect indentation
+            - `\i` expands to `^\t*`,
+              an anchored, leading sequence of perfect indentation
+                = improve it
+                    - it will be ubiquitous in texts
+                    | using `^^` for greater clarity
+                    | shortening it to a single symbol
+    + nodal scoper
+        - a scope qualifier for a nodal pattern
+        - form
+
+              @ ANCESTOR-INDICATOR
+
+            - ANCESTOR-INDICATOR
+                - a nodal indicator
+                    ( § nodal indicator
+                - indicator of an ancestor node within whose content the pattern is to be sought
+                - likewise the indicated ancestor may be scoped by indication of its own ancestor,
+                  and so on, as the nodal indicator form is self referential
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────────
     Point`
     * typology
-        < principal construct
+        < node
             < point
                 < formal point
                     - command point
@@ -248,61 +294,7 @@ Breccia: specification of the markup language
                     - task point
     * surface form
         - begins with a bullet
-        - end boundary is the next principal construct in document order, or the end of the document
-
-    ────────────────────────────────────────────────────────────────────────────────────────────────────
-    Principal construct`
-    + typology
-        < principal construct
-            * divider
-            * point
-    + form
-        < principal construct
-            * surface
-                - the construct exclusive of its children
-            * subsurface
-                - the children of the construct
-    + relations
-        * parent
-            - the parent of a principal construct is its nearest principal precedecessor
-              (in document order) of less indentation
-        * child
-            - a principal construct that has a parent
-    + construct indicator
-        - form
-
-              'CONSTRUCT-PATTERN'  [CONSTRUCT-SCOPER]
-
-            - quoting with either ‘"’ (Unicode 22) or ‘'’ (Unicode 27)
-            - CONSTRUCT-PATTERN
-                - the pattern of the indicated principal construct
-                    ( § construct pattern
-            - CONSTRUCT-SCOPER
-                - the scope qualifier of the given CONSTRUCT-PATTERN
-                    ( § construct scoper
-    + construct pattern
-        - a modified, Perl compatible regular expression
-        - modifications:
-            - `\t` symbolizes not a tab, but one unit of perfect indentation
-            - `\i` expands to `^\t*`,
-              an anchored, leading sequence of perfect indentation
-                = improve it
-                    - it will be ubiquitous in texts
-                    | using `^^` for greater clarity
-                    | shortening it to a single symbol
-    + construct scoper
-        - a scope qualifier for a construct pattern
-        - form
-
-              @ SUPER-CONSTRUCT-INDICATOR
-
-            - SUPER-CONSTRUCT-INDICATOR
-                - a construct indicator
-                    ( § construct indicator
-                - indicator of the super-construct (ancestor) of the construct of the pattern,
-                  within whose content the pattern is to be sought
-                - likewise the super-construct may be scoped by indication of its own super-construct,
-                  and so on, as the form is self referential
+        - end boundary is the next node in document order, or the end of the document
 
     ────────────────────────────────────────────────────────────────────────────────────────────────────
     Task point`

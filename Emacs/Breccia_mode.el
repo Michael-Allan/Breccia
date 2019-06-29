@@ -16,14 +16,11 @@
 ;;
 ;; DEFINITION OF TERMS  (additional to those of `http://reluk.ca/project/Breccia/`)
 ;; ───────────────────
-;;   fontification chunk
-;;       A document descriptor, or surface of a fontification principal.
-;;
-;;   fontification principal
-;;       A principal construct with one exception: in the case of a divider, each perfectly indented
-;;       line outside of a comment block starts a new fontification principal, such that a multi-line
-;;       divider, while a single principal construct, may nevertheless comprise several contiguous
-;;       fontification principals.
+;;   fontification surface
+;;       A whole nodal surface, with one exception as follows.  In the case of a divider surface,
+;;       each perfectly indented line outside of a comment block starts a new fontification surface,
+;;       such that a multi-line divider surface, while it is a single nodal surface, may nevertheless
+;;       comprise several contiguous fontification surfaces.
 ;;
 ;;
 ;; NOTES  (see at bottom)
@@ -64,9 +61,9 @@
 
 
 
-(defun brecChunkEndFromMidChunk()
-  "Returns the end position of the present fontification chunk, provided that point is *not*
-at the beginning of the chunk.  If point is at the beginning, then the result is undefined."
+(defun brecSurfaceEndFromMid()
+  "Returns the end position of the present fontification surface, provided that point is *not*
+at the beginning of the surface.  If point is at the beginning, then the result is undefined."
   (save-excursion
     (if (re-search-forward brecPrincipalLeaderPattern nil t); Cf. `brecExtendSearchDown`.
         (end-of-line 0); Moving to the end of the previous line.
@@ -126,7 +123,7 @@ at the beginning of the chunk.  If point is at the beginning, then the result is
 
 
 (defun brecExtendSearch()
-  "Ensures that the font-lock search region extends to cover the whole of its fontification chunks,
+  "Ensures that the font-lock search region extends to cover the whole of its fontification surfaces,
 bisecting none of them.  Returns nil if already it does, non-nil otherwise."
   (save-excursion
     (let ((is-changed (brecExtendSearchUp)))
@@ -135,18 +132,17 @@ bisecting none of them.  Returns nil if already it does, non-nil otherwise."
 
 
 (defun brecExtendSearchDown()
-  "Ensures that `font-lock-end` bisects no fontification chunk, moving it forward in the buffer
+  "Ensures that `font-lock-end` bisects no fontification surface, moving it forward in the buffer
 as necessary.  Returns nil if no change was required, non-nil otherwise."
   (goto-char font-lock-end)
   (when (not (or (bolp)(eolp))) ; When the prior extenders such as `font-lock-extend-region-wholelines`
     ;; do not leave `font-lock-end` at a line terminus, as usually they do, then the search
-    ;; region bisects the text of the line, which means the text of a fontification chunk;
-    ;; a Breccian document comprises at most a document descriptor and principal constructs [D],
-    ;; both in turn comprising fontification chunks, and each covers the whole of its lines.
-    (end-of-line)) ; Thus far at least the present chunk must extend; extend it now,
+    ;; region bisects the text of the line, which means the text of a fontification surface
+    ;; (a Breccian document contains nothing else), and each surface covers the whole of its lines.
+    (end-of-line)) ; Thus far at least the present surface must extend; extend it now,
                  ;;; that `re-search-forward` (below) must miss its leader.
   (let (is-changed)
-    (if (re-search-forward brecPrincipalLeaderPattern nil t); Cf. `brecChunkEndFromMidChunk`.
+    (if (re-search-forward brecPrincipalLeaderPattern nil t); Cf. `brecSurfaceEndFromMid`.
         (end-of-line 0); Moving to the end of the previous line.
       (goto-char (point-max)))
     (when (< font-lock-end (point))
@@ -157,7 +153,7 @@ as necessary.  Returns nil if no change was required, non-nil otherwise."
 
 
 (defun brecExtendSearchUp()
-  "Ensures that `font-lock-beg` bisects no fontification chunk, moving it backward in the buffer
+  "Ensures that `font-lock-beg` bisects no fontification surface, moving it backward in the buffer
 as necessary.  Returns nil if no change was required, non-nil otherwise."
   (goto-char font-lock-beg)
   (end-of-line); That `re-search-backward` (below) finds any leader on the present line.
@@ -224,9 +220,9 @@ as necessary.  Returns nil if no change was required, non-nil otherwise."
            ;;   │␢⇥       /
 
            '(1 'brecAsideBulletFace)
-           (list                       ; Usually a descriptor follows the bullet,
-            "\\(\\(?:.\\|\n\\)+\\)"    ; extending thence to the end of the point.
-            '(brecChunkEndFromMidChunk); Before seeking to fontify it, bring in the whole of it. [PSE]
+           (list                    ; Usually a descriptor follows the bullet,
+            "\\(\\(?:.\\|\n\\)+\\)" ; extending thence to the end of the point.
+            '(brecSurfaceEndFromMid); Before seeking to fontify it, bring in the whole of it. [PSE]
             nil '(1 'brecAsidePointFace)))
 
 
@@ -334,9 +330,9 @@ as necessary.  Returns nil if no change was required, non-nil otherwise."
            ;;   │␢⇥       :
 
            '(1 'brecCommandBulletFace)
-           (list                       ; Usually a command descriptor follows the bullet,
-            "\\(\\(?:.\\|\n\\)+\\)"    ; extending thence to the end of the point.
-            '(brecChunkEndFromMidChunk); Before seeking to fontify it, bring in the whole of it. [PSE]
+           (list                    ; Usually a command descriptor follows the bullet,
+            "\\(\\(?:.\\|\n\\)+\\)" ; extending thence to the end of the point.
+            '(brecSurfaceEndFromMid); Before seeking to fontify it, bring in the whole of it. [PSE]
             nil '(1 'brecCommandPointFace)))
 
 
@@ -356,8 +352,8 @@ as necessary.  Returns nil if no change was required, non-nil otherwise."
 
       ;; Thence it may include any mix of drawing, labeling and inverse labeling sequences.
       (list (concat drawingI "\\|" labelingI "\\|" inverseLabelingIII)
-            '(brecChunkEndFromMidChunk); Before seeking to fontify these, ensure the search region
-            nil                        ; extends far enough to include all of them. [PSE]
+            '(brecSurfaceEndFromMid); Before seeking to fontify these, ensure the search region
+            nil                     ; extends far enough to include all of them. [PSE]
             '(1 'brecDividerFace nil t); `drawingI`
             '(2 'brecDividerLabelFace nil t) ; `labelingI`
             '(3 'brecDividerFace nil t)            ; I,
@@ -375,9 +371,9 @@ as necessary.  Returns nil if no change was required, non-nil otherwise."
            ;;   │␢⇥        ⋱⋯
 
            '(1 'brecJointerBulletFace)
-           (list                       ; A reference may follow the bullet,
-            "\\(\\(?:.\\|\n\\)+\\)"    ; extending thence to the end of the jointer.
-            '(brecChunkEndFromMidChunk); Before seeking to fontify it, bring in the whole of it. [PSE]
+           (list                    ; A reference may follow the bullet,
+            "\\(\\(?:.\\|\n\\)+\\)" ; extending thence to the end of the jointer.
+            '(brecSurfaceEndFromMid); Before seeking to fontify it, bring in the whole of it. [PSE]
             nil '(1 'brecJointerFace)))
 
 
@@ -393,7 +389,7 @@ as necessary.  Returns nil if no change was required, non-nil otherwise."
            ;;      ␢           \⋯         C
 
            '(1 'font-lock-comment-delimiter-face t) '(2 'font-lock-comment-face t t))
-             ;;; `⋯face t`: Override any pre-applied face of a fontification chunk. [OCF]
+             ;;; `⋯face t`: Override any pre-applied face of a fontification surface. [OCF]
 
      ;; Moreover where a line of pure commentary is delimited by two or more backslashes (\\⋯),
      ;; any content is taken to be a block label (L).
@@ -418,7 +414,7 @@ as necessary.  Returns nil if no change was required, non-nil otherwise."
   ;; ┈──────┘└───┘└────────────┘  ; and a character (C) that is neither
   ;;   │␢⇥     \⋯       C        ; whitespace nor a backslash.
 
-  "The regexp pattern of the sequence marking the start of a fontification principal.")
+  "The regexp pattern of the sequence marking the start of a fontification surface.")
 
 
 
@@ -445,8 +441,6 @@ as necessary.  Returns nil if no change was required, non-nil otherwise."
 ;;        entirely in plain video, even its spaces must be fontified.
 ;;        http://reluk.ca/project/Breccia/documentation.task § divider
 ;;
-;;   D ·· http://reluk.ca/project/Breccia/documentation.task § document
-;;
 ;;   FLB  Font lock basics.
 ;;        https://www.gnu.org/software/emacs/manual/html_node/elisp/Font-Lock-Basics.html
 ;;
@@ -455,14 +449,14 @@ as necessary.  Returns nil if no change was required, non-nil otherwise."
 ;;        https://lists.gnu.org/archive/html/bug-gnu-emacs/2015-03/msg00818.html
 ;;
 ;;   OCF  Overrides in comment fontification.  The fontification of a comment must override that
-;;        of any containing fontification principal, such as a point descriptor, and must therefore
+;;        of any containing fontification surface, such as a point descriptor, and must therefore
 ;;        follow it in `brecKeywords`.
 ;;
 ;;        We might have tried fontifying the commentary using the syntax system, which runs earlier.
 ;;        Mere syntax tabulation would have been inadequate here, unable to grasp the form of Breccian
 ;;        commentary; instead we could probably have relied on the macro `syntax-propertize-rules` to
 ;;        set syntax properties on the comment delimiters.  But then could the `subexp-highlighters` for
-;;        the containing construct have worked around the comments, e.g. with `override` at nil?  [SBF]
+;;        the containing node have worked around the comments, e.g. with `override` at nil?  [SBF]
 ;;
 ;;   PSE  `pre-form` search extension: extending the end boundary of the search region
 ;;        for multi-line anchoring.  The manual warns, ‘It is generally a bad idea to return a position
