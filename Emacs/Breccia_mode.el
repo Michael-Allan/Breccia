@@ -30,6 +30,8 @@
 (define-derived-mode breccia-mode text-mode
   "Breccia"
   "A major mode for editing Breccian text"
+  (set (make-local-variable 'nobreak-char-display) t)
+    ;; Ensuring a distinct appearance for any no-break spaces (Unicode A0).
   (set 'font-lock-multiline t); For sake of aside and command-point bodies.
   (add-hook 'font-lock-extend-region-functions 'brecExtendSearch) ; [FLE]
  ;(set (make-local-variable 'font-lock-defaults)… )
@@ -241,7 +243,7 @@ as necessary.  Returns nil if no change was required, non-nil otherwise."
                    "\\(?:[[:alnum:]]+ *\\|[^[:alnum:][:space:]\\]\\)"
 
                    ;; Thence it continues.  It ends before a space that comes immediately after
-                   ;; a non-alphanumeric character, or before a newline.
+                   ;; a non-alphanumeric, non-space character; or it ends before a newline.
                    "\\(?:[[:alnum:]]+ *\\|[^[:alnum:][:space:]]+\\)*\\)")
 
                   limit t)
@@ -401,8 +403,12 @@ as necessary.  Returns nil if no change was required, non-nil otherwise."
      ;; ════════════════════
      ;; Forbidden whitespace
      ;; ════════════════════
-     (cons "[\t\u00A0\u2000-\u200A\u202F\u205F\u3000]" '(0 'brecForbiddenWhitespaceFace t))))
-       ;;;    9,   A0, 2000 - 200A, 202F, 205F, 3000
+     (cons "[\t\u2000-\u200A\u202F\u205F\u3000]" '(0 'brecForbiddenWhitespaceFace t))))
+       ;;;    9, 2000 - 200A, 202F, 205F, 3000
+       ;;;
+       ;;; No attempt is made here to fontify any no-break spaces (Unicode A0) that appear
+       ;;; in forbidden contexts.  They will at least have a distinct appearance, however,
+       ;;; owing to the setting of `nobreak-char-display`.
 
 
   "The value of `font-lock-keywords` for the search-based fontification of Breccian text.")

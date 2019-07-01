@@ -22,9 +22,10 @@ Breccia: specification of the markup language
                 ( viz. not block commentary
         - end boundary, one of:
             ∪ inline commentary
-            ∪ a space immediately after a non-alphanumeric character
-                < allows for embedded spacing, but only after an alphanumeric character
+            ∪ a space immediately after a non-alphanumeric, non-space character
             ∪ a newline and any spaces that precede it
+        - space characters may be embedded within a bullet either by placing them immediately after
+          an alphanumeric character, or by using no-break space characters (Unicode A0) instead
 
     ────────────────────────────────────────────────────────────────────────────────────────────────────
     Citation`
@@ -310,8 +311,10 @@ Breccia: specification of the markup language
         < Unicode 20
     - newline characters are allowed
         < Unicode A, D
-    - other horizontal whitespace is forbidden, including the tab character
-        < Unicode 9, A0, 2000-200A, 202F, 205F, 3000
+    - the no-break space is allowed in bullets, forbidden in all other contexts
+        < Unicode A0
+    - other horizontal whitespace, including the tab character, is forbidden in all contexts
+        < Unicode 9, 2000-200A, 202F, 205F, 3000
         - too confusing in a context where spacing determines syntax
         - too difficult to deal with
 
