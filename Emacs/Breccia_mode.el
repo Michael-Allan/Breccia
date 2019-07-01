@@ -32,11 +32,10 @@
   "A major mode for editing Breccian text"
   (set (make-local-variable 'nobreak-char-display) t)
     ;; Ensuring a distinct appearance for any no-break spaces (Unicode A0).
- ;(set 'font-lock-multiline t); For sake of aside and command-point descriptors.
- ;;; But this variable ought to be buffer local, I think:
  ;(set (make-local-variable 'font-lock-multiline) t)
- ;;; It does not, however, seem necessary; nor does the documentation imply that it would be.
- ;;; It seems rather that `brecExtendSearch` alone will suffice:
+ ;;; This setting does not, however, seem necessary; nor does the documentation imply that it would be.
+ ;;; Should fontification ever depend on *subsequent* lines, there I think this setting would at least
+ ;;; speed the response to changes.  Meantime, it seems that `brecExtendSearch` alone will suffice:
   (add-hook 'font-lock-extend-region-functions 'brecExtendSearch) ; [FLE]
   (set 'font-lock-defaults '(brecKeywords))); ‘It automatically becomes buffer-local when set.’ [FLB]
 
