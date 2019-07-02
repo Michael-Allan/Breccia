@@ -4,3 +4,5 @@ Project Breccia: installation instructions
         `.brec` files
             - Serve each `.brec` file with a `Content-Type` response header
               of `text/plain; charset=UTF-8`.
+
+                                       \ Copyright © 2019, Michael Allan and contributors.  Licence MIT.
