@@ -107,8 +107,14 @@ at the beginning of the head.  If point is at the beginning, then the result is 
 
 
 (defface brecDividerLabelFace
-  `((default . (:inherit (bold brecDividerFace))))
+  `((default . (:inherit brecDividerFace)))
   "The face for an ordinary label in a divider.")
+
+
+
+(defface brecDividerTitleFace
+  `((default . (:inherit (bold brecDividerLabelFace))))
+  "The face for a title as formed in a divider.")
 
 
 
@@ -206,6 +212,7 @@ as necessary.  Returns nil if no change was required, non-nil otherwise."
            ;;; A sequence of `labelingChar` inclusive of embedded spaces,
            ;;; yet exclusive of embedded newlines.
          (labelingI (concat "\\(" labeling "\\)")); Capturing (I) an instance of `labeling`.
+         (titlingI (concat "\n +\\(" labeling "\\)")); Capturing (I) an instance of titling.
 
          (inversionMark "[\u2588\u2590]")
          (inverseLabelingIII
@@ -353,15 +360,16 @@ as necessary.  Returns nil if no change was required, non-nil otherwise."
       '(3 'brecDividerInverseLabelFace nil t); II and
       '(4 'brecDividerFace nil t)            ; III of `inverseLabelingIII`.
 
-      ;; Thence it may include any mix of drawing, labeling and inverse labeling sequences.
-      (list (concat drawingI "\\|" labelingI "\\|" inverseLabelingIII)
+      ;; Thence it may include any mix of drawing, titling, labeling and inverse labeling sequences.
+      (list (concat drawingI "\\|" titlingI "\\|" labelingI "\\|" inverseLabelingIII)
             '(brecHeadEndFromMidHead); Before seeking to fontify these, ensure the search region
             nil                      ; extends far enough to include all of them. [PSE]
             '(1 'brecDividerFace nil t); `drawingI`
-            '(2 'brecDividerLabelFace nil t) ; `labelingI`
-            '(3 'brecDividerFace nil t)            ; I,
-            '(4 'brecDividerInverseLabelFace nil t); II and
-            '(5 'brecDividerFace nil t)))          ; III of `inverseLabelingIII`.
+            '(2 'brecDividerTitleFace nil t) ; `titlingI`
+            '(3 'brecDividerLabelFace nil t) ; `labelingI`
+            '(4 'brecDividerFace nil t)            ; I,
+            '(5 'brecDividerInverseLabelFace nil t); II and
+            '(6 'brecDividerFace nil t)))          ; III of `inverseLabelingIII`.
 
 
      ;; ═══════

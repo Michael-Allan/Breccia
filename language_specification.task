@@ -140,7 +140,6 @@ Breccia: specification of the markup language
     + divider label
         - a sequence of non-division-mark characters in a divider head,
           exclusive of terminal whitespace
-        - normally the label is presented in bold face
         * inverse label
             - a sequence of non-division-mark, non-newline characters in a divider head,
               exclusive of terminal whitespace, which is preceded on the same line by an inversion mark
@@ -154,6 +153,10 @@ Breccia: specification of the markup language
                 - viz. the full block pairs with the preceding inversion mark,
                   and by itself does not start a new inverse label
                 - viz. a single full block trailing an inverse label cannot start a second inverse label
+        * title
+            - a divider label that leads a line, with at most space characters in front
+            - normally it is displayed with greater prominence than an ordinary label,
+              e.g. using a bold face
 
     ────────────────────────────────────────────────────────────────────────────────────────────────────
     Document`
