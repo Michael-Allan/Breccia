@@ -265,12 +265,7 @@ Breccia: specification of the markup language
         - a modified, Perl compatible regular expression
         - modifications:
             - `\t` symbolizes not a tab, but one unit of perfect indentation
-            - `\i` expands to `^\t*`,
-              an anchored, leading sequence of perfect indentation
-                = improve it
-                    - it will be ubiquitous in texts
-                    | using `^^` for greater clarity
-                    | shortening it to a single symbol
+            - `^^` expands to `^\t*`, an anchored, leading sequence of perfect indentation
     + nodal scoper
         - a scope qualifier for a nodal pattern
         - form
