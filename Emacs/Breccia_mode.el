@@ -14,13 +14,11 @@
 ;;       http://reluk.ca/project/Breccia/Emacs/mock-up.svg  [pending a screen shot]
 ;;
 ;;
-;; DEFINITION OF TERMS  (additional to those of `http://reluk.ca/project/Breccia/`)
-;; ───────────────────
-;;   fontification head
-;;       A whole nodal head, with one exception as follows.  In the case of a divider head,
-;;       each perfectly indented line outside of a comment block starts a new fontification head,
-;;       such that a multi-line divider head, while it is a single nodal head, may nevertheless
-;;       comprise several contiguous fontification heads.
+;; TERM DEFINITION
+;; ───────────────
+;;   fontification segment
+;;       One of a document head, point head or divider segment.  In other words, a nodal head
+;;       with the exception of a divider, which instead is fontified segment by segment.
 ;;
 ;;
 ;; NOTES  (see at bottom)
@@ -30,8 +28,8 @@
 (define-derived-mode breccia-mode text-mode
   "Breccia"
   "A major mode for editing Breccian text"
-  (set (make-local-variable 'nobreak-char-display) t)
-    ;; Ensuring a distinct appearance for any no-break spaces (Unicode A0).
+  (modify-syntax-entry ?\u00A0 " " breccia-mode-syntax-table); Giving to no-break spaces (Unicode A0)
+  (set (make-local-variable 'nobreak-char-display) t)        ; whitespace syntax and a distinct look.
  ;(set (make-local-variable 'font-lock-multiline) t)
  ;;; This setting does not, however, seem necessary; nor does the documentation imply that it would be.
  ;;; Should fontification ever depend on *subsequent* lines, there I think this setting would at least
@@ -41,9 +39,9 @@
 
 
 
-;; ═════════════════════════════════════════════════════════════════════════════════════════════════════
+;; ══════════════════════════════════════════════════════════════════════════════════════════════════════
 ;; D e c l a r a t i o n s   i n   l e x i c a l   o r d e r
-;; ═════════════════════════════════════════════════════════════════════════════════════════════════════
+;; ══════════════════════════════════════════════════════════════════════════════════════════════════════
 
 
 (defface brecAsideBulletFace
@@ -60,15 +58,15 @@
 
 (defface brecBulletFace
   `((default . (:inherit bold)))
-  "The face for the bullet of a point.")
+  "The face for a bullet.")
 
 
 
 (defun brecHeadEndFromMidHead()
-  "Returns the end position of the present fontification head, provided that point is *not*
-at the beginning of the head.  If point is at the beginning, then the result is undefined."
+  "Returns the end position of the present fontification segment, provided that point is *not*
+at the beginning of the segment.  If point is at the beginning, then the result is undefined."
   (save-excursion
-    (if (re-search-forward brecPrincipalLeaderPattern nil t); Cf. `brecExtendSearchDown`.
+    (if (re-search-forward brecFSegStartPattern nil t); Cf. `brecExtendSearchDown`.
         (end-of-line 0); Moving to the end of the previous line.
       (goto-char (point-max)))
     (point)))
@@ -99,21 +97,21 @@ at the beginning of the head.  If point is at the beginning, then the result is 
 
 
 
-(defface brecDividerInverseLabelFace
+(defface brecDivisionInverseLabelFace
   `((default . (:inherit (bold brecDividerFace)))
     (t :inverse-video t))
-  "The face for an inverse label in a divider.")
+  "The face for an inverse label.")
 
 
 
-(defface brecDividerLabelFace
+(defface brecDivisionLabelFace
   `((default . (:inherit brecDividerFace)))
   "The face for an ordinary label in a divider.")
 
 
 
-(defface brecDividerTitleFace
-  `((default . (:inherit (bold brecDividerLabelFace))))
+(defface brecDivisionTitleFace
+  `((default . (:inherit (bold brecDivisionLabelFace))))
   "The face for a title as formed in a divider.")
 
 
@@ -132,7 +130,7 @@ at the beginning of the head.  If point is at the beginning, then the result is 
 
 
 (defun brecExtendSearch()
-  "Ensures that the font-lock search region extends to cover the whole of its fontification heads,
+  "Ensures that the font-lock search region extends to cover the whole of its fontification segments,
 bisecting none of them.  Returns nil if already it does, non-nil otherwise."
   (save-excursion
     (let ((is-changed (brecExtendSearchUp)))
@@ -141,17 +139,17 @@ bisecting none of them.  Returns nil if already it does, non-nil otherwise."
 
 
 (defun brecExtendSearchDown()
-  "Ensures that `font-lock-end` bisects no fontification head, moving it forward in the buffer
+  "Ensures that `font-lock-end` bisects no fontification segment, moving it forward in the buffer
 as necessary.  Returns nil if no change was required, non-nil otherwise."
   (goto-char font-lock-end)
   (when (not (or (bolp)(eolp))) ; When the prior extenders such as `font-lock-extend-region-wholelines`
     ;; do not leave `font-lock-end` at a line terminus, as usually they do, then the search
-    ;; region bisects the text of the line, which means the text of a fontification head
-    ;; (a Breccian document contains nothing else), and each head covers the whole of its lines.
-    (end-of-line)) ; Thus far at least the present head must extend; extend it now,
+    ;; region bisects the text of the line, which means the text of a fontification segment
+    ;; (a Breccian document contains nothing else), and each segment covers the whole of its lines.
+    (end-of-line)) ; Thus far at least the present segment must extend; extend it now,
                  ;;; that `re-search-forward` (below) must miss its leader.
   (let (is-changed)
-    (if (re-search-forward brecPrincipalLeaderPattern nil t); Cf. `brecHeadEndFromMidHead`.
+    (if (re-search-forward brecFSegStartPattern nil t); Cf. `brecHeadEndFromMidHead`.
         (end-of-line 0); Moving to the end of the previous line.
       (goto-char (point-max)))
     (when (< font-lock-end (point))
@@ -162,12 +160,12 @@ as necessary.  Returns nil if no change was required, non-nil otherwise."
 
 
 (defun brecExtendSearchUp()
-  "Ensures that `font-lock-beg` bisects no fontification head, moving it backward in the buffer
+  "Ensures that `font-lock-beg` bisects no fontification segment, moving it backward in the buffer
 as necessary.  Returns nil if no change was required, non-nil otherwise."
   (goto-char font-lock-beg)
   (end-of-line); That `re-search-backward` (below) finds any leader on the present line.
   (let (is-changed)
-    (if (re-search-backward brecPrincipalLeaderPattern nil t)
+    (if (re-search-backward brecFSegStartPattern nil t)
         (beginning-of-line)
       (goto-char (point-min)))
     (when (> font-lock-beg (point))
@@ -181,6 +179,16 @@ as necessary.  Returns nil if no change was required, non-nil otherwise."
   `((default . (:inherit (font-lock-warning-face)))
     (t :inverse-video t))
   "The face for disallowed, horizontal whitespace characters.")
+
+
+
+(defconst brecFSegStartPattern   ; Perfect indentation (│⁋),          [SPC]
+  "^ \\{4\\}*\\\\*[^[:space:]\\]"; zero or more backslashes (\⋯)
+  ;; ┈──────┘└───┘└────────────┘ ; and a character (C) that is neither
+  ;;    │⁋     \⋯       C        ; whitespace nor a backslash.
+
+  "The regexp pattern of the sequence marking the start of a fontification segment
+other than a document head.")
 
 
 
@@ -207,7 +215,8 @@ as necessary.  Returns nil if no change was required, non-nil otherwise."
            ;;; Capturing (I) a sequence of `drawingChar` inclusive of embedded spaces,
            ;;; yet exclusive of embedded newlines.
 
-         (labelingChar "[^[:space:]\u2500-\u259F]"); Yet exclusive of whitespace.
+         (labelingChar "[^[:space:]\u2500-\u259F]")
+           ;;; A division labeling character exclusive of whitespace.
          (labeling (concat labelingChar "+\\(?: +" labelingChar "+\\)*"))
            ;;; A sequence of `labelingChar` inclusive of embedded spaces,
            ;;; yet exclusive of embedded newlines.
@@ -224,10 +233,10 @@ as necessary.  Returns nil if no change was required, non-nil otherwise."
      ;; ═══════════
      ;; Aside point
      ;; ═══════════
-     ;; An aside point starts with a perfectly indented (│␢⇥) bullet comprising one slash (/).
+     ;; An aside point starts with a perfectly indented (│⁋) bullet comprising one slash (/).
      (list "^ \\{4\\}*\\(/\\)\\(?: +\\|$\\)"
            ;; ┈──────┘  └───┘
-           ;;   │␢⇥       /
+           ;;    │⁋       /
 
            '(1 'brecAsideBulletFace)
            (list                     ; Usually a descriptor follows the bullet,
@@ -244,15 +253,17 @@ as necessary.  Returns nil if no change was required, non-nil otherwise."
         (catch 'result
           (while (re-search-forward; Start with a naive search, the best a regexp can do here.
                   (concat
-                   "^ \\{4\\}*\\(\\\\*"; Perfectly indented (│␢⇥), the bullet starts with
+                   "^ \\{4\\}*\\(\\\\*"; Perfectly indented (│⁋), the bullet starts with
                    ;; ┈──────┘   └───┘   zero or more backslashes (\⋯) and a character
-                   ;;   │␢⇥        \⋯    that is neither whitespace nor a backslash.
+                   ;;    │⁋        \⋯    that is neither whitespace nor a backslash:
                    ;;
-                   "\\(?:[[:alnum:]]+ *\\|[^[:alnum:][:space:]\\]\\)"
+                   "\\(?:[[:alnum:]]+ *\\|[^[:alnum:][:space:]\\][\u00A0]*\\)"
 
                    ;; Thence it continues.  It ends before a space that comes immediately after
                    ;; a non-alphanumeric, non-space character; or it ends before a newline.
-                   "\\(?:[[:alnum:]]+ *\\|[^[:alnum:][:space:]]+\\)*\\)")
+                   ;; (Notably, a no-break space (Unicode A0) that comes immediately after
+                   ;; a non-alphanumeric, non-space character does *not* end the bullet.)
+                   "\\(?:[[:alnum:]]+ *\\|[^[:alnum:][:space:]]+[\u00A0]*\\)*\\)")
 
                   limit t)
             (let ((m1Beg (match-beginning 1)); Now ensure the resulting (naive) match is correct.
@@ -299,8 +310,8 @@ as necessary.  Returns nil if no change was required, non-nil otherwise."
                           (throw 'isMatched t))
 
                         (let ((charFirst (char-after m1Beg))); Abandon any unwanted match:
-                          ;; either a non-bullet (division sequence), or a bullet of a point type
-                          ;; with a fontified descriptor (aside, command or jointer), as follows.
+                          ;; either a non-bullet (divider), or a bullet of a point type with
+                          ;; a fontified descriptor (aside, command or jointer), as follows.
                           (cond
                            ((= 1 length); If exactly one character is captured and it is
                             (when (or (char-equal ?/ charFirst) ; either an aside bullet,
@@ -313,7 +324,7 @@ as necessary.  Returns nil if no change was required, non-nil otherwise."
                                        (char-equal ?⋱ charLast)); comprise a jointer bullet,
                               (throw 'isMatched nil)))); then abandon the match and continue seeking.
 
-                          (when (and (>= charFirst ?\u2500) ; If a division mark leads the match,
+                          (when (and (>= charFirst ?\u2500) ; If a divider mark leads the match,
                                      (<= charFirst ?\u259F)); then abandon it and continue seeking.
                             (throw 'isMatched nil)))))
                     t)
@@ -334,10 +345,10 @@ as necessary.  Returns nil if no change was required, non-nil otherwise."
      ;; ═════════════
      ;; Command point
      ;; ═════════════
-     ;; A command point starts with a perfectly indented (│␢⇥) bullet comprising one colon (:).
+     ;; A command point starts with a perfectly indented (│⁋) bullet comprising one colon (:).
      (list "^ \\{4\\}*\\(:\\)\\(?: +\\|$\\)"
            ;; ┈──────┘  └───┘
-           ;;   │␢⇥       :
+           ;;    │⁋       :
 
            '(1 'brecCommandBulletFace)
            (list                     ; Usually a command descriptor follows the bullet,
@@ -349,37 +360,37 @@ as necessary.  Returns nil if no change was required, non-nil otherwise."
      ;; ═══════
      ;; Divider
      ;; ═══════
-     ;; A divider starts with a perfectly indented (│␢⇥) sequence of drawing or inverse labeling.
+     ;; A divider starts with a perfectly indented (│⁋) sequence of drawing or inverse labeling.
      (list
       (concat "^ \\{4\\}*\\(?:" drawingI "\\|" inverseLabelingIII "\\)")
       ;;       └────────┘
-      ;;           │␢⇥
+      ;;            │⁋
 
-      '(1 'brecDividerFace nil t) ; `drawingI`
-      '(2 'brecDividerFace nil t)            ; I,
-      '(3 'brecDividerInverseLabelFace nil t); II and
-      '(4 'brecDividerFace nil t)            ; III of `inverseLabelingIII`.
+      '(1 'brecDividerFace nil t); `drawingI`
+      '(2 'brecDividerFace nil t)             ; I,
+      '(3 'brecDivisionInverseLabelFace nil t); II and
+      '(4 'brecDividerFace nil t)             ; III of `inverseLabelingIII`.
 
       ;; Thence it may include any mix of drawing, titling, labeling and inverse labeling sequences.
       (list (concat drawingI "\\|" titlingI "\\|" labelingI "\\|" inverseLabelingIII)
             '(brecHeadEndFromMidHead); Before seeking to fontify these, ensure the search region
             nil                      ; extends far enough to include all of them. [PSE]
             '(1 'brecDividerFace nil t); `drawingI`
-            '(2 'brecDividerTitleFace nil t) ; `titlingI`
-            '(3 'brecDividerLabelFace nil t) ; `labelingI`
-            '(4 'brecDividerFace nil t)            ; I,
-            '(5 'brecDividerInverseLabelFace nil t); II and
-            '(6 'brecDividerFace nil t)))          ; III of `inverseLabelingIII`.
+            '(2 'brecDivisionTitleFace nil t) ; `titlingI`
+            '(3 'brecDivisionLabelFace nil t) ; `labelingI`
+            '(4 'brecDividerFace nil t)             ; I,
+            '(5 'brecDivisionInverseLabelFace nil t); II and
+            '(6 'brecDividerFace nil t)))           ; III of `inverseLabelingIII`.
 
 
      ;; ═══════
      ;; Jointer
      ;; ═══════
-     ;; A jointer starts with a perfectly indented (│␢⇥) bullet comprising one or two
+     ;; A jointer starts with a perfectly indented (│⁋) bullet comprising one or two
      ;; diagonal ellipses (⋱⋯).
      (list "^ \\{4\\}*\\(⋱⋱?\\)\\(?: +\\|$\\)"
            ;; ┈──────┘  └─────┘
-           ;;   │␢⇥        ⋱⋯
+           ;;    │⁋        ⋱⋯
 
            '(1 'brecJointerBulletFace)
            (list                     ; A reference may follow the bullet,
@@ -388,25 +399,24 @@ as necessary.  Returns nil if no change was required, non-nil otherwise."
             nil '(1 'brecJointerFace)))
 
 
-   ;;; ──  D e f e r r e d   f o n t i f i c a t i o n  ────────────────────────────────────────────────
+   ;;; ──  D e f e r r e d   f o n t i f i c a t i o n  ─────────────────────────────────────────────────
 
      ;; ══════════
      ;; Commentary
      ;; ══════════
      ;; Commentary is delimited per line by one or more backslashes (\⋯) together isolated
-     ;; in whitespace (␢).  Usually the delimiter is followed by content (C) too.
+     ;; in whitespace.  Usually the delimiter is followed by content (C) too.
      (list "\\(?:^\\| \\)\\(\\\\+\\)\\( +.*\\)?$"; [CIL, SPC]
-           ;; └─────────┘  └───────┘  └──────┘
-           ;;      ␢           \⋯         C
+           ;;              └───────┘  └──────┘
+           ;;                  \⋯         C
 
-           '(1 'font-lock-comment-delimiter-face t) '(2 'font-lock-comment-face t t))
-             ;;; `⋯face t`: Override any pre-applied face of a fontification head. [OCF]
+           '(1 'font-lock-comment-delimiter-face t) '(2 'font-lock-comment-face t t)); [OCF]
 
      ;; Moreover where a line of pure commentary is delimited by two or more backslashes (\\⋯),
      ;; any content is taken to be a block label (L).
-     (cons "^ *\\\\\\{2,\\}\\( +.+\\)$" '(1 'brecCommentBlockLabelFace t)); [CIL, SPC]
-       ;;;  └─┘└──────────┘  └──────┘   `⋯face t`: Override any pre-applied face. [OCF]
-       ;;;   ␢     \\⋯           L
+     (cons "^ *\\\\\\{2,\\}\\( +.+\\)$" '(1 'brecCommentBlockLabelFace t)); [CIL, OCF, SPC]
+       ;;;     └──────────┘  └──────┘
+       ;;;         \\⋯           L
 
 
      ;; ════════════════════
@@ -421,15 +431,6 @@ as necessary.  Returns nil if no change was required, non-nil otherwise."
 
 
   "The value of `font-lock-keywords` for the search-based fontification of Breccian text.")
-
-
-
-(defconst brecPrincipalLeaderPattern; Perfect indentation (│␢⇥),          [SPC]
-  "^ \\{4\\}*\\\\*[^[:space:]\\]"  ; zero or more backslashes (\⋯)
-  ;; ┈──────┘└───┘└────────────┘  ; and a character (C) that is neither
-  ;;   │␢⇥     \⋯       C        ; whitespace nor a backslash.
-
-  "The regexp pattern of the sequence marking the start of a fontification head.")
 
 
 
@@ -454,7 +455,7 @@ as necessary.  Returns nil if no change was required, non-nil otherwise."
 ;; ─────
 ;;   CIL  Commentary may appear within inverse labeling.  That nevertheless it appears there
 ;;        entirely in plain video, even its spaces must be fontified.
-;;        http://reluk.ca/project/Breccia/documentation.task § divider
+;;        http://reluk.ca/project/Breccia/language_definition.brec § Division
 ;;
 ;;   FLB  Font lock basics.
 ;;        https://www.gnu.org/software/emacs/manual/html_node/elisp/Font-Lock-Basics.html
@@ -463,9 +464,8 @@ as necessary.  Returns nil if no change was required, non-nil otherwise."
 ;;        little used `font-lock-extend-after-change-region-function`, appears to be a design error.
 ;;        https://lists.gnu.org/archive/html/bug-gnu-emacs/2015-03/msg00818.html
 ;;
-;;   OCF  Overrides in comment fontification.  The fontification of a comment must override that
-;;        of any containing fontification head, such as a point descriptor, and must therefore
-;;        follow it in `brecKeywords`.
+;;   OCF  Overrides in comment fontification.  The fontification of a comment must override (`t`)
+;;        any fontification of its containing head, and must therefore follow it in `brecKeywords`.
 ;;
 ;;        We might have tried fontifying the commentary using the syntax system, which runs earlier.
 ;;        Mere syntax tabulation would have been inadequate here, unable to grasp the form of Breccian

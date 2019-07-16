@@ -1,8 +1,51 @@
 Breccia: definition of the language
 
+    - Breccia is formally comprised of document nodes.
 
-    + Define the syntax graphically, instead of textually.
-        - Using a graphic form similar to that of the JavaScript specification.
+           ────╭── document node ──╮────▶
+               │                   │
+               ╰────── ◀───────────╯
+
+        : `^^graphical syntax notation$` @ `^^ Note$`
+
+    document node
+        - The text of a Breccian document as a whole.
+        - It comprises a sequence of child nodes, possibly preceded by a document head.
+
+                     │
+                     ╰─────╮
+                     │     │
+                     ╵     │
+                  document │
+                    head   │
+                     ╷     │
+                     │     │
+                     ╭─────╯
+                     │
+                     ▼
+                     ╭─────────╮
+                 ╭───┴───╮     ╵
+                 ╵       ╵     ▲
+               point  division │   child nodes
+                 ╷       ╷     │
+                 ╰───┬───╯     │
+                     ╰─────────╯
+                     │
+                     │
+                     ▼
+
+        document head
+            - Any text prior to the first child node of the document.
+            - It follows that each line of a document head is either imperfectly indented,
+              or it is block commentary.
+        document title
+            - The document title, if any, is determined by the first nodal head in document order
+              that yields a non-empty result after collapsing the whitespace of the relevant part
+              of its content according to the node type:
+                * document node or point
+                    - The relevant part is the non-commentary content of its head.
+                * division
+                    - The relevant part is the first label of the divider.
 
 
 
@@ -12,26 +55,19 @@ Breccia: definition of the language
         / A type of material point.
         - Bulleted ‘/’.
 
+                 ╷
+               ──┤⁋╶──── ‘/’ ───╮──╴█╶──── descriptor ───▶
+                 ╵              │
+                                │
+                                ▼
 
+            : `┤⁋` @ `^^perfect indentation`
 
-    ━━━━━━━━
-     Bullet
-    ────────
-        - All points begin with a bullet.
-        form
-            - Perfectly indented.
-            - First character, one of:
-                ∪ neither whitespace nor backslash
-                ∪ a backslash
-                    - Immediately followed by zero or more backslashes
-                      and a character that is neither whitespace nor a backslash.
-                        / viz. not block commentary
-            - End boundary, one of:
-                ∪ inline commentary
-                ∪ a space immediately after a non-alphanumeric, non-space character
-                ∪ a newline and any spaces that precede it
-            - Space characters may be embedded within a bullet either by placing them immediately after
-              an alphanumeric character, or by using no-break space characters (Unicode A0) instead.
+            !! The diagram is abnormally formed.
+                + Normalize as per Pattis.
+                    : `Pattis` @ https://www.ics.uci.edu/~pattis/misc/ebnf2.pdf
+            !! The symbols detract from clarity here.
+                + Replace with names.
 
 
 
@@ -48,33 +84,21 @@ Breccia: definition of the language
               that might otherwise be taken as part of the URI (such as a ‘.’),
               then it must be quoted, e.g. by backquotes or angle braces.
         associative citation
-            ⋱⋱ @ '^^ Command point$'
-
-
-
-    ━━━━━━━━━━━━━━━
-     Command point
-    ───────────────
-        / A type of formal point.
-        - Bulleted ‘:’.
-        - Command points execute in document order.
-        associative citation
             / A type of command point.
             - Associates for citation purposes a preceding character sequence (the referrer)
               with a particular referent
             - Referrers may overlap or nest in any manner.
             - A single referrer may associate with multiple referents.
             + Factor out the particular associative subform `@`.
-                - Out from the general associative form '…', which may have (in future) other subforms.
+                - Out from the general associative form `…`, which may have (in future) other subforms.
                 - Considering the use of ‘;’ as a separator of multiple subforms
                   within the same associative form.
             form
 
-                  : ['PATTERN']  @  REFERENT-URI
+                  : [`PATTERN`]  @  REFERENT-URI
 
-                  : ['PATTERN']  @  NODAL-REFERENT-INDICATOR  [[@] REFERENT-URI]
+                  : [`PATTERN`]  @  NODAL-REFERENT-INDICATOR  [[@] REFERENT-URI]
 
-                - The quotes may be either ‘'’ (Unicode 27) or ‘"’ (Unicode 22).
                 PATTERN
                     - A Perl compatible regular expression.
                     - It indicates the referrer as that part of the parent head
@@ -86,7 +110,7 @@ Breccia: definition of the language
                 referent indicator
                     NODAL-REFERENT-INDICATOR
                         - A nodal indicator.
-                            : @ '^^nodal indicator$' @ '^^ Node$'
+                            : @ `^^nodal indicator$` @ `^^ Node$`
                         - Used only to cite a Breccian source.
                         - Indicates the referent as a Breccian child node.
                     REFERENT-URI
@@ -94,6 +118,18 @@ Breccia: definition of the language
                           or (in the presence of a nodal indicator) the referent’s document.
                         - Optional in the presence of a nodal indicator,
                           where it defaults to the same document as the referrer.
+
+
+
+    ━━━━━━━━━━━━━━━
+     Command point
+    ───────────────
+        / A type of formal point.
+        - Bulleted ‘:’.
+        - Command points execute in document order.
+        associative citation
+            ⋱⋱ @ `^^ Citation$`
+
         null command
             / A type of command point.
             - Does nothing.
@@ -101,18 +137,8 @@ Breccia: definition of the language
 
                   :
 
-     \  set perfect indentation
-     \      / A type of command point.
-     \      - Declares the number of space characters in each unit of perfect indentation.
-     \          - The default is 4.
-     \    \ - applies to subsequent siblings and their ancestors
-     \    \\ it would overburden syntax highlighters, such as that of `Emacs/Breccia_mode.el`
-     \\     - Not yet implemented, pending need.
-     \      form
-     \
-     \            : indent NUMBER
-     \
-     \          - The minimum is 2.
+        perfect indentation declaration
+            ⋱⋱ `^^declaration$` @ `^^perfect indentation$`
 
 
 
@@ -137,66 +163,61 @@ Breccia: definition of the language
                 - In a comment block.
                 - In a line of commentary delimited by two or more consecutive backslashes ‘\\’.
                 - The label is the part subsequent to the backslash delimiter,
-                  exclusive of terminal whitespace.
+                  exclusive of leading and trailing whitespace.
 
 
 
-    ━━━━━━━━━
-     Divider
-    ─────────
+    ━━━━━━━━━━
+     Division
+    ──────────
         / A type of child node.
-        head form
-            - Begins with a perfectly indented line headed by a division mark.
-            - The end boundary is the next node headed by a character
-              other than a division mark, or the end of the document.
-            - It follows that no two divider heads are contiguous,
-              rather their combination forms one divider head.
-        division mark
+        - Its head is called a divider.
+        divider
+            - Comprises one or more divider segments.
+            - It follows that no two dividers are contiguous,
+              rather their combination forms one divider of multiple segments.
+        divider segment
+            - Begins with a perfectly indented divider mark.
+            - The end boundary is the next appearance in document order of either
+              a divider segment, a non-division node, or the end of the document.
+        divider mark
             - Unicode 2500-259F.
-            / Division mark = drawing character ∪ inversion mark.
+            / Divider mark = drawing character ∪ inversion mark.
             drawing character
                 - Unicode 2500-2587, 2589-258F, 2591-259F.
             inversion mark
                 - Unicode 2588 (full block), 2590 (right half block).
-        divider label
-            - A sequence of non division-mark characters in a divider head,
-              exclusive of terminal whitespace
+        division label
+            - A sequence of non divider-mark characters in a divider,
+              exclusive of leading and trailing whitespace.
             inverse label
-                - A sequence of non division-mark, non newline characters in a divider head,
-                  exclusive of terminal whitespace and preceded on the same line by an inversion mark,
-                  with at most space characters between the two.
-                - Normally the inverse label, together with any terminal whitespace,
+                - A sequence of non divider-mark, non newline characters in a divider,
+                  exclusive of leading and trailing whitespace and preceded on the same line
+                  by an inversion mark, with at most (the leading) space characters between the two.
+                - Normally the inverse label, together with any leading or trailing whitespace,
                   is presented in inverse video.
                     - Except that any inline commentary is still presented in plain video.
                 - Where a full block character succeeds an inversion mark on the same line,
-                  with at most non division-mark characters in between,
+                  with at most non divider-mark characters in between,
                   that full block is disabled as an inversion mark.
                     / Viz. the full block pairs with the preceding inversion mark,
                       and by itself does not start a new inverse label.
                     / Viz. a single full block trailing an inverse label cannot start
                       a second inverse label.
-            title
-                - A divider label that leads a line, with at most space characters in front.
+            division title
+                - A division label that leads a line, with at most space characters in front.
                 - Normally it is displayed with greater prominence than an ordinary label,
                   e.g. using a bold face.
 
 
 
-    ━━━━━━━━━━
-     Document
-    ──────────
+    ━━━━━━━━━━━━━━━
+     Document node
+    ───────────────
         / A type of node.
-        - It comprises any number of child nodes, and possibly an initial document head.
-        document title
-            - Any document title is determined by the first nodal head in document order that yields
-              a non-empty result after collapsing the whitespace of the relevant part of its content
-              according to the node type:
-                * document or point
-                    - The non-commentary content of its head.
-                * divider
-                    - The first label of its head.
-        document head
-            - Any text prior to the first child node of the document.
+        - The text of a Breccian document as a whole.
+        - See at top.
+            : @ `^Breccia`
 
 
 
@@ -207,7 +228,7 @@ Breccia: definition of the language
         - Bullet comprising or terminated ‘!!’.
         - Exception points are justified by the Breccian purpose of drafting, wherein the ability
           to note exceptions is a useful aid.
-            : 'purpose of drafting' @ '^^Breccia$' @ lexicon.brec
+            : `purpose of drafting` @ `^^Breccia$` @ lexicon.brec
 
 
 
@@ -230,20 +251,20 @@ Breccia: definition of the language
 
         form
 
-              ⋱[⋱]  ['NODAL-PATTERN']  [NODAL-SCOPER]  [[@] URI-REFERENCE]
+              ⋱[⋱]  [`NODAL-PATTERN`]  [NODAL-SCOPER]  [[@] URI-REFERENCE]
 
             - The diagonal ellipsis (Unicode 22F1) may be single ‘⋱’ or double ‘⋱⋱’.
-            - The quotes may be either ‘'’ (Unicode 27) or ‘"’ (Unicode 22).
             NODAL-PATTERN
                 - The pattern of the subjoint node.
-                    : 'pattern' @ '^^nodal pattern$' @ '^^ Node$'
+                    : `pattern` @ `^^nodal pattern$` @ `^^ Node$`
                 - Optional, defaults to the head of the jointer’s parent modified thus:
                     - Trimmed of commentary.
                     - Trimmed of leading whitespace on the first line.
                     - Regexp quoted.
                     - All whitespace collapsed to `\s+`.
                         / Neutralizing differences in indentation and line wrapping.
-                    - In the case of a parent divider:
+                    - In the case of a divider:
+                        / Where the parent of the jointer is a division, that is.
                         - All sequential repeats of a drawing character C collapsed to `C+`.
                             / Neutralizing differences in horizontal length, e.g. owing to indentation.
                     - Anchored by prepending `^^` and appending `$`.
@@ -258,7 +279,7 @@ Breccia: definition of the language
                               then `\q` is misplaced and therefore the pattern is malformed.
             NODAL-SCOPER
                 - The scope qualifier of the NODAL-PATTERN.
-                    : 'scope qualifier' @ '^^nodal scoper$' @ '^^ Node$'
+                    : `scope qualifier` @ `^^nodal scoper$` @ `^^ Node$`
             URI-REFERENCE
                 - URI reference of the document of the subjoint node.
                 - The use of the ‘@’ separator is optional, a matter of preference.
@@ -271,9 +292,9 @@ Breccia: definition of the language
     ──────
         typology
             node
-                * document
+                * document node
                 child node
-                    * divider
+                    * division
                     * point
         relations
             parent
@@ -292,15 +313,14 @@ Breccia: definition of the language
         nodal indicator
             form
 
-                  'NODAL-PATTERN'  [NODAL-SCOPER]
+                  `NODAL-PATTERN`  [NODAL-SCOPER]
 
-                - The quotes may be either ‘'’ (Unicode 27) or ‘"’ (Unicode 22).
                 NODAL-PATTERN
                     - The pattern of the indicated node.
-                        : 'pattern' @ '^^nodal pattern$' @ '^^ Node$'
+                        : `pattern` @ `^^nodal pattern$` @ `^^ Node$`
                 NODAL-SCOPER
                     - The scope qualifier of the given NODAL-PATTERN.
-                        : 'scope qualifier' @ '^^nodal scoper$' @ '^^ Node$'
+                        : `scope qualifier` @ `^^nodal scoper$` @ `^^ Node$`
 
         nodal pattern
             - A modified, Perl compatible regular expression.
@@ -316,7 +336,7 @@ Breccia: definition of the language
 
                 - ANCESTOR-INDICATOR.
                     - A nodal indicator.
-                        : @ '^^nodal indicator$' @ '^^ Node$'
+                        : @ `^^nodal indicator$` @ `^^ Node$`
                     - Indicator of an ancestor node within whose content the pattern is to be sought.
                     - Likewise the indicated ancestor may be scoped by indication of its own ancestor,
                       and so on, as the nodal indicator form is self referential.
@@ -326,20 +346,47 @@ Breccia: definition of the language
     ━━━━━━━
      Point
     ───────
+        / A type of node.
         typology
-            node
-                point
-                    formal point
-                        * command point
-                        * jointer
-                    material point
-                        * aside point
-                        * exception point
-                        * generic point
-                        * task point
-        head form
-            - Begins with a bullet.
+            formal point
+                * command point
+                * jointer
+            material point
+                * aside point
+                * exception point
+                * generic point
+                * task point
+        point head
+            - Comprises a perfectly indented bullet, optionally followed by a descriptor.
             - End boundary is the next node in document order, or the end of the document.
+        bullet
+            - The leading part of a point head.
+            - First character, one of:
+                ∪ neither whitespace nor backslash
+                ∪ a backslash
+                    - Immediately followed by zero or more backslashes
+                      and a character that is neither whitespace nor a backslash.
+                        / viz. not block commentary
+            - End boundary, one of:
+                ∪ inline commentary
+                ∪ a space immediately after a non-alphanumeric, non-space character
+                ∪ a newline and any spaces that precede it
+            - Space characters may be embedded within a bullet either by placing them immediately after
+              an alphanumeric character, or by using no-break space characters (Unicode A0) instead.
+
+
+
+    ━━━━━━━━━━━━━━
+     Static block
+    ──────────────
+        - One or more lines in contiguous sequence, each headed by a no-break space.
+            / Unicode A0.
+        - The purpose of a static block is to enable the author to lay out a section of text freely,
+          unconstrained by Breccia’s rules of indentation.
+            - Regardless of its indentation, a static block does not interrupt the nodal head
+              in which it occurs; rather the head continues blindly through the block.
+            - A presenter capable of reformatting the layout of a Breccian text is forbidden to alter
+              the layout of a static block rightward of its leading no-break spaces.
 
 
 
@@ -350,24 +397,50 @@ Breccia: definition of the language
         - Bullet comprising or terminated ‘+’.
         - Task points are justified by the Breccian purpose of drafting,
           for which inline tasking is a useful aid.
-            : 'purpose of drafting' @ '^^Breccia$' @ lexicon.brec
+            : `purpose of drafting` @ `^^Breccia$` @ lexicon.brec
 
 
 
     ━━━━━━━━━━━━
      Whitespace
     ────────────
-        - The space character is allowed.
-            / Unicode 20.
-        - Newline characters are allowed.
-            / Unicode A, D.
-        - The no-break space is allowed in bullets, forbidden in all other contexts.
-            / Unicode A0.
-        - Other horizontal whitespace, including the tab character, is forbidden in all contexts.
-            / Unicode 9, 2000-200A, 202F, 205F, 3000.
-            - Too confusing in a context where spacing determines syntax.
-            - Too difficult to deal with.
+        allowed characters
+            - The space character is allowed.
+                / Unicode 20.
+            - Newline characters are allowed.
+                / Unicode A, D.
+            - The no-break space is allowed as described for use in bullets and static blocks,
+              forbidden in all other contexts.
+                / Unicode A0.
+            - Other horizontal whitespace, including the tab character, is forbidden in all contexts.
+                / Unicode 9, 2000-200A, 202F, 205F, 3000.
+                - Too confusing in a context where spacing determines syntax.
+                - Too difficult to deal with.
+        perfect indentation
+            - Appears as symbol ‘┤⁋’ in formal graphs.
+            + Graph the form.
+            declaration
+                / A type of command point.
+                - Declares the number of space characters in each unit of perfect indentation.
+                    - The default is 4.
+                !! Not yet implemented, pending need.
+              \ - Applies to subsequent siblings and their ancestors.
+              \\ it would overburden syntax highlighters, such as that of `Emacs/Breccia_mode.el`
+                form
+
+                      : indent NUMBER
+
+                    - The minimum is 2.
 
 
 
-                                       \ Copyright © 2019, Michael Allan and contributors.  Licence MIT.
+    ━━━━━━
+     Note
+    ──────
+        graphical syntax notation
+            - The present text uses syntax diagrams because it is aimed at Breccian authors in general,
+              who are not expected to be comfortable with a textual notation such as Backus-Naur Form.
+
+
+
+                                        \ Copyright © 2019, Michael Allan and contributors.  Licence MIT.
