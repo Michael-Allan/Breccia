@@ -30,6 +30,17 @@
   "A major mode for editing Breccian text"
   (modify-syntax-entry ?\u00A0 " " breccia-mode-syntax-table); Giving to no-break spaces (Unicode A0)
   (set (make-local-variable 'nobreak-char-display) t)        ; whitespace syntax and a distinct look.
+
+  ;; Define paragraph bounds, e.g. for sake of the `fill-paragraph` command
+  ;; ───────────────────────
+ ;(set 'use-hard-newlines t); It says, ‘Automatically becomes permanently buffer-local when set.’
+ ;;; Unexpectedly that wrecks rather than helps the following.
+  (set (make-local-variable 'paragraph-start) (concat brecFSegStartPattern ".*$"))
+  (set (make-local-variable 'paragraph-separate) "^ *\\(?:\u00A0.*\\|\\\\+\\( +.*\\)?\\)?$")
+    ;;; Blank lines, static blocks and block commentary, that is.
+
+  ;; Set up font-lock
+  ;; ────────────────
  ;(set (make-local-variable 'font-lock-multiline) t)
  ;;; This setting does not, however, seem necessary; nor does the documentation imply that it would be.
  ;;; Should fontification ever depend on *subsequent* lines, there I think this setting would at least
