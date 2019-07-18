@@ -270,13 +270,6 @@ Definition of the Breccian language
                     - Anchored by prepending `^^` and appending `$`.
                 - Will not match a jointer.
                     + Move to a functional §.
-                - Modification to the pattern form in this context.
-                    - `\q` expands to the default modified thus:
-                        - In the case of point, exclusive of the leading portion comprised of the bullet
-                          through the first letter of the descriptor.
-                            / Excluded as one may wish to alter the case of the first letter.
-                            - If there is no descriptor, or it ends with its first letter,
-                              then `\q` is misplaced and therefore the pattern is malformed.
             NODAL-SCOPER
                 - The scope qualifier of the NODAL-PATTERN.
                     : `scope qualifier` @ `^^nodal scoper$` @ `^^ Node$`
