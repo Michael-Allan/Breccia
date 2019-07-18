@@ -261,13 +261,17 @@ Definition of the Breccian language
                     - Trimmed of commentary.
                     - Trimmed of leading whitespace on the first line.
                     - Regexp quoted.
-                    - All whitespace collapsed to `\s+`.
+                    - All remaining whitespace collapsed to `\s+`.
                         / Neutralizing differences in indentation and line wrapping.
                     - In the case of a divider:
                         / Where the parent of the jointer is a division, that is.
                         - All sequential repeats of a drawing character C collapsed to `C+`.
                             / Neutralizing differences in horizontal length, e.g. owing to indentation.
-                    - Anchored by prepending `^^` and appending `$`.
+                        - Anchored by prepending `^^`.
+                    - Else:
+                        / Broadening to cover both division title and bullet forms.
+                        - Anchored by prepending `^ *`.
+                        - Ignoring case.
                 - Will not match a jointer.
                     + Move to a functional §.
             NODAL-SCOPER
