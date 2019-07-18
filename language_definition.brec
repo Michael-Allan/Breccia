@@ -128,7 +128,7 @@ Definition of the Breccian language
         - Bulleted ‘:’.
         - Command points execute in document order.
         associative citation
-            ⋱⋱ @ `^^ Citation$`
+            ⋱ @ `^^ Citation$`
 
         null command
             / A type of command point.
@@ -138,7 +138,7 @@ Definition of the Breccian language
                   :
 
         perfect indentation declaration
-            ⋱⋱ `^^declaration$` @ `^^perfect indentation$`
+            ⋱ `^^declaration$` @ `^^perfect indentation$`
 
 
 
@@ -247,7 +247,7 @@ Definition of the Breccian language
         / A type of formal point.
         example
 
-              ⋱⋱ foo/bar.br
+              ⋱ foo/bar.br
 
         form
 
