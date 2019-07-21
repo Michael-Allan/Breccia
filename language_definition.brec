@@ -366,12 +366,10 @@ Definition of the Breccian language
             - End boundary is the next node in document order, or the end of the document.
         bullet
             - The leading part of a point head.
-            - First character, one of:
-                ∪ neither whitespace nor backslash
-                ∪ a backslash
-                    - Immediately followed by zero or more backslashes
-                      and a character that is neither whitespace nor a backslash.
-                        / viz. not block commentary
+            - Beginning, one of:
+                ∪ a character that is neither whitespace nor backslash nor divider mark
+                ∪ one or more backslashes immediately followed by
+                  a character that is neither whitespace nor backslash
             - End boundary, one of:
                 ∪ inline commentary
                 ∪ a space immediately after a non-alphanumeric, non-space character
