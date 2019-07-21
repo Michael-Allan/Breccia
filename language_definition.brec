@@ -2,9 +2,17 @@ Definition of the Breccian language
 
     - Breccia is formally comprised of document nodes.
 
-           ────╭── document node ──╮────▶
-               │                   │
-               ╰────── ◀───────────╯
+              │
+              │
+              ╭──────╮
+              ╵      ╵
+           document  ▲
+             node    │
+              ╷      │
+              ╰──────╯
+              │
+              │
+              ▼
 
         : `^^graphical syntax notation$` @ `^^ Note$`
 
@@ -13,14 +21,14 @@ Definition of the Breccian language
         - It comprises a sequence of child nodes, possibly preceded by a document head.
 
                      │
-                     ╰─────╮
-                     │     │
-                     ╵     │
-                  document │
-                    head   │
-                     ╷     │
-                     │     │
-                     ╭─────╯
+                ╭────╯
+                │    │
+                │    ╵
+                │ document
+                │   head
+                │    ╷
+                │    │
+                ╰────╮
                      │
                      ▼
                      ╭─────────╮
