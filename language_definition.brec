@@ -4,12 +4,12 @@ Definition of the Breccian language
 
               │
               │
-              ╭──────╮
-              ╵      ╵
+              ├──────┐
+              ╵      │
            document  ▲
              node    │
               ╷      │
-              ╰──────╯
+              ├──────┘
               │
               │
               ▼
@@ -17,35 +17,28 @@ Definition of the Breccian language
         : `^^graphical syntax notation$` @ `^^ Note$`
 
     document node
-        - The text of a Breccian document as a whole.
-        - It comprises a sequence of child nodes, possibly preceded by a document head.
+        - A Breccian document in formal terms.
+        - It divides into an optional document head formed as a bare descriptor,
+          and an optional body formed as a sequence of body nodes.
 
                      │
-                ╭────╯
-                │    │
-                │    ╵
-                │ document
-                │   head
-                │    ╷
-                │    │
-                ╰────╮
+               ┌─────┤        ┐
+               │     ╵        │
+               │ descriptor   │ document head
+               │     ╷        │
+               └─────┤        ┘
                      │
-                     ▼
-                     ╭─────────╮
-                 ╭───┴───╮     ╵
-                 ╵       ╵     ▲
-               point  division │   child nodes
-                 ╷       ╷     │
-                 ╰───┬───╯     │
-                     ╰─────────╯
-                     │
+                ┌────┤        ┐
+                │    ├───┐    │
+                │    ╵   │    │
+                │  body  ▲    │ document body
+                │  node  │    │
+                │    ╷   │    │
+                │    ├───┘    │
+                └────┤        ┘
                      │
                      ▼
 
-        document head
-            - Any text prior to the first child node of the document.
-            - It follows that each line of a document head is either imperfectly indented,
-              or it is block commentary.
         document title
             - The document title, if any, is determined by the first nodal head in document order
               that yields a non-empty result after collapsing the whitespace of the relevant part
@@ -296,23 +289,46 @@ Definition of the Breccian language
      Node
     ──────
         typology
-            node
+            * node
                 * document node
-                child node
+                * body node
                     * division
                     * point
+        abstract form
+            - A node divides formally into a type specific, nodal head, followed by an optional body.
+
+                    │
+                    ╵
+                 · · · ·     ┐
+                 ·     ·     │
+                 ·  ?  ·     │ nodal head
+                 ·     ·     │
+                 · · · ·     ┘
+                    ╷
+                    │
+               ┌────┤        ┐
+               │    ├───┐    │
+               │    ╵   │    │
+               │  body  ▲    │ nodal body
+               │  node  │    │
+               │    ╷   │    │
+               │    ├───┘    │
+               └────┤        ┘
+                    │
+                    ▼
+
+            head
+                - The part of a node exclusive of its children.
+                - Its form depends on the node type.
+            body
+                - The part of a node comprising its children alone, a sequence of body nodes.
         relations
-            parent
+            * parent
                 - The parent of a node is its nearest (in document order) nodal precedecessor
                   of less indentation, or (failing that) the document node.
-            child
-                - A node that has a parent is thereby a child.
-                - All nodes are children except the document node.
-        form
-            head
-                - The part of the node exclusive of its children.
-            body
-                - The part of the node comprising its children alone.
+            * child
+                - A node that has a parent.
+                - A body node.
 
         ───────────────
         nodal indicator
