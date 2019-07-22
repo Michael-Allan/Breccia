@@ -42,11 +42,11 @@ Definition of the Breccian language
         document title
             - The document title, if any, is determined by the first nodal head in document order
               that yields a non-empty result after collapsing the whitespace of the relevant part
-              of its content according to the node type:
-                * document node or point
-                    - The relevant part is the non-commentary content of its head.
-                * division
-                    - The relevant part is the first label of the divider.
+              of its content according to head type:
+                * document head or point head
+                    - The relevant part is the whole head exclusive of commentary and static blocks.
+                * divider
+                    - The relevant part is its first label.
 
 
 
