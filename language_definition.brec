@@ -14,7 +14,7 @@ Definition of the Breccian language
               │
               ▼
 
-        : `^^graphical syntax notation$` @ `^^ Note$`
+        : @ `^^graphical syntax notation$` @ `^^ Note$`
 
     document node
         - A Breccian document in formal terms.
@@ -168,6 +168,17 @@ Definition of the Breccian language
 
 
 
+    ━━━━━━━━━━━━
+     Descriptor
+    ────────────
+        - Elaborative, explanatory text of a nodal head.
+        - Largely free form, it is constrained mainly by its end boundary,
+          which is the end boundary of the head.
+            : @ `^^syntax description$` @ `^^ Note$`
+            : `end boundary` @ `^^nodal head$`
+
+
+
     ━━━━━━━━━━
      Division
     ──────────
@@ -175,12 +186,11 @@ Definition of the Breccian language
         - Its head is called a divider.
         divider
             - Comprises one or more divider segments.
-            - It follows that no two dividers are contiguous,
-              rather their combination forms one divider of multiple segments.
+            - No two dividers are contiguous; rather they combine as one divider of multiple segments.
         divider segment
             - Begins with a perfectly indented divider mark.
             - The end boundary is the next appearance in document order of either
-              a divider segment, a non-division node, or the end of the document.
+              a divider segment, a point, or the end of the document.
         divider mark
             - Unicode 2500-259F.
             / Divider mark = drawing character ∪ inversion mark.
@@ -317,10 +327,13 @@ Definition of the Breccian language
                     │
                     ▼
 
-            head
+            nodal head
                 - The part of a node exclusive of its children.
-                - Its form depends on the node type.
-            body
+                - Its internal form depends on the node type.
+                - Its end boundary, however, always comprises one of:
+                    * the next node in document order, which may be a child node
+                    * the end of the document
+            nodal body
                 - The part of a node comprising its children alone, a sequence of body nodes.
         relations
             * parent
@@ -382,6 +395,7 @@ Definition of the Breccian language
             - End boundary is the next node in document order, or the end of the document.
         bullet
             - The leading part of a point head.
+            : @ `^^syntax description$` @ `^^ Note$`
             - Beginning, one of:
                 ∪ a character that is neither whitespace nor backslash nor divider mark
                 ∪ one or more backslashes immediately followed by
@@ -459,6 +473,8 @@ Definition of the Breccian language
         graphical syntax notation
             - The present text uses syntax diagrams because it is aimed at Breccian authors in general,
               who are not expected to be comfortable with a textual notation such as Backus-Naur Form.
+        syntax description
+            - Here the form is difficult to diagram, easier to describe.
 
 
 
