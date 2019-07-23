@@ -53,7 +53,7 @@ Definition of the Breccian language
     ━━━━━━━━━━━━━
      Aside point
     ─────────────
-        / A type of material point.
+        / A type of specialized material point.
         - Bulleted ‘/’.
 
                  ╷
@@ -235,7 +235,7 @@ Definition of the Breccian language
     ━━━━━━━━━━━━━━━━━
      Exception point
     ─────────────────
-        / A type of material point.
+        / A type of specialized material point.
         - Bullet comprising or terminated ‘!!’.
         - Exception points are justified by the Breccian purpose of drafting, wherein the ability
           to note exceptions is a useful aid.
@@ -247,8 +247,10 @@ Definition of the Breccian language
      Generic point
     ───────────────
         / A type of material point.
-        - Typically the most common type in a document.
-        - It differs from other types in being assigned no special role.
+        - A non specialized point.
+            - A point for which the language defines no special role or bullet form.
+        - Its bullet is largely free form, constrained only by the basic bullet form.
+            : `basic bullet form` @ `^^bullet$` @ `^^ Point$`
 
 
 
@@ -382,14 +384,15 @@ Definition of the Breccian language
     ───────
         / A type of node.
         typology
-            formal point
+            * formal point
                 * command point
                 * jointer
-            material point
-                * aside point
-                * exception point
+            * material point
+                * specialized material point
+                    * aside point
+                    * exception point
+                    * task point
                 * generic point
-                * task point
         point head
             - Comprises a perfectly indented bullet, optionally followed by a descriptor.
             - End boundary is the next node in document order, or the end of the document.
@@ -426,7 +429,7 @@ Definition of the Breccian language
     ━━━━━━━━━━━━
      Task point
     ────────────
-        / A type of material point.
+        / A type of specialized material point.
         - Bullet comprising or terminated ‘+’.
         - Task points are justified by the Breccian purpose of drafting,
           for which inline tasking is a useful aid.
