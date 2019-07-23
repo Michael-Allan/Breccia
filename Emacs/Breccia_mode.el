@@ -453,7 +453,7 @@ other than a document head.")
 
 (defface brecTaskBulletTerminatorFace
   `((default . (:inherit font-lock-comment-face)))
-  "The face for the bullet terminator ‘!!’ of a task point.")
+  "The face for the bullet terminator ‘+’ of a task point.")
 
 
 
