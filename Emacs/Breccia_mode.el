@@ -209,6 +209,13 @@ other than a document head.")
 
 
 
+(defface brecGenericBulletPunctuationFace
+  `((default . (:inherit brecGenericBulletFace))
+    (t :weight normal))
+  "The face for non-alphanumeric characters in the bullet of a generic point.")
+
+
+
 (defface brecJointerBulletFace `()
   "The face for the bullet of a jointer.")
 
@@ -256,9 +263,50 @@ other than a document head.")
             nil '(1 'brecAsidePointFace)))
 
 
-     ;; ══════
-     ;; Bullet of a point type that has an unfontified descriptor
-     ;; ══════
+     ;; ═════════════
+     ;; Command point
+     ;; ═════════════
+     ;; A command point starts with a perfectly indented (│⁋) bullet comprising one colon (:).
+     (list "^ \\{4\\}*\\(:\\)\\(?: +\\|$\\)"
+           ;; ┈──────┘  └───┘
+           ;;    │⁋       :
+
+           '(1 'brecCommandBulletFace)
+           (list                     ; Usually a command descriptor follows the bullet,
+            "\\(\\(?:.\\|\n\\)+\\)"  ; extending thence to the end of the point.
+            '(brecHeadEndFromMidHead); Before seeking to fontify it, bring in the whole of it. [PSE]
+            nil '(1 'brecCommandPointFace)))
+
+
+     ;; ═══════
+     ;; Divider
+     ;; ═══════
+     ;; A divider starts with a perfectly indented (│⁋) sequence of drawing or inverse labeling.
+     (list
+      (concat "^ \\{4\\}*\\(?:" drawingI "\\|" inverseLabelingIII "\\)")
+      ;;       └────────┘
+      ;;            │⁋
+
+      '(1 'brecDividerFace nil t); `drawingI`
+      '(2 'brecDividerFace nil t)             ; I,
+      '(3 'brecDivisionInverseLabelFace nil t); II and
+      '(4 'brecDividerFace nil t)             ; III of `inverseLabelingIII`.
+
+      ;; Thence it may include any mix of drawing, titling, labeling and inverse labeling sequences.
+      (list (concat drawingI "\\|" titlingI "\\|" labelingI "\\|" inverseLabelingIII)
+            '(brecHeadEndFromMidHead); Before seeking to fontify these, ensure the search region
+            nil                      ; extends far enough to include all of them. [PSE]
+            '(1 'brecDividerFace nil t); `drawingI`
+            '(2 'brecDivisionTitleFace nil t) ; `titlingI`
+            '(3 'brecDivisionLabelFace nil t) ; `labelingI`
+            '(4 'brecDividerFace nil t)             ; I,
+            '(5 'brecDivisionInverseLabelFace nil t); II and
+            '(6 'brecDividerFace nil t)))           ; III of `inverseLabelingIII`.
+
+
+     ;; ════════════════
+     ;; Free form bullet of an exception, task or generic point
+     ;; ════════════════
      (list
       (lambda( limit ); Seek the next such bullet.
         (catch 'result
@@ -321,8 +369,8 @@ other than a document head.")
                           (throw 'isMatched t))
 
                         (let ((charFirst (char-after m1Beg))); Abandon any unwanted match:
-                          ;; either a non-bullet (divider), or a bullet of a point type with
-                          ;; a fontified descriptor (aside, command or jointer), as follows.
+                          ;; either a non-bullet (divider), or a bullet of tightly constrained form
+                          ;; (aside point, command point or jointer), as follows.
                           (cond
                            ((= 1 length); If exactly one character is captured and it is
                             (when (or (char-equal ?/ charFirst) ; either an aside bullet,
@@ -341,57 +389,28 @@ other than a document head.")
                     t)
                 (when isMatchChanged
                   (set-match-data
-                   (append
                     (list (match-beginning 0) (match-end 0) m1Beg m1End
                           m2Beg m2End m3Beg m3End
-                          m4Beg m4End m5Beg m5End)
-                    (list (current-buffer)))))
+                          m4Beg m4End m5Beg m5End
+                          (current-buffer))))
                 (throw 'result t))))
           (throw 'result nil)))
       '(1 'brecGenericBulletFace nil t)
       '(2 'brecTaskBulletFace nil t) '(3 'brecTaskBulletTerminatorFace nil t)
       '(4 'brecExceptionBulletFace nil t) '(5 'brecExceptionBulletTerminatorFace nil t))
 
-
-     ;; ═════════════
-     ;; Command point
-     ;; ═════════════
-     ;; A command point starts with a perfectly indented (│⁋) bullet comprising one colon (:).
-     (list "^ \\{4\\}*\\(:\\)\\(?: +\\|$\\)"
-           ;; ┈──────┘  └───┘
-           ;;    │⁋       :
-
-           '(1 'brecCommandBulletFace)
-           (list                     ; Usually a command descriptor follows the bullet,
-            "\\(\\(?:.\\|\n\\)+\\)"  ; extending thence to the end of the point.
-            '(brecHeadEndFromMidHead); Before seeking to fontify it, bring in the whole of it. [PSE]
-            nil '(1 'brecCommandPointFace)))
-
-
-     ;; ═══════
-     ;; Divider
-     ;; ═══════
-     ;; A divider starts with a perfectly indented (│⁋) sequence of drawing or inverse labeling.
-     (list
-      (concat "^ \\{4\\}*\\(?:" drawingI "\\|" inverseLabelingIII "\\)")
-      ;;       └────────┘
-      ;;            │⁋
-
-      '(1 'brecDividerFace nil t); `drawingI`
-      '(2 'brecDividerFace nil t)             ; I,
-      '(3 'brecDivisionInverseLabelFace nil t); II and
-      '(4 'brecDividerFace nil t)             ; III of `inverseLabelingIII`.
-
-      ;; Thence it may include any mix of drawing, titling, labeling and inverse labeling sequences.
-      (list (concat drawingI "\\|" titlingI "\\|" labelingI "\\|" inverseLabelingIII)
-            '(brecHeadEndFromMidHead); Before seeking to fontify these, ensure the search region
-            nil                      ; extends far enough to include all of them. [PSE]
-            '(1 'brecDividerFace nil t); `drawingI`
-            '(2 'brecDivisionTitleFace nil t) ; `titlingI`
-            '(3 'brecDivisionLabelFace nil t) ; `labelingI`
-            '(4 'brecDividerFace nil t)             ; I,
-            '(5 'brecDivisionInverseLabelFace nil t); II and
-            '(6 'brecDividerFace nil t)))           ; III of `inverseLabelingIII`.
+     (cons; Refontify the non-alphanumeric characters of generic bullets.
+      (lambda( limit )
+        (catch 'result
+          (while (< (point) limit)
+            (let ((face (get-text-property (point) 'face))
+                  (faceLimit (next-single-property-change (point) 'face (current-buffer) limit)))
+              (when (and (eq face 'brecGenericBulletFace)
+                         (re-search-forward "\\([^[:alnum:] \u00A0]+\\)" faceLimit t))
+                (throw 'result t))
+              (goto-char faceLimit)))
+          (throw 'result nil)))
+      '(0 'brecGenericBulletPunctuationFace t))
 
 
      ;; ═══════
