@@ -187,7 +187,7 @@ as necessary.  Returns nil if no change was required, non-nil otherwise."
 
 
 (defface brecForbiddenWhitespaceFace
-  `((default . (:inherit (font-lock-warning-face)))
+  `((default . (:inherit font-lock-warning-face))
     (t :inverse-video t))
   "The face for disallowed, horizontal whitespace characters.")
 
