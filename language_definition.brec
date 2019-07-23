@@ -43,9 +43,9 @@ Definition of the Breccian language
         - The document title, if any, is determined by the first nodal head in document order
           that yields a non-empty result after collapsing the whitespace of the relevant part
           of its content according to head type:
-            * document head or point head
+            • document head or point head
                 - The relevant part is the whole head exclusive of commentary and static blocks.
-            * divider
+            • divider
                 - The relevant part is its first label.
 
 
@@ -301,11 +301,11 @@ Definition of the Breccian language
      Node
     ──────
         typology
-            * node
-                * document node
-                * body node
-                    * division
-                    * point
+            ◇ node
+                • document node
+                ◇ body node
+                    • division
+                    • point
         abstract form
             - A node divides formally into a type specific, nodal head, followed by an optional body.
 
@@ -333,15 +333,15 @@ Definition of the Breccian language
                 - The part of a node exclusive of its children.
                 - Its internal form depends on the node type.
                 - Its end boundary, however, always comprises one of:
-                    * the next node in document order, which may be a child node
-                    * the end of the document
+                    • the next node in document order, which may be a child node
+                    • the end of the document
             nodal body
                 - The part of a node comprising its children alone, a sequence of body nodes.
         relations
-            * parent
+            • parent
                 - The parent of a node is its nearest (in document order) nodal precedecessor
                   of less indentation, or (failing that) the document node.
-            * child
+            • child
                 - A node that has a parent.
                 - A body node.
 
@@ -384,15 +384,16 @@ Definition of the Breccian language
     ───────
         / A type of node.
         typology
-            * formal point
-                * command point
-                * jointer
-            * material point
-                * specialized material point
-                    * aside point
-                    * exception point
-                    * task point
-                * generic point
+            ◇ point
+                ◇ formal point
+                    • command point
+                    • jointer
+                ◇ material point
+                    ◇ specialized material point
+                        • aside point
+                        • exception point
+                        • task point
+                    ◇ generic point
         point head
             - Comprises a perfectly indented bullet, optionally followed by a descriptor.
             - End boundary is the next node in document order, or the end of the document.
