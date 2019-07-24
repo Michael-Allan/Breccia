@@ -129,6 +129,7 @@ Definition of the Breccian language
         - Bulleted ‘:’.
         - Command points execute in document order.
         associative citation
+            / A type of command point.
             ⋱ @ `^^ Citation$`
 
         null command
