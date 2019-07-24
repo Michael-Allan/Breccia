@@ -138,9 +138,6 @@ Definition of the Breccian language
 
                   :
 
-        perfect indentation declaration
-            ⋱ `^^declaration$` @ `^^perfect indentation$`
-
 
 
     ━━━━━━━━━━━━
@@ -456,18 +453,6 @@ Definition of the Breccian language
         perfect indentation
             - Appears as symbol ‘┤⁋’ in formal graphs.
             + Graph the form.
-            declaration
-                / A type of command point.
-                - Declares the number of space characters in each unit of perfect indentation.
-                    - The default is 4.
-                !! Not yet implemented, pending need.
-              \ - Applies to subsequent siblings and their ancestors.
-              \\ it would overburden syntax highlighters, such as that of `Emacs/Breccia_mode.el`
-                form
-
-                      : indent NUMBER
-
-                    - The minimum is 2.
 
 
 
