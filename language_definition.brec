@@ -255,6 +255,7 @@ Definition of the Breccian language
      Jointer
     ─────────
         / A type of formal point.
+        - A jointer stands for the body of its referent.
         example
 
               ⋱ foo/bar.br
@@ -283,7 +284,6 @@ Definition of the Breccian language
                         - Anchored by prepending `^ *`.
                         - Ignoring case.
                 - Will not match a jointer.
-                    + Move to a functional §.
             NODAL-SCOPER
                 - The scope qualifier of the NODAL-PATTERN.
                     : `scope qualifier` @ `^^nodal scoper$` @ `^^ Node$`
@@ -291,6 +291,13 @@ Definition of the Breccian language
                 - URI reference of the document of the subjoint node.
                 - The use of the ‘@’ separator is optional, a matter of preference.
                 - Optional, defaults to the same document as the jointer.
+        effect
+            - The parent of a jointer gains for a child (subjoint child) each child of the referent
+              that does not duplicate a pre-existing child.
+            - The children of a referent gain for a parent (surjoint parent)
+              each parent of the jointer that does not duplicate a pre-existing parent.
+            - The effect applies recursively where a subjoint child is itself a jointer,
+              or a surjoint parent itself the referent of a jointer.
 
 
 
