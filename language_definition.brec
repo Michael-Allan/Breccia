@@ -14,7 +14,7 @@ Definition of the Breccian language
               │
               ▼
 
-        : @ `^^graphical syntax notation$` @ `^^ Note$`
+        : @ `^^graphical syntax notation$` @ `^^ Notes$`
 
     document node
         - A Breccian document in formal terms.
@@ -172,7 +172,7 @@ Definition of the Breccian language
         - Elaborative, explanatory text of a nodal head.
         - Largely free form, it is constrained mainly by its end boundary,
           which is the end boundary of the head.
-            : @ `^^syntax description$` @ `^^ Note$`
+            : @ `^^syntax description$` @ `^^ Notes$`
             : `end boundary` @ `^^nodal head$`
 
 
@@ -404,7 +404,7 @@ Definition of the Breccian language
             - End boundary is the next node in document order, or the end of the document.
         bullet
             - The leading part of a point head.
-            : @ `^^syntax description$` @ `^^ Note$`
+            : @ `^^syntax description$` @ `^^ Notes$`
             - Beginning, one of:
                 ∪ a character that is neither whitespace nor backslash nor divider mark
                 ∪ one or more backslashes immediately followed by
@@ -447,26 +447,30 @@ Definition of the Breccian language
      Whitespace
     ────────────
         allowed characters
-            - The space character is allowed.
-                / Unicode 20.
-            - Newline characters are allowed.
-                / Unicode A, D.
-            - The no-break space is allowed as described for use in bullets and static blocks,
-              forbidden in all other contexts.
-                / Unicode A0.
-            - Other horizontal whitespace, including the tab character, is forbidden in all contexts.
-                / Unicode 9, 2000-200A, 202F, 205F, 3000.
-                - Too confusing in a context where spacing determines syntax.
-                - Too difficult to deal with.
+            : @ `^^character identification$` @ `^^ Notes$`
+            • space (20)
+            • newline (A, D)
+            • no-break space (A0) as described for use in bullets and static blocks
+            / Allowing any other horizontal whitespace (9, 2000-200A, 202F, 205F, 3000)
+              would be too confusing here, where simple spacing can determine the syntax.
         perfect indentation
-            - Appears as symbol ‘┤⁋’ in formal graphs.
-            + Graph the form.
+            - Perfect indentation comes at the start of a line.
+            - It comprises zero or more segments of space characters, each four in length.
+
+                           ┌─────────╴◀───────────┐
+               start ┊     │                      │
+                of   ┊╶──┬─┴─╴‘ ’╶╴‘ ’╶╴‘ ’╶╴‘ ’╶─┴─┬───▶
+               line  ┊   │                          │
+                         └──────────────────────────┘
 
 
 
-    ━━━━━━
-     Note
-    ──────
+    ━━━━━━━
+     Notes
+    ───────
+        character identification
+            - The identifiers here are hexadecimal codes of the Unicode standard.
+                : `Unicode standard` @ https://www.unicode.org/standard/standard.html
         graphical syntax notation
             - The present text uses syntax diagrams because it is aimed at Breccian authors in general,
               who are not expected to be comfortable with a textual notation such as Backus-Naur Form.

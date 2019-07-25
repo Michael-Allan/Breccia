@@ -193,10 +193,10 @@ as necessary.  Returns nil if no change was required, non-nil otherwise."
 
 
 
-(defconst brecFSegStartPattern   ; Perfect indentation (│⁋),          [SPC]
+(defconst brecFSegStartPattern   ; Perfect indentation (PI),          [SPC]
   "^ \\{4\\}*\\\\*[^[:space:]\\]"; zero or more backslashes (\⋯)
   ;; ┈──────┘└───┘└────────────┘ ; and a character (C) that is neither
-  ;;    │⁋     \⋯       C        ; whitespace nor a backslash.
+  ;;    PI     \⋯       C        ; whitespace nor a backslash.
 
   "The regexp pattern of the sequence marking the start of a fontification segment
 other than a document head.")
@@ -251,10 +251,10 @@ other than a document head.")
      ;; ═══════════
      ;; Aside point
      ;; ═══════════
-     ;; An aside point starts with a perfectly indented (│⁋) bullet comprising one slash (/).
+     ;; An aside point starts with a perfectly indented (PI) bullet comprising one slash (/).
      (list "^ \\{4\\}*\\(/\\)\\(?: +\\|$\\)"
            ;; ┈──────┘  └───┘
-           ;;    │⁋       /
+           ;;    PI       /
 
            '(1 'brecAsideBulletFace)
            (list                     ; Usually a descriptor follows the bullet,
@@ -266,10 +266,10 @@ other than a document head.")
      ;; ═════════════
      ;; Command point
      ;; ═════════════
-     ;; A command point starts with a perfectly indented (│⁋) bullet comprising one colon (:).
+     ;; A command point starts with a perfectly indented (PI) bullet comprising one colon (:).
      (list "^ \\{4\\}*\\(:\\)\\(?: +\\|$\\)"
            ;; ┈──────┘  └───┘
-           ;;    │⁋       :
+           ;;    PI       :
 
            '(1 'brecCommandBulletFace)
            (list                     ; Usually a command descriptor follows the bullet,
@@ -281,11 +281,11 @@ other than a document head.")
      ;; ═══════
      ;; Divider
      ;; ═══════
-     ;; A divider starts with a perfectly indented (│⁋) sequence of drawing or inverse labeling.
+     ;; A divider starts with a perfectly indented (PI) sequence of drawing or inverse labeling.
      (list
       (concat "^ \\{4\\}*\\(?:" drawingI "\\|" inverseLabelingIII "\\)")
       ;;       └────────┘
-      ;;            │⁋
+      ;;            PI
 
       '(1 'brecDividerFace nil t); `drawingI`
       '(2 'brecDividerFace nil t)             ; I,
@@ -312,9 +312,9 @@ other than a document head.")
         (catch 'result
           (while (re-search-forward; Start with a naive search, the best a regexp can do here.
                   (concat
-                   "^ \\{4\\}*\\(\\\\*"; Perfectly indented (│⁋), the bullet starts with
+                   "^ \\{4\\}*\\(\\\\*"; Perfectly indented (PI), the bullet starts with
                    ;; ┈──────┘   └───┘   zero or more backslashes (\⋯) and a character
-                   ;;    │⁋        \⋯    that is neither whitespace nor a backslash:
+                   ;;    PI        \⋯    that is neither whitespace nor a backslash:
                    ;;
                    "\\(?:[[:alnum:]]+ *\\|[^[:alnum:][:space:]\\][\u00A0]*\\)"
 
@@ -416,11 +416,11 @@ other than a document head.")
      ;; ═══════
      ;; Jointer
      ;; ═══════
-     ;; A jointer starts with a perfectly indented (│⁋) bullet comprising one or two
+     ;; A jointer starts with a perfectly indented (PI) bullet comprising one or two
      ;; diagonal ellipses (⋱⋯).
      (list "^ \\{4\\}*\\(⋱⋱?\\)\\(?: +\\|$\\)"
            ;; ┈──────┘  └─────┘
-           ;;    │⁋        ⋱⋯
+           ;;    PI        ⋱⋯
 
            '(1 'brecJointerBulletFace)
            (list                     ; A reference may follow the bullet,
