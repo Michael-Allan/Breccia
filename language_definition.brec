@@ -403,7 +403,7 @@ Definition of the Breccian language
             - Comprises a perfectly indented bullet, optionally followed by a descriptor.
             - End boundary is the next node in document order, or the end of the document.
         bullet
-            - The leading part of a point head.
+            - The first component of a point head.
             : @ `^^syntax description$` @ `^^ Notes$`
             - Beginning, one of:
                 ∪ a character that is neither whitespace nor backslash nor divider mark
@@ -413,8 +413,14 @@ Definition of the Breccian language
                 ∪ inline commentary
                 ∪ a space immediately after a non-alphanumeric, non-space character
                 ∪ a newline and any spaces that precede it
-            - Space characters may be embedded within a bullet either by placing them immediately after
-              an alphanumeric character, or by using no-break space characters (Unicode A0) instead.
+            - A bullet may contain spacing characters.
+                : @ `^^character identification$` @ `^^ Notes$`
+                - One or more plain spaces (20) may follow any alphanumeric character.
+                - One or more no-break spaces (A0) may follow any non-alphanumeric character other than
+                  a plain space, or a backslash in a backslash sequence at the start of the bullet.
+                    / The latter is excluded because it has no apparent use case
+                      and would complicate Breccia mode for Emacs.
+                        : `Breccia mode for Emacs` @ Emacs/Breccia_mode.el
 
 
 
