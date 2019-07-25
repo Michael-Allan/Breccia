@@ -96,9 +96,9 @@ Definition of the Breccian language
                   within the same associative form.
             form
 
-                  : [`PATTERN`]  @  REFERENT-URI
+                  : [`PATTERN`]  @  URI-REFERENCE
 
-                  : [`PATTERN`]  @  NODAL-REFERENT-INDICATOR  [[@] REFERENT-URI]
+                  : [`PATTERN`]  @  NODAL-INDICATOR  [[@] URI-REFERENCE]
 
                 PATTERN
                     - A Perl compatible regular expression.
@@ -109,12 +109,12 @@ Definition of the Breccian language
                             / This occurs only when the parent is a (headless) document node.
                     - Optional, by default the referrer is the whole of the parent head.
                 referent indicator
-                    NODAL-REFERENT-INDICATOR
+                    NODAL-INDICATOR
                         - A nodal indicator.
                             : @ `^^nodal indicator$` @ `^^ Node$`
                         - Used only to cite a Breccian source.
                         - Indicates the referent as a Breccian child node.
-                    REFERENT-URI
+                    URI-REFERENCE
                         - A URI reference, indicator of either the referent
                           or (in the presence of a nodal indicator) the referent’s document.
                         - Optional in the presence of a nodal indicator,
