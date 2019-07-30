@@ -14,30 +14,33 @@ Definition of the Breccian language
               │
               ▼
 
-        : @ `^^graphical syntax notation$` @ `^^ Notes$`
+        : see @ `^^graphical syntax notation$` @ `^^ Notes$`
 
     document node
         - A Breccian document in formal terms.
-        - It divides into an optional document head formed as a bare descriptor,
+        - It divides into an optional head formed as a bare descriptor,
           and an optional body formed as a sequence of body nodes.
 
-                     │
-               ┌─────┤        ┐
-               │     ╵        │
-               │ descriptor   │ document head
-               │     ╷        │
-               └─────┤        ┘
-                     │
-                ┌────┤        ┐
-                │    ├───┐    │
-                │    ╵   │    │
-                │  body  ▲    │ document body
-                │  node  │    │
-                │    ╷   │    │
-                │    ├───┘    │
-                └────┤        ┘
-                     │
-                     ▼
+                       │
+                 ┌─────┤         ┐
+                 │     ╵         │
+                 │ descriptor    │ head
+                 │     ╷         │
+                 └─────┤         ┘
+                       │
+                  ┌────┤         ┐
+                  │    ├───┐     │
+                  │    ╵   │     │
+                  │  body  ▲     │ body
+                  │  node  │     │
+                  │    ╷   │     │
+                  │    ├───┘     │
+                  └────┤         ┘
+                       │
+                       ▼
+
+            : re `descriptor` see
+            : re `body node|│ +(body) .+$│ +(node)` see `^^typology$` @ `^^ Node$`
 
     document title
         - The document title, if any, is determined by the first nodal head in document order
@@ -54,21 +57,37 @@ Definition of the Breccian language
      Aside point
     ─────────────
         / A type of specialized material point.
-        - Bulleted ‘/’.
+        - A point with a bullet comprising ‘/’.
+        - Its descriptor is largely free form.
+            : see `Most descriptors are largely free form` @ `^^ Descriptor$`
 
-                 ╷
-               ──┤⁋╶──── ‘/’ ───╮──╴█╶──── descriptor ───▶
-                 ╵              │
-                                │
-                                ▼
 
-            : `┤⁋` @ `^^perfect indentation`
 
-            !! The diagram is abnormally formed.
-                + Normalize as per Pattis.
-                    : `Pattis` @ https://www.ics.uci.edu/~pattis/misc/ebnf2.pdf
-            !! The symbols detract from clarity here.
-                + Replace with names.
+    ━━━━━━━━
+     Bullet
+    ────────
+        - The first component of a point head.
+        - Its precise form varies according to the point type.
+        - The basic form, however, is invariant across point types.
+        basic form
+            : see @ `^^syntax description$` @ `^^ Notes$`
+            - Beginning, one of:
+                ∪ a character that is neither whitespace nor backslash nor divider mark
+                ∪ one or more backslashes immediately followed by
+                  a character that is neither whitespace nor backslash
+            - End boundary, one of:
+                ∪ inline commentary
+                ∪ a space immediately after a non-alphanumeric, non-space character
+                ∪ a newline and any spaces that precede it
+            - A bullet may contain spacing characters.
+                : see @ `^^character identification$` @ `^^ Notes$`
+                - One or more plain spaces (20) may follow any alphanumeric character.
+                - One or more no-break spaces (A0) may follow any non-alphanumeric character
+                  other than a plain space, or a backslash in a backslash sequence at the start
+                  of the bullet.
+                    / The latter is excluded because it has no apparent use case
+                      and would complicate Breccia mode for Emacs.
+                        : re `Breccia mode for Emacs` see Emacs/Breccia_mode.el
 
 
 
@@ -87,38 +106,47 @@ Definition of the Breccian language
         associative citation
             / A type of command point.
             - Associates for citation purposes a preceding character sequence (the referrer)
-              with a particular referent
+              with a particular referent.
             - Referrers may overlap or nest in any manner.
             - A single referrer may associate with multiple referents.
-            + Factor out the particular associative subform `@`.
-                - Out from the general associative form `…`, which may have (in future) other subforms.
-                - Considering the use of ‘;’ as a separator of multiple subforms
-                  within the same associative form.
             form
 
-                  : [`PATTERN`]  @  URI-REFERENCE
-
-                  : [`PATTERN`]  @  NODAL-INDICATOR  [[@] URI-REFERENCE]
+                  : [re `PATTERN`] see IMPLIABLE_NODE_INDICATOR | URI_REFERENCE
 
                 PATTERN
                     - A Perl compatible regular expression.
                     - It indicates the referrer as that part of the parent head
                       which matches the pattern.
-                        - Failing a parent head, the command point is misplaced
+                        - Failing a parent head, the citation is misplaced
                           and the document malformed.
                             / This occurs only when the parent is a (headless) document node.
-                    - Optional, by default the referrer is the whole of the parent head.
+                        - Where the pattern captures one or more groups,
+                          the referrer is just the union of the groups.
+                    - Optional, if a `re` clause is omitted, then the referrer
+                      is taken the whole of the parent head.
+                    forbidden pattern sequences
+                        : join @ `^^ impliable node indicator$`
                 referent indicator
-                    NODAL-INDICATOR
-                        - A nodal indicator.
-                            : @ `^^nodal indicator$` @ `^^ Node$`
+                    URI_REFERENCE
+                        - A URI reference.
+                    IMPLIABLE_NODE_INDICATOR
+                        - An impliable node indicator.
+                            : re ` impliable node indicator` see
                         - Used only to cite a Breccian source.
-                        - Indicates the referent as a Breccian child node.
-                    URI-REFERENCE
-                        - A URI reference, indicator of either the referent
-                          or (in the presence of a nodal indicator) the referent’s document.
-                        - Optional in the presence of a nodal indicator,
-                          where it defaults to the same document as the referrer.
+                        - Indicates the referent as a Breccian node.
+                        - The default value for the first component of the indicator, or the implied
+                          value of the whole indicator if all its components are omitted, is a direct
+                          node indicator formed using a pattern `p`, formed in turn as follows.
+                            | If the citation has a `re` clause:
+                                + Set `p` to the referrer pattern given in the `re` clause.
+                                + Broadly pattern `p`.
+                                    : join `^^| Else:$^^/ Broadly patterning$`
+                                      @ `^^procedure: generalized_pattern\( nodal_head \)$`
+                                + Anchor `p` by appending ‘$’.
+                            | Else:
+                                + Set `p` to the generalized pattern of the citation’s parent head.
+                                    : re `generalized pattern`
+                                      see `^^procedure: generalized_pattern\( nodal_head \)$`
 
 
 
@@ -128,12 +156,12 @@ Definition of the Breccian language
         / A type of formal point.
         - Bulleted ‘:’.
         - Command points execute in document order.
+        / Following are the types of command point.
         associative citation
-            / A type of command point.
-            ⋱ @ `^^ Citation$`
-
+            : join @ `^^ Citation$`
+        jointer
+            : join
         null command
-            / A type of command point.
             - Does nothing.
             form
 
@@ -169,11 +197,25 @@ Definition of the Breccian language
     ━━━━━━━━━━━━
      Descriptor
     ────────────
-        - Elaborative, explanatory text of a nodal head.
-        - Largely free form, it is constrained mainly by its end boundary,
-          which is the end boundary of the head.
-            : @ `^^syntax description$` @ `^^ Notes$`
-            : `end boundary` @ `^^nodal head$`
+        - Elaborative, explanatory text of a document head or point head.
+        - Most descriptors are largely free form, constrained only by the basic head form:
+          the end of the descriptor is defined by the end boundary of the head.
+            : re `end boundary of the head` see `^^head$` @ `^^ Node$`
+            - The descriptor of a formal point, however, is further constrained.
+                : re `formal point` see `^^typology$` @ `^^ Point$`
+        gap
+            - A formal intermediary that commonly appears before a descriptor and between its components.
+
+                  ┌─────────────────────╴◀──────────────────────────────────────────┐
+                  │                                                                 │
+                  │  ┌────────────────────────╴‘ ’╶──────────────────────────────┐  │
+                  │  │                                                           │  │
+               ───┴──┤                                          block            ├──┴───▶
+                     │        inline                     ┌─── commentary ───┐    │
+                     └──┬── commentary ──┬── newline ──┬─┤                  ├─┬──┘
+                        │                │             │ └── static block ──┘ │
+                        └────────────────┘             │                      │
+                                                       └──────────────────────┘
 
 
 
@@ -220,16 +262,6 @@ Definition of the Breccian language
 
 
 
-    ━━━━━━━━━━━━━━━
-     Document node
-    ───────────────
-        / A type of node.
-        - The text of a Breccian document as a whole.
-        - See at top.
-            : @ `^Breccia`
-
-
-
     ━━━━━━━━━━━━━━━━━
      Exception point
     ─────────────────
@@ -237,7 +269,7 @@ Definition of the Breccian language
         - Bullet comprising or terminated ‘!!’.
         - Exception points are justified by the Breccian purpose of drafting, wherein the ability
           to note exceptions is a useful aid.
-            : `purpose of drafting` @ `^^Breccia$` @ lexicon.brec
+            : re `purpose of drafting` see `^^Breccia$` @ lexicon.brec
 
 
 
@@ -247,8 +279,8 @@ Definition of the Breccian language
         / A type of material point.
         - A non specialized point.
             - A point for which the language defines no special role or bullet form.
-        - Its bullet is largely free form, constrained only by the basic bullet form.
-            : `basic bullet form` @ `^^bullet$` @ `^^ Point$`
+        - Its bullet is largely free form, constrained only by the basic form of a bullet.
+            : re `basic form` see @ `^^ Bullet$`
 
 
 
@@ -256,49 +288,40 @@ Definition of the Breccian language
      Jointer
     ─────────
         / A type of formal point.
-        - A jointer stands for the body of its referent.
+        - A jointer stands for the body of its referent node.
         example
 
-              ⋱ foo/bar.br
+              join foo/bar.br
 
         form
 
-              ⋱[⋱]  [`NODAL-PATTERN`]  [NODAL-SCOPER]  [[@] URI-REFERENCE]
+              join  IMPLIABLE_NODE_INDICATOR
 
-            - The diagonal ellipsis (Unicode 22F1) may be single ‘⋱’ or double ‘⋱⋱’.
-            NODAL-PATTERN
-                - The pattern of the subjoint node.
-                    : `pattern` @ `^^nodal pattern$` @ `^^ Node$`
-                - Optional, defaults to the head of the jointer’s parent modified thus:
-                    - Trimmed of commentary.
-                    - Trimmed of leading whitespace on the first line.
-                    - Regexp quoted.
-                    - All remaining whitespace collapsed to `\s+`.
-                        / Neutralizing differences in indentation and line wrapping.
-                    - In the case of a divider:
-                        / Where the parent of the jointer is a division, that is.
-                        - All sequential repeats of a drawing character C collapsed to `C+`.
-                            / Neutralizing differences in horizontal length, e.g. owing to indentation.
-                        - Anchored by prepending `^^`.
-                    - Else:
-                        / Broadening to cover both division title and bullet forms.
-                        - Anchored by prepending `^ *`.
-                        - Ignoring case.
-                - Will not match a jointer.
-            NODAL-SCOPER
-                - The scope qualifier of the NODAL-PATTERN.
-                    : `scope qualifier` @ `^^nodal scoper$` @ `^^ Node$`
-            URI-REFERENCE
-                - URI reference of the document of the subjoint node.
+            IMPLIABLE_NODE_INDICATOR
+                - An impliable node indicator.
+                    : re `impliable node indicator` see
+                - Indicates the referent node.
+                - The default value for the first component of the indicator, or the implied value
+                  of the whole indicator if all its components are omitted, is a direct node indicator
+                  formed using the generalized pattern of the jointer’s parent head.
+                    : re `generalized pattern` see `^^procedure: generalized_pattern\( nodal_head \)$`
+                - Will not match where the joint would have no effect.
+                    / This stops the jointer matching its own parent, for instance,
+                      or a parent of like form.
+            NODAL_SCOPER
+                - The scope qualifier of the NODAL_PATTERN.
+            URI_REFERENCE
+                - URI reference of the document of the sreferent node.
                 - The use of the ‘@’ separator is optional, a matter of preference.
                 - Optional, defaults to the same document as the jointer.
         effect
-            - The parent of a jointer gains for a child (subjoint child) each child of the referent
+            - The parent of a jointer gains for a child (subjoint child) each child of the referent node
               that does not duplicate a pre-existing child.
-            - The children of a referent gain for a parent (surjoint parent)
+            - The children of a referent node gain for a parent (surjoint parent)
               each parent of the jointer that does not duplicate a pre-existing parent.
+            - In both cases, the duplication test ignores variations in commentary and whitespacing.
             - The effect applies recursively where a subjoint child is itself a jointer,
-              or a surjoint parent itself the referent of a jointer.
+              or a surjoint parent itself the referent node of a jointer.
 
 
 
@@ -311,76 +334,138 @@ Definition of the Breccian language
                 ◇ body node
                     • division
                     • point
+
         abstract form
-            - A node divides formally into a type specific, nodal head, followed by an optional body.
+            - A node divides formally into two parts: a head and a body.
 
-                    │
-                    ╵
-                 · · · ·     ┐
-                 ·     ·     │
-                 ·  ?  ·     │ nodal head
-                 ·     ·     │
-                 · · · ·     ┘
-                    ╷
-                    │
-               ┌────┤        ┐
-               │    ├───┐    │
-               │    ╵   │    │
-               │  body  ▲    │ nodal body
-               │  node  │    │
-               │    ╷   │    │
-               │    ├───┘    │
-               └────┤        ┘
-                    │
-                    ▼
+                      │
+                      ╵
+                   · · · ·      ┐
+                   ·     ·      │
+                   ·  ?  ·      │ head
+                   ·     ·      │
+                   · · · ·      ┘
+                      ╷
+                      │
+                 ┌────┤         ┐
+                 │    ├───┐     │
+                 │    ╵   │     │
+                 │  body  ▲     │ body
+                 │  node  │     │
+                 │    ╷   │     │
+                 │    ├───┘     │
+                 └────┤         ┘
+                      │
+                      ▼
 
-            nodal head
+            - The form of the head depends on the node type.
+            - For all types of node, the body may be omitted.
+            head
                 - The part of a node exclusive of its children.
-                - Its internal form depends on the node type.
+                - Its form (abstracted from the diagram) varies according to the node type.
                 - Its end boundary, however, always comprises one of:
-                    • the next node in document order, which may be a child node
-                    • the end of the document
-            nodal body
+                    • the next node in document order; or
+                        / which node, if it has a body, would be its first child node
+                    • the end of the document.
+            body
                 - The part of a node comprising its children alone, a sequence of body nodes.
-        relations
+
+        nodal relations
             • parent
                 - The parent of a node is its nearest (in document order) nodal precedecessor
-                  of less indentation, or (failing that) the document node.
+                  of less indentation, or failing that the document node.
             • child
                 - A node that has a parent.
-                - A body node.
+                - All body nodes are children.
+                - No document node is a child.
 
-        ───────────────
-        nodal indicator
-            form
 
-                  `NODAL-PATTERN`  [NODAL-SCOPER]
+        ──────────────────────────
+         impliable node indicator
+        ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
+            - An indicator of a node, here referred to as ‘the principal node’.
 
-                NODAL-PATTERN
-                    - The pattern of the indicated node.
-                        : `pattern` @ `^^nodal pattern$` @ `^^ Node$`
-                NODAL-SCOPER
-                    - The scope qualifier of the given NODAL-PATTERN.
-                        : `scope qualifier` @ `^^nodal scoper$` @ `^^ Node$`
+                                           ┌─────────╴◀─────────────┐
+                                           │                        │
+                          principal        │             ancestral  │                    proper
+                   ───┬──╴  node   ╶──┬──┬─┴─┬─ gap ─┬──╴  node   ╶─┴──┬──┬──┬─ gap ─┬── document ──┬───▶
+                      │   indicator   │  │   │       │   indicator     │  │  │       │   indicator  │
+                      │               │  │   └───────┘                 │  │  └───────┘              │
+                      └───────────────┘  │                             │  │                         │
+                                         └─────────────────────────────┘  └─────────────────────────┘
 
-        nodal pattern
-            - A modified, Perl compatible regular expression.
-            - Modifications:
-                - `\t` symbolizes not a tab, but one unit of perfect indentation.
-                - `^^` expands to `^\t*`, an anchored, leading sequence of perfect indentation.
+            - Any reference to this form will be accompanied by a default value for
+              its first component (principal node indicator), which will also serve as
+              the implied value of the whole indicator if all its components are omitted.
 
-        nodal scoper
-            - A scope qualifier for a nodal pattern.
-            form
+            principal node indicator
+                - A direct indicator of the principal node.
 
-                  @ ANCESTOR-INDICATOR
+                             direct
+                       ────╴  node   ╶────▶
+                            indicator
 
-                - ANCESTOR-INDICATOR.
-                    - A nodal indicator.
-                        : @ `^^nodal indicator$` @ `^^ Node$`
-                    - Indicator of an ancestor node within whose content the pattern is to be sought.
-                    - Likewise the indicated ancestor may be scoped by indication of its own ancestor,
-                      and so on, as the nodal indicator form is self referential.
+                procedure: generalized pattern( nodal head )
+                    / A procedure commonly used in defining the default value
+                      of a principal node indicator.
+                    - Returns a pattern `p` in the form defined for a direct node indicator.
+                        : re `form defined` see `^^direct node indicator$`
+                    + Set `p` to the text of the given `nodal head`.
+                    + Trim `p` of commentary.
+                    + Trim `p` of leading whitespace on its first line.
+                    + Regexp quote `p`.
+                    + Collapse all whitespace of `p` to ‘\s+’.
+                        / Neutralizing differences in indentation and line wrapping.
+                    | If `nodal head` is a divider:
+                        + Anchor `p` by prepending ‘^^’.
+                        - For all sequential repeats (`r`) in `p` of a drawing character (`c`):
+                            + Collapse `r` to a single `c` followed by ‘+’.
+                            / Neutralizing differences in horizontal length, e.g. owing to indentation.
+                    | Else:
+                        / Broadly patterning to cover both division title and bullet forms.
+                        + Anchor `p` by prepending ‘^ *’.
+                        + Ensure that letter case will be ignored in `p`.
+                    + Anchor `p` by appending ‘$’.
+
+            direct node indicator
+                - It indicates a node directly by the pattern of its text.
+
+                       ───╴‘`’╶─ pattern ─╴‘`’╶───▶
+
+                - The pattern is formed as a modified, Perl compatible regular expression.
+                - Its modifications are:
+                    • `\t` symbolizes not a tab, but one unit of perfect indentation
+                    • `^^` expands to `^\t*`, an anchored, leading sequence of perfect indentation
+                forbidden pattern sequences
+                    • pattern delimiter
+                        - No backquote character ‘`’ may appear in the pattern unless escaped
+                          with a backslash ‘\`’.
+                        - Backslashes themselves are likewise escapable, of course.
+                            / The trailing delimiter character in pattern ‘foo\\`’,
+                              for example, is not escaped by the preceding backslash
+                              because the backslash itself is escaped.
+                    • inline commentary
+                        - No start sequence for inline commentary may appear in the pattern.
+                            / For example ‘·\·’ or ‘·\\·’, where ‘·’ stands for a space character.
+                        - Replace it with an equivalent.
+                            / For example ‘··’ and ‘·\N{U+005C}·’ respectively.
+
+            ancestral node indicator
+                - An indicator of an ancestor of the principal node.
+
+                                   direct
+                       ───╴‘@’╶──╴  node   ╶────▶
+                                  indicator
+
+                - Where multiple indicators appear in series, each successor gives the ancestral scope
+                  of its predecessor.
+
+            proper document indicator
+                - An indicator of the document in which the principal node appears.
+
+                       ───╴‘@’╶─── URI reference ────▶
+
+                    : re `URI reference` see https://tools.ietf.org/html/rfc3986#section-4.1
 
 
 
@@ -388,39 +473,23 @@ Definition of the Breccian language
      Point
     ───────
         / A type of node.
+        - Its head comprises a perfectly indented bullet, optionally followed by a descriptor.
+
+               ───╴  perfect  ╶─── bullet ──┬── gap ─── descriptor ──┬───▶
+                   indentation              │                        │
+                                            └────────────────────────┘
+
+        - The precise forms, both of bullet and descriptor, depend on the point type.
         typology
             ◇ point
                 ◇ formal point
                     • command point
-                    • jointer
                 ◇ material point
                     ◇ specialized material point
                         • aside point
                         • exception point
                         • task point
                     ◇ generic point
-        point head
-            - Comprises a perfectly indented bullet, optionally followed by a descriptor.
-            - End boundary is the next node in document order, or the end of the document.
-        bullet
-            - The first component of a point head.
-            : @ `^^syntax description$` @ `^^ Notes$`
-            - Beginning, one of:
-                ∪ a character that is neither whitespace nor backslash nor divider mark
-                ∪ one or more backslashes immediately followed by
-                  a character that is neither whitespace nor backslash
-            - End boundary, one of:
-                ∪ inline commentary
-                ∪ a space immediately after a non-alphanumeric, non-space character
-                ∪ a newline and any spaces that precede it
-            - A bullet may contain spacing characters.
-                : @ `^^character identification$` @ `^^ Notes$`
-                - One or more plain spaces (20) may follow any alphanumeric character.
-                - One or more no-break spaces (A0) may follow any non-alphanumeric character other than
-                  a plain space, or a backslash in a backslash sequence at the start of the bullet.
-                    / The latter is excluded because it has no apparent use case
-                      and would complicate Breccia mode for Emacs.
-                        : `Breccia mode for Emacs` @ Emacs/Breccia_mode.el
 
 
 
@@ -445,7 +514,7 @@ Definition of the Breccian language
         - Bullet comprising or terminated ‘+’.
         - Task points are justified by the Breccian purpose of drafting,
           for which inline tasking is a useful aid.
-            : `purpose of drafting` @ `^^Breccia$` @ lexicon.brec
+            : re `purpose of drafting` see `^^Breccia$` @ lexicon.brec
 
 
 
@@ -453,7 +522,7 @@ Definition of the Breccian language
      Whitespace
     ────────────
         allowed characters
-            : @ `^^character identification$` @ `^^ Notes$`
+            : see @ `^^character identification$` @ `^^ Notes$`
             • space (20)
             • newline (A, D)
             • no-break space (A0) as described for use in bullets and static blocks
@@ -476,7 +545,7 @@ Definition of the Breccian language
     ───────
         character identification
             - The identifiers here are hexadecimal codes of the Unicode standard.
-                : `Unicode standard` @ https://www.unicode.org/standard/standard.html
+                : re `Unicode standard` see https://www.unicode.org/standard/standard.html
         graphical syntax notation
             - The present text uses syntax diagrams because it is aimed at Breccian authors in general,
               who are not expected to be comfortable with a textual notation such as Backus-Naur Form.

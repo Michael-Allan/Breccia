@@ -35,7 +35,7 @@
   ;; ───────────────────────
  ;(set 'use-hard-newlines t); It says, ‘Automatically becomes permanently buffer-local when set.’
  ;;; Unexpectedly that wrecks rather than helps the following.
-  (set (make-local-variable 'paragraph-start) (concat brecFSegStartPattern ".*$"))
+  (set (make-local-variable 'paragraph-start) (concat brecSegStartPattern ".*$"))
   (set (make-local-variable 'paragraph-separate) "^ *\\(?:\u00A0.*\\|\\\\+\\( +.*\\)?\\)?$")
     ;;; Blank lines, static blocks and block commentary, that is.
 
@@ -56,12 +56,12 @@
 
 
 (defface brecAsideBulletFace
-  `((default . (:inherit (brecBulletFace brecAsidePointFace))))
+  `((default . (:inherit (brecBulletFace brecAsideDescriptorFace))))
   "The face for the bullet of an aside point.")
 
 
 
-(defface brecAsidePointFace
+(defface brecAsideDescriptorFace
   `((default . (:inherit font-lock-doc-face)))
   "The face for the descriptor of an aside point.")
 
@@ -73,24 +73,19 @@
 
 
 
-(defun brecHeadEndFromMidHead()
-  "Returns the end position of the present fontification segment, provided that point is *not*
-at the beginning of the segment.  If point is at the beginning, then the result is undefined."
-  (save-excursion
-    (if (re-search-forward brecFSegStartPattern nil t); Cf. `brecExtendSearchDown`.
-        (end-of-line 0); Moving to the end of the previous line.
-      (goto-char (point-max)))
-    (point)))
+(defface brecCommandKeywordFace
+  `((default . (:inherit brecCommandDescriptorFace)))
+  "The face for a keyword in the descriptor of a command point.")
 
 
 
 (defface brecCommandBulletFace
-  `((default . (:inherit (brecBulletFace brecCommandPointFace))))
+  `((default . (:inherit (brecBulletFace brecCommandDescriptorFace))))
   "The face for the bullet of a command point.")
 
 
 
-(defface brecCommandPointFace
+(defface brecCommandDescriptorFace
   `((default . (:inherit font-lock-builtin-face)))
   "The face for the descriptor of a command point.")
 
@@ -144,8 +139,8 @@ at the beginning of the segment.  If point is at the beginning, then the result 
   "Ensures that the font-lock search region extends to cover the whole of its fontification segments,
 bisecting none of them.  Returns nil if already it does, non-nil otherwise."
   (save-excursion
-    (let ((is-changed (brecExtendSearchUp)))
-      (or (brecExtendSearchDown) is-changed))))
+    (let ((isChanged (brecExtendSearchUp)))
+      (or (brecExtendSearchDown) isChanged))))
 
 
 
@@ -159,14 +154,14 @@ as necessary.  Returns nil if no change was required, non-nil otherwise."
     ;; (a Breccian document contains nothing else), and each segment covers the whole of its lines.
     (end-of-line)) ; Thus far at least the present segment must extend; extend it now,
                  ;;; that `re-search-forward` (below) must miss its leader.
-  (let (is-changed)
-    (if (re-search-forward brecFSegStartPattern nil t); Cf. `brecHeadEndFromMidHead`.
+  (let (isChanged)
+    (if (re-search-forward brecSegStartPattern nil t); Cf. `brecSegEnd`.
         (end-of-line 0); Moving to the end of the previous line.
       (goto-char (point-max)))
     (when (< font-lock-end (point))
       (set 'font-lock-end (point))
-      (set 'is-changed t))
-    is-changed))
+      (set 'isChanged t))
+    isChanged))
 
 
 
@@ -175,14 +170,14 @@ as necessary.  Returns nil if no change was required, non-nil otherwise."
 as necessary.  Returns nil if no change was required, non-nil otherwise."
   (goto-char font-lock-beg)
   (end-of-line); That `re-search-backward` (below) finds any leader on the present line.
-  (let (is-changed)
-    (if (re-search-backward brecFSegStartPattern nil t)
+  (let (isChanged)
+    (if (re-search-backward brecSegStartPattern nil t)
         (beginning-of-line)
       (goto-char (point-min)))
     (when (> font-lock-beg (point))
       (set 'font-lock-beg (point))
-      (set 'is-changed t))
-    is-changed))
+      (set 'isChanged t))
+    isChanged))
 
 
 
@@ -190,16 +185,6 @@ as necessary.  Returns nil if no change was required, non-nil otherwise."
   `((default . (:inherit font-lock-warning-face))
     (t :inverse-video t))
   "The face for disallowed, horizontal whitespace characters.")
-
-
-
-(defconst brecFSegStartPattern   ; Perfect indentation (PI),          [SPC]
-  "^ \\{4\\}*\\\\*[^[:space:]\\]"; zero or more backslashes (\⋯)
-  ;; ┈──────┘└───┘└────────────┘ ; and a character (C) that is neither
-  ;;    PI     \⋯       C        ; whitespace nor a backslash.
-
-  "The regexp pattern of the sequence marking the start of a fontification segment
-other than a document head.")
 
 
 
@@ -213,17 +198,6 @@ other than a document head.")
   `((default . (:inherit brecGenericBulletFace))
     (t :weight normal))
   "The face for non-alphanumeric characters in the bullet of a generic point.")
-
-
-
-(defface brecJointerBulletFace `()
-  "The face for the bullet of a jointer.")
-
-
-
-(defface brecJointerFace
-  `((default . (:inherit brecCommandPointFace)))
-  "The face for the reference part of a jointer.")
 
 
 
@@ -243,9 +217,10 @@ other than a document head.")
 
          (inversionMark "[\u2588\u2590]")
          (inverseLabelingIII
-          (concat "\\(" inversionMark "\\)\\( *\\(?:" labeling " *\\)?\\)\\(\u2588\\)?")))
+          (concat "\\(" inversionMark "\\)\\( *\\(?:" labeling " *\\)?\\)\\(\u2588\\)?"))
            ;;; Capturing (I) an inversion mark, (II) any `labeling` together with any space characters
            ;;; around it, and (III) any full block character.
+         regionStart regionEnd)
     (list
 
      ;; ═══════════
@@ -253,14 +228,15 @@ other than a document head.")
      ;; ═══════════
      ;; An aside point starts with a perfectly indented (PI) bullet comprising one slash (/).
      (list "^ \\{4\\}*\\(/\\)\\(?: +\\|$\\)"
-           ;; ┈──────┘  └───┘
-           ;;    PI       /
+           ;; ┈──────┘
+           ;;    PI
 
            '(1 'brecAsideBulletFace)
+
            (list                     ; Usually a descriptor follows the bullet,
-            "\\(\\(?:.\\|\n\\)+\\)"  ; extending thence to the end of the point.
-            '(brecHeadEndFromMidHead); Before seeking to fontify it, bring in the whole of it. [PSE]
-            nil '(1 'brecAsidePointFace)))
+            "\\(\\(?:.\\|\n\\)+\\)"  ; extending thence to the end of the point head.
+            '(brecSegEnd); `pre-form`: Making the search region cover the whole of it. [PSE]
+            nil '(1 'brecAsideDescriptorFace)))
 
 
      ;; ═════════════
@@ -268,14 +244,47 @@ other than a document head.")
      ;; ═════════════
      ;; A command point starts with a perfectly indented (PI) bullet comprising one colon (:).
      (list "^ \\{4\\}*\\(:\\)\\(?: +\\|$\\)"
-           ;; ┈──────┘  └───┘
-           ;;    PI       :
+           ;; ┈──────┘
+           ;;    PI
 
            '(1 'brecCommandBulletFace)
-           (list                     ; Usually a command descriptor follows the bullet,
-            "\\(\\(?:.\\|\n\\)+\\)"  ; extending thence to the end of the point.
-            '(brecHeadEndFromMidHead); Before seeking to fontify it, bring in the whole of it. [PSE]
-            nil '(1 'brecCommandPointFace)))
+
+           ;; Descriptor
+           ;; ──────────
+           (list; `anchored-highlighter`: Usually a descriptor follows the bullet,
+            "\\(\\(?:.\\|\n\\)+\\)";      extending thence to the end of the point head.
+            '(funcall; `pre-form`
+              (lambda()
+                (set 'regionStart (point))     ; For later recall.  Now return `brecSegEnd` and so
+                (set 'regionEnd (brecSegEnd)))); make the search region cover the whole descriptor. [PSE]
+            '(funcall (lambda() (goto-char regionStart))); `post-form`: Cleaning up for next highlighter.
+            '(1 'brecCommandDescriptorFace))
+
+           ;; Command
+           ;; ───────
+           (list; `anchored-highlighter`: Try to override in the descriptor the fontification
+            (concat;                      of any keywords that form a command,† namely one of:
+             ":[ \n]+\\(?:"
+
+             ;; associative citation
+             ;; ····················
+             "\\(?:\\(?1:re\\)[ \n]+`\\(?:\\\\.\\|[^\\`]\\)+`[ \n]+\\)?"
+             "\\(?2:see\\)"
+
+             ;; jointer
+             ;; ·······
+             "\\|\\(?1:join\\)"
+             "\\)\\>")
+
+             ;;; † The fontification attempt may fail here because the pattern above does not
+             ;;;   account for the possibility of interposing commentary or static blocks.
+
+            '(funcall; `pre-form`
+              (lambda()
+                (while (progn (backward-char)                     ; Bringing the bullet ‘:’
+                              (not (char-equal ?: (char-after))))); into the search region
+                regionEnd)); and (again) ensuring it extends to the end of the descriptor.
+            nil '(1 'brecCommandKeywordFace t t) '(2 'brecCommandKeywordFace t t)))
 
 
      ;; ═══════
@@ -294,8 +303,8 @@ other than a document head.")
 
       ;; Thence it may include any mix of drawing, titling, labeling and inverse labeling sequences.
       (list (concat drawingI "\\|" titlingI "\\|" labelingI "\\|" inverseLabelingIII)
-            '(brecHeadEndFromMidHead); Before seeking to fontify these, ensure the search region
-            nil                      ; extends far enough to include all of them. [PSE]
+            '(brecSegEnd); `pre-form`: Making the search region cover a whole segment of it. [PSE]
+            nil; `post-form`
             '(1 'brecDividerFace nil t); `drawingI`
             '(2 'brecDivisionTitleFace nil t) ; `titlingI`
             '(3 'brecDivisionLabelFace nil t) ; `labelingI`
@@ -368,20 +377,13 @@ other than a document head.")
                           (set 'isMatchChanged t)
                           (throw 'isMatched t))
 
-                        (let ((charFirst (char-after m1Beg))); Abandon any unwanted match:
-                          ;; either a non-bullet (divider), or a bullet of tightly constrained form
-                          ;; (aside point, command point or jointer), as follows.
-                          (cond
-                           ((= 1 length); If exactly one character is captured and it is
-                            (when (or (char-equal ?/ charFirst) ; either an aside bullet,
-                                      (char-equal ?: charFirst) ; command bullet
-                                      (char-equal ?⋱ charFirst)); or jointer bullet,
-                              (throw 'isMatched nil))); then abandon the match and continue seeking.
-
-                           ((= 2 length); If exactly two characters are captured and each is
-                            (when (and (char-equal ?⋱ charFirst); a ‘⋱’,  so that together they
-                                       (char-equal ?⋱ charLast)); comprise a jointer bullet,
-                              (throw 'isMatched nil)))); then abandon the match and continue seeking.
+                        (let ((charFirst (char-after m1Beg)))
+                          ;; Abandon any unwanted match — of either a non-bullet (divider) or a bullet
+                          ;; of tightly constrained form (aside point or command point) — as follows.
+                          (when (and (= 1 length); If exactly one character is captured and it is
+                                     (or (char-equal ?/ charFirst)  ; either an aside bullet
+                                         (char-equal ?: charFirst))); or command bullet,
+                            (throw 'isMatched nil)); then abandon the match and continue seeking.
 
                           (when (and (>= charFirst ?\u2500) ; If a divider mark leads the match,
                                      (<= charFirst ?\u259F)); then abandon it and continue seeking.
@@ -413,29 +415,13 @@ other than a document head.")
       '(0 'brecGenericBulletPunctuationFace t))
 
 
-     ;; ═══════
-     ;; Jointer
-     ;; ═══════
-     ;; A jointer starts with a perfectly indented (PI) bullet comprising one or two
-     ;; diagonal ellipses (⋱⋯).
-     (list "^ \\{4\\}*\\(⋱⋱?\\)\\(?: +\\|$\\)"
-           ;; ┈──────┘  └─────┘
-           ;;    PI        ⋱⋯
-
-           '(1 'brecJointerBulletFace)
-           (list                     ; A reference may follow the bullet,
-            "\\(\\(?:.\\|\n\\)+\\)"  ; extending thence to the end of the jointer.
-            '(brecHeadEndFromMidHead); Before seeking to fontify it, bring in the whole of it. [PSE]
-            nil '(1 'brecJointerFace)))
-
-
    ;;; ──  D e f e r r e d   f o n t i f i c a t i o n  ─────────────────────────────────────────────────
 
      ;; ══════════
      ;; Commentary
      ;; ══════════
      ;; Commentary is delimited per line by one or more backslashes (\⋯) together isolated
-     ;; in whitespace.  Usually the delimiter is followed by content (C) too.
+     ;; in whitespace.  Usually the delimiter is followed by commentary content (C) too.
      (list "\\(?:^\\| \\)\\(\\\\+\\)\\( +.*\\)?$"; [CIL, SPC]
            ;;              └───────┘  └──────┘
            ;;                  \⋯         C
@@ -461,6 +447,27 @@ other than a document head.")
 
 
   "The value of `font-lock-keywords` for the search-based fontification of Breccian text.")
+
+
+
+(defun brecSegEnd()
+  "Returns the end position of the present fontification segment, provided that point is *not*
+at the beginning of the segment.  If point is at the beginning, then the result is undefined."
+  (save-excursion
+    (if (re-search-forward brecSegStartPattern nil t); Cf. `brecExtendSearchDown`.
+        (end-of-line 0); Moving to the end of the previous line.
+      (goto-char (point-max)))
+    (point)))
+
+
+
+(defconst brecSegStartPattern    ; Perfect indentation (PI),          [SPC]
+  "^ \\{4\\}*\\\\*[^[:space:]\\]"; zero or more backslashes (\⋯)
+  ;; ┈──────┘└───┘└────────────┘ ; and a character (C) that is neither
+  ;;    PI     \⋯       C        ; whitespace nor a backslash.
+
+  "The regexp pattern of the sequence marking the start of a fontification segment
+other than a document head.")
 
 
 
