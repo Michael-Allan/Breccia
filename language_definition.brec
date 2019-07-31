@@ -67,27 +67,34 @@ Definition of the Breccian language
      Bullet
     ────────
         - The first component of a point head.
-        - Its precise form varies according to the point type.
-        - The basic form, however, is invariant across point types.
-        basic form
-            : see @ `^^syntax description$` @ `^^ Notes$`
-            - Beginning, one of:
-                ∪ a character that is neither whitespace nor backslash nor divider mark
-                ∪ one or more backslashes immediately followed by
-                  a character that is neither whitespace nor backslash
-            - End boundary, one of:
-                ∪ inline commentary
-                ∪ a space immediately after a non-alphanumeric, non-space character
-                ∪ a newline and any spaces that precede it
-            - A bullet may contain spacing characters.
-                : see @ `^^character identification$` @ `^^ Notes$`
-                - One or more plain spaces (20) may follow any alphanumeric character.
-                - One or more no-break spaces (A0) may follow any non-alphanumeric character
-                  other than a plain space, or a backslash in a backslash sequence at the start
-                  of the bullet.
-                    / The latter is excluded because it has no apparent use case
-                      and would complicate Breccia mode for Emacs.
-                        : re `Breccia mode for Emacs` see Emacs/Breccia_mode.el
+        - Its precise form varies according to the point type,
+          but all bullets share the basic form described below.
+            : re `described` see @ `^^hard to diagram$` @ `^^ Notes$`
+        start boundary
+            - as defined in § Point
+                : see `^^ Point$`
+        start, one of:
+            | a character that is neither whitespace nor backslash nor divider mark
+            | one or more backslashes immediately followed by
+              a character that is neither whitespace nor backslash
+        interior
+            - The bullet may contain spacing characters.
+            : see `^^character identification$` @ `^^ Notes$`
+            - One or more plain spaces (20) may follow any alphanumeric character
+                - Elsewhere a plain space would end the bullet, rather than continue it.
+            - One or more no-break spaces (A0) may follow any non-alphanumeric character
+              other than either a plain space, or a backslash occuring in a backslash sequence
+              at the start of the bullet.
+                - Here the excluded cases do not end the bullet, rather they are forbidden.
+                / The backslash is an excluded case because it would complicate Breccia mode for Emacs
+                  and appears to be useless anyway.
+                    : re `Breccia mode for Emacs` see Emacs/Breccia_mode.el
+        end boundary, one of:
+            | a space immediately after a non-alphanumeric, non-space character
+            | as defined in § Point
+                : see `^^ Point$`
+            | as defined in § Node
+                : see `^^head$` @ `^^ Node$`
 
 
 
@@ -280,7 +287,7 @@ Definition of the Breccian language
         - A non specialized point.
             - A point for which the language defines no special role or bullet form.
         - Its bullet is largely free form, constrained only by the basic form of a bullet.
-            : re `basic form` see @ `^^ Bullet$`
+            : re `basic form` see `^^ Bullet$`
 
 
 
@@ -522,7 +529,7 @@ Definition of the Breccian language
      Whitespace
     ────────────
         allowed characters
-            : see @ `^^character identification$` @ `^^ Notes$`
+            : see `^^character identification$` @ `^^ Notes$`
             • space (20)
             • newline (A, D)
             • no-break space (A0) as described for use in bullets and static blocks
@@ -549,8 +556,8 @@ Definition of the Breccian language
         graphical syntax notation
             - The present text uses syntax diagrams because it is aimed at Breccian authors in general,
               who are not expected to be comfortable with a textual notation such as Backus-Naur Form.
-        syntax description
-            - Here the form is difficult to diagram, easier to describe.
+        hard to diagram
+            - Here the form is easier to describe than it would be to diagram.
 
 
 
