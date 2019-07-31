@@ -39,9 +39,6 @@ Definition of the Breccian language
                        │
                        ▼
 
-            : re `descriptor` see
-            : re `body node|│ +(body) .+$│ +(node)` see `^^typology$` @ `^^ Node$`
-
     document title
         - The document title, if any, is determined by the first nodal head in document order
           that yields a non-empty result after collapsing the whitespace of the relevant part
@@ -138,7 +135,6 @@ Definition of the Breccian language
                         - A URI reference.
                     IMPLIABLE_NODE_INDICATOR
                         - An impliable node indicator.
-                            : re ` impliable node indicator` see
                         - Used only to cite a Breccian source.
                         - Indicates the referent as a Breccian node.
                         - The default value for the first component of the indicator, or the implied
@@ -287,7 +283,6 @@ Definition of the Breccian language
         - A non specialized point.
             - A point for which the language defines no special role or bullet form.
         - Its bullet is largely free form, constrained only by the basic form of a bullet.
-            : re `basic form` see `^^ Bullet$`
 
 
 
@@ -306,7 +301,6 @@ Definition of the Breccian language
 
             IMPLIABLE_NODE_INDICATOR
                 - An impliable node indicator.
-                    : re `impliable node indicator` see
                 - Indicates the referent node.
                 - The default value for the first component of the indicator, or the implied value
                   of the whole indicator if all its components are omitted, is a direct node indicator
@@ -416,7 +410,6 @@ Definition of the Breccian language
                     / A procedure commonly used in defining the default value
                       of a principal node indicator.
                     - Returns a pattern `p` in the form defined for a direct node indicator.
-                        : re `form defined` see `^^direct node indicator$`
                     + Set `p` to the text of the given `nodal head`.
                     + Trim `p` of commentary.
                     + Trim `p` of leading whitespace on its first line.
