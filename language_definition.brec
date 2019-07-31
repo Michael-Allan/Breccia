@@ -56,7 +56,7 @@ Definition of the Breccian language
     ━━━━━━━━━━━━━
      Aside point
     ─────────────
-        / A type of specialized material point.
+        / A specialized material point.
         - A point with a bullet comprising ‘/’.
         - Its descriptor is largely free form.
             : see `Most descriptors are largely free form` @ `^^ Descriptor$`
@@ -104,7 +104,7 @@ Definition of the Breccian language
               that might otherwise be taken as part of the URI (such as a ‘.’),
               then it must be quoted, e.g. by backquotes or angle braces.
         associative citation
-            / A type of command point.
+            / A command point.
             - Associates for citation purposes a preceding character sequence (the referrer)
               with a particular referent.
             - Referrers may overlap or nest in any manner.
@@ -153,7 +153,7 @@ Definition of the Breccian language
     ━━━━━━━━━━━━━━━
      Command point
     ───────────────
-        / A type of formal point.
+        / A formal point.
         - Bulleted ‘:’.
         - Command points execute in document order.
         / Following are the types of command point.
@@ -222,7 +222,7 @@ Definition of the Breccian language
     ━━━━━━━━━━
      Division
     ──────────
-        / A type of child node.
+        / A body node.
         - Its head is called a divider.
         divider
             - Comprises one or more divider segments.
@@ -265,7 +265,7 @@ Definition of the Breccian language
     ━━━━━━━━━━━━━━━━━
      Exception point
     ─────────────────
-        / A type of specialized material point.
+        / A specialized material point.
         - Bullet comprising or terminated ‘!!’.
         - Exception points are justified by the Breccian purpose of drafting, wherein the ability
           to note exceptions is a useful aid.
@@ -276,7 +276,7 @@ Definition of the Breccian language
     ━━━━━━━━━━━━━━━
      Generic point
     ───────────────
-        / A type of material point.
+        / A material point.
         - A non specialized point.
             - A point for which the language defines no special role or bullet form.
         - Its bullet is largely free form, constrained only by the basic form of a bullet.
@@ -287,7 +287,7 @@ Definition of the Breccian language
     ━━━━━━━━━
      Jointer
     ─────────
-        / A type of formal point.
+        / A command point.
         - A jointer stands for the body of its referent node.
         example
 
@@ -472,7 +472,7 @@ Definition of the Breccian language
     ━━━━━━━
      Point
     ───────
-        / A type of node.
+        / A body node.
         - Its head comprises a perfectly indented bullet, optionally followed by a descriptor.
 
                ───╴  perfect  ╶─── bullet ──┬── gap ─── descriptor ──┬───▶
@@ -510,7 +510,7 @@ Definition of the Breccian language
     ━━━━━━━━━━━━
      Task point
     ────────────
-        / A type of specialized material point.
+        / A specialized material point.
         - Bullet comprising or terminated ‘+’.
         - Task points are justified by the Breccian purpose of drafting,
           for which inline tasking is a useful aid.
