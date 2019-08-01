@@ -56,7 +56,73 @@ Definition of the Breccian language
         / A specialized material point.
         - A point with a bullet comprising ‘/’.
         - Its descriptor is largely free form.
-            : see `Most descriptors are largely free form` @ `^^ Descriptor$`
+            : see `Most descriptors are largely free form.$` @ `^^ Descriptor$`
+
+
+    ━━━━━━━━━━━━━━━━━━━━━━
+     Associative citation
+    ──────────────────────
+        / A command point.
+        - It associates for citation purposes a preceding character sequence (the referrer),
+          or several such sequences (referrers), with a particular referent.
+        - Its descriptor has this form:
+
+               ─── gap ───┬─╴`re` clause ──┬─ gap ─┬──┬─╴`see` clause ───▶
+                          │                │       │  │
+                          │                └───────┘  │
+                          │                           │
+                          └───────────────────────────┘
+
+        - The `re` clause indicates the referrer or referrers.
+        - The `see` clause indicates the referent.
+        - A single referrer may be associated with multiple referents.
+            / via multiple, sibling citations that indicate the same referrer
+        - Multiple referrers may be overlapped or nested in any manner.
+            / via multiple, sibling citations
+            / via a single citation that indicates multiple referrers at once
+
+        `re` clause
+            - The `re` clause indicates the referrer, or referrers, by a pattern of text.
+
+                   ───╴‘re’╶─┬─ gap ─┬─╴‘`’╶─ pattern ─╴‘`’╶────▶
+                             │       │
+                             └───────┘
+
+            - Each part of the parent head that matches the pattern is a thereby a referrer.
+                - Failing a parent head, the citation is misplaced and the document malformed.
+                    / This occurs only when the parent is a document node without a descriptor.
+                - Where a match of the pattern captures one or more groups,
+                  it indicates the referrer as (just) the union of the groups.
+                    / Looking at the citation for the diagram of the `see` clause below, for example,
+                      it indicates the referrer as the words ‘URI’ and ‘reference’ combined.
+            - The `re` clause is optional.
+                - If omitted, then the whole of the parent head is taken as the referrer.
+
+        `see` clause
+            - The `see` clause indicates the referent.
+
+                                                   URI
+                                           ┌─── reference ───┐
+                   ────╴‘see’╶─┬─ gap ─┬───┤                 ├────▶
+                               │       │   │    impliable    │
+                               └───────┘   └────  node   ────┘
+                                                indicator
+
+                : re `(URI)$.*(reference)` see https://tools.ietf.org/html/rfc3986#section-4.1
+
+            - The default value for the first component of the impliable node indicator,
+              or the implied value of the whole indicator if all its components are omitted,
+              is a principal node indicator with a pattern `p` formed as follows.
+                | If the citation has a `re` clause:
+                    + Set `p` to the referrer pattern given in the `re` clause.
+                    + Broadly pattern `p`.
+                        : join `^^| (Else):$^^/ Broadly patterning`
+                          @ `^^procedure: generalized_pattern\( nodal_head \)$`
+                    + Anchor `p` by appending ‘$’.
+                | Else:
+                    + Set `p` to the generalized pattern of the citation’s parent head.
+                        : re `generalized pattern`
+                          see `^^procedure: generalized_pattern\( nodal_head \)$`
 
 
 
@@ -98,58 +164,17 @@ Definition of the Breccian language
     ━━━━━━━━━━
      Citation
     ──────────
+        associative citation
+            : join
         inline URI
             - A URI in a place that does not call for a URI.
-                / e.g. mixed in with ordinary text
-                - Not a URI reference.
-                    - Here URI references go unrecognized by the parser.
-                        / Unrecognized for lack of any reliable distinguishing mark.
-            - When a URI is followed immediately by punctuation
-              that might otherwise be taken as part of the URI (such as a ‘.’),
-              then it must be quoted, e.g. by backquotes or angle braces.
-        associative citation
-            / A command point.
-            - Associates for citation purposes a preceding character sequence (the referrer)
-              with a particular referent.
-            - Referrers may overlap or nest in any manner.
-            - A single referrer may associate with multiple referents.
-            form
-
-                  : [re `PATTERN`] see IMPLIABLE_NODE_INDICATOR | URI_REFERENCE
-
-                PATTERN
-                    - A Perl compatible regular expression.
-                    - It indicates the referrer as that part of the parent head
-                      which matches the pattern.
-                        - Failing a parent head, the citation is misplaced
-                          and the document malformed.
-                            / This occurs only when the parent is a (headless) document node.
-                        - Where the pattern captures one or more groups,
-                          the referrer is just the union of the groups.
-                    - Optional, if a `re` clause is omitted, then the referrer
-                      is taken the whole of the parent head.
-                    forbidden pattern sequences
-                        : join @ `^^ impliable node indicator$`
-                referent indicator
-                    URI_REFERENCE
-                        - A URI reference.
-                    IMPLIABLE_NODE_INDICATOR
-                        - An impliable node indicator.
-                        - Used only to cite a Breccian source.
-                        - Indicates the referent as a Breccian node.
-                        - The default value for the first component of the indicator, or the implied
-                          value of the whole indicator if all its components are omitted, is a direct
-                          node indicator formed using a pattern `p`, formed in turn as follows.
-                            | If the citation has a `re` clause:
-                                + Set `p` to the referrer pattern given in the `re` clause.
-                                + Broadly pattern `p`.
-                                    : join `^^| Else:$^^/ Broadly patterning$`
-                                      @ `^^procedure: generalized_pattern\( nodal_head \)$`
-                                + Anchor `p` by appending ‘$’.
-                            | Else:
-                                + Set `p` to the generalized pattern of the citation’s parent head.
-                                    : re `generalized pattern`
-                                      see `^^procedure: generalized_pattern\( nodal_head \)$`
+                / E.g. in a comment, or the descriptor of a material point.
+                / A URI as opposed to a URI reference, whose form cannot reliably be distinguished.
+            - An inline URI must not directly be followed by punctuation which might be taken as part
+              of it unless the URI is symmetrically quoted, e.g. using backquotes or angle braces.
+                / Like this, for example, <http://reluk.ca/#foo>.
+                  Or even this, .http://reluk.ca/#foo.
+                  But not this, http://reluk.ca/#foo.  (wrong)
 
 
 
@@ -161,14 +186,16 @@ Definition of the Breccian language
         - Command points execute in document order.
         / Following are the types of command point.
         associative citation
-            : join @ `^^ Citation$`
+            : join
         jointer
             : join
         null command
-            - Does nothing.
-            form
+            - A command point that does nothing.
+            - Its descriptor has this form:
 
-                  :
+                   ───┬─ gap ─┬────▶
+                      │       │
+                      └───────┘
 
 
 
@@ -201,24 +228,34 @@ Definition of the Breccian language
      Descriptor
     ────────────
         - Elaborative, explanatory text of a document head or point head.
-        - Most descriptors are largely free form, constrained only by the basic head form:
-          the end of the descriptor is defined by the end boundary of the head.
-            : re `end boundary of the head` see `^^head$` @ `^^ Node$`
+        - It starts with a gap.
+
+                           · · · ·
+                           ·     ·
+               ─── gap ─── ·  ?  · ────▶
+                           ·     ·
+                           · · · ·
+
+        - What follows depends on the type of node in which the descriptor appears.
+        - Most descriptors are largely free form.
+            - Aside from the initial gap, they are constrained only by the basic head form:
+              the end of the descriptor is defined by the end boundary of the head.
+                : re `end boundary of the head` see `^^head$` @ `^^ Node$`
             - The descriptor of a formal point, however, is further constrained.
                 : re `formal point` see `^^typology$` @ `^^ Point$`
         gap
-            - A formal intermediary that commonly appears before a descriptor and between its components.
+            - A formal intermediary within a descriptor.
 
-                  ┌─────────────────────╴◀──────────────────────────────────────────┐
-                  │                                                                 │
-                  │  ┌────────────────────────╴‘ ’╶──────────────────────────────┐  │
-                  │  │                                                           │  │
-               ───┴──┤                                          block            ├──┴───▶
-                     │        inline                     ┌─── commentary ───┐    │
-                     └──┬── commentary ──┬── newline ──┬─┤                  ├─┬──┘
-                        │                │             │ └── static block ──┘ │
-                        └────────────────┘             │                      │
-                                                       └──────────────────────┘
+                  ┌─────────────────────╴◀───────────────────────────────────────┐
+                  │                                                              │
+                  │  ┌────────────────────────╴‘ ’╶───────────────────────────┐  │
+                  │  │                                                        │  │
+               ───┴──┤                                         block          ├──┴───▶
+                     │        inline                    ┌─── commentary ───┐  │
+                     └──┬── commentary ──┬── newline ───┤                  ├──┘
+                        │                │              ├── static block ──┤
+                        └────────────────┘              │                  │
+                                                        └──────────────────┘
 
 
 
@@ -306,6 +343,8 @@ Definition of the Breccian language
                   of the whole indicator if all its components are omitted, is a direct node indicator
                   formed using the generalized pattern of the jointer’s parent head.
                     : re `generalized pattern` see `^^procedure: generalized_pattern\( nodal_head \)$`
+                - Where a pattern would capture one or more groups, it matches only where all captured
+                  groups fall within the head of a single node and indicates that node as the referent.
                 - Will not match where the joint would have no effect.
                     / This stops the jointer matching its own parent, for instance,
                       or a parent of like form.
@@ -384,7 +423,7 @@ Definition of the Breccian language
         ──────────────────────────
          impliable node indicator
         ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
-            - An indicator of a node, here referred to as ‘the principal node’.
+            - An indicator of a Breccian node, here referred to as ‘the principal node’.
 
                                            ┌─────────╴◀─────────────┐
                                            │                        │
@@ -400,11 +439,9 @@ Definition of the Breccian language
               the implied value of the whole indicator if all its components are omitted.
 
             principal node indicator
-                - A direct indicator of the principal node.
+                - A direct indicator of the principal node by the pattern of its text.
 
-                             direct
-                       ────╴  node   ╶────▶
-                            indicator
+                       ───╴‘`’╶─ pattern ─╴‘`’╶───▶
 
                 procedure: generalized pattern( nodal head )
                     / A procedure commonly used in defining the default value
@@ -424,20 +461,21 @@ Definition of the Breccian language
                     | Else:
                         / Broadly patterning to cover both division title and bullet forms.
                         + Anchor `p` by prepending ‘^ *’.
-                        + Ensure that letter case will be ignored in `p`.
+                        + Ensure that `p` functions in *case insensitive* mode (`i`).
+                            : re `\*case insensitive\* mode`
+                              see https://perldoc.perl.org/perlreref.html#OPERATORS
                     + Anchor `p` by appending ‘$’.
 
-            direct node indicator
-                - It indicates a node directly by the pattern of its text.
-
-                       ───╴‘`’╶─ pattern ─╴‘`’╶───▶
-
-                - The pattern is formed as a modified, Perl compatible regular expression.
+            pattern
+                - A modified, Perl compatible regular expression in multiline mode (`m`).
+                    : re `Perl compatible regular expression` see https://perldoc.perl.org/perlreref.html
+                    : re `multiline mode` see https://perldoc.perl.org/perlreref.html#OPERATORS
                 - Its modifications are:
                     • `\t` symbolizes not a tab, but one unit of perfect indentation
                     • `^^` expands to `^\t*`, an anchored, leading sequence of perfect indentation
                 forbidden pattern sequences
                     • pattern delimiter
+                        / Patterns are delimited using backquote characters ‘`’.
                         - No backquote character ‘`’ may appear in the pattern unless escaped
                           with a backslash ‘\`’.
                         - Backslashes themselves are likewise escapable, of course.
@@ -452,18 +490,21 @@ Definition of the Breccian language
 
             ancestral node indicator
                 - An indicator of an ancestor of the principal node.
+                - It indicates the ancestor by the pattern of its text.
 
-                                   direct
-                       ───╴‘@’╶──╴  node   ╶────▶
-                                  indicator
+                       ───╴‘@’╶─┬─ gap ─┬─╴‘`’╶─ pattern ─╴‘`’╶───▶
+                                │       │
+                                └───────┘
 
                 - Where multiple indicators appear in series, each successor gives the ancestral scope
                   of its predecessor.
 
             proper document indicator
-                - An indicator of the document in which the principal node appears.
+                - An indicator of the document of the principal node.
 
-                       ───╴‘@’╶─── URI reference ────▶
+                       ───╴‘@’╶─┬─ gap ─┬── URI reference ────▶
+                                │       │
+                                └───────┘
 
                     : re `URI reference` see https://tools.ietf.org/html/rfc3986#section-4.1
 
@@ -475,9 +516,9 @@ Definition of the Breccian language
         / A body node.
         - Its head comprises a perfectly indented bullet, optionally followed by a descriptor.
 
-               ───╴  perfect  ╶─── bullet ──┬── gap ─── descriptor ──┬───▶
-                   indentation              │                        │
-                                            └────────────────────────┘
+               ───╴  perfect  ╶─── bullet ──┬── descriptor ──┬───▶
+                   indentation              │                │
+                                            └────────────────┘
 
         - The precise forms, both of bullet and descriptor, depend on the point type.
         typology
