@@ -182,9 +182,9 @@ Definition of the Breccian language
      Command point
     ───────────────
         / A formal point.
-        - Bulleted ‘:’.
-        - Command points execute in document order.
-        / Following are the types of command point.
+        - A point with a bullet comprising ‘:’.
+        - Processors interpret command points and execute their commands in document order.
+        / Types of command point follow.
         associative citation
             : join
         jointer
@@ -476,8 +476,8 @@ Definition of the Breccian language
                 forbidden pattern sequences
                     • pattern delimiter
                         / Patterns are delimited using backquote characters ‘`’.
-                        - No backquote character ‘`’ may appear in the pattern unless escaped
-                          with a backslash ‘\`’.
+                        - To put a literal backquote character ‘`’ in a pattern,
+                          one must escape it with a backslash ‘\`’.
                         - Backslashes themselves are likewise escapable, of course.
                             / The trailing delimiter character in pattern ‘foo\\`’,
                               for example, is not escaped by the preceding backslash
