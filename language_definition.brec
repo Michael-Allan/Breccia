@@ -132,32 +132,37 @@ Definition of the Breccian language
         - The first component of a point head.
         - Its precise form varies according to the point type,
           but all bullets share the basic form described below.
-            : re `described` see @ `^^hard to diagram$` @ `^^ Notes$`
-        start boundary
-            - as defined in § Point
-                : see `^^ Point$`
+            : re `described below` see @ `^^hard to diagram$` @ `^^ Notes$`
+        start boundary: perfect indentation
+            : see `^^ Point$`
         start, one of:
             | a character that is neither whitespace nor backslash nor divider mark
             | one or more backslashes immediately followed by
               a character that is neither whitespace nor backslash
         interior
-            - The bullet may contain spacing characters.
-            : see `^^character identification$` @ `^^ Notes$`
-            - One or more plain spaces (20) may follow any alphanumeric character
-                - Elsewhere a plain space would end the bullet, rather than continue it.
-            - One or more no-break spaces (A0) may follow any non-alphanumeric character
-              other than either a plain space, or a backslash occuring in a backslash sequence
-              at the start of the bullet.
-                - Here the excluded cases do not end the bullet, rather they are forbidden.
-                / The backslash is an excluded case because it would complicate Breccia mode for Emacs
-                  and appears to be useless anyway.
-                    : re `Breccia mode for Emacs` see Emacs/Breccia_mode.el
+            - After the start character and before the end character.
+            - Here the bullet may contain spacing characters, and nowhere else.
+                - One or more plain spaces (20) may follow an alphanumeric character.
+                    : see `^^character identification$` @ `^^ Notes$`
+                    - Following any other character, rather than continuing the bullet
+                      a plain space would mark its end boundary by starting a descriptor.
+                - One or more no-break spaces (A0) may follow any non-alphanumeric character
+                  other than either a plain space, or a backslash occuring in a backslash sequence
+                  at the start of the bullet.
+                    - Here the excluded cases are not boundary constituents,
+                      rather they are simply forbidden.
+                    / The backslash is an excluded case both because it would complicate
+                      Breccia mode for Emacs, and because it appears to be useless anyway.
+                        : re `Breccia mode for Emacs` see Emacs/Breccia_mode.el
+        end, a character that is neither:
+            | whitespace
+            | inline commentary
+                / a backslash forming part of a start sequence for inline commentary, that is
         end boundary, one of:
-            | a space immediately after a non-alphanumeric, non-space character
-            | as defined in § Point
-                : see `^^ Point$`
-            | as defined in § Node
-                : see `^^head$` @ `^^ Node$`
+            : see `^^ Point$`
+            | a descriptor
+            | the end boundary of the point head, comprising one of:
+                : join `comprises one of:$` @ `^^head$` @ `^^ Node$`
 
 
 
@@ -398,17 +403,16 @@ Definition of the Breccian language
                       │
                       ▼
 
-            - The form of the head depends on the node type.
-            - For all types of node, the body may be omitted.
             head
                 - The part of a node exclusive of its children.
                 - Its form (abstracted from the diagram) varies according to the node type.
                 - Its end boundary, however, always comprises one of:
-                    • the next node in document order; or
-                        / which node, if it has a body, would be its first child node
-                    • the end of the document.
+                    | its successor node in document order
+                        : see `^^head successor$` @ `^^ Notes$`
+                    | the end of the document
             body
-                - The part of a node comprising its children alone, a sequence of body nodes.
+                - The part of a node comprising its children alone; a sequence of body nodes.
+                - A body is always optional: regardless of the node type, it may be omitted.
 
         nodal relations
             • parent
@@ -520,7 +524,9 @@ Definition of the Breccian language
                    indentation              │                │
                                             └────────────────┘
 
-        - The precise forms, both of bullet and descriptor, depend on the point type.
+        - The precise forms, both of bullet and descriptor, depend on the type of point.
+        - Regardless of point type, the end boundary of the head always comprises one of:
+            : join `comprises one of:$` @ `^^head$` @ `^^ Node$`
         typology
             ◇ point
                 ◇ formal point
@@ -592,6 +598,12 @@ Definition of the Breccian language
               who are not expected to be comfortable with a textual notation such as Backus-Naur Form.
         hard to diagram
             - Here the form is easier to describe than it would be to diagram.
+        head successor
+            - Successor to the head, that is.
+            - Relative to the whole node, it means the first applicable of:
+                | the first child, if the node has a body
+                | the next sibling
+                | the next sibling of the nearest ancestor which itself is not the final sibling
 
 
 
