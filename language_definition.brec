@@ -63,7 +63,7 @@ Definition of the Breccian language
      Associative citation
     ──────────────────────
         / A command point.
-        - It associates for citation purposes a preceding character sequence (the referrer),
+        - It associates for citational purposes a preceding character sequence (the referrer),
           or several such sequences (referrers), with a particular referent.
         - Its descriptor has this form:
 
@@ -82,19 +82,25 @@ Definition of the Breccian language
             / via a single citation that indicates multiple referrers at once
 
         `re` clause
-            - The `re` clause indicates the referrer, or referrers, by a pattern of text.
+            - The `re` clause indicates the referrer, or referrers, by a pattern of text
+              occuring in the parent head of the citation.
 
                    ───╴‘re’╶─┬─ gap ─┬─╴‘`’╶─ pattern ─╴‘`’╶────▶
                              │       │
                              └───────┘
 
-            - Each part of the parent head that matches the pattern is a thereby a referrer.
                 - Failing a parent head, the citation is misplaced and the document malformed.
                     / This occurs only when the parent is a document node without a descriptor.
-                - Where a match of the pattern captures one or more groups,
-                  it indicates the referrer as (just) the union of the groups.
-                    / Looking at the citation for the diagram of the `see` clause below, for example,
-                      it indicates the referrer as the words ‘URI’ and ‘reference’ combined.
+            - It works thus:
+                if( the pattern contains one or more subexpression grouping constructs ‘(…)’ )
+                    : re `subexpression grouping constructs`
+                      see https://perldoc.perl.org/perlreref.html#SYNTAX
+                    for( each match of the pattern within the parent head of the citation )
+                        if( at least one subexpression captures a text sequence )
+                            + Set as a referrer the union of all captured text sequences.
+                else
+                    for( each match of the pattern within the parent head of the citation )
+                        + Set as a referrer the whole of the matching text.
             - The `re` clause is optional.
                 - If omitted, then the whole of the parent head is taken as the referrer.
 
@@ -110,19 +116,31 @@ Definition of the Breccian language
 
                 : re `(URI)$.*(reference)` see https://tools.ietf.org/html/rfc3986#section-4.1
 
-            - The default value for the first component of the impliable node indicator,
-              or the implied value of the whole indicator if all its components are omitted,
-              is a principal node indicator with a pattern `p` formed as follows.
-                | If the citation has a `re` clause:
-                    + Set `p` to the referrer pattern given in the `re` clause.
-                    + Broadly pattern `p`.
-                        : join `^^| (Else):$^^/ Broadly patterning`
-                          @ `^^procedure: generalized_pattern\( nodal_head \)$`
-                    + Anchor `p` by appending ‘$’.
-                | Else:
-                    + Set `p` to the generalized pattern of the citation’s parent head.
-                        : re `generalized pattern`
-                          see `^^procedure: generalized_pattern\( nodal_head \)$`
+            - It works thus:
+                if( a URI reference is given )
+                    + Set as referent the resource indicated by the URI reference.
+                else
+                    - An impliable node indicator is given.
+                    if( its first component is omitted )
+                        + Set as first component a principal node indicator
+                          with a pattern `p` formed thus:
+                            if( the citation has a `re` clause )
+                                + Set `p` to the pattern given in the `re` clause.
+                                + Broadly pattern `p`.
+                                    : join `^^(else)$^^/ Broadly patterning`
+                                      @ `^^generalized_pattern\( nodal_head \)$`
+                                + Anchor `p` by appending ‘$’.
+                            else
+                                + Set `p` to the generalized pattern of the citation’s parent head.
+                                    : re `generalized pattern`
+                                      see `^^generalized_pattern\( nodal_head \)$`
+                    if( the pattern of its principal node indicator contains
+                         one or more subexpression grouping constructs ‘(…)’ )
+                        : re `subexpression grouping constructs`
+                          see https://perldoc.perl.org/perlreref.html#SYNTAX
+                        + Set as referent the union of the text sequences they capture.
+                    else
+                        + Set as referent the whole of the indicated node.
 
 
 
@@ -347,10 +365,9 @@ Definition of the Breccian language
                 - The default value for the first component of the indicator, or the implied value
                   of the whole indicator if all its components are omitted, is a direct node indicator
                   formed using the generalized pattern of the jointer’s parent head.
-                    : re `generalized pattern` see `^^procedure: generalized_pattern\( nodal_head \)$`
-                - Where a pattern would capture one or more groups, it matches only where all captured
-                  groups fall within the head of a single node and indicates that node as the referent.
+                    : re `generalized pattern` see `^^generalized_pattern\( nodal_head \)$`
                 - Will not match where the joint would have no effect.
+                    : re `effect` see @ `^^ Jointer$`
                     / This stops the jointer matching its own parent, for instance,
                       or a parent of like form.
             NODAL_SCOPER
@@ -447,7 +464,23 @@ Definition of the Breccian language
 
                        ───╴‘`’╶─ pattern ─╴‘`’╶───▶
 
-                procedure: generalized pattern( nodal head )
+                - It works by indicating the return value of this procedure:
+                    if( the pattern contains one or more subexpression grouping constructs ‘(…)’ )
+                        : re `subexpression grouping constructs`
+                          see https://perldoc.perl.org/perlreref.html#SYNTAX
+                        for( each match of the pattern )
+                            if( at least one subexpression captures a text sequence,
+                                 and all captured text sequences lie within the same nodal head )
+                                + Set as indicated the nodal head’s node.
+                    else
+                        for( each match of the pattern )
+                            + Set as indicated the node whose head contains the first matched character
+                              in document order.
+                    if( exactly one node is indicated )
+                        return( the indicated node )
+                    throw( error, the indicator is ambiguous )
+
+                generalized pattern( nodal head )
                     / A procedure commonly used in defining the default value
                       of a principal node indicator.
                     - Returns a pattern `p` in the form defined for a direct node indicator.
@@ -457,18 +490,19 @@ Definition of the Breccian language
                     + Regexp quote `p`.
                     + Collapse all whitespace of `p` to ‘\s+’.
                         / Neutralizing differences in indentation and line wrapping.
-                    | If `nodal head` is a divider:
+                    if( `nodal head` is a divider )
                         + Anchor `p` by prepending ‘^^’.
-                        - For all sequential repeats (`r`) in `p` of a drawing character (`c`):
+                        for( all sequential repeats (`r`) in `p` of a drawing character (`c`) )
                             + Collapse `r` to a single `c` followed by ‘+’.
                             / Neutralizing differences in horizontal length, e.g. owing to indentation.
-                    | Else:
+                    else
                         / Broadly patterning to cover both division title and bullet forms.
                         + Anchor `p` by prepending ‘^ *’.
                         + Ensure that `p` functions in *case insensitive* mode (`i`).
                             : re `\*case insensitive\* mode`
                               see https://perldoc.perl.org/perlreref.html#OPERATORS
                     + Anchor `p` by appending ‘$’.
+                    return( `p` )
 
             pattern
                 - A modified, Perl compatible regular expression in multiline mode (`m`).
@@ -477,6 +511,7 @@ Definition of the Breccian language
                 - Its modifications are:
                     • `\t` symbolizes not a tab, but one unit of perfect indentation
                     • `^^` expands to `^\t*`, an anchored, leading sequence of perfect indentation
+
                 forbidden pattern sequences
                     • pattern delimiter
                         / Patterns are delimited using backquote characters ‘`’.
