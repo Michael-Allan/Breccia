@@ -1,11 +1,12 @@
 Definition of the Breccian language
 
-    - Breccia is formally comprised of document nodes.
+    - Breccia in practice is a production of concrete documents,
+      here defined in abstract terms as document nodes.
 
               │
               │
               ├──────┐
-              ╵      │
+              ╵      │     \ [graphical syntax notation], q.v. at end notes
            document  ▲
              node    │
               ╷      │
@@ -14,10 +15,10 @@ Definition of the Breccian language
               │
               ▼
 
-        : see @ `^^graphical syntax notation$` @ `^^ Notes$`
+            figure, The collective form of Breccia.
 
     document node
-        - A Breccian document in formal terms.
+        - A Breccian document in abstract terms.
         - It divides into an optional head formed as a bare descriptor,
           and an optional body formed as a sequence of body nodes.
 
@@ -55,7 +56,7 @@ Definition of the Breccian language
     ─────────────
         / A specialized material point.
         - A point with a bullet comprising ‘/’.
-        - Its descriptor is largely free form.
+        - Its descriptor, if present, is largely free form.
             : see `Most descriptors are largely free form.$` @ `^^ Descriptor$`
 
 
@@ -70,8 +71,9 @@ Definition of the Breccian language
                ─── gap ───┬─╴`re` clause ──┬─ gap ─┬──┬─╴`see` clause ───▶
                           │                │       │  │
                           │                └───────┘  │
-                          │                           │
                           └───────────────────────────┘
+
+            figure, The form of the descriptor of an associative citation.
 
         - The `re` clause indicates the referrer or referrers.
         - The `see` clause indicates the referent.
@@ -121,7 +123,7 @@ Definition of the Breccian language
                     + Set as referent the resource indicated by the URI reference.
                 else
                     - An impliable node indicator is given.
-                    if( its first component is omitted )
+                    if( its first component (the principal node indicator) is omitted )
                         + Set as first component a principal node indicator
                           with a pattern `p` formed thus:
                             if( the citation has a `re` clause )
@@ -147,40 +149,43 @@ Definition of the Breccian language
     ━━━━━━━━
      Bullet
     ────────
-        - The first component of a point head.
-        - Its precise form varies according to the point type,
-          but all bullets share the basic form described below.
-            : re `described below` see @ `^^hard to diagram$` @ `^^ Notes$`
-        start boundary: perfect indentation
-            : see `^^ Point$`
-        start, one of:
-            | a character that is neither whitespace nor backslash nor divider mark
+        / Part of a point head.
+        - It is confined between boundaries (diagram below) which partly determine its internal form.
+
+                 perfect   ┊      start                             end             ┊   descriptor,
+               indentation ┊╶─── sequence ──┬──┬── interior ──┬── character ──┬───▶ ┊  head successor,
+                           ┊                │  │              │               │     ┊ or end of document
+                                            │  └──────────────┘               │     ┊
+                                            └─────────────────────────────────┘
+                                    i                 ii            iii
+
+            : re `head successor` see `^^\| the head successor$` @ `^^ Node$`
+        - While the precise internal form varies according to the point type, every bullet is formally
+          conditioned by basic contraints operating in several regions, here numbered i, ii, iii.
+        i. start sequence, one of:
+            | a character that is neither whitespace nor backslash (5C) nor divider mark
+                : see `^^character identification$` @ `^^ Notes$`
             | one or more backslashes immediately followed by
               a character that is neither whitespace nor backslash
-        interior
-            - After the start character and before the end character.
+                \ Whitespace would make it a sequence of a comment block, not a bullet.
+        ii. interior
+            - Coming after the start character and before the end character.
             - Here the bullet may contain spacing characters, and nowhere else.
                 - One or more plain spaces (20) may follow an alphanumeric character.
-                    : see `^^character identification$` @ `^^ Notes$`
-                    - Following any other character, rather than continuing the bullet
-                      a plain space would mark its end boundary by starting a descriptor.
+                    - Following any other character C would expel both from the interior, making C
+                      either the end character if it meets its constraints, or part of the end boundary.
                 - One or more no-break spaces (A0) may follow any non-alphanumeric character
                   other than either a plain space, or a backslash occuring in a backslash sequence
-                  at the start of the bullet.
-                    - Here the excluded cases are not boundary constituents,
-                      rather they are simply forbidden.
-                    / The backslash is an excluded case both because it would complicate
-                      Breccia mode for Emacs, and because it appears to be useless anyway.
-                        : re `Breccia mode for Emacs` see Emacs/Breccia_mode.el
-        end, a character that is neither:
+                  at the start of the bullet. \ The backslash case is excluded because it would
+                    \ complicate `Emacs/Breccia_mode.el`, and anyway appears to be useless.
+                    - Here the excluded sequences are not expulsive, rather they are simply forbidden.
+                - No other whitespace is allowed, namely no newline: it could not be part of a bullet,
+                  only of its end boundary.
+        iii. end character, a character that is none of:
             | whitespace
-            | inline commentary
-                / a backslash forming part of a start sequence for inline commentary, that is
-        end boundary, one of:
-            : see `^^ Point$`
-            | a descriptor
-            | the end boundary of the point head, comprising one of:
-                : join `comprises one of:$` @ `^^head$` @ `^^ Node$`
+            | a backslash subsequent to a plain space of the interior
+                \ That would start the end boundary in the form of inline commentary,
+                \ part of a descriptor.
 
 
 
@@ -206,19 +211,27 @@ Definition of the Breccian language
     ───────────────
         / A formal point.
         - A point with a bullet comprising ‘:’.
+        - The form of its descriptor varies with the type of command point.
+            - Only in the case of *null command point* may the descriptor be omitted.
         - Processors interpret command points and execute their commands in document order.
-        / Types of command point follow.
-        associative citation
-            : join
-        jointer
-            : join
-        null command
-            - A command point that does nothing.
-            - Its descriptor has this form:
 
-                   ───┬─ gap ─┬────▶
-                      │       │
-                      └───────┘
+
+        ────────────────────────
+         types of command point
+        ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
+            associative citation
+                : see
+
+            jointer
+                : see
+
+            null command point
+                - A command point that does nothing.
+                - Its descriptor, if present, has this form:
+
+                       ─── gap ───▶
+
+                    figure, The form of a descriptor as it appears in a null command point.
 
 
 
@@ -254,16 +267,15 @@ Definition of the Breccian language
         - It starts with a gap.
 
                            · · · ·
-                           ·     ·
-               ─── gap ─── ·  ?  · ────▶
-                           ·     ·
+                           ·     ·       ┊  head successor,
+               ─── gap ─── ·  ?  · ────▶ ┊ or end of document
+                           ·     ·       ┊
                            · · · ·
 
-        - What follows depends on the type of node in which the descriptor appears.
-        - Most descriptors are largely free form.
-            - Aside from the initial gap, they are constrained only by the basic head form:
-              the end of the descriptor is defined by the end boundary of the head.
-                : re `end boundary of the head` see `^^head$` @ `^^ Node$`
+            : re `head successor` see `^^\| the head successor$` @ `^^ Node$`
+        - What follows the gap (?) depends on the type of node in which the descriptor appears.
+        - Here most descriptors are largely free form, constrained only by the end boundary
+          of their head (as shown).
             - The descriptor of a formal point, however, is further constrained.
                 : re `formal point` see `^^typology$` @ `^^ Point$`
         gap
@@ -342,7 +354,8 @@ Definition of the Breccian language
         / A material point.
         - A non specialized point.
             - A point for which the language defines no special role or bullet form.
-        - Its bullet is largely free form, constrained only by the basic form of a bullet.
+        - Its bullet is largely free form, conditioned only by the basic constraints.
+            : re `basic constraints` see `(basic constraints) ` @ `^^ Bullet$`
 
 
 
@@ -363,7 +376,7 @@ Definition of the Breccian language
                 - An impliable node indicator.
                 - Indicates the referent node.
                 - The default value for the first component of the indicator, or the implied value
-                  of the whole indicator if all its components are omitted, is a direct node indicator
+                  of the whole indicator if all its components are omitted, is a principal node indicator
                   formed using the generalized pattern of the jointer’s parent head.
                     : re `generalized pattern` see `^^generalized_pattern\( nodal_head \)$`
                 - Will not match where the joint would have no effect.
@@ -409,23 +422,29 @@ Definition of the Breccian language
                    · · · ·      ┘
                       ╷
                       │
-                 ┌────┤         ┐
-                 │    ├───┐     │
+                 ┌────┤
+                 │    ├───┐     ┐
                  │    ╵   │     │
                  │  body  ▲     │ body
                  │  node  │     │
                  │    ╷   │     │
-                 │    ├───┘     │
-                 └────┤         ┘
+                 │    ├───┘     ┘
+                 └────┤
                       │
                       ▼
 
             head
                 - The part of a node exclusive of its children.
-                - Its form (abstracted from the diagram) varies according to the node type.
-                - Its end boundary, however, always comprises one of:
-                    | its successor node in document order
-                        : see `^^head successor$` @ `^^ Notes$`
+                - Its internal form (abstracted from the diagram) varies according to the node type.
+                - Its end boundary (not fully shown) always comprises one of:
+                    | the head successor
+                        - The head successor (S) is the node succeeding the head in document order.
+                        - In terms relative to the head’s own node N, S is the first applicable of:
+                            | the first child of N
+                                / in its body, that is
+                            | the next sibling of N
+                            | the next sibling of the nearest ancestor of N which is not itself
+                              a final sibling
                     | the end of the document
             body
                 - The part of a node comprising its children alone; a sequence of body nodes.
@@ -433,8 +452,9 @@ Definition of the Breccian language
 
         nodal relations
             • parent
-                - The parent of a node is its nearest (in document order) nodal precedecessor
-                  of less indentation, or failing that the document node.
+                - The parent of a node is the first applicable of:
+                    | its nearest (in document order) nodal precedecessor of less indentation
+                    | the document node
             • child
                 - A node that has a parent.
                 - All body nodes are children.
@@ -452,11 +472,10 @@ Definition of the Breccian language
                    ───┬──╴  node   ╶──┬──┬─┴─┬─ gap ─┬──╴  node   ╶─┴──┬──┬──┬─ gap ─┬── document ──┬───▶
                       │   indicator   │  │   │       │   indicator     │  │  │       │   indicator  │
                       │               │  │   └───────┘                 │  │  └───────┘              │
-                      └───────────────┘  │                             │  │                         │
-                                         └─────────────────────────────┘  └─────────────────────────┘
+                      └───────────────┘  └─────────────────────────────┘  └─────────────────────────┘
 
             - Any reference to this form will be accompanied by a default value for
-              its first component (principal node indicator), which will also serve as
+              its first component (the principal node indicator), which will also serve as
               the implied value of the whole indicator if all its components are omitted.
 
             principal node indicator
@@ -553,15 +572,18 @@ Definition of the Breccian language
      Point
     ───────
         / A body node.
-        - Its head comprises a perfectly indented bullet, optionally followed by a descriptor.
+        - Its head comprises a perfectly indented bullet, and often a descriptor.
 
-               ───╴  perfect  ╶─── bullet ──┬── descriptor ──┬───▶
-                   indentation              │                │
-                                            └────────────────┘
+               start ┊                                                     ┊  head successor,
+                of   ┊╶───╴  perfect  ╶─── bullet ──┬── descriptor ──┬───▶ ┊ or end of document
+               line  ┊     indentation              │                │     ┊
+                                                    └────────────────┘
 
-        - The precise forms, both of bullet and descriptor, depend on the type of point.
-        - Regardless of point type, the end boundary of the head always comprises one of:
-            : join `comprises one of:$` @ `^^head$` @ `^^ Node$`
+                : re `head successor` see `^^\| the head successor$` @ `^^ Node$`
+            figure, The form of a point head.
+
+        - Both the internal forms of the bullet and descriptor, and whether the descriptor may be
+          omitted, depend on the type of point.
         typology
             ◇ point
                 ◇ formal point
@@ -628,17 +650,9 @@ Definition of the Breccian language
         character identification
             - The identifiers here are hexadecimal codes of the Unicode standard.
                 : re `Unicode standard` see https://www.unicode.org/standard/standard.html
-        graphical syntax notation
-            - The present text uses syntax diagrams because it is aimed at Breccian authors in general,
-              who are not expected to be comfortable with a textual notation such as Backus-Naur Form.
-        hard to diagram
-            - Here the form is easier to describe than it would be to diagram.
-        head successor
-            - Successor to the head, that is.
-            - Relative to the whole node, it means the first applicable of:
-                | the first child, if the node has a body
-                | the next sibling
-                | the next sibling of the nearest ancestor which itself is not the final sibling
+     \ [graphical syntax notation]
+     \      - The present text uses syntax diagrams because it is aimed at Breccian authors in general,
+     \        who are not expected to be comfortable with a textual notation such as Backus-Naur Form.
 
 
 
