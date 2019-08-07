@@ -464,11 +464,11 @@ Definition of the Breccian language
         ──────────────────────────
          impliable node indicator
         ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
-            - An indicator of a Breccian node, here referred to as ‘the principal node’.
+            - An indicator of a node, here referred to as ‘the principal node’.
 
                                            ┌─────────╴◀─────────────┐
                                            │                        │
-                          principal        │             ancestral  │                    proper
+                          principal        │             ancestral  │                    referent
                    ───┬──╴  node   ╶──┬──┬─┴─┬─ gap ─┬──╴  node   ╶─┴──┬──┬──┬─ gap ─┬── document ──┬───▶
                       │   indicator   │  │   │       │   indicator     │  │  │       │   indicator  │
                       │               │  │   └───────┘                 │  │  └───────┘              │
@@ -477,6 +477,9 @@ Definition of the Breccian language
             - Any reference to this form will be accompanied by a default value for
               its first component (the principal node indicator), which will also serve as
               the implied value of the whole indicator if all its components are omitted.
+            - An impliable node indicator may be used to indicate a non-Breccian referent.
+                - Where a processor is unable to find such a referent,
+                  it should not prevent the reader trying to find it manually.
 
             principal node indicator
                 - A direct indicator of the principal node by the pattern of its text.
@@ -497,7 +500,8 @@ Definition of the Breccian language
                               in document order.
                     if( exactly one node is indicated )
                         return( the indicated node )
-                    throw( error, the indicator is ambiguous )
+                    if( the referent document is Breccian )
+                        throw( error, the indicator is ambiguous )
 
                 generalized pattern( nodal head )
                     / A procedure commonly used in defining the default value
@@ -557,8 +561,8 @@ Definition of the Breccian language
                 - Where multiple indicators appear in series, each successor gives the ancestral scope
                   of its predecessor.
 
-            proper document indicator
-                - An indicator of the document of the principal node.
+            referent document indicator
+                - An indicator of the referent document, the document of the principal node.
 
                        ───╴‘@’╶─┬─ gap ─┬── URI reference ────▶
                                 │       │
