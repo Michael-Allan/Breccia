@@ -511,20 +511,21 @@ Definition of the Breccian language
                     + Trim `p` of commentary.
                     + Trim `p` of leading whitespace on its first line.
                     + Regexp quote `p`.
-                    + Collapse all whitespace of `p` to ‘\s+’.
+                        - Some of this may be selectively ‘unquoted’ below.
+                    + Collapse all whitespace of `p` to an unquoted ‘\s+’.
                         / Neutralizing differences in indentation and line wrapping.
                     if( `nodal head` is a divider )
-                        + Anchor `p` by prepending ‘^^’.
+                        + Anchor `p` by prepending an unquoted ‘^^’.
                         for( all sequential repeats (`r`) in `p` of a drawing character (`c`) )
-                            + Collapse `r` to a single `c` followed by ‘+’.
+                            + Unquote and collapse `r` to a single `c` followed by ‘+’.
                             / Neutralizing differences in horizontal length, e.g. owing to indentation.
                     else
                         / Broadly patterning to cover both division title and bullet forms.
-                        + Anchor `p` by prepending ‘^ *’.
+                        + Anchor `p` by prepending an unquoted ‘^ *’.
                         + Ensure that `p` functions in *case insensitive* mode (`i`).
                             : re `\*case insensitive\* mode`
                               see https://perldoc.perl.org/perlreref.html#OPERATORS
-                    + Anchor `p` by appending ‘$’.
+                    + Anchor `p` by appending an unquoted ‘$’.
                     return( `p` )
 
             pattern
