@@ -128,14 +128,12 @@ Definition of the Breccian language
                           with a pattern `p` formed thus:
                             if( the citation has a `re` clause )
                                 + Set `p` to the pattern given in the `re` clause.
-                                + Broadly pattern `p`.
-                                    : join `^^(else)$^^/ Broadly patterning`
-                                      @ `^^generalized_pattern\( nodal_head \)$`
+                                + Set `p` to broadened to division title( `p` ).
+                                    : see `^^broadened to division title\( pattern \)$`
                                 + Anchor `p` by appending ‘$’.
                             else
-                                + Set `p` to the generalized pattern of the citation’s parent head.
-                                    : re `generalized pattern`
-                                      see `^^generalized_pattern\( nodal_head \)$`
+                                + Set `p` to generalized pattern( parent head of citation ).
+                                    : see `^^generalized pattern\( nodal head \)$`
                     if( the pattern of its principal node indicator contains
                          one or more subexpression grouping constructs ‘(…)’ )
                         : re `subexpression grouping constructs`
@@ -474,8 +472,8 @@ Definition of the Breccian language
                       │               │  │   └───────┘                 │  │  └───────┘              │
                       └───────────────┘  └─────────────────────────────┘  └─────────────────────────┘
 
-            - Any reference to this form will be accompanied by a default value for
-              its first component (the principal node indicator), which will also serve as
+            - Any reference to this form will be accompanied by the specification of a default value
+              for its first component (the principal node indicator), which will also serve as
               the implied value of the whole indicator if all its components are omitted.
             - An impliable node indicator may be used to indicate a non-Breccian referent.
                 - Where a processor is unable to find such a referent,
@@ -504,52 +502,42 @@ Definition of the Breccian language
                         throw( error, the indicator is ambiguous )
 
                 generalized pattern( nodal head )
-                    / A procedure commonly used in defining the default value
-                      of a principal node indicator.
-                    - Returns a pattern `p` in the form defined for a direct node indicator.
+                    / Returns a generalized pattern of the given nodal head, which is commonly used
+                      to specify the default value for a principal node indicator.
                     + Set `p` to the text of the given `nodal head`.
                     + Trim `p` of commentary.
                     + Trim `p` of leading whitespace on its first line.
-                    + Regexp quote `p`.
-                        - Some of this may be selectively ‘unquoted’ below.
-                    + Collapse all whitespace of `p` to an unquoted ‘\s+’.
+                    + Trim `p` of trailing whitespace.
+                    + Set `p` to literalized pattern( `p` ).
+                        : see `^^literalized pattern\( string \)$`
+                    + Collapse all remaining whitespace of `p` to ‘\s+’.
                         / Neutralizing differences in indentation and line wrapping.
                     if( `nodal head` is a divider )
-                        + Anchor `p` by prepending an unquoted ‘^^’.
-                        for( all sequential repeats (`r`) in `p` of a drawing character (`c`) )
-                            + Unquote and collapse `r` to a single `c` followed by ‘+’.
+                        + Anchor `p` by prepending ‘^^’.
+                        for( each repetitive sequence (S) of a drawing character (C) in `p` )
+                            + Collapse S to a single C followed by ‘+’.
                             / Neutralizing differences in horizontal length, e.g. owing to indentation.
-                    else
-                        / Broadly patterning to cover both division title and bullet forms.
-                        + Anchor `p` by prepending an unquoted ‘^ *’.
-                        + Ensure that `p` functions in *case insensitive* mode (`i`).
-                            : re `\*case insensitive\* mode`
-                              see https://perldoc.perl.org/perlreref.html#OPERATORS
-                    + Anchor `p` by appending an unquoted ‘$’.
+                    else if( `p` ends with a literalized ‘+’ )
+                        / Then `nodal head` may comprise a task bullet.
+                        if( `p` does not *comprise* a literalized ‘+’ )
+                            / Then the (potential) bullet here is not ‘+’ alone.
+                            + Append ‘?’.
+                                / Making the (potential) task mark ‘+’ optional in order to broaden
+                                  the pattern and match other bullet types, e.g. a generic bullet.
+                                / A use case here is to join a generic head ‘foo’, for instance,
+                                  from a task head ‘foo+’, in order to task ‘foo’ for action.
+                        + Set `p` to broadened to division title( `p` ).
+                            : see `^^broadened to division title\( pattern \)$`
+                    + Anchor `p` by appending ‘$’.
                     return( `p` )
 
-            pattern
-                - A modified, Perl compatible regular expression in multiline mode (`m`).
-                    : re `Perl compatible regular expression` see https://perldoc.perl.org/perlreref.html
-                    : re `multiline mode` see https://perldoc.perl.org/perlreref.html#OPERATORS
-                - Its modifications are:
-                    • `\t` symbolizes not a tab, but one unit of perfect indentation
-                    • `^^` expands to `^\t*`, an anchored, leading sequence of perfect indentation
-
-                forbidden pattern sequences
-                    • pattern delimiter
-                        / Patterns are delimited using backquote characters ‘`’.
-                        - To put a literal backquote character ‘`’ in a pattern,
-                          one must escape it with a backslash ‘\`’.
-                        - Backslashes themselves are likewise escapable, of course.
-                            / The trailing delimiter character in pattern ‘foo\\`’,
-                              for example, is not escaped by the preceding backslash
-                              because the backslash itself is escaped.
-                    • inline commentary
-                        - No start sequence for inline commentary may appear in the pattern.
-                            / For example ‘·\·’ or ‘·\\·’, where ‘·’ stands for a space character.
-                        - Replace it with an equivalent.
-                            / For example ‘··’ and ‘·\N{U+005C}·’ respectively.
+                broadened to division title( p )
+                    / Returns the given pattern `p` broadened to match a division title.
+                    + Anchor `p` by prepending ‘^ *’.
+                    + Ensure that `p` functions in *case insensitive* mode (`i`).
+                        : re `\*case insensitive\* mode`
+                          see https://perldoc.perl.org/perlreref.html#OPERATORS
+                    return( `p` )
 
             ancestral node indicator
                 - An indicator of an ancestor of the principal node.
@@ -570,6 +558,34 @@ Definition of the Breccian language
                                 └───────┘
 
                     : re `URI reference` see https://tools.ietf.org/html/rfc3986#section-4.1
+
+
+
+    ━━━━━━━━━━━━━━━━━━
+     Pattern matching
+    ──────────────────
+        pattern
+            - A modified, Perl compatible regular expression in multiline mode (`m`).
+                : re `Perl compatible regular expression` see https://perldoc.perl.org/perlreref.html
+                : re `multiline mode` see https://perldoc.perl.org/perlreref.html#OPERATORS
+            - Its modifications are:
+                • `\t` symbolizes not a tab, but one unit of perfect indentation
+                • `^^` expands to `^\t*`, an anchored, leading sequence of perfect indentation
+                • literal backquote characters ‘`’ are forbidden
+                    - Patterns in Breccia are formally delimited using backquote characters ‘`’.
+                    - To put a backquote character ‘`’ in a pattern, escape it with a backslash ‘\`’.
+                    - Backslashes themselves are likewise escapable, of course.
+                        / The trailing delimiter character in pattern ‘foo\\`’,
+                          for example, is not escaped by the preceding backslash
+                          because the backslash itself is escaped.
+                • inline commentary is forbidden
+                    - No start sequence of inline commentary may appear in the pattern.
+                        / For example ‘·\·’ or ‘·\\·’, where ‘·’ stands for a space character.
+                    - Replace it with an equivalent.
+                        / For example ‘··’ and ‘·\N{U+005C}·’ respectively.
+        literalized pattern( string )
+            / Returns the given string as a literally enquoted pattern, as defined for Perl `quotemeta`.
+                : re `quotemeta` see https://perldoc.perl.org/functions/quotemeta.html
 
 
 
