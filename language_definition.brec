@@ -56,6 +56,8 @@ Definition of the Breccian language
     ─────────────
         / A specialized material point.
         - A point with a bullet comprising ‘/’.
+        - It is a point of less prominence than its place would otherwise suggest.
+            / E.g. one to which the reader should give less attention on a first reading.
         - Its descriptor, if present, is largely free form.
             : see `Most descriptors are largely free form.$` @ `^^ Descriptor$`
 
@@ -209,6 +211,8 @@ Definition of the Breccian language
 
         null command point
             - A command point that does nothing.
+                / It is an artifact of formal consistency, of a descriptor being optional in the head
+                  of all point types.
             - Its descriptor, if present, has this form:
 
                    ─── gap ───▶
@@ -220,6 +224,8 @@ Definition of the Breccian language
     ━━━━━━━━━━━━
      Commentary
     ────────────
+        / Part of a descriptor.
+        - A part of the document intended for authors, publishers and other atypical readers.
         form
             / per line
             - Begins with a sequence of one or more consecutive backslashes ‘\’ (5C)
@@ -246,7 +252,8 @@ Definition of the Breccian language
     ━━━━━━━━━━━━
      Descriptor
     ────────────
-        - Elaborative, explanatory text of a document head or point head.
+        / Part of a document head or point head.
+        - Elaborative, explanatory text at the head of a document or point.
         - It starts with a gap.
 
                            · · · ·
@@ -281,9 +288,14 @@ Definition of the Breccian language
      Division
     ──────────
         / A body node.
-        - Its head is called a divider.
+        - It forms a distinctive or otherwise atypical part of the document.
+            / E.g. one too large (or small) to comfortably form as a point.
+            - Depending on whether the division has a body, the part formed comprises either:
+                | the division itself (a division with a body)
+                | the division and its subsequent siblings (a division without a body, a divider alone)
         divider
-            - Comprises one or more divider segments.
+            - The head of a division.
+            - It comprises one or more divider segments.
             - No two dividers are contiguous; rather they combine as one divider of multiple segments.
         divider segment
             - Begins with a perfectly indented divider mark.
@@ -325,9 +337,8 @@ Definition of the Breccian language
     ─────────────────
         / A specialized material point.
         - Bullet comprising or terminated ‘!!’.
-        - Exception points are justified by the Breccian purpose of drafting, wherein the ability
-          to note exceptions is a useful aid.
-            : re `purpose of drafting` see `^^Breccia$` @ lexicon.brec
+        - It is a point of urgency for the attention of authors.
+            / E.g. indicating an error in the document.
 
 
 
@@ -335,10 +346,11 @@ Definition of the Breccian language
      Generic point
     ───────────────
         / A material point.
-        - A non specialized point.
-            - A point for which the language defines no special role or bullet form.
+        - A non specialized point, a point for which the language defines no special role or bullet form.
         - Its bullet is largely free form, conditioned only by the basic constraints.
             : re `basic constraints` see `(basic constraints) ` @ `^^ Bullet$`
+        - Likewise its descriptor, if present, is largely free form.
+            : see `Most descriptors are largely free form.$` @ `^^ Descriptor$`
 
 
 
@@ -379,6 +391,8 @@ Definition of the Breccian language
     ━━━━━━
      Node
     ──────
+        - The basic unit of Breccian composition, hierarchy and order.
+
         typology
             • document node
             ◇ body node
@@ -553,6 +567,7 @@ Definition of the Breccian language
     ━━━━━━━━━━━━━━━━━━
      Pattern matching
     ──────────────────
+        / Apropos the procedure of pattern matching based on regular expressions.
         pattern
             - A modified, Perl compatible regular expression in multiline mode (`m`).
                 : re `Perl compatible regular expression` see https://perldoc.perl.org/perlreref.html
@@ -609,14 +624,18 @@ Definition of the Breccian language
     ━━━━━━━━━━━━━━
      Static block
     ──────────────
-        - One or more lines in contiguous sequence, each headed by a no-break space (A0).
+        / Part of a descriptor.
+        - A part of the document containing text which is not in Breccian form.
+        - It comprises one or more lines in contiguous sequence, each headed by a no-break space (A0).
             : see `^^character identification$` @ `^^ Notes$`
-        - The purpose of a static block is to enable the author to lay out a section of text freely,
+        - It enables the author to lay out a section of text freely,
           unconstrained by Breccia’s rules of indentation.
             - Regardless of its indentation, a static block does not interrupt the nodal head
               in which it occurs; rather the head continues blindly through the block.
             - A presenter capable of reformatting the layout of a Breccian text is forbidden to alter
               the layout of a static block rightward of its leading no-break spaces.
+        - Character restrictions, however, still apply.
+            : see `^^allowed characters$` @ `^^ Whitespace$`
 
 
 
@@ -625,7 +644,7 @@ Definition of the Breccian language
     ────────────
         / A specialized material point.
         - Bullet comprising or terminated ‘+’.
-        - Task points are justified by the Breccian purpose of drafting,
+        / Task points are justified by the Breccian purpose of drafting,
           for which inline tasking is a useful aid.
             : re `purpose of drafting` see `^^Breccia$` @ lexicon.brec
 
@@ -634,6 +653,7 @@ Definition of the Breccian language
     ━━━━━━━━━━━━
      Whitespace
     ────────────
+        / A class of character.
         allowed characters
             : see `^^character identification$` @ `^^ Notes$`
             • space (20)
