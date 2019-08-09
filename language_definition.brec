@@ -1,7 +1,7 @@
 Definition of the Breccian language
 
-    - Breccia in practice is a production of concrete documents,
-      here defined in abstract terms as document nodes.
+    - Breccia in practice is a production of documents,
+      here defined in formal terms as document nodes.
 
               │
               │
@@ -18,7 +18,7 @@ Definition of the Breccian language
             figure, The collective form of Breccia.
 
     document node
-        - A Breccian document in abstract terms.
+        - A Breccian document in formal terms.
         - It divides into an optional head formed as a bare descriptor,
           and an optional body formed as a sequence of body nodes.
 
@@ -61,61 +61,66 @@ Definition of the Breccian language
 
 
     ━━━━━━━━━━━━━━━━━━━━━━
-     Associative citation
+     Associative reference
     ──────────────────────
         / A command point.
-        - It associates for citational purposes a preceding character sequence (the referrer),
-          or several such sequences (referrers), with a particular referent.
+        - It indicates a resource (the referent) and associates with it one or more preceding
+          character sequences (the referrer, or referrers).
         - Its descriptor has this form:
 
-               ─── gap ───┬─╴`re` clause ──┬─ gap ─┬──┬─╴`see` clause ───▶
-                          │                │       │  │
-                          │                └───────┘  │
-                          └───────────────────────────┘
+                            referrer                referent
+               ─── gap ──┬── clause ──┬─ gap ─┬──┬── clause ────▶
+                         │            │       │  │
+                         │            └───────┘  │
+                         └───────────────────────┘
 
-            figure, The form of the descriptor of an associative citation.
+            figure, The form of the descriptor of an associative reference.
 
-        - The `re` clause indicates the referrer or referrers.
-        - The `see` clause indicates the referent.
+        - The referrer clause indicates the referrer or referrers.
+        - The referent clause indicates the referent.
         - A single referrer may be associated with multiple referents.
-            / via multiple, sibling citations that indicate the same referrer
+            / via multiple, sibling references that indicate the same referrer
         - Multiple referrers may be overlapped or nested in any manner.
-            / via multiple, sibling citations
-            / via a single citation that indicates multiple referrers at once
+            / via multiple, sibling references
+            / via a single reference that indicates multiple referrers at once
 
-        `re` clause
-            - The `re` clause indicates the referrer, or referrers, by a pattern of text
-              occuring in the parent head of the citation.
+        referrer clause
+            - The referrer clause indicates the referrer, or referrers, by a pattern of text
+              occuring in the parent head of the reference.
 
                    ───╴‘re’╶─┬─ gap ─┬─╴‘`’╶─ pattern ─╴‘`’╶────▶
                              │       │
                              └───────┘
 
-                - Failing a parent head, the citation is misplaced and the document malformed.
+                - Failing a parent head, the reference is misplaced and the document malformed.
                     / This occurs only when the parent is a document node without a descriptor.
             - It works thus:
                 if( the pattern contains one or more subexpression grouping constructs ‘(…)’ )
                     : re `subexpression grouping constructs`
                       see https://perldoc.perl.org/perlreref.html#SYNTAX
-                    for( each match of the pattern within the parent head of the citation )
+                    for( each match of the pattern within the parent head of the reference )
                         if( at least one subexpression captures a text sequence )
                             + Set as a referrer the union of all captured text sequences.
                 else
-                    for( each match of the pattern within the parent head of the citation )
+                    for( each match of the pattern within the parent head of the reference )
                         + Set as a referrer the whole of the matching text.
-            - The `re` clause is optional.
+            - The referrer clause is optional.
                 - If omitted, then the whole of the parent head is taken as the referrer.
 
-        `see` clause
-            - The `see` clause indicates the referent.
+        referent clause
+            - The referent clause indicates the referent.
 
-                                                   URI
-                                           ┌─── reference ───┐
-                   ────╴‘see’╶─┬─ gap ─┬───┤                 ├────▶
-                               │       │   │    impliable    │
-                               └───────┘   └────  node   ────┘
-                                                indicator
+                                                        URI
+                      ┌─╴‘join’╶─┐              ┌─── reference ───┐
+                   ───┤          ├──┬─ gap ─┬───┤                 ├────▶
+                      └──╴‘see’╶─┘  │       │   │    impliable    │
+                                    └───────┘   └────  node   ────┘
+                      └───────────┘                  indicator
+                       referential
+                         command
 
+                : re `‘(join)’` see `^^ Jointer$`
+                : re `‘(see)’` see `^^ Pointer$`
                 : re `(URI)$.*(reference)` see https://tools.ietf.org/html/rfc3986#section-4.1
 
             - It works thus:
@@ -126,13 +131,13 @@ Definition of the Breccian language
                     if( its first component (the principal node indicator) is omitted )
                         + Set as first component a principal node indicator
                           with a pattern `p` formed thus:
-                            if( the citation has a `re` clause )
-                                + Set `p` to the pattern given in the `re` clause.
+                            if( the reference has a referrer clause )
+                                + Set `p` to the pattern given in the referrer clause.
                                 + Set `p` to broadened to division title( `p` ).
                                     : see `^^broadened to division title\( pattern \)$`
                                 + Anchor `p` by appending ‘$’.
                             else
-                                + Set `p` to generalized pattern( parent head of citation ).
+                                + Set `p` to generalized pattern( parent head of reference ).
                                     : see `^^generalized pattern\( nodal head \)$`
                     if( the pattern of its principal node indicator contains
                          one or more subexpression grouping constructs ‘(…)’ )
@@ -141,6 +146,11 @@ Definition of the Breccian language
                         + Set as referent the union of the text sequences they capture.
                     else
                         + Set as referent the whole of the indicated node.
+
+            referential command
+                - The referential command determines the type and overall function
+                  of the associative reference.
+                    : re `type` see `^^◇ associative reference$` @ `^^typology$` @ `^^ Node$`
 
 
 
@@ -193,26 +203,17 @@ Definition of the Breccian language
         / A formal point.
         - A point with a bullet comprising ‘:’.
         - The form of its descriptor varies with the type of command point.
+            : re `type of command point` see `^^typology$` @ `^^ Node$`
             - Only in the case of *null command point* may the descriptor be omitted.
         - Processors interpret command points and execute their commands in document order.
 
+        null command point
+            - A command point that does nothing.
+            - Its descriptor, if present, has this form:
 
-        ────────────────────────
-         types of command point
-        ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
-            associative citation
-                : see
+                   ─── gap ───▶
 
-            jointer
-                : see
-
-            null command point
-                - A command point that does nothing.
-                - Its descriptor, if present, has this form:
-
-                       ─── gap ───▶
-
-                    figure, The form of a descriptor as it appears in a null command point.
+                figure, The form of a descriptor as it appears in a null command point.
 
 
 
@@ -221,9 +222,10 @@ Definition of the Breccian language
     ────────────
         form
             / per line
-            - Begins with a sequence of one or more consecutive backslashes ‘\’ (Unicode 5C)
-              immediately preceded by a space or the line start,
+            - Begins with a sequence of one or more consecutive backslashes ‘\’ (5C)
+              immediately preceded by a space (20) or the line start,
               and immediately followed by a space or the line end.
+                : see `^^character identification$` @ `^^ Notes$`
             - Continues to the line end.
         inline commentary
             - Commentary subsequent to non-commentary on the same line. \ ‘Commentary’ as opposed
@@ -258,7 +260,7 @@ Definition of the Breccian language
         - Here most descriptors are largely free form, constrained only by the end boundary
           of their head (as shown).
             - The descriptor of a formal point, however, is further constrained.
-                : re `formal point` see `^^typology$` @ `^^ Point$`
+                : re `formal point` see `^^◇ formal point$` @ `^^typology$` @ `^^ Node$`
         gap
             - A formal intermediary within a descriptor.
 
@@ -343,8 +345,8 @@ Definition of the Breccian language
     ━━━━━━━━━
      Jointer
     ─────────
-        / A command point.
-        - A jointer stands for the body of its referent node.
+        - An associative reference with a referential command of `join`.
+        - A jointer stands for the body of its referent node, and associates it with the referrer.
         example
 
               join foo/bar.br
@@ -360,24 +362,17 @@ Definition of the Breccian language
                   of the whole indicator if all its components are omitted, is a principal node indicator
                   formed using the generalized pattern of the jointer’s parent head.
                     : re `generalized pattern` see `^^generalized_pattern\( nodal_head \)$`
-                - Will not match where the joint would have no effect.
+                - Will not match where the jointer would have no effect.
                     : re `effect` see @ `^^ Jointer$`
-                    / This stops the jointer matching its own parent, for instance,
-                      or a parent of like form.
-            NODAL_SCOPER
-                - The scope qualifier of the NODAL_PATTERN.
-            URI_REFERENCE
-                - URI reference of the document of the sreferent node.
-                - The use of the ‘@’ separator is optional, a matter of preference.
-                - Optional, defaults to the same document as the jointer.
+                    / This stops the jointer matching its own parent, for instance.
         effect
-            - The parent of a jointer gains for a child (subjoint child) each child of the referent node
-              that does not duplicate a pre-existing child.
-            - The children of a referent node gain for a parent (surjoint parent)
+            - On behalf of the referrer, the parent of a jointer gains for a child (subjoint child)
+              each child of the referent node that does not duplicate a pre-existing child.
+            - By the same token, the children of a referent node gain for a parent (surjoint parent)
               each parent of the jointer that does not duplicate a pre-existing parent.
-            - In both cases, the duplication test ignores variations in commentary and whitespacing.
-            - The effect applies recursively where a subjoint child is itself a jointer,
-              or a surjoint parent itself the referent node of a jointer.
+            - In both cases the duplication test ignores variations in commentary and whitespacing.
+            - Where a subjoint child is itself a jointer, or a surjoint parent itself the referent node
+              of a jointer, the effect applies recursively.
 
 
 
@@ -385,11 +380,22 @@ Definition of the Breccian language
      Node
     ──────
         typology
-            ◇ node
-                • document node
-                ◇ body node
-                    • division
-                    • point
+            • document node
+            ◇ body node
+                • division
+                ◇ point
+                    ◇ formal point
+                        ◇ command point
+                            ◇ associative reference
+                                • jointer
+                                • pointer
+                            • null command point
+                    ◇ material point
+                        ◇ specialized material point
+                            • aside point
+                            • exception point
+                            • task point
+                        • generic point
 
         abstract form
             - A node divides formally into two parts: a head and a body.
@@ -459,8 +465,8 @@ Definition of the Breccian language
               for its first component (the principal node indicator), which will also serve as
               the implied value of the whole indicator if all its components are omitted.
             - An impliable node indicator may be used to indicate a non-Breccian referent.
-                - Where a processor is unable to find such a referent,
-                  it should not prevent the reader trying to find it manually.
+                - Where a processor is unable to find such a referent, or to deal with it,
+                  it should not prevent the reader trying to deal with it manually.
 
             principal node indicator
                 - A direct indicator of the principal node by the pattern of its text.
@@ -588,24 +594,23 @@ Definition of the Breccian language
 
         - Both the internal forms of the bullet and descriptor, and whether the descriptor may be
           omitted, depend on the type of point.
-        typology
-            ◇ point
-                ◇ formal point
-                    • command point
-                ◇ material point
-                    ◇ specialized material point
-                        • aside point
-                        • exception point
-                        • task point
-                    ◇ generic point
+            : re `type of point` see `^^typology$` @ `^^ Node$`
+
+
+
+    ━━━━━━━━━
+     Pointer
+    ─────────
+        - An associative reference with a referential command of `see`.
+        - It directs the reader’s attention from the referrer to the referent.
 
 
 
     ━━━━━━━━━━━━━━
      Static block
     ──────────────
-        - One or more lines in contiguous sequence, each headed by a no-break space.
-            / Unicode A0.
+        - One or more lines in contiguous sequence, each headed by a no-break space (A0).
+            : see `^^character identification$` @ `^^ Notes$`
         - The purpose of a static block is to enable the author to lay out a section of text freely,
           unconstrained by Breccia’s rules of indentation.
             - Regardless of its indentation, a static block does not interrupt the nodal head
