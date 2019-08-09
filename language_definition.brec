@@ -187,23 +187,6 @@ Definition of the Breccian language
 
 
 
-    ━━━━━━━━━━
-     Citation
-    ──────────
-        associative citation
-            : join
-        inline URI
-            - A URI in a place that does not call for a URI.
-                / E.g. in a comment, or the descriptor of a material point.
-                / A URI as opposed to a URI reference, whose form cannot reliably be distinguished.
-            - An inline URI must not directly be followed by punctuation which might be taken as part
-              of it unless the URI is symmetrically quoted, e.g. using backquotes or angle braces.
-                / Like this, for example, <http://reluk.ca/#foo>.
-                  Or even this, .http://reluk.ca/#foo.
-                  But not this, http://reluk.ca/#foo.  (wrong)
-
-
-
     ━━━━━━━━━━━━━━━
      Command point
     ───────────────
