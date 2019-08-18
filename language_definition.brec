@@ -391,7 +391,7 @@ Definition of the Breccian language
     ━━━━━━
      Node
     ──────
-        - The basic unit of Breccian composition, hierarchy and order.
+        - The basic formal unit of Breccian composition, hierarchy and order.
 
         typology
             • document node
@@ -451,7 +451,7 @@ Definition of the Breccian language
                 - The part of a node comprising its children alone; a sequence of body nodes.
                 - A body is always optional: regardless of the node type, it may be omitted.
 
-        nodal relations
+        nodal relatives
             • parent
                 - The parent of a node is the first applicable of:
                     | its nearest (in document order) nodal precedecessor of less indentation
@@ -635,7 +635,7 @@ Definition of the Breccian language
             - A presenter capable of reformatting the layout of a Breccian text is forbidden to alter
               the layout of a static block rightward of its leading no-break spaces.
         - Character restrictions, however, still apply.
-            : see `^^allowed characters$` @ `^^ Whitespace$`
+            : see `^^allowed whitespace$` @ `^^ Whitespace$`
 
 
 
@@ -654,7 +654,7 @@ Definition of the Breccian language
      Whitespace
     ────────────
         / A class of character.
-        allowed characters
+        allowed whitespace
             : see `^^character identification$` @ `^^ Notes$`
             • space (20)
             • newline (A, D)
