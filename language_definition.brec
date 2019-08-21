@@ -66,7 +66,7 @@ Definition of the Breccian language
      Associative reference
     ──────────────────────
         / A command point.
-        - It indicates a resource (the referent) and associates with it one or more preceding
+        - It indicates an object (the referent) and associates with it one or more preceding
           character sequences (the referrer, or referrers).
         - Its descriptor has this form:
 
@@ -127,7 +127,7 @@ Definition of the Breccian language
 
             - It works thus:
                 if( a URI reference is given )
-                    + Set as referent the resource indicated by the URI reference.
+                    + Take the referent of the URI reference as the indicated referent.
                 else
                     - An impliable node indicator is given.
                     if( its first component (the principal node indicator) is omitted )
@@ -145,9 +145,9 @@ Definition of the Breccian language
                          one or more subexpression grouping constructs ‘(…)’ )
                         : re `subexpression grouping constructs`
                           see https://perldoc.perl.org/perlreref.html#SYNTAX
-                        + Set as referent the union of the text sequences they capture.
+                        + Take as the indicated referent the union of the text sequences they capture.
                     else
-                        + Set as referent the whole of the indicated node.
+                        + Take as the indicated referent the whole of the indicated node.
 
             referential command
                 - The referential command determines the type and overall function
