@@ -9,6 +9,26 @@ Definition of terms for project Breccia
     Breccian
         ─ adjective
             - Relating to Breccia.
+    subjoin
+        ─ verb, transitive
+            - Refer to using a jointer.
+        ─ verb
+            - Be the referent indicated by a jointer.
+                : re `referent indicated` see `^^referent clause$` @ `^^ Associative reference$`
+                  @ http://reluk.ca/project/Breccia/language_definition.brec
+    subjoint
+        ─ adjective
+            - Being the referent indicated by a jointer, or part of the referent, or descending from it.
+                \ ‘Descending’, implying a mere part of a descendant may be subjoint.
+    surjoin
+        ─ verb
+            - Refer using a jointer.
+            - Be the referrer indicated by a jointer.
+                : re `referrer indicated` see `^^referrer clause$` @ `^^ Associative reference$`
+                  @ http://reluk.ca/project/Breccia/language_definition.brec
+    surjoint
+        ─ adjective
+            - Ancestral to a jointer. \ ‘Ancestral’, implying a mere part of an ancestor may be surjoint.
 
 
                                         \ Copyright © 2019, Michael Allan and contributors.  Licence MIT.
