@@ -187,7 +187,8 @@ Definition of the Breccian language
                 - One or more no-break spaces (A0) may follow any non-alphanumeric character
                   other than either a plain space, or a backslash occuring in a backslash sequence
                   at the start of the bullet. \ The backslash case is excluded because it would
-                    \ complicate `Emacs/Breccia_mode.el`, and anyway appears to be useless.
+                    \ complicate Breccia mode for Emacs, and anyway appears to be useless.
+                        : re `Breccia mode for Emacs` see http://reluk.ca/project/Breccia/Emacs/
                     - Here the excluded sequences are not expulsive, rather they are simply forbidden.
                 - No other whitespace is allowed, namely no newline: it could not be part of a bullet,
                   only of its end boundary.
