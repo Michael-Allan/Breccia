@@ -137,7 +137,7 @@ Definition of the Breccian language
                                 + Set `p` to the pattern given in the referrer clause.
                                 + Set `p` to broadened to division title( `p` ).
                                     : see `^^broadened to division title\( pattern \)$`
-                                + Anchor `p` by appending ‘$’.
+                                + Anchor `p` by appending ‘$$’.
                             else
                                 + Set `p` to generalized pattern( parent head of reference ).
                                     : see `^^generalized pattern\( nodal head \)$`
@@ -532,7 +532,7 @@ Definition of the Breccian language
                                   from a task head ‘foo+’, in order to task ‘foo’ for action.
                         + Set `p` to broadened to division title( `p` ).
                             : see `^^broadened to division title\( pattern \)$`
-                    + Anchor `p` by appending ‘$’.
+                    + Anchor `p` by appending ‘$$’.
                     return( `p` )
 
                 broadened to division title( p )
@@ -576,6 +576,9 @@ Definition of the Breccian language
             - Its modifications are:
                 • `\t` symbolizes not a tab, but one unit of perfect indentation
                 • `^^` expands to `^\t*`, an anchored, leading sequence of perfect indentation
+                    - To put an actual `^^` in the pattern, insert a regexp comment, as with `^(?#)^`.
+                • `$$` expands to `(?: +\\(?: .*)?)?$`, allowing for inline commentary and ignoring it.
+                    - To put an actual `$$` in the pattern, insert a regexp comment, as with `$(?#)$`.
                 • literal backquote characters ‘`’ are forbidden
                     - Patterns in Breccia are formally delimited using backquote characters ‘`’.
                     - To put a backquote character ‘`’ in a pattern, escape it with a backslash ‘\`’.
@@ -583,7 +586,7 @@ Definition of the Breccian language
                         / The trailing delimiter character in pattern ‘foo\\`’,
                           for example, is not escaped by the preceding backslash
                           because the backslash itself is escaped.
-                • inline commentary is forbidden
+                • Breccian inline commentary is forbidden
                     - No start sequence of inline commentary may appear in the pattern.
                         / For example ‘·\·’ or ‘·\\·’, where ‘·’ stands for a space character.
                     - Replace it with an equivalent.
