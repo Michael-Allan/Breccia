@@ -125,7 +125,10 @@ Definition of the Breccian language
                 : re `‘(see)’` see `^^ Pointer$`
                 : re `(URI)$.*(reference)` see https://tools.ietf.org/html/rfc3986#section-4.1
 
-            - It works thus:
+            / The referential command determines the type and overall function
+              of the associative reference.
+                : re `type` see `^^◇ associative reference$` @ `^^typology$` @ `^^ Node$`
+            - The referent clause works thus:
                 if( a URI reference is given )
                     + Take the referent of the URI reference as the indicated referent.
                 else
@@ -148,11 +151,6 @@ Definition of the Breccian language
                         + Take as the indicated referent the union of the text sequences they capture.
                     else
                         + Take as the indicated referent the whole of the indicated node.
-
-            referential command
-                - The referential command determines the type and overall function
-                  of the associative reference.
-                    : re `type` see `^^◇ associative reference$` @ `^^typology$` @ `^^ Node$`
 
 
 
