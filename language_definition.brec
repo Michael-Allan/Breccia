@@ -207,10 +207,10 @@ Definition of the Breccian language
         - A point with a bullet comprising ‘:’.
         - The form of its descriptor varies with the type of command point.
             : re `type of command point` see `^^typology$` @ `^^ Node$`
-            - Only in the case of *null command point* may the descriptor be omitted.
+            - Only in the case of *null command* may the descriptor be omitted.
         - Processors interpret command points and execute their commands in document order.
 
-        null command point
+        null command
             - A command point that does nothing.
                 / It is an artifact of formal consistency, of a descriptor being optional in the head
                   of all point types.
@@ -218,7 +218,7 @@ Definition of the Breccian language
 
                    ─── gap ───▶
 
-                figure, The form of a descriptor as it appears in a null command point.
+                figure, The form of a descriptor as it appears in a null command.
 
 
 
@@ -404,7 +404,7 @@ Definition of the Breccian language
                             ◇ associative reference
                                 • jointer
                                 • pointer
-                            • null command point
+                            • null command
                     ◇ material point
                         ◇ specialized material point
                             • aside point
