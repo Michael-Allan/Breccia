@@ -375,7 +375,9 @@ Definition of the Breccian language
                     : re `generalized pattern` see `^^generalized_pattern\( nodal_head \)$`
                 - Will not match where the jointer would have no effect.
                     : re `effect` see @ `^^ Jointer$`
-                    / This stops the jointer matching its own parent, for instance.
+                    / This rule stops the jointer matching its own parent, for instance.
+                        : see `does not duplicate a pre-existing (?:child|parent)`
+                          @ `^^effect$` @ `^^ Jointer$`
         effect
             - On behalf of the referrer, the parent of a jointer gains for a child (subjoint child)
               each child of the referent node that does not duplicate a pre-existing child.
