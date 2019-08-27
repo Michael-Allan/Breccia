@@ -4,6 +4,8 @@ Definition of terms for project Breccia
         ─ mass noun
             - A lightweight markup language for outlining and drafting based on hierarchical indentation
               of points and subpoints.
+                : see `lightweight markup.+outlining and drafting.+hierarchical indentation.+points`
+                  @ README.html
                 : re `hierarchical indentation` see `hierarchy` @ `^^ Node$` @ language_definition.brec
                 : re `points` see `^^typology$` @ `^^ Node$` @ language_definition.brec
     Breccian
