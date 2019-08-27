@@ -384,8 +384,7 @@ Definition of the Breccian language
             - By the same token, the children of a referent node gain for a parent (surjoint parent)
               each parent of the jointer that does not duplicate a pre-existing parent.
             - In both cases the duplication test ignores variations in commentary and whitespacing.
-            - Where a subjoint child is itself a jointer, or a surjoint parent itself the referent node
-              of a jointer, the effect applies recursively.
+            - Where the referent node itself has a jointer as its child, the effect applies recursively.
 
 
 
