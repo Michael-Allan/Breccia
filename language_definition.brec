@@ -41,7 +41,7 @@ Definition of the Breccian language
                        ▼
 
     document title
-        - The document title, if any, is determined by the first nodal head in document order
+        - The document title, if any, is determined by the first nodal head in linear order
           that yields a non-empty result after collapsing the whitespace of the relevant part
           of its content according to head type:
             • document head or point head
@@ -180,22 +180,23 @@ Definition of the Breccian language
             - Coming after the start character and before the end character.
             - Here the bullet may contain spacing characters, and nowhere else.
                 - One or more plain spaces (20) may follow an alphanumeric character.
-                    - Following any other character (C) would expel both C and spaces from the interior,
-                      and make C either the end character if it meets the constraints of one,
-                      or part of the end boundary.
+                    - Following any other character (C), they would expel both C and themselves
+                      from the interior.
+                        / So making C either the end character if it meets the constraints of one,
+                          or part of the end boundary.
                 - One or more no-break spaces (A0) may follow any non-alphanumeric character
-                  other than either a plain space, or a backslash occuring in a backslash sequence
+                  other than a plain space, and other than a backslash occuring in a backslash sequence
                   at the start of the bullet. \ The backslash case is excluded because it would
                     \ complicate Breccia mode for Emacs, and anyway appears to be useless.
                         : re `Breccia mode for Emacs` see http://reluk.ca/project/Breccia/Emacs/
                     - Here the excluded sequences are not expulsive, rather they are simply forbidden.
-                - No other whitespace is allowed, namely no newline: it could not be part of a bullet,
-                  only of its end boundary.
+                - No other whitespace is allowed.
+                    / Namely no newline; one could never be part of a bullet, only of its end boundary.
         iii. end character, a character that is none of:
             | whitespace
             | a backslash subsequent to a plain space of the interior
-                \ That would start the end boundary in the form of inline commentary,
-                \ part of a descriptor.
+                / Rather those characters would comprise the initial part of an end boundary in the form
+                  of inline commentary, so forming part of the descriptor.
 
 
 
@@ -204,15 +205,14 @@ Definition of the Breccian language
     ───────────────
         / A formal point.
         - A point with a bullet comprising ‘:’.
-        - The form of its descriptor varies with the type of command point.
+        - The form of its descriptor, if any, varies with the type of command point.
             : re `type of command point` see `^^typology$` @ `^^ Node$`
-            - Only in the case of *null command* may the descriptor be omitted.
-        - Processors interpret command points and execute their commands in document order.
+            / Only in the case of a *null command* may the descriptor be omitted.
+        - Processors interpret command points and execute their commands in linear order.
 
         null command
-            - A command point that does nothing.
-                / It is an artifact of formal consistency, of a descriptor being optional in the head
-                  of all point types.
+            - A command point that does nothing. \ It is an artifact of formal consistency,
+                \ the descriptor being optional in the head of all point types.
             - Its descriptor, if present, has this form:
 
                    ─── gap ───▶
@@ -225,7 +225,7 @@ Definition of the Breccian language
      Commentary
     ────────────
         / Part of a descriptor.
-        - A part of the document intended for authors, publishers and other atypical readers.
+        - A part of the document for the attention of authors, publishers or other atypical readers.
         form
             / per line
             - Begins with a sequence of one or more consecutive backslashes ‘\’ (5C)
@@ -239,7 +239,7 @@ Definition of the Breccian language
         block commentary
             comment block
                 - A sequence of lines comprising commentary alone.
-                - A comment block is part of the node head that starts before it in document order.
+                - A comment block is part of the node head that starts before it in linear order.
                     - In the case of document node, the head may comprise a comment block alone.
             comment block label
                 - In a comment block.
@@ -300,7 +300,7 @@ Definition of the Breccian language
             - No two dividers are contiguous; rather they combine as one divider of multiple segments.
         divider segment
             - Begins with a perfectly indented divider mark.
-            - The end boundary is the next appearance in document order of either
+            - The end boundary is the next appearance in linear order of either
               a divider segment, a point, or the end of the document.
         divider mark
             - Unicode 2500-259F.
@@ -441,7 +441,7 @@ Definition of the Breccian language
                 - Its internal form (abstracted from the diagram) varies according to the node type.
                 - Its end boundary (not fully shown) always comprises one of:
                     | the head successor
-                        - The head successor (S) is the node succeeding the head in document order.
+                        - The head successor (S) is the node succeeding the head in linear order.
                         - In terms relative to the head’s own node N, S is the first applicable of:
                             | the first child of N
                                 / in its body, that is
@@ -456,7 +456,7 @@ Definition of the Breccian language
         nodal relatives
             • parent
                 - The parent of a node is the first applicable of:
-                    | its nearest (in document order) nodal precedecessor of less indentation
+                    | its nearest (in linear order) nodal precedecessor of less indentation
                     | the document node
             • child
                 - A node that has a parent.
@@ -500,7 +500,7 @@ Definition of the Breccian language
                     else
                         for( each match of the pattern )
                             + Set as indicated the node whose head contains the first matched character
-                              in document order.
+                              in linear order.
                     if( exactly one node is indicated )
                         return( the indicated node )
                     if( the referent document is Breccian )
