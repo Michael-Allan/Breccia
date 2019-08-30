@@ -56,8 +56,8 @@ Definition of the Breccian language
     ─────────────
         / A specialized material point.
         - A point with a bullet comprising ‘/’.
-        - It is a point of less prominence than its place would otherwise suggest.
-            / E.g. one to which the reader should give less attention on a first reading.
+        - It forms matter of less prominence than its place would otherwise suggest.
+            / E.g. matter to which the reader should give less attention on a first reading.
         - Its descriptor, if present, is largely free form.
             : see `Most descriptors are largely free form.$` @ `^^ Descriptor$`
 
@@ -180,8 +180,9 @@ Definition of the Breccian language
             - Coming after the start character and before the end character.
             - Here the bullet may contain spacing characters, and nowhere else.
                 - One or more plain spaces (20) may follow an alphanumeric character.
-                    - Following any other character C would expel both from the interior, making C
-                      either the end character if it meets its constraints, or part of the end boundary.
+                    - Following any other character (C) would expel both C and spaces from the interior,
+                      and make C either the end character if it meets the constraints of one,
+                      or part of the end boundary.
                 - One or more no-break spaces (A0) may follow any non-alphanumeric character
                   other than either a plain space, or a backslash occuring in a backslash sequence
                   at the start of the bullet. \ The backslash case is excluded because it would
@@ -287,7 +288,8 @@ Definition of the Breccian language
      Division
     ──────────
         / A body node.
-        - It forms a distinctive or otherwise atypical part of the document.
+        - A part of the document markedly separate from other parts.
+            : re `markedly separate` see `^^divider$`
             / E.g. one too large (or small) to comfortably form as a point.
             - Depending on whether the division has a body, the part formed comprises either:
                 | the division itself (a division with a body)
