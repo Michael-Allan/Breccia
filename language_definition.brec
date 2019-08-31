@@ -76,7 +76,7 @@ Definition of the Breccian language
                          │            └───────┘  │
                          └───────────────────────┘
 
-            figure, The form of the descriptor of an associative reference.
+                figure, The form of the descriptor of an associative reference.
 
         - The referrer clause indicates the referrer or referrers.
         - The referent clause indicates the referent.
@@ -158,7 +158,7 @@ Definition of the Breccian language
      Bullet
     ────────
         / Part of a point head.
-        - It is confined between boundaries (diagram below) which partly determine its internal form.
+        - Its internal form is determined in part by external boundaries.
 
                  perfect   ┊      start                             end             ┊   descriptor,
                indentation ┊╶─── sequence ──┬──┬── interior ──┬── character ──┬───▶ ┊  head successor,
@@ -167,7 +167,9 @@ Definition of the Breccian language
                                             └─────────────────────────────────┘
                                     i                 ii            iii
 
-            : re `head successor` see `^^\| the head successor$` @ `^^ Node$`
+                    : re `head successor` see `^^\| the head successor$` @ `^^ Node$`
+                figure, The form of a bullet.
+
         - While the precise internal form varies according to the point type, every bullet is formally
           conditioned by basic contraints operating in several regions, here numbered i, ii, iii.
         i. start sequence, one of:
@@ -217,35 +219,44 @@ Definition of the Breccian language
 
                    ─── gap ───▶
 
-                figure, The form of a descriptor as it appears in a null command.
-
 
 
     ━━━━━━━━━━━━
      Commentary
     ────────────
         / Part of a descriptor.
-        - A part of the document for the attention of authors, publishers or other atypical readers.
-        form
-            / per line
-            - Begins with a sequence of one or more consecutive backslashes ‘\’ (5C)
-              immediately preceded by a space (20) or the line start,
-              and immediately followed by a space or the line end.
-                : see `^^character identification$` @ `^^ Notes$`
-            - Continues to the line end.
+        - Commentary is matter for the attention of authors, publishers or other atypical readers.
+        - Formally it appears as either inline commentary or block commentary.
+
         inline commentary
-            - Commentary subsequent to non-commentary on the same line. \ ‘Commentary’ as opposed
-                \ to ‘a comment’, because the comment as a whole may extend across lines.
+            - Commentary subsequent to non-commentary, non-whitespace on the same line. \ [‘commentary’]
+
+                                                          inline commentary
+                                             ┌──────────────────────────────────────────┐
+                 
+                                                                   ┌────╴◀────────┐
+                                 ┌─╴◀────┐     ┌─╴◀────┐           │              │
+                   inline non-   │       │ ┊   │       │           │    inline    │         ┊ end of
+                   -whitespace ╶─┴─╴‘ ’╶─┘ ┊╶──┴─╴‘\’╶─┴─┬─╴‘ ’╶─┬─┴── character ─┴─┬─┬───▶ ┊ line
+                                           ┊             │       │                  │ │     ┊
+                                                         │       └──────────────────┘ │
+                                                         └────────────────────────────┘
+
+                    figure, The form of inline commentary.
+
         block commentary
-            comment block
-                - A sequence of lines comprising commentary alone.
-                - A comment block is part of the node head that starts before it in linear order.
-                    - In the case of document node, the head may comprise a comment block alone.
-            comment block label
-                - In a comment block.
-                - In a line of commentary delimited by two or more consecutive backslashes ‘\\’.
-                - The label is the part subsequent to the backslash delimiter,
-                  exclusive of leading and trailing whitespace.
+            - Commentary comprising whole lines. \ [‘commentary’]
+            - Each line has this form:
+
+                                                                  ┌────╴◀────────┐
+                                  ┌─╴◀────┐   ┌─╴◀────┐           │              │
+                      start ┊     │       │   │       │           │    inline    │         ┊ end of
+                       of   ┊╶──┬─┴─╴‘ ’╶─┴─┬─┴─╴‘\’╶─┴─┬─╴‘ ’╶─┬─┴── character ─┴─┬─┬───▶ ┊ line
+                      line  ┊   │           │           │       │                  │ │     ┊
+                                └───────────┘           │       └──────────────────┘ │
+                                                        └────────────────────────────┘
+
+                    figure, The form of a line of block commentary.
 
 
 
@@ -261,8 +272,9 @@ Definition of the Breccian language
                ─── gap ─── ·  ?  · ────▶ ┊ or end of document
                            ·     ·       ┊
                            · · · ·
+                    : re `head successor` see `^^\| the head successor$` @ `^^ Node$`
+                figure, The form of a descriptor.
 
-            : re `head successor` see `^^\| the head successor$` @ `^^ Node$`
         - What follows the gap (?) depends on the type of node in which the descriptor appears.
         - Here most descriptors are largely free form, constrained only by the end boundary
           of their head (as shown).
@@ -271,16 +283,16 @@ Definition of the Breccian language
         gap
             - A formal intermediary within a descriptor.
 
-                  ┌─────────────────────╴◀───────────────────────────────────────┐
-                  │                                                              │
-                  │  ┌────────────────────────╴‘ ’╶───────────────────────────┐  │
-                  │  │                                                        │  │
-               ───┴──┤                                         block          ├──┴───▶
-                     │        inline                    ┌─── commentary ───┐  │
-                     └──┬── commentary ──┬── newline ───┤                  ├──┘
-                        │                │              ├── static block ──┤
-                        └────────────────┘              │                  │
-                                                        └──────────────────┘
+                  ┌───────────────────────────╴◀───────────────────────────────────────┐
+                  │                                                                    │
+                  │  ┌──────────────────────────────╴‘ ’╶───────────────────────────┐  │
+                  │  │                                                              │  │
+               ───┴──┤                                               block          ├──┴───▶
+                     │              inline                    ┌─── commentary ───┐  │
+                     └──┬─╴‘ ’╶── commentary ──┬── newline ───┤                  ├──┘
+                        │                      │              ├── static block ──┤
+                        └──────────────────────┘              │                  │
+                                                              └──────────────────┘
 
 
 
@@ -446,8 +458,7 @@ Definition of the Breccian language
                             | the first child of N
                                 / in its body, that is
                             | the next sibling of N
-                            | the next sibling of the nearest ancestor of N which is not itself
-                              a final sibling
+                            | the next sibling of the nearest ancestor of N
                     | the end of the document
             body
                 - The part of a node comprising its children alone; a sequence of body nodes.
@@ -608,9 +619,8 @@ Definition of the Breccian language
                 of   ┊╶───╴  perfect  ╶─── bullet ──┬── descriptor ──┬───▶ ┊ or end of document
                line  ┊     indentation              │                │     ┊
                                                     └────────────────┘
-
-                : re `head successor` see `^^\| the head successor$` @ `^^ Node$`
-            figure, The form of a point head.
+                    : re `head successor` see `^^\| the head successor$` @ `^^ Node$`
+                figure, The form of a point head.
 
         - Both the internal forms of the bullet and descriptor, and whether the descriptor may be
           omitted, depend on the type of point.
@@ -684,9 +694,13 @@ Definition of the Breccian language
         character identification
             - The identifiers here are hexadecimal codes of the Unicode standard.
                 : re `Unicode standard` see https://www.unicode.org/standard/standard.html
-     \ [graphical syntax notation]
-     \      - The present text uses syntax diagrams because it is aimed at Breccian authors in general,
-     \        who are not expected to be comfortable with a textual notation such as Backus-Naur Form.
+      \ [‘commentary’]
+      \     - It comprises commentary, but not necessarily a comment.
+      \     - Rather it might be only part of a larger comment that extends across several lines.
+      \     - A comment might begin as inline commentary, for example, then continue as block commentary.
+      \ [graphical syntax notation]
+      \     - The present text uses syntax diagrams because it is aimed at Breccian authors in general,
+      \       who are not expected to be comfortable with a textual notation such as Backus-Naur Form.
 
 
 
