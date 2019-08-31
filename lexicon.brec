@@ -11,6 +11,14 @@ Definition of terms for project Breccia
     Breccian
         ─ adjective
             - Relating to Breccia.
+    comment block
+        ─ noun
+            - One or more lines of block commentary in contiguous sequence.
+    comment block label
+        ─ noun
+            - The inline characters of a line of block commentary delimited by two or more backslashes.
+                : re `inline characters` see ` (inline) .+│$.+(character) `
+                  @ `^^block commentary$` @ language_definition.brec
     linear order
         ─ mass noun
             - (within a document) Line by line in the typical reading direction.
