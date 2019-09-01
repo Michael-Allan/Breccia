@@ -302,10 +302,6 @@ Definition of the Breccian language
         / A body node.
         - A part of the document markedly separate from other parts.
             : re `markedly separate` see `^^divider$`
-            / E.g. one too large (or small) to comfortably form as a point.
-            - Depending on whether the division has a body, the part formed comprises either:
-                | the division itself (a division with a body)
-                | the division and its subsequent siblings (a division without a body, a divider alone)
         divider
             - The head of a division.
             - It comprises one or more divider segments.
@@ -342,6 +338,12 @@ Definition of the Breccian language
                 - A division label that leads a line, with at most space characters in front.
                 - Normally it is displayed with greater prominence than an ordinary label,
                   e.g. using a bold face.
+        apparent division
+            - A group of siblings separated by a bodiless division (bare divider).
+                / Yielding a flat form of partition, as opposed to the hierarchical form
+                  of true division.
+            - The apparent division comprises the bodiless division and its subsequent siblings
+              (in linear order) prior to the next sibling that is itself a division.
 
 
 
