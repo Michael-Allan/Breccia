@@ -23,6 +23,7 @@ Definition of the Breccian language
           and an optional body formed as a sequence of body nodes.
 
                        │
+                       │
                  ┌─────┤         ┐
                  │     ╵         │
                  │ descriptor    │ head
@@ -37,6 +38,7 @@ Definition of the Breccian language
                   │    ╷   │     │
                   │    ├───┘     │
                   └────┤         ┘
+                       │
                        │
                        ▼
 
@@ -70,11 +72,11 @@ Definition of the Breccian language
           character sequences (the referrer, or referrers).
         - Its descriptor has this form:
 
-                            referrer                referent
-               ─── gap ──┬── clause ──┬─ gap ─┬──┬── clause ────▶
-                         │            │       │  │
-                         │            └───────┘  │
-                         └───────────────────────┘
+                            referrer              referent
+               ─── gap ──┬── clause ─┬─ gap ─┬─┬── clause ────▶
+                         │           │       │ │
+                         │           └───────┘ │
+                         └─────────────────────┘
 
                 figure, The form of the descriptor of an associative reference.
 
@@ -112,12 +114,12 @@ Definition of the Breccian language
         referent clause
             - The referent clause indicates the referent.
 
-                                                        URI
-                      ┌─╴‘join’╶─┐              ┌─── reference ───┐
-                   ───┤          ├──┬─ gap ─┬───┤                 ├────▶
-                      └──╴‘see’╶─┘  │       │   │    impliable    │
-                                    └───────┘   └────  node   ────┘
-                      └───────────┘                  indicator
+                                                      URI
+                      ┌─╴‘join’╶─┐             ┌── reference ──┐
+                   ───┤          ├──┬─ gap ─┬──┤               ├────▶
+                      └──╴‘see’╶─┘  │       │  │   impliable   │
+                                    └───────┘  └───  node   ───┘
+                      └───────────┘                indicator
                        referential
                          command
 
@@ -138,8 +140,8 @@ Definition of the Breccian language
                           with a pattern `p` formed thus:
                             if( the reference has a referrer clause )
                                 + Set `p` to the pattern given in the referrer clause.
-                                + Set `p` to broadened to division title( `p` ).
-                                    : see `^^broadened to division title\( pattern \)$`
+                                + Set `p` to broadened to division titling( `p` ).
+                                    : see `^^broadened to division titling\( pattern \)$`
                                 + Anchor `p` by appending ‘$$’.
                             else
                                 + Set `p` to generalized pattern( parent head of reference ).
@@ -160,12 +162,12 @@ Definition of the Breccian language
         / Part of a point head.
         - Its internal form is determined in part by external boundaries.
 
-                 perfect   ┊      start                             end             ┊   descriptor,
-               indentation ┊╶─── sequence ──┬──┬── interior ──┬── character ──┬───▶ ┊  head successor,
-                           ┊                │  │              │               │     ┊ or end of document
-                                            │  └──────────────┘               │     ┊
-                                            └─────────────────────────────────┘
-                                    i                 ii            iii
+                 perfect   ┊      start                        end            ┊   descriptor,
+               indentation ┊╶─── sequence ─┬─┬─ interior ─┬─ character ─┬───▶ ┊  head successor,
+                           ┊               │ │            │             │     ┊ or end of document
+                                           │ └────────────┘             │     ┊
+                                           └────────────────────────────┘
+                                    i              ii          iii
 
                     : re `head successor` see `^^\| the head successor$` @ `^^ Node$`
                 figure, The form of a bullet.
@@ -231,16 +233,16 @@ Definition of the Breccian language
         inline commentary
             - Commentary subsequent to non-commentary, non-whitespace on the same line. \ [‘commentary’]
 
-                                                          inline commentary
-                                             ┌──────────────────────────────────────────┐
+                                                         inline commentary
+                                             ┌─────────────────────────────────────────┐
                  
-                                                                   ┌────╴◀────────┐
-                                 ┌─╴◀────┐     ┌─╴◀────┐           │              │
-                   inline non-   │       │ ┊   │       │           │    inline    │         ┊ end of
-                   -whitespace ╶─┴─╴‘ ’╶─┘ ┊╶──┴─╴‘\’╶─┴─┬─╴‘ ’╶─┬─┴── character ─┴─┬─┬───▶ ┊ line
-                                           ┊             │       │                  │ │     ┊
-                                                         │       └──────────────────┘ │
-                                                         └────────────────────────────┘
+                                                                   ┌───╴◀────────┐
+                                 ┌─╴◀────┐     ┌─╴◀────┐           │             │
+                   inline non-   │       │ ┊   │       │           │   inline    │         ┊ end of
+                   -whitespace ╶─┴─╴‘ ’╶─┘ ┊╶──┴─╴‘\’╶─┴─┬─╴‘ ’╶─┬─┴─ character ─┴─┬─┬───▶ ┊ line
+                                           ┊             │       │                 │ │     ┊
+                                                         │       └─────────────────┘ │
+                                                         └───────────────────────────┘
 
                     figure, The form of inline commentary.
 
@@ -248,13 +250,13 @@ Definition of the Breccian language
             - Commentary comprising whole lines. \ [‘commentary’]
             - Each line has this form:
 
-                                                                  ┌────╴◀────────┐
-                                  ┌─╴◀────┐   ┌─╴◀────┐           │              │
-                      start ┊     │       │   │       │           │    inline    │         ┊ end of
-                       of   ┊╶──┬─┴─╴‘ ’╶─┴─┬─┴─╴‘\’╶─┴─┬─╴‘ ’╶─┬─┴── character ─┴─┬─┬───▶ ┊ line
-                      line  ┊   │           │           │       │                  │ │     ┊
-                                └───────────┘           │       └──────────────────┘ │
-                                                        └────────────────────────────┘
+                                                                  ┌───╴◀────────┐
+                                  ┌─╴◀────┐   ┌─╴◀────┐           │             │
+                      start ┊     │       │   │       │           │   inline    │         ┊ end of
+                       of   ┊╶──┬─┴─╴‘ ’╶─┴─┬─┴─╴‘\’╶─┴─┬─╴‘ ’╶─┬─┴─ character ─┴─┬─┬───▶ ┊ line
+                      line  ┊   │           │           │       │                 │ │     ┊
+                                └───────────┘           │       └─────────────────┘ │
+                                                        └───────────────────────────┘
 
                     figure, The form of a line of block commentary.
 
@@ -283,16 +285,16 @@ Definition of the Breccian language
         gap
             - A formal intermediary within a descriptor.
 
-                  ┌───────────────────────────╴◀───────────────────────────────────────┐
-                  │                                                                    │
-                  │  ┌──────────────────────────────╴‘ ’╶───────────────────────────┐  │
-                  │  │                                                              │  │
-               ───┴──┤                                               block          ├──┴───▶
-                     │              inline                    ┌─── commentary ───┐  │
-                     └──┬─╴‘ ’╶── commentary ──┬── newline ───┤                  ├──┘
-                        │                      │              ├── static block ──┤
-                        └──────────────────────┘              │                  │
-                                                              └──────────────────┘
+                  ┌────────────────────────╴◀───────────────────────────────────┐
+                  │                                                             │
+                  │ ┌───────────────────────────╴‘ ’╶─────────────────────────┐ │
+                  │ │                                                         │ │
+               ───┴─┤                                           block         ├─┴───▶
+                    │             inline                 ┌─── commentary ───┐ │
+                    └─┬─╴‘ ’╶── commentary ─┬─ newline ──┤                  ├─┘
+                      │                     │            ├── static block ──┤
+                      └─────────────────────┘            │                  │
+                                                         └──────────────────┘
 
 
 
@@ -300,50 +302,164 @@ Definition of the Breccian language
      Division
     ──────────
         / A body node.
-        - A part of the document markedly separate from other parts.
+        - A body node forming a part of the document markedly separate from other parts.
             : re `markedly separate` see `^^divider$`
-        divider
+        - Its head is called a divider.
+
+        ─────────
+         divider
+        ┈┈┈┈┈┈┈┈┈
             - The head of a division.
             - It comprises one or more divider segments.
-            - No two dividers are contiguous; rather they combine as one divider of multiple segments.
-        divider segment
-            - Begins with a perfectly indented divider mark.
-            - The end boundary is the next appearance in linear order of either
-              a divider segment, a point, or the end of the document.
-        divider mark
-            - Unicode 2500-259F.
-            / Divider mark = drawing character ∪ inversion mark.
-            drawing character
-                - Unicode 2500-2587, 2589-258F, 2591-259F.
-            inversion mark
-                - Unicode 2588 (full block), 2590 (right half block).
-        division label
-            - A sequence of non divider-mark characters in a divider,
-              exclusive of leading and trailing whitespace.
-            inverse label
-                - A sequence of non divider-mark, non newline characters in a divider,
-                  exclusive of leading and trailing whitespace and preceded on the same line
-                  by an inversion mark, with at most (the leading) space characters between the two.
-                - Normally the inverse label, together with any leading or trailing whitespace,
-                  is presented in inverse video.
-                    - Except that any inline commentary is still presented in plain video.
-                - Where a full block character succeeds an inversion mark on the same line,
-                  with at most non divider-mark characters in between,
-                  that full block is disabled as an inversion mark.
-                    / Viz. the full block pairs with the preceding inversion mark,
-                      and by itself does not start a new inverse label.
-                    / Viz. a single full block trailing an inverse label cannot start
-                      a second inverse label.
-            division title
-                - A division label that leads a line, with at most space characters in front.
-                - Normally it is displayed with greater prominence than an ordinary label,
-                  e.g. using a bold face.
-        apparent division
-            - A group of siblings separated by a bodiless division (bare divider).
-                / Yielding a flat form of partition, as opposed to the hierarchical form
-                  of true division.
-            - The apparent division comprises the bodiless division and its subsequent siblings
-              (in linear order) prior to the next sibling that is itself a division.
+            - Therefore no two dividers can be made contiguous; rather they become two segments
+              of one divider.
+
+                      │
+                      │
+                      ├─────┐
+                      ╵     │
+                   divider  ▲
+                   segment  │
+                      ╷     │
+                      ├─────┘
+                      │
+                      │
+                      ▼
+
+                    figure, The form of a divider.
+
+            divider segment
+                / Part of a divider.
+                - It starts with a perfectly indented divider mark.
+
+                         perfect      divider
+                       indentation ─── mark
+                                        ╷
+                                        │
+                                  ┌─────┤
+                                  │     ├───────┐
+                                  │     ╵       │
+                                  │  character  ▲
+                                  │     ╷       │
+                                  │     ├───────┘
+                                  └─────┤
+                                        │
+                                        │
+                                        ▼
+                              ╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴
+                              divider segment, point,
+                                or end of document
+
+                        figure, The form of a divider segment.
+
+                - Any characters subsequent to the divider mark are largely free form, constrained only
+                  by the end boundary of the segment, as shown.
+
+            divider mark
+                - A character in the Unicode range 2500-259F.
+                    : re `2500-259F` see `^^character identification$` @ `^^ Notes$`
+                - One of a drawing character or inversion mark.
+                drawing character
+                    - Unicode 2500-2587, 2589-258F, 2591-259F.
+                inversion mark
+                    - Unicode 2588 (full block), 2590 (right half block).
+
+        ────────────────
+         division label
+        ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
+            / Part of a divider segment.
+            - A sequence in a divider of non divider-mark characters.
+
+                               │
+                               │
+                               ╵
+                              non
+                          divider-mark,
+                         non-whitespace
+                               ╷
+                     ┌─────────┤
+                     │ ┌───────┤
+                     │ │       ├────────┐
+                     │ │       ╵        │
+                     │ │      non       ▲
+                     │ │  divider-mark  │
+                     │ │       ╷        │
+                     │ │       ├────────┘
+                     │ └───────┤
+                     │         ╵
+                     │        non
+                     │    divider-mark,
+                     │   non-whitespace
+                     │         ╷
+                     └─────────┤
+                               │
+                               │
+                               ▼
+
+                    figure, The form of a division label.
+
+            inverse labeling
+                / A deprecated part of a division label.
+                - It occurs at the start of a division label bounded by an inversion marker.
+
+                       inversion ┊          non                  non                non
+                         marker  ┊╶───╴ divider-mark, ─┬─┬─  divider-mark, ─┬── divider-mark, ─┬───▶
+                                 ┊     non-whitespace  │ │   non-newline    │  non-whitespace  │
+                                                       │ │                  │                  │
+                                                       │ └──────────────────┘                  │
+                                                       └───────────────────────────────────────┘
+
+                        figure, The form of inverse labeling.
+
+                - Presenters show inverse labeling, together with any space characters
+                  that immediately precede or follow it, in reverse video.
+                    \ Not ‘inverse video’.  https://www.lexico.com/en/definition/reverse_video
+                    - Exception: inline commentary is excluded and presented as is.
+                - Inverse labeling is deprecated, liable to be removed from the language.
+                    \ It concerns presentation alone, making it improper to the language.
+                    \ It has turned out to be largely useless thus far.  2019-9
+                inversion marker
+
+                                           ┌─╴◀────┐
+                              inversion    │       │
+                           ───  mark   ──┬─┴─╴‘ ’╶─┴─┬───▶
+                                         │           │
+                                         └───────────┘
+
+                    - Where a full block character (2588) succeeds an inversion mark on the same line,
+                      with at most non divider-mark characters in between, that full block is disabled
+                      as an inversion mark.
+                        : see `^^character identification$` @ `^^ Notes$`
+                        / The full block pairs with the preceding inversion mark and by itself does not
+                          start a new sequence of inverse labeling.
+
+            division titling
+                / Part of a division label.
+                - Discounting whitespace, any part of a division label that leads the line
+                  on which it occurs is division titling.
+
+                       ┈┈┈
+                     
+                         this is division titling
+                     
+                       ┈┈┈  this is not
+
+                        figure, Example of division titling.  The drawing sequences here
+                          are perfectly indented.
+
+                - Presenters may give greater prominence to division titling,
+                  e.g. showing it in bold face.
+
+
+        ───────────────────
+         apparent division
+        ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
+            - A group of siblings led by a bodiless division (bare divider).
+            - It comprises the bodiless division and its subsequent siblings (in linear order)
+              prior to the next sibling (if any) that is itself a division.
+            / It is a flat form of partition, as opposed to the hierarchical form of true division.
+            / It may be transformed to a true division by indenting the siblings to instead
+              make them children of the divider.
 
 
 
@@ -482,13 +598,13 @@ Definition of the Breccian language
         ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
             - An indicator of a node, here referred to as ‘the principal node’.
 
-                                           ┌─────────╴◀─────────────┐
-                                           │                        │
-                          principal        │             ancestral  │                    referent
-                   ───┬──╴  node   ╶──┬──┬─┴─┬─ gap ─┬──╴  node   ╶─┴──┬──┬──┬─ gap ─┬── document ──┬───▶
-                      │   indicator   │  │   │       │   indicator     │  │  │       │   indicator  │
-                      │               │  │   └───────┘                 │  │  └───────┘              │
-                      └───────────────┘  └─────────────────────────────┘  └─────────────────────────┘
+                                         ┌─────────╴◀────────────┐
+                                         │                       │
+                         principal       │            ancestral  │                  referent
+                   ───┬─╴  node   ╶─┬──┬─┴─┬─ gap ─┬─╴  node   ╶─┴──┬──┬─┬─ gap ─┬─ document ─┬───▶
+                      │  indicator  │  │   │       │  indicator     │  │ │       │  indicator │
+                      │             │  │   └───────┘                │  │ └───────┘            │
+                      └─────────────┘  └────────────────────────────┘  └──────────────────────┘
 
             - Any reference to this form will be accompanied by the specification of a default value
               for its first component (the principal node indicator), which will also serve as
@@ -544,13 +660,13 @@ Definition of the Breccian language
                                   the pattern and match other bullet types, e.g. a generic bullet.
                                 / A use case here is to join a generic head ‘foo’, for instance,
                                   from a task head ‘foo+’, in order to task ‘foo’ for action.
-                        + Set `p` to broadened to division title( `p` ).
-                            : see `^^broadened to division title\( pattern \)$`
+                        + Set `p` to broadened to division titling( `p` ).
+                            : see `^^broadened to division titling\( pattern \)$`
                     + Anchor `p` by appending ‘$$’.
                     return( `p` )
 
-                broadened to division title( p )
-                    / Returns the given pattern `p` broadened to match a division title.
+                broadened to division titling( p )
+                    / Returns the given pattern `p` broadened to match division titling.
                     + Anchor `p` by prepending ‘^ *’.
                     + Ensure that `p` functions in *case insensitive* mode (`i`).
                         : re `\*case insensitive\* mode`
@@ -615,6 +731,8 @@ Definition of the Breccian language
      Point
     ───────
         / A body node.
+        - The more common type of body node.
+            : re `type of body node` see `^^typology$` @ `^^ Node$`
         - Its head comprises a perfectly indented bullet, and often a descriptor.
 
                start ┊                                                     ┊  head successor,
@@ -648,11 +766,13 @@ Definition of the Breccian language
         - It enables the author to lay out a section of text freely,
           unconstrained by Breccia’s rules of indentation.
             - Regardless of its indentation, a static block does not interrupt the nodal head
-              in which it occurs; rather the head continues blindly through the block.
-            - A presenter capable of reformatting the layout of a Breccian text is forbidden to alter
-              the layout of a static block rightward of its leading no-break spaces.
-        - Character restrictions, however, still apply.
+              in which it occurs; rather the head continues through the block.
+        - Character restrictions still apply.
             : see `^^allowed whitespace$` @ `^^ Whitespace$`
+        - A presenter capable of reformatting the layout of a Breccian text is forbidden to alter
+          the layout of a static block rightward of its leading no-break spaces.
+            / This interdict speaks only of layout, not of any other presentation function
+              proper to the nodal head in which the static block occurs.
 
 
 
@@ -694,7 +814,7 @@ Definition of the Breccian language
      Notes
     ───────
         character identification
-            - The identifiers here are hexadecimal codes of the Unicode standard.
+            - Characters are here identified by the hexadecimal codes of the Unicode standard.
                 : re `Unicode standard` see https://www.unicode.org/standard/standard.html
       \ [‘commentary’]
       \     - It comprises commentary, but not necessarily a comment.
