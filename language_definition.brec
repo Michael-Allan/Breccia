@@ -1,14 +1,14 @@
 Definition of the Breccian language
 
     - Breccia in practice is a production of documents,
-      here defined in formal terms as document nodes.
+      here defined in formal terms as document fracta.
 
               │
               │
               ├──────┐
               ╵      │     \ [graphical syntax notation], q.v. at end notes
            document  ▲
-             node    │
+           fractum   │
               ╷      │
               ├──────┘
               │
@@ -17,33 +17,33 @@ Definition of the Breccian language
 
             figure, The collective form of Breccia.
 
-    document node
+    document fractum
         - A Breccian document in formal terms.
         - It divides into an optional head formed as a bare descriptor,
-          and an optional body formed as a sequence of body nodes.
+          and an optional body formed as a sequence of body fracta.
 
                        │
                        │
-                 ┌─────┤         ┐
-                 │     ╵         │
-                 │ descriptor    │ head
-                 │     ╷         │
-                 └─────┤         ┘
+                 ┌─────┤           ┐
+                 │     ╵           │
+                 │ descriptor      │ head
+                 │     ╷           │
+                 └─────┤           ┘
                        │
-                  ┌────┤         ┐
-                  │    ├───┐     │
-                  │    ╵   │     │
-                  │  body  ▲     │ body
-                  │  node  │     │
-                  │    ╷   │     │
-                  │    ├───┘     │
-                  └────┤         ┘
+                 ┌─────┤           ┐
+                 │     ├─────┐     │
+                 │     ╵     │     │
+                 │   body    ▲     │ body
+                 │  fractum  │     │
+                 │     ╷     │     │
+                 │     ├─────┘     │
+                 └─────┤           ┘
                        │
                        │
                        ▼
 
     document title
-        - The document title, if any, is determined by the first nodal head in linear order
+        - The document title, if any, is determined by the first fractal head in linear order
           that yields a non-empty result after collapsing the whitespace of the relevant part
           of its content according to head type:
             • document head or point head
@@ -78,7 +78,7 @@ Definition of the Breccian language
                          │           └───────┘ │
                          └─────────────────────┘
 
-                figure, The form of the descriptor of an associative reference.
+                figure, The form of the descriptor in an associative reference.
 
         - The referrer clause indicates the referrer or referrers.
         - The referent clause indicates the referent.
@@ -97,7 +97,7 @@ Definition of the Breccian language
                              └───────┘
 
                 - Failing a parent head, the reference is misplaced and the document malformed.
-                    / This occurs only when the parent is a document node without a descriptor.
+                    / This occurs only when the parent is a document fractum without a descriptor.
             - It works thus:
                 if( the pattern contains one or more subexpression grouping constructs ‘(…)’ )
                     : re `subexpression grouping constructs`
@@ -118,7 +118,7 @@ Definition of the Breccian language
                       ┌─╴‘join’╶─┐             ┌── reference ──┐
                    ───┤          ├──┬─ gap ─┬──┤               ├────▶
                       └──╴‘see’╶─┘  │       │  │   impliable   │
-                                    └───────┘  └───  node   ───┘
+                                    └───────┘  └─── fractum ───┘
                       └───────────┘                indicator
                        referential
                          command
@@ -129,14 +129,14 @@ Definition of the Breccian language
 
             / The referential command determines the type and overall function
               of the associative reference.
-                : re `type` see `^^◇ associative reference$` @ `^^typology$` @ `^^ Node$`
+                : re `type` see `^^◇ associative reference$` @ `^^typology$` @ `^^ Fractum$`
             - The referent clause works thus:
                 if( a URI reference is given )
                     + Take the referent of the URI reference as the indicated referent.
                 else
-                    - An impliable node indicator is given.
-                    if( its first component (the principal node indicator) is omitted )
-                        + Set as first component a principal node indicator
+                    - An impliable fractum indicator is given.
+                    if( its first component (the principal fractum indicator) is omitted )
+                        + Set as first component a principal fractum indicator
                           with a pattern `p` formed thus:
                             if( the reference has a referrer clause )
                                 + Set `p` to the pattern given in the referrer clause.
@@ -145,14 +145,14 @@ Definition of the Breccian language
                                 + Anchor `p` by appending ‘$$’.
                             else
                                 + Set `p` to generalized pattern( parent head of reference ).
-                                    : see `^^generalized pattern\( nodal head \)$`
-                    if( the pattern of its principal node indicator contains
+                                    : see `^^generalized pattern\( fractal head \)$`
+                    if( the pattern of its principal fractum indicator contains
                          one or more subexpression grouping constructs ‘(…)’ )
                         : re `subexpression grouping constructs`
                           see https://perldoc.perl.org/perlreref.html#SYNTAX
                         + Take as the indicated referent the union of the text sequences they capture.
                     else
-                        + Take as the indicated referent the whole of the indicated node.
+                        + Take as the indicated referent the whole of the indicated fractum.
 
 
 
@@ -169,7 +169,7 @@ Definition of the Breccian language
                                            └────────────────────────────┘
                                     i              ii          iii
 
-                    : re `head successor` see `^^\| the head successor$` @ `^^ Node$`
+                    : re `head successor` see `^^\| the head successor$` @ `^^ Fractum$`
                 figure, The form of a bullet.
 
         - While the precise internal form varies according to the point type, every bullet is formally
@@ -210,7 +210,7 @@ Definition of the Breccian language
         / A formal point.
         - A point with a bullet comprising ‘:’.
         - The form of its descriptor, if any, varies with the type of command point.
-            : re `type of command point` see `^^typology$` @ `^^ Node$`
+            : re `type of command point` see `^^typology$` @ `^^ Fractum$`
             / Only in the case of a *null command* may the descriptor be omitted.
         - Processors interpret command points and execute their commands in linear order.
 
@@ -274,14 +274,14 @@ Definition of the Breccian language
                ─── gap ─── ·  ?  · ────▶ ┊ or end of document
                            ·     ·       ┊
                            · · · ·
-                    : re `head successor` see `^^\| the head successor$` @ `^^ Node$`
+                    : re `head successor` see `^^\| the head successor$` @ `^^ Fractum$`
                 figure, The form of a descriptor.
 
-        - What follows the gap (?) depends on the type of node in which the descriptor appears.
+        - What follows the gap (?) depends on the type of fractum in which the descriptor appears.
         - Here most descriptors are largely free form, constrained only by the end boundary
           of their head (as shown).
             - The descriptor of a formal point, however, is further constrained.
-                : re `formal point` see `^^◇ formal point$` @ `^^typology$` @ `^^ Node$`
+                : re `formal point` see `^^◇ formal point$` @ `^^typology$` @ `^^ Fractum$`
         gap
             - A formal intermediary within a descriptor.
 
@@ -301,8 +301,8 @@ Definition of the Breccian language
     ━━━━━━━━━━
      Division
     ──────────
-        / A body node.
-        - A body node forming a part of the document markedly separate from other parts.
+        / A body fractum.
+        - A body fractum forming a part of the document markedly separate from other parts.
             : re `markedly separate` see `^^divider$`
         - Its head is called a divider.
 
@@ -473,61 +473,14 @@ Definition of the Breccian language
 
 
 
-    ━━━━━━━━━━━━━━━
-     Generic point
-    ───────────────
-        / A material point.
-        - A non specialized point, a point for which the language defines no special role or bullet form.
-        - Its bullet is largely free form, conditioned only by the basic constraints.
-            : re `basic constraints` see `(basic constraints) ` @ `^^ Bullet$`
-        - Likewise its descriptor, if present, is largely free form.
-            : see `Most descriptors are largely free form.$` @ `^^ Descriptor$`
-
-
-
-    ━━━━━━━━━
-     Jointer
-    ─────────
-        - An associative reference with a referential command of `join`.
-        - A jointer stands for the body of its referent node, and associates it with the referrer.
-        example
-
-              join foo/bar.br
-
-        form
-
-              join  IMPLIABLE_NODE_INDICATOR
-
-            IMPLIABLE_NODE_INDICATOR
-                - An impliable node indicator.
-                - Indicates the referent node.
-                - The default value for the first component of the indicator, or the implied value
-                  of the whole indicator if all its components are omitted, is a principal node indicator
-                  formed using the generalized pattern of the jointer’s parent head.
-                    : re `generalized pattern` see `^^generalized_pattern\( nodal_head \)$`
-                - Will not match where the jointer would have no effect.
-                    : re `effect` see @ `^^ Jointer$`
-                    / This rule stops the jointer matching its own parent, for instance.
-                        : see `does not duplicate a pre-existing (?:child|parent)`
-                          @ `^^effect$` @ `^^ Jointer$`
-        effect
-            - On behalf of the referrer, the parent of a jointer gains for a child (subjoint child)
-              each child of the referent node that does not duplicate a pre-existing child.
-            - By the same token, the children of a referent node gain for a parent (surjoint parent)
-              each parent of the jointer that does not duplicate a pre-existing parent.
-            - In both cases the duplication test ignores variations in commentary and whitespacing.
-            - Where the referent node itself has a jointer as its child, the effect applies recursively.
-
-
-
     ━━━━━━
-     Node
+     Fractum
     ──────
         - The basic formal unit of Breccian composition, hierarchy and order.
 
         typology
-            • document node
-            ◇ body node
+            • document fractum
+            ◇ body fractum
                 • division
                 ◇ point
                     ◇ formal point
@@ -544,77 +497,79 @@ Definition of the Breccian language
                         • generic point
 
         abstract form
-            - A node divides formally into two parts: a head and a body.
+            - A fractum divides formally into two parts: a head and a body.
 
-                      │
-                      ╵
-                   · · · ·      ┐
-                   ·     ·      │
-                   ·  ?  ·      │ head
-                   ·     ·      │
-                   · · · ·      ┘
-                      ╷
-                      │
-                 ┌────┤
-                 │    ├───┐     ┐
-                 │    ╵   │     │
-                 │  body  ▲     │ body
-                 │  node  │     │
-                 │    ╷   │     │
-                 │    ├───┘     ┘
-                 └────┤
-                      │
-                      ▼
+                       │
+                       │
+                       ╵
+                    · · · ·        ┐
+                    ·     ·        │
+                    ·  ?  ·        │ head
+                    ·     ·        │
+                    · · · ·        ┘
+                       ╷
+                       │
+                 ┌─────┤           ┐
+                 │     ├─────┐     │
+                 │     ╵     │     │
+                 │   body    ▲     │ body
+                 │  fractum  │     │
+                 │     ╷     │     │
+                 │     ├─────┘     │
+                 └─────┤           ┘
+                       │
+                       │
+                       ▼
 
             head
-                - The part of a node exclusive of its children.
-                - Its internal form (abstracted from the diagram) varies according to the node type.
+                - The part of a fractum exclusive of its children.
+                - Its internal form (abstracted from the diagram) varies according to the fractum type.
                 - Its end boundary (not fully shown) always comprises one of:
                     | the head successor
-                        - The head successor (S) is the node succeeding the head in linear order.
-                        - In terms relative to the head’s own node N, S is the first applicable of:
-                            | the first child of N
+                        - The head successor (S) is the fractum succeeding the head in linear order.
+                        - In terms relative to the head’s own fractum F, S is the first applicable of:
+                            | the first child of F
                                 / in its body, that is
-                            | the next sibling of N
-                            | the next sibling of the nearest ancestor of N
+                            | the next sibling of F
+                            | the next sibling of the nearest ancestor of F
                     | the end of the document
             body
-                - The part of a node comprising its children alone; a sequence of body nodes.
-                - A body is always optional: regardless of the node type, it may be omitted.
+                - The part of a fractum comprising its children alone; a sequence of body fracta.
+                - A body is always optional: regardless of the fractum type, it may be omitted.
 
-        nodal relatives
+        fractal relatives
             • parent
-                - The parent of a node is the first applicable of:
-                    | its nearest (in linear order) nodal precedecessor of less indentation
-                    | the document node
+                - The parent of a fractum is the first applicable of:
+                    | its nearest (in linear order) fractal precedecessor of less indentation
+                    | the document fractum
             • child
-                - A node that has a parent.
-                - All body nodes are children.
-                - No document node is a child.
+                - A fractum that has a parent.
+                - All body fracta are children.
+                - No document fractum is a child.
 
 
         ──────────────────────────
-         impliable node indicator
+         impliable fractum indicator
         ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
-            - An indicator of a node, here referred to as ‘the principal node’.
+            - An indicator of a fractum, here referred to as ‘the principal fractum’.
 
                                          ┌─────────╴◀────────────┐
                                          │                       │
                          principal       │            ancestral  │                  referent
-                   ───┬─╴  node   ╶─┬──┬─┴─┬─ gap ─┬─╴  node   ╶─┴──┬──┬─┬─ gap ─┬─ document ─┬───▶
+                   ───┬─╴ fractum ╶─┬──┬─┴─┬─ gap ─┬─╴ fractum ╶─┴──┬──┬─┬─ gap ─┬─ document ─┬───▶
                       │  indicator  │  │   │       │  indicator     │  │ │       │  indicator │
                       │             │  │   └───────┘                │  │ └───────┘            │
                       └─────────────┘  └────────────────────────────┘  └──────────────────────┘
 
             - Any reference to this form will be accompanied by the specification of a default value
-              for its first component (the principal node indicator), which will also serve as
+              for its first component (the principal fractum indicator), which will also serve as
               the implied value of the whole indicator if all its components are omitted.
-            - An impliable node indicator may be used to indicate a non-Breccian referent.
+            - An impliable fractum indicator may be used to indicate a non-Breccian referent.
                 - Where a processor is unable to find such a referent, or to deal with it,
                   it should not prevent the reader trying to deal with it manually.
 
-            principal node indicator
-                - A direct indicator of the principal node by the pattern of its text.
+            principal fractum indicator
+                - A direct indicator of the principal fractum by the pattern of its text.
 
                        ───╴‘`’╶─ pattern ─╴‘`’╶───▶
 
@@ -624,21 +579,21 @@ Definition of the Breccian language
                           see https://perldoc.perl.org/perlreref.html#SYNTAX
                         for( each match of the pattern )
                             if( at least one subexpression captures a text sequence,
-                                 and all captured text sequences lie within the same nodal head )
-                                + Set as indicated the nodal head’s node.
+                                 and all captured text sequences lie within the same fractal head )
+                                + Set as indicated the fractal head’s fractum.
                     else
                         for( each match of the pattern )
-                            + Set as indicated the node whose head contains the first matched character
+                            + Set as indicated the fractum whose head contains the first matched character
                               in linear order.
-                    if( exactly one node is indicated )
-                        return( the indicated node )
+                    if( exactly one fractum is indicated )
+                        return( the indicated fractum )
                     if( the referent document is Breccian )
                         throw( error, the indicator is ambiguous )
 
-                generalized pattern( nodal head )
-                    / Returns a generalized pattern of the given nodal head, which is commonly used
-                      to specify the default value for a principal node indicator.
-                    + Set `p` to the text of the given `nodal head`.
+                generalized pattern( fractal head )
+                    / Returns a generalized pattern of the given `fractal head`, which is commonly used
+                      to specify the default value for a principal fractum indicator.
+                    + Set `p` to the text of the given `fractal head`.
                     + Trim `p` of commentary.
                     + Trim `p` of leading whitespace on its first line.
                     + Trim `p` of trailing whitespace.
@@ -646,13 +601,13 @@ Definition of the Breccian language
                         : see `^^literalized pattern\( string \)$`
                     + Collapse all remaining whitespace of `p` to ‘\s+’.
                         / Neutralizing differences in indentation and line wrapping.
-                    if( `nodal head` is a divider )
+                    if( `fractal head` is a divider )
                         + Anchor `p` by prepending ‘^^’.
                         for( each repetitive sequence (S) of a drawing character (C) in `p` )
                             + Collapse S to a single C followed by ‘+’.
                             / Neutralizing differences in horizontal length, e.g. owing to indentation.
                     else if( `p` ends with a literalized ‘+’ )
-                        / Then `nodal head` may comprise a task bullet.
+                        / Then `fractal head` may comprise a task bullet.
                         if( `p` does not *comprise* a literalized ‘+’ )
                             / Then the (potential) bullet here is not ‘+’ alone.
                             + Append ‘?’.
@@ -673,8 +628,8 @@ Definition of the Breccian language
                           see https://perldoc.perl.org/perlreref.html#OPERATORS
                     return( `p` )
 
-            ancestral node indicator
-                - An indicator of an ancestor of the principal node.
+            ancestral fractum indicator
+                - An indicator of an ancestor of the principal fractum.
                 - It indicates the ancestor by the pattern of its text.
 
                        ───╴‘@’╶─┬─ gap ─┬─╴‘`’╶─ pattern ─╴‘`’╶───▶
@@ -685,13 +640,60 @@ Definition of the Breccian language
                   of its predecessor.
 
             referent document indicator
-                - An indicator of the referent document, the document of the principal node.
+                - An indicator of the referent document, the document of the principal fractum.
 
                        ───╴‘@’╶─┬─ gap ─┬── URI reference ────▶
                                 │       │
                                 └───────┘
 
                     : re `URI reference` see https://tools.ietf.org/html/rfc3986#section-4.1
+
+
+
+    ━━━━━━━━━━━━━━━
+     Generic point
+    ───────────────
+        / A material point.
+        - A non specialized point, a point for which the language defines no special role or bullet form.
+        - Its bullet is largely free form, conditioned only by the basic constraints.
+            : re `basic constraints` see `(basic constraints) ` @ `^^ Bullet$`
+        - Likewise its descriptor, if present, is largely free form.
+            : see `Most descriptors are largely free form.$` @ `^^ Descriptor$`
+
+
+
+    ━━━━━━━━━
+     Jointer
+    ─────────
+        - An associative reference with a referential command of `join`.
+        - A jointer stands for the body of its referent fractum, and associates it with the referrer.
+        example
+
+              join foo/bar.br
+
+        form
+
+              join  IMPLIABLE_FRACTUM_INDICATOR
+
+            IMPLIABLE_FRACTUM_INDICATOR
+                - An impliable fractum indicator.
+                - Indicates the referent fractum.
+                - The default value for the first component of the indicator, or the implied value
+                  of the whole indicator if all its components are omitted, is a principal fractum indicator
+                  formed using the generalized pattern of the jointer’s parent head.
+                    : re `generalized pattern` see `^^generalized_pattern\( fractal head \)$`
+                - Will not match where the jointer would have no effect.
+                    : re `effect` see @ `^^ Jointer$`
+                    / This rule stops the jointer matching its own parent, for instance.
+                        : see `does not duplicate a pre-existing (?:child|parent)`
+                          @ `^^effect$` @ `^^ Jointer$`
+        effect
+            - On behalf of the referrer, the parent of a jointer gains for a child (subjoint child)
+              each child of the referent fractum that does not duplicate a pre-existing child.
+            - By the same token, the children of a referent fractum gain for a parent (surjoint parent)
+              each parent of the jointer that does not duplicate a pre-existing parent.
+            - In both cases the duplication test ignores variations in commentary and whitespacing.
+            - Where the referent fractum itself has a jointer as its child, the effect applies recursively.
 
 
 
@@ -730,21 +732,21 @@ Definition of the Breccian language
     ━━━━━━━
      Point
     ───────
-        / A body node.
-        - The more common of the body node types.
-            : re `body node types` see `^^typology$` @ `^^ Node$`
+        / A body fractum.
+        - The more common of the body fractum types.
+            : re `body fractum types` see `^^typology$` @ `^^ Fractum$`
         - Its head comprises a perfectly indented bullet, and often a descriptor.
 
                start ┊                                                     ┊  head successor,
                 of   ┊╶───╴  perfect  ╶─── bullet ──┬── descriptor ──┬───▶ ┊ or end of document
                line  ┊     indentation              │                │     ┊
                                                     └────────────────┘
-                    : re `head successor` see `^^\| the head successor$` @ `^^ Node$`
+                    : re `head successor` see `^^\| the head successor$` @ `^^ Fractum$`
                 figure, The form of a point head.
 
         - Both the internal forms of the bullet and descriptor, and whether the descriptor may be
           omitted, depend on the type of point.
-            : re `type of point` see `^^typology$` @ `^^ Node$`
+            : re `type of point` see `^^typology$` @ `^^ Fractum$`
 
 
 
@@ -765,14 +767,14 @@ Definition of the Breccian language
             : see `^^character identification$` @ `^^ Notes$`
         - It enables the author to lay out a section of text freely,
           unconstrained by Breccia’s rules of indentation.
-            - Regardless of its indentation, a static block does not interrupt the nodal head
+            - Regardless of its indentation, a static block does not interrupt the fractal head
               in which it occurs; rather the head continues through the block.
         - Character restrictions still apply.
             : see `^^allowed whitespace$` @ `^^ Whitespace$`
         - A presenter capable of reformatting the layout of a Breccian text is forbidden to alter
           the layout of a static block rightward of its leading no-break spaces.
             / This interdict speaks only of layout, not of any other presentation function
-              proper to the nodal head in which the static block occurs.
+              proper to the fractal head in which the static block occurs.
 
 
 

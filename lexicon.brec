@@ -6,8 +6,8 @@ Definition of terms for project Breccia
               of points and subpoints.
                 : see `lightweight markup.+outlining and drafting.+hierarchical indentation.+points`
                   @ README.html
-                : re `hierarchical indentation` see `hierarchy` @ `^^ Node$` @ language_definition.brec
-                : re `points` see `^^typology$` @ `^^ Node$` @ language_definition.brec
+                : re `hierarchical indentation` see `hierarchy` @ `^^ Fractum$` @ language_definition.brec
+                : re `points` see `^^typology$` @ `^^ Fractum$` @ language_definition.brec
     Breccian
         ─ adjective
             - Relating to Breccia.
@@ -19,6 +19,18 @@ Definition of terms for project Breccia
             - The inline characters of a line of block commentary delimited by two or more backslashes.
                 : re `inline characters` see ` (inline) .+│$.+(character) `
                   @ `^^block commentary$` @ language_definition.brec
+    fracta
+        ─ plural noun
+            : see `^^─ noun$` @ `^^fractum$`
+    fractal
+        ─ adjective
+            - Relating to fracta.
+    fractum
+        ─ noun
+            - The basic formal unit of Breccian composition, hierarchy and order.
+                : see `basic formal unit of Breccian composition, hierarchy and order\.$`
+                  @ `^^ Fractum$` @ language_definition.brec
+            : see `^^─ plural noun$` @ `^^fracta$`
     linear order
         ─ mass noun
             - (within a document) Line by line in the typical reading direction.
