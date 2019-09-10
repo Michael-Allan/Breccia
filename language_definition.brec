@@ -731,8 +731,8 @@ Definition of the Breccian language
      Point
     ───────
         / A body node.
-        - The more common type of body node.
-            : re `type of body node` see `^^typology$` @ `^^ Node$`
+        - The more common of the body node types.
+            : re `body node types` see `^^typology$` @ `^^ Node$`
         - Its head comprises a perfectly indented bullet, and often a descriptor.
 
                start ┊                                                     ┊  head successor,
