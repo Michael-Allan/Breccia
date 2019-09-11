@@ -184,6 +184,7 @@ Definition of the Breccian language
             - Coming after the start character and before the end character.
             - Here the bullet may contain spacing characters, and nowhere else.
                 - One or more plain spaces (20) may follow an alphanumeric character.
+                    : see `^^character identification$` @ `^^ Notes$`
                     - Following any other character (C), they would expel both C and themselves
                       from the interior.
                         / So making C either the end character if it meets the constraints of one,
@@ -435,9 +436,10 @@ Definition of the Breccian language
 
             division titling
                 / Part of a division label.
-                - Discounting whitespace, any part of a division label that leads the line
-                  on which it occurs is division titling.
-
+                - Division titling is any part of a division label that (discounting spaces, 20)
+                  leads the line on which it occurs.
+                    : see `^^character identification$` @ `^^ Notes$`
+                -
                        ┈┈┈
                      
                          this is division titling
@@ -473,9 +475,9 @@ Definition of the Breccian language
 
 
 
-    ━━━━━━
+    ━━━━━━━━━
      Fractum
-    ──────
+    ─────────
         - The basic formal unit of Breccian composition, hierarchy and order.
 
         typology
