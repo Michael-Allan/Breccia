@@ -54,6 +54,16 @@ Definition of the Breccian language
 
 
     ━━━━━━━━━━━━━
+     Alarm point
+    ─────────────
+        / A specialized material point.
+        - A point with a bullet comprising ‘!!’, or ending with ‘!!’.
+        - It forms urgent matter for the attention of authors.
+            / E.g. indicating an error in the document.
+
+
+
+    ━━━━━━━━━━━━━
      Aside point
     ─────────────
         / A specialized material point.
@@ -465,16 +475,6 @@ Definition of the Breccian language
 
 
 
-    ━━━━━━━━━━━━━━━━━
-     Exception point
-    ─────────────────
-        / A specialized material point.
-        - Bullet comprising or terminated ‘!!’.
-        - It is a point of urgency for the attention of authors.
-            / E.g. indicating an error in the document.
-
-
-
     ━━━━━━━━━
      Fractum
     ─────────
@@ -493,8 +493,8 @@ Definition of the Breccian language
                             • null command
                     ◇ material point
                         ◇ specialized material point
+                            • alarm point
                             • aside point
-                            • exception point
                             • task point
                         • generic point
 
