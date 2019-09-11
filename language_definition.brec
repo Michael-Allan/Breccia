@@ -145,9 +145,8 @@ Definition of the Breccian language
                     + Take the referent of the URI reference as the indicated referent.
                 else
                     - An impliable fractum indicator is given.
-                    if( its first component (the principal fractum indicator) is omitted )
-                        + Set as first component a principal fractum indicator
-                          with a pattern `p` formed thus:
+                    if( its first component (the direct indicator) is omitted )
+                        + Set as first component a direct indicator with a pattern `p` formed thus:
                             if( the reference has a referrer clause )
                                 + Set `p` to the pattern given in the referrer clause.
                                 + Set `p` to broadened to division titling( `p` ).
@@ -156,8 +155,8 @@ Definition of the Breccian language
                             else
                                 + Set `p` to generalized pattern( parent head of reference ).
                                     : see `^^generalized pattern\( fractal head \)$`
-                    if( the pattern of its principal fractum indicator contains
-                         one or more subexpression grouping constructs ‘(…)’ )
+                    if( the pattern of its direct indicator contains one or more
+                         subexpression grouping constructs ‘(…)’ )
                         : re `subexpression grouping constructs`
                           see https://perldoc.perl.org/perlreref.html#SYNTAX
                         + Take as the indicated referent the union of the text sequences they capture.
@@ -536,7 +535,7 @@ Definition of the Breccian language
                             | the next sibling of the nearest ancestor of F
                     | the end of the document
             body
-                - The part of a fractum comprising its children alone; a sequence of body fracta.
+                - The part of a fractum comprising its children alone; a sequence of sibling body fracta.
                 - A body is always optional: regardless of the fractum type, it may be omitted.
 
         fractal relatives
@@ -550,32 +549,34 @@ Definition of the Breccian language
                 - No document fractum is a child.
 
 
-        ──────────────────────────
+        ─────────────────────────────
          impliable fractum indicator
-        ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
+        ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
             - An indicator of a fractum, here referred to as ‘the principal fractum’.
 
                                          ┌─────────╴◀────────────┐
                                          │                       │
-                         principal       │            ancestral  │                  referent
-                   ───┬─╴ fractum ╶─┬──┬─┴─┬─ gap ─┬─╴ fractum ╶─┴──┬──┬─┬─ gap ─┬─ document ─┬───▶
-                      │  indicator  │  │   │       │  indicator     │  │ │       │  indicator │
-                      │             │  │   └───────┘                │  │ └───────┘            │
-                      └─────────────┘  └────────────────────────────┘  └──────────────────────┘
+                          direct         │            ancestor   │                  document
+                   ───┬─ indicator ─┬──┬─┴─┬─ gap ─┬─ indicator ─┴──┬──┬─┬─ gap ─┬─ indicator ─┬───▶
+                      │             │  │   │       │                │  │ │       │             │
+                      └─────────────┘  │   └───────┘                │  │ └───────┘             │
+                                       └────────────────────────────┘  └───────────────────────┘
 
-            - Any reference to this form will be accompanied by the specification of a default value
-              for its first component (the principal fractum indicator), which will also serve as
-              the implied value of the whole indicator if all its components are omitted.
-            - An impliable fractum indicator may be used to indicate a non-Breccian referent.
-                - Where a processor is unable to find such a referent, or to deal with it,
-                  it should not prevent the reader trying to deal with it manually.
+                figure, The form of an impliable fractum indicator.
 
-            principal fractum indicator
-                - A direct indicator of the principal fractum by the pattern of its text.
+            - Where used in the languagage definition, this form is qualified by the specification
+              of a default value for its first component (the direct indicator), which also serves
+              as the implied value of the whole indicator if all its components are omitted.
+            - It may be used to indicate a non-Breccian referent.
+                - Where a processor is unable to find such a referent, or otherwise to deal with it,
+                  that should not prevent the reader trying to deal with it manually.
+
+            direct indicator
+                - A indicator of the principal fractum by the pattern of its own text.
 
                        ───╴‘`’╶─ pattern ─╴‘`’╶───▶
 
-                - It works by indicating the return value of this procedure:
+                - The indication it gives is the return value of this procedure:
                     if( the pattern contains one or more subexpression grouping constructs ‘(…)’ )
                         : re `subexpression grouping constructs`
                           see https://perldoc.perl.org/perlreref.html#SYNTAX
@@ -594,7 +595,7 @@ Definition of the Breccian language
 
                 generalized pattern( fractal head )
                     / Returns a generalized pattern of the given `fractal head`, which is commonly used
-                      to specify the default value for a principal fractum indicator.
+                      to specify the default value for a direct indicator.
                     + Set `p` to the text of the given `fractal head`.
                     + Trim `p` of commentary.
                     + Trim `p` of leading whitespace on its first line.
@@ -630,7 +631,7 @@ Definition of the Breccian language
                           see https://perldoc.perl.org/perlreref.html#OPERATORS
                     return( `p` )
 
-            ancestral fractum indicator
+            ancestor indicator
                 - An indicator of an ancestor of the principal fractum.
                 - It indicates the ancestor by the pattern of its text.
 
@@ -638,11 +639,11 @@ Definition of the Breccian language
                                 │       │
                                 └───────┘
 
-                - Where multiple indicators appear in series, each successor gives the ancestral scope
-                  of its predecessor.
+                - Where multiple indicators appear in series, each successor indicates an ancestor
+                  of the one indicated by its predecessor.
 
-            referent document indicator
-                - An indicator of the referent document, the document of the principal fractum.
+            document indicator
+                - An indicator of the document of the principal fractum.
 
                        ───╴‘@’╶─┬─ gap ─┬── URI reference ────▶
                                 │       │
@@ -681,7 +682,7 @@ Definition of the Breccian language
                 - An impliable fractum indicator.
                 - Indicates the referent fractum.
                 - The default value for the first component of the indicator, or the implied value
-                  of the whole indicator if all its components are omitted, is a principal fractum indicator
+                  of the whole indicator if all its components are omitted, is a direct indicator
                   formed using the generalized pattern of the jointer’s parent head.
                     : re `generalized pattern` see `^^generalized_pattern\( fractal head \)$`
                 - Will not match where the jointer would have no effect.
