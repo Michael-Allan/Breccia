@@ -71,7 +71,7 @@ Definition of the Breccian language
         - It forms matter of less prominence than its place would otherwise suggest.
             / E.g. matter to which the reader should give less attention on a first reading.
         - Its descriptor, if present, is largely free form.
-            : see `Most descriptors are largely free form.$` @ `^^ Descriptor$`
+            : see `most descriptors are largely free form.$` @ `^^ Descriptor$`
 
 
     ━━━━━━━━━━━━━━━━━━━━━━
@@ -657,11 +657,13 @@ Definition of the Breccian language
      Generic point
     ───────────────
         / A material point.
-        - A non specialized point, a point for which the language defines no special role or bullet form.
-        - Its bullet is largely free form, conditioned only by the basic constraints.
-            : re `basic constraints` see `(basic constraints) ` @ `^^ Bullet$`
-        - Likewise its descriptor, if present, is largely free form.
-            : see `Most descriptors are largely free form.$` @ `^^ Descriptor$`
+        - A point with a bullet outside the form of any specialized material point.
+        - Otherwise a generic point is largely free form.
+            - Its bullet is conditioned only by the basic constraints.
+                : re `basic constraints` see `(basic constraints) ` @ `^^ Bullet$`
+            - Likewise its descriptor, which may also be omitted.
+                : re `Likewise its descriptor`
+                  see `most descriptors are largely free form.$` @ `^^ Descriptor$`
 
 
 
