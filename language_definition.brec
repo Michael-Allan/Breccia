@@ -1,7 +1,7 @@
 Definition of the Breccian language
 
-    - Breccia in practice is a production of documents,
-      here defined in formal terms as document fracta.
+    - Breccia in practice is a production of texts, each comprising one or more documents.
+    - Here the documents are defined in formal terms as document fracta.
 
               │
               │
@@ -15,29 +15,29 @@ Definition of the Breccian language
               │
               ▼
 
-            figure, The collective form of Breccia.
+            figure, The form of a Breccian text.
 
     document fractum
-        - A Breccian document in formal terms.
-        - It divides into an optional head formed as a bare descriptor,
-          and an optional body formed as a sequence of body fracta.
+        / A Breccian document in formal terms.
+        - It divides into a head formed as a descriptor, and a body formed as a sequence of body fracta,
+          either of which is optional.
 
                        │
                        │
-                 ┌─────┤           ┐
-                 │     ╵           │
-                 │ descriptor      │ head
-                 │     ╷           │
-                 └─────┤           ┘
-                       │
-                 ┌─────┤           ┐
-                 │     ├─────┐     │
-                 │     ╵     │     │
-                 │   body    ▲     │ body
-                 │  fractum  │     │
-                 │     ╷     │     │
-                 │     ├─────┘     │
-                 └─────┤           ┘
+                       ├──────┐     ┐
+                       ╵      │     │
+                   descriptor │     │ head
+                       ╷      ▼     │
+                 ┌─────┤      │     ┘
+                 │     ├──────┘
+                 │     │            ┐
+                 │     ├─────┐      │
+                 ▼     ╵     │      │
+                 │   body    ▲      │ body
+                 │  fractum  │      │
+                 │     ╷     │      │
+                 │     ├─────┘      │
+                 └─────┤            ┘
                        │
                        │
                        ▼
@@ -100,26 +100,26 @@ Definition of the Breccian language
 
         referrer clause
             - The referrer clause indicates the referrer, or referrers, by a pattern of text
-              occuring in the parent head of the reference.
+              occuring in the head of the reference’s parent.
 
                    ───╴‘re’╶─┬─ gap ─┬─╴‘`’╶─ pattern ─╴‘`’╶────▶
                              │       │
                              └───────┘
 
-                - Failing a parent head, the reference is misplaced and the document malformed.
-                    / This occurs only when the parent is a document fractum without a descriptor.
+                - Failing a parental head, the reference is misplaced and the document malformed.
+                    / This occurs only when the parent is a headless document fractum.
             - It works thus:
                 if( the pattern contains one or more subexpression grouping constructs ‘(…)’ )
                     : re `subexpression grouping constructs`
                       see https://perldoc.perl.org/perlreref.html#SYNTAX
-                    for( each match of the pattern within the parent head of the reference )
+                    for( each match of the pattern within the head of the reference’s parent )
                         if( at least one subexpression captures a text sequence )
                             + Set as a referrer the union of all captured text sequences.
                 else
-                    for( each match of the pattern within the parent head of the reference )
+                    for( each match of the pattern within the head of the reference’s parent )
                         + Set as a referrer the whole of the matching text.
             - The referrer clause is optional.
-                - If omitted, then the whole of the parent head is taken as the referrer.
+                - If omitted, then the head of the reference’s parent is taken as the referrer.
 
         referent clause
             - The referent clause indicates the referent.
@@ -153,7 +153,7 @@ Definition of the Breccian language
                                     : see `^^broadened to division titling\( pattern \)$`
                                 + Anchor `p` by appending ‘$$’.
                             else
-                                + Set `p` to generalized pattern( parent head of reference ).
+                                + Set `p` to generalized pattern( head of the reference’s parent ).
                                     : see `^^generalized pattern\( fractal head \)$`
                     if( the pattern of its direct indicator contains one or more
                          subexpression grouping constructs ‘(…)’ )
@@ -671,34 +671,19 @@ Definition of the Breccian language
      Jointer
     ─────────
         - An associative reference with a referential command of `join`.
-        - A jointer stands for the body of its referent fractum, and associates it with the referrer.
-        example
-
-              join foo/bar.br
-
-        form
-
-              join  IMPLIABLE_FRACTUM_INDICATOR
-
-            IMPLIABLE_FRACTUM_INDICATOR
-                - An impliable fractum indicator.
-                - Indicates the referent fractum.
-                - The default value for the first component of the indicator, or the implied value
-                  of the whole indicator if all its components are omitted, is a direct indicator
-                  formed using the generalized pattern of the jointer’s parent head.
-                    : re `generalized pattern` see `^^generalized_pattern\( fractal head \)$`
-                - Will not match where the jointer would have no effect.
-                    : re `effect` see @ `^^ Jointer$`
-                    / This rule stops the jointer matching its own parent, for instance.
-                        : see `does not duplicate a pre-existing (?:child|parent)`
-                          @ `^^effect$` @ `^^ Jointer$`
+        - In effect it stands for the fractal body of its referent.
+        - Moreover, if the jointer has a referrer clause, then it indicates the referrer as the cause
+          of this effect.
         effect
-            - On behalf of the referrer, the parent of a jointer gains for a child (subjoint child)
-              each child of the referent fractum that does not duplicate a pre-existing child.
-            - By the same token, the children of a referent fractum gain for a parent (surjoint parent)
-              each parent of the jointer that does not duplicate a pre-existing parent.
-            - In both cases the duplication test ignores variations in commentary and whitespacing.
-            - Where the referent fractum itself has a jointer as its child, the effect applies recursively.
+            - The effect is located in the simulacrum.
+            - There each parent of the jointer gains for a child each child of the referent
+              that does not duplicate a pre-existing child.
+                / Where in the source code the referent fractum itself has a jointer as its child,
+                  the effect will apply recursively in the simulacrum.
+            - By the same token, the children of the referent gain for a parent each parent
+              of the jointer that does not duplicate a pre-existing parent.
+                / Again, the effect here is recursive.
+            - In both cases, the duplication test ignores variations in commentary and whitespacing.
 
 
 
@@ -760,6 +745,20 @@ Definition of the Breccian language
     ─────────
         - An associative reference with a referential command of `see`.
         - It directs the reader’s attention from the referrer to the referent.
+
+
+
+    ━━━━━━━━━━━━
+     Simulacrum
+    ────────────
+        - The simulacrum is the dynamic, runtime form of a Breccian text,
+          as opposed to the static, written form of the source code from which it was compiled.
+        - It is the modified form that results from combining the static form of the source code
+          and the formal effect of its command points.
+
+        - Throughout the language definition, the default for formal referents is the source code.
+        - Where otherwise one might question whether the definition is referring to a source versus
+          a simulacral form, take it as referring to the source form.
 
 
 
