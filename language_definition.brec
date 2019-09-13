@@ -47,7 +47,7 @@ Definition of the Breccian language
           that yields a non-empty result after collapsing the whitespace of the relevant part
           of its content according to head type:
             • document head or point head
-                - The relevant part is the whole head exclusive of commentary and static blocks.
+                - The relevant part is the whole head exclusive of commentary and indentation blinds.
             • divider
                 - The relevant part is its first label.
 
@@ -295,16 +295,17 @@ Definition of the Breccian language
         gap
             - A formal intermediary within a descriptor.
 
-                  ┌────────────────────────╴◀───────────────────────────────────┐
-                  │                                                             │
-                  │ ┌───────────────────────────╴‘ ’╶─────────────────────────┐ │
-                  │ │                                                         │ │
-               ───┴─┤                                           block         ├─┴───▶
-                    │             inline                 ┌─── commentary ───┐ │
-                    └─┬─╴‘ ’╶── commentary ─┬─ newline ──┤                  ├─┘
-                      │                     │            ├── static block ──┤
-                      └─────────────────────┘            │                  │
-                                                         └──────────────────┘
+                  ┌────────────────────────╴◀──────────────────────────────────┐
+                  │                                                            │
+                  │ ┌───────────────────────────╴‘ ’╶────────────────────────┐ │
+                  │ │                                                        │ │
+               ───┴─┤                                           block        ├─┴───▶
+                    │                                    ┌─── commentary ──┐ │
+                    │             inline                 │                 │ │
+                    └─┬─╴‘ ’╶── commentary ─┬─ newline ──┤   indentation   ├─┘
+                      │                     │            ├───   blind   ───┤
+                      └─────────────────────┘            │                 │
+                                                         └─────────────────┘
 
 
 
@@ -667,6 +668,29 @@ Definition of the Breccian language
 
 
 
+    ━━━━━━━━━━━━━━━━━━━
+     Indentation blind
+    ───────────────────
+        / Part of a descriptor.
+        - A sequence of lines each headed by a single no-break space (A0)
+          and thereby excluded from the Breccian rules of indentation.
+            : see `^^character identification$` @ `^^ Notes$`
+        -
+                                  ┌───╴◀────────┐
+                                  │             │
+               start ┊            │   inline    │
+                of   ┊╶─── A0 ──┬─┴─ character ─┴─┬───▶
+               line  ┊          │                 │
+                                └─────────────────┘
+
+                figure, The form of each line in a blind.  The figure itself
+                  is an example of a blind comprising six lines.
+
+        - Regardless of its indentation, a blind does not interrupt the fractal head in which it occurs;
+          rather the head continues (blindly in regard to indentation) through the blind.
+
+
+
     ━━━━━━━━━
      Jointer
     ─────────
@@ -762,26 +786,6 @@ Definition of the Breccian language
 
 
 
-    ━━━━━━━━━━━━━━
-     Static block
-    ──────────────
-        / Part of a descriptor.
-        - A part of the document containing text which is not in Breccian form.
-        - It comprises one or more lines in contiguous sequence, each headed by a no-break space (A0).
-            : see `^^character identification$` @ `^^ Notes$`
-        - It enables the author to lay out a section of text freely,
-          unconstrained by Breccia’s rules of indentation.
-            - Regardless of its indentation, a static block does not interrupt the fractal head
-              in which it occurs; rather the head continues through the block.
-        - Character restrictions still apply.
-            : see `^^allowed whitespace$` @ `^^ Whitespace$`
-        - A presenter capable of reformatting the layout of a Breccian text is forbidden to alter
-          the layout of a static block rightward of its leading no-break spaces.
-            / This interdict speaks only of layout, not of any other presentation function
-              proper to the fractal head in which the static block occurs.
-
-
-
     ━━━━━━━━━━━━
      Task point
     ────────────
@@ -801,7 +805,7 @@ Definition of the Breccian language
             : see `^^character identification$` @ `^^ Notes$`
             • space (20)
             • newline (A, D)
-            • no-break space (A0) as described for use in bullets and static blocks
+            • no-break space (A0) as described for use in bullets and indentation blinds
             / Allowing any other horizontal whitespace (9, 2000-200A, 202F, 205F, 3000)
               would be too confusing here, where simple spacing can determine the syntax.
         perfect indentation
