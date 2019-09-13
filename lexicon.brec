@@ -19,6 +19,9 @@ Definition of terms for project Breccia
             - The inline characters of a line of block commentary delimited by two or more backslashes.
                 : re `inline characters` see ` (inline) .+│$.+(character) `
                   @ `^^block commentary$` @ language_definition.brec
+    execute
+        ─ verb, with object
+            - Read and put (a text) into effect.
     fracta
         ─ plural noun
             : see `^^─ noun$` @ `^^fractum$`
@@ -34,6 +37,12 @@ Definition of terms for project Breccia
     linear order
         ─ mass noun
             - (within a document) Line by line in the typical reading direction.
+    runtime
+        ─ noun
+            - The time at which a text is executed.
+    source
+        ─ mass noun
+            - Source code.
     source code
         ─ mass noun
             - The static, written form of Breccian texts, as opposed to the dynamic, runtime form
