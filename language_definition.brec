@@ -727,15 +727,15 @@ Definition of the Breccian language
             : re `body fractum types` see `^^typology$` @ `^^ Fractum$`
         - Its head comprises a perfectly indented bullet, and often a descriptor.
 
-               start ┊                                                     ┊  head successor,
-                of   ┊╶───╴  perfect  ╶─── bullet ──┬── descriptor ──┬───▶ ┊ or end of document
-               line  ┊     indentation              │                │     ┊
+               start ┊       perfect                                       ┊  head successor,
+                of   ┊╶─── indentation ─── bullet ──┬── descriptor ──┬───▶ ┊ or end of document
+               line  ┊                              │                │     ┊
                                                     └────────────────┘
                     : re `head successor` see `^^\| the head successor$` @ `^^ Fractum$`
                 figure, The form of a point head.
 
-        - Both the internal forms of the bullet and descriptor, and whether the descriptor may be
-          omitted, depend on the type of point.
+        - The internal form of the bullet, the internal form of the descriptor,
+          and whether the descriptor may be omitted all depend on the type of point.
             : re `type of point` see `^^typology$` @ `^^ Fractum$`
 
 
