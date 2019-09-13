@@ -683,8 +683,8 @@ Definition of the Breccian language
                line  ┊          │                 │
                                 └─────────────────┘
 
-                figure, The form of each line in a blind.  The figure itself
-                  is an example of a blind comprising six lines.
+                figure, The form of each line in a blind.  This figure is itself an example
+                  of a blind comprising six lines.
 
         - Regardless of its indentation, a blind does not interrupt the fractal head in which it occurs;
           rather the head continues (blindly in regard to indentation) through the blind.
@@ -809,8 +809,8 @@ Definition of the Breccian language
             • space (20)
             • newline (A, D)
             • no-break space (A0) as described for use in bullets and indentation blinds
-            / Allowing any other horizontal whitespace (9, 2000-200A, 202F, 205F, 3000)
-              would be too confusing here, where simple spacing can determine the syntax.
+            \ Allowing any other horizontal whitespace (9, 2000-200A, 202F, 205F, 3000)
+            \ would be too confusing in Breccia, where indentation determines syntax.
         perfect indentation
             - Perfect indentation comes at the start of a line.
             - It comprises zero or more segments of space characters, each four in length.
