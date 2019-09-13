@@ -690,29 +690,29 @@ Definition of the Breccian language
     ━━━━━━━━━━━━━━━━━━
      Pattern matching
     ──────────────────
-        / Apropos the procedure of pattern matching based on regular expressions.
+        - Matching character sequences with regular expressions.
         pattern
-            - A modified, Perl compatible regular expression in multiline mode (`m`).
+            - The form of a pattern is a Perl-compatible regular expression modified as follows.
                 : re `Perl compatible regular expression` see https://perldoc.perl.org/perlreref.html
-                : re `multiline mode` see https://perldoc.perl.org/perlreref.html#OPERATORS
-            - Its modifications are:
-                • `\t` symbolizes not a tab, but one unit of perfect indentation
-                • `^^` expands to `^\t*`, an anchored, leading sequence of perfect indentation
+                • `\t` symbolizes not a tab, but one unit of perfect indentation.
+                • `^^` expands to `^\t*`, an anchored, leading sequence of perfect indentation.
                     - To put an actual `^^` in the pattern, insert a regexp comment, as with `^(?#)^`.
                 • `$$` expands to `(?: +\\(?: .*)?)?$`, allowing for inline commentary and ignoring it.
                     - To put an actual `$$` in the pattern, insert a regexp comment, as with `$(?#)$`.
-                • literal backquote characters ‘`’ are forbidden
+                • Literal backquote characters ‘`’ are forbidden.
                     - Patterns in Breccia are formally delimited using backquote characters ‘`’.
                     - To put a backquote character ‘`’ in a pattern, escape it with a backslash ‘\`’.
-                    - Backslashes themselves are likewise escapable, of course.
-                        / The trailing delimiter character in pattern ‘foo\\`’,
-                          for example, is not escaped by the preceding backslash
-                          because the backslash itself is escaped.
-                • Breccian inline commentary is forbidden
+                    / Of course, backslashes themselves remain escapable, too.
+                        / The trailing backquote delimiter in pattern `foo\\`, for example, is not
+                          escaped by the preceding backslash because the backslash itself is escaped.
+                • Breccian inline commentary is forbidden.
                     - No start sequence of inline commentary may appear in the pattern.
-                        / For example ‘·\·’ or ‘·\\·’, where ‘·’ stands for a space character.
+                        / For example `·\·` or `·\\·`, where each ‘·’ stands for a space character.
                     - Replace it with an equivalent.
-                        / For example ‘··’ and ‘·\N{U+005C}·’ respectively.
+                        / For example `··` and `·\N{U+005C}·` respectively.
+            - Patterns function in multiline mode, aka option `m`.
+                : re `(multiline mode).+(option \`m\`)`
+                  see https://perldoc.perl.org/perlreref.html#OPERATORS
         literalized pattern( string )
             / Returns the given string as a literally enquoted pattern, as defined for Perl `quotemeta`.
                 : re `quotemeta` see https://perldoc.perl.org/functions/quotemeta.html
