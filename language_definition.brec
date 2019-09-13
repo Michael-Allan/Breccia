@@ -790,10 +790,13 @@ Definition of the Breccian language
      Task point
     ────────────
         / A specialized material point.
-        - Bullet comprising or terminated ‘+’.
-        / Task points are justified by the Breccian purpose of drafting,
-          for which inline tasking is a useful aid.
-            : re `purpose of drafting` see `^^Breccia$` @ lexicon.brec
+        - A point with a bullet comprising ‘+’, or ending with ‘+’.
+        - It describes work to be done or undertaken.
+            / After the definition of ‘task’ from the Oxford English dictionary.
+                : see https://www.lexico.com/en/definition/task
+        \ Defining a specialized point for tasking is justified by the Breccian purpose of drafting,
+        \ for which inline tasking is an important capability.
+            \ re `purpose of drafting` see `for outlining and drafting` @ README.html
 
 
 
