@@ -19,8 +19,8 @@ Definition of the Breccian language
 
     document fractum
         / A Breccian document in formal terms.
-        - It divides into a head formed as a descriptor, and a body formed as a sequence of body fracta,
-          either of which is optional.
+        - It divides into a head formed as a descriptor and a body formed as a sequence of body fracta;
+          either of which may be omitted, but not both.
 
                        │
                        │
