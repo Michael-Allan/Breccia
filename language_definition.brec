@@ -74,9 +74,9 @@ Definition of the Breccian language
             : see `most descriptors are largely free form.$` @ `^^ Descriptor$`
 
 
-    ━━━━━━━━━━━━━━━━━━━━━━
+    ━━━━━━━━━━━━━━━━━━━━━━━
      Associative reference
-    ──────────────────────
+    ───────────────────────
         / A command point.
         - It indicates an object (the referent) and associates with it one or more preceding
           character sequences (the referrer, or referrers).
