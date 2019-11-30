@@ -288,8 +288,8 @@ Definition of the Breccian language
                 figure, The form of a descriptor.
 
         - What follows the gap (?) depends on the type of fractum in which the descriptor appears.
-        - Here most descriptors are largely free form, constrained only by the end boundary
-          of their head (as shown).
+            - Here most descriptors are largely free form, constrained only by the end boundary
+              of their head (as shown).
             - The descriptor of a formal point, however, is further constrained.
                 : re `formal point` see `^^◇ formal point$` @ `^^typology$` @ `^^ Fractum$`
         gap
