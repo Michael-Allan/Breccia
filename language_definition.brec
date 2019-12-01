@@ -696,8 +696,8 @@ Definition of the Breccian language
     ─────────
         - An associative reference with a referential command of `join`.
         - In effect it stands for the fractal body of its referent.
-        - Moreover, if the jointer has a referrer clause, then it indicates the referrer as the cause
-          of this effect.
+        - Any referrer clause on a jointer indicates the referrer in particular as the rationale
+          for the jointer’s presence in the text.
         effect
             - The effect is located in the simulacrum.
             - There each parent of the jointer gains for a child each child of the referent
