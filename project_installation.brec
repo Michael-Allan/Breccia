@@ -1,7 +1,7 @@
 Installation instructions for project Breccia
 
     Web publication
-        • `.brec` files
+        • Breccian files
             - Serve each `.brec` file with a `Content-Type` response header
               of `text/plain; charset=UTF-8`.
 
