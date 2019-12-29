@@ -60,25 +60,17 @@ Definition of terms for project Breccia
             - The static, written form of Breccian texts, as opposed to the dynamic, runtime form
               of their simulacra.
     subjoin
-        ─ verb, transitive
-            - Refer to using a jointer.
         ─ verb
-            - Be the referent indicated by a jointer.
-                : re `referent indicated` see `^^referent clause$` @ `^^ Associative reference$`
-                  @ http://reluk.ca/project/Breccia/language_definition.brec
+            - Descend by way of a jointer.
     subjoint
         ─ adjective
-            - Being the referent indicated by a jointer, or part of the referent, or descending from it.
-                \ ‘Descending’, implying a mere part of a descendant may be subjoint.
+            - Descendent by way of a jointer.
     surjoin
         ─ verb
-            - Refer using a jointer.
-            - Be the referrer indicated by a jointer.
-                : re `referrer indicated` see `^^referrer clause$` @ `^^ Associative reference$`
-                  @ http://reluk.ca/project/Breccia/language_definition.brec
+            - Be or cause to be ancestral by way of a jointer.
     surjoint
         ─ adjective
-            - Ancestral to a jointer. \ ‘Ancestral’, implying a mere part of an ancestor may be surjoint.
+            - Ancestral by way of a jointer.
 
 
                                         \ Copyright © 2019, Michael Allan and contributors.  Licence MIT.
