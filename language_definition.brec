@@ -777,12 +777,12 @@ Definition of the Breccian language
     ────────────
         - A simulacrum is the dynamic, runtime form of a Breccian text,
           as opposed to the static, written form of its source code.
-        - From the original static form, the simulacrum is transformed at runtime by the effect
-          of embedded command points.
-        default referent: source or simulacral?
+        - Initially equal to the source text, the simulacral text is transformed at runtime
+          by the effect of embedded command points.
+        default referent: source code or simulacrum?
             - Throughout the language definition, the default for formal referents is the source code.
-            - Where it might otherwise be questioned whether the definition is referring to a source
-              versus a simulacral form of the text, it is taken as referring to the source form.
+            - Where it might otherwise be questioned whether the definition is referring to the source
+              versus the simulacral text, it is taken as referring to the source text.
 
 
 
