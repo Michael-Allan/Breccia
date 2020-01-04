@@ -610,13 +610,13 @@ Definition of the Breccian language
                         for( each repetitive sequence (S) of a drawing character (C) in `p` )
                             + Collapse S to a single C followed by ‘+’.
                             / Neutralizing differences in horizontal length, e.g. owing to indentation.
-                    else if( `p` ends with a literalized ‘+’ )
-                        / Then `fractal head` may comprise a task bullet.
-                        if( `p` does not *comprise* a literalized ‘+’ )
-                            / Then the (potential) bullet here is not ‘+’ alone.
+                    else if( `p` ends with literalized pattern(‘+’) or literalized pattern(‘!!’) )
+                        / Then `fractal head` may comprise a task bullet or alarm bullet.
+                        if( `p` does not comprise literalized pattern(‘+’) or literalized pattern(‘!!’) )
+                            / Viz the (potential) bullet here is not ‘+’ or ‘!!’ alone.
                             + Append ‘?’.
-                                / Making the (potential) task mark ‘+’ optional in order to broaden
-                                  the pattern and match other bullet types, e.g. a generic bullet.
+                                / Making the terminal ‘+’ or ‘!!’ optional in order to ensure a pattern
+                                  broad enough to match a generic bullet.
                                 / A use case here is to join a generic head ‘foo’, for instance,
                                   from a task head ‘foo+’, in order to task ‘foo’ for action.
                         + Set `p` to broadened to division titling( `p` ).
