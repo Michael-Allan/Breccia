@@ -1,11 +1,10 @@
 Definition of terms for project Breccia
 
     .brec
-        / pronounced /dɒt brɛtʃ/ as in ‘bretch’
         - The file extension for Breccia.
             : see `Filename extension` @ README.html
     Breccia
-        / pronounced /brɛ́tʃə/ as in ‘bretcha’, or /brɛ́tʃɪə/ as in ‘bretchia’
+        / pronounced /brɛ́kɪə/ as in ‘breckia’ \ Cf. the geologic homograph pronounced /brɛ́tʃə/.
         ─ mass noun
             - A lightweight markup language for outlining and drafting based on hierarchical indentation
               of points and subpoints.
@@ -14,7 +13,6 @@ Definition of terms for project Breccia
                 : re `hierarchical indentation` see `hierarchy` @ `^^ Fractum$` @ language_definition.brec
                 : re `points` see `^^typology$` @ `^^ Fractum$` @ language_definition.brec
     Breccian
-        / pronounced /brɛ́tʃən/ as in ‘bretchen’, or /brɛ́tʃɪən/ as in ‘bretchian’
         ─ adjective
             - Relating to Breccia.
     comment block
