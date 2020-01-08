@@ -82,11 +82,10 @@ Definition of the Breccian language
           character sequences (the referrer, or referrers).
         - Its descriptor has this form:
 
-                            referrer              referent
-               ─── gap ──┬── clause ─┬─ gap ─┬─┬── clause ────▶
-                         │           │       │ │
-                         │           └───────┘ │
-                         └─────────────────────┘
+                            referrer            referent
+               ─── gap ──┬── clause ── gap ──┬── clause ────▶
+                         │                   │
+                         └───────────────────┘
 
                 diagram, The form of the descriptor in an associative reference.
 
@@ -102,9 +101,7 @@ Definition of the Breccian language
             - The referrer clause indicates the referrer, or referrers, by a pattern of text
               occuring in the head of the reference’s parent.
 
-                   ───╴‘re’╶─┬─ gap ─┬─╴‘`’╶─ pattern ─╴‘`’╶────▶
-                             │       │
-                             └───────┘
+                   ───╴‘re’╶── gap ──╴‘`’╶─ pattern ─╴‘`’╶────▶
 
                 - Failing a parental head, the reference is misplaced and the document malformed.
                     / This occurs only when the parent is a headless document fractum.
@@ -124,12 +121,12 @@ Definition of the Breccian language
         referent clause
             - The referent clause indicates the referent.
 
-                                                      URI
-                      ┌─╴‘join’╶─┐             ┌── reference ──┐
-                   ───┤          ├──┬─ gap ─┬──┤               ├────▶
-                      └──╴‘see’╶─┘  │       │  │   impliable   │
-                                    └───────┘  └─── fractum ───┘
-                      └───────────┘                indicator
+                                                  URI
+                      ┌─╴‘join’╶─┐         ┌── reference ──┐
+                   ───┤          ├── gap ──┤               ├────▶
+                      └──╴‘see’╶─┘         │   impliable   │
+                                           └─── fractum ───┘
+                      └───────────┘            indicator
                        referential
                          command
 
@@ -227,9 +224,11 @@ Definition of the Breccian language
         null command
             - A command point that does nothing. \ It is an artifact of formal consistency,
                 \ the descriptor being optional in the head of all point types.
-            - Its descriptor, if present, has this form:
+            - Its descriptor has this form:
 
-                   ─── gap ───▶
+                   ───┬─ gap ─┬───▶
+                      │       │
+                      └───────┘
 
 
 
@@ -556,19 +555,33 @@ Definition of the Breccian language
         ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
             - An indicator of a fractum, here referred to as ‘the principal fractum’.
 
-                                         ┌─────────╴◀────────────┐
-                                         │                       │
-                          direct         │            ancestor   │                  document
-                   ───┬─ indicator ─┬──┬─┴─┬─ gap ─┬─ indicator ─┴──┬──┬─┬─ gap ─┬─ indicator ─┬───▶
-                      │             │  │   │       │                │  │ │       │             │
-                      └─────────────┘  │   └───────┘                │  │ └───────┘             │
-                                       └────────────────────────────┘  └───────────────────────┘
+                     ┌
+                   1 │   ────▶
+                     └
+                 
+                     ┌         direct
+                   2 │   ──── indicator ────▶
+                     └
+                 
+                     ┌                             ┌──╴◀── gap ──┐
+                     │                             │             │
+                     │          direct             │  ancestor   │
+                   3 │   ───┬─ indicator ── gap ─┬─┴─ indicator ─┴───▶
+                     │      │                    │
+                     └      └────────────────────┘
+                 
+                     ┌                                ┌──╴◀── gap ──┐
+                     │                                │             │
+                     │          direct                │  ancestor   │           document
+                   4 │   ───┬─ indicator ── gap ─┬──┬─┴─ indicator ─┴─ gap ─┬── indicator ────▶
+                     │      │                    │  │                       │
+                     └      └────────────────────┘  └───────────────────────┘
 
-                diagram, The form of an impliable fractum indicator.
+                diagram, The four forms of an impliable fractum indicator.
 
-            - Where used in the languagage definition, this form is qualified by the specification
-              of a default value for its first component (the direct indicator), which also serves
-              as the implied value of the whole indicator if all its components are omitted.
+            - Where used in the languagage definition, these forms are qualified by the specification
+              of a default value for the direct indicator, which also serves as the implied value
+              of the whole impliable fractum indicator if all its components are omitted.
             - It may be used to indicate a non-Breccian referent.
                 - Where a processor is unable to find such a referent, or otherwise to deal with it,
                   that should not prevent the reader trying to deal with it manually.
@@ -637,9 +650,7 @@ Definition of the Breccian language
                 - An indicator of an ancestor of the principal fractum.
                 - It indicates the ancestor by the pattern of its text.
 
-                       ───╴‘@’╶─┬─ gap ─┬─╴‘`’╶─ pattern ─╴‘`’╶───▶
-                                │       │
-                                └───────┘
+                       ───╴‘@’╶── gap ──╴‘`’╶── pattern ──╴‘`’╶───▶
 
                 - Where multiple indicators appear in series, each successor indicates an ancestor
                   of the one indicated by its predecessor.
@@ -647,9 +658,7 @@ Definition of the Breccian language
             document indicator
                 - An indicator of the document of the principal fractum.
 
-                       ───╴‘@’╶─┬─ gap ─┬── URI reference ────▶
-                                │       │
-                                └───────┘
+                       ───╴‘@’╶── gap ─── URI reference ────▶
 
                     : re `URI reference` see https://tools.ietf.org/html/rfc3986#section-4.1
 
