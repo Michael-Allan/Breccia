@@ -74,6 +74,7 @@ Definition of the Breccian language
             : see `most descriptors are largely free form.$` @ `^^ Descriptor$`
 
 
+
     ━━━━━━━━━━━━━━━━━━━━━━━
      Associative reference
     ───────────────────────
@@ -124,9 +125,9 @@ Definition of the Breccian language
                                                   URI
                       ┌─╴‘join’╶─┐         ┌── reference ──┐
                    ───┤          ├── gap ──┤               ├────▶
-                      └──╴‘see’╶─┘         │   impliable   │
-                                           └─── fractum ───┘
-                      └───────────┘            indicator
+                      └──╴‘see’╶─┘         │    fractum    │
+                                           └── indicator ──┘
+                      └───────────┘
                        referential
                          command
 
@@ -141,9 +142,9 @@ Definition of the Breccian language
                 if( a URI reference is given )
                     + Take the referent of the URI reference as the indicated referent.
                 else
-                    - An impliable fractum indicator is given.
-                    if( its first component (the direct indicator) is omitted )
-                        + Set as first component a direct indicator with a pattern `p` formed thus:
+                    - A fractum indicator is given.
+                    if( its principal pattern is omitted )
+                        + Set the principal pattern to pattern `p`, formed thus:
                             if( the reference has a referrer clause )
                                 + Set `p` to the pattern given in the referrer clause.
                                 + Set `p` to broadened to division titling( `p` ).
@@ -152,11 +153,11 @@ Definition of the Breccian language
                             else
                                 + Set `p` to generalized pattern( head of the reference’s parent ).
                                     : see `^^generalized pattern\( fractal head \)$`
-                    if( the pattern of its direct indicator contains one or more
-                         subexpression grouping constructs ‘(…)’ )
-                        : re `subexpression grouping constructs`
+                    if( the principal pattern contains a subexpression grouping construct ‘(…)’ )
+                        : re `subexpression grouping construct`
                           see https://perldoc.perl.org/perlreref.html#SYNTAX
-                        + Take as the indicated referent the union of the text sequences they capture.
+                        + Take as the indicated referent the union of the text sequences
+                          captured by all such grouping constructs of the pattern.
                     else
                         + Take as the indicated referent the whole of the indicated fractum.
 
@@ -550,117 +551,116 @@ Definition of the Breccian language
                 - No document fractum is a child.
 
 
-        ─────────────────────────────
-         impliable fractum indicator
-        ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
+
+    ━━━━━━━━━━━━━━━━━━━━
+     Fractum indication
+    ────────────────────
+        fractum indicator( default principal pattern )
             - An indicator of a fractum, here referred to as ‘the principal fractum’.
 
                      ┌
                    1 │   ────▶
                      └
                  
-                     ┌         direct
-                   2 │   ──── indicator ────▶
+                     ┌       principal
+                   2 │   ───╴ pattern ─────▶
                      └
                  
-                     ┌                             ┌──╴◀── gap ──┐
-                     │                             │             │
-                     │          direct             │  ancestor   │
-                   3 │   ───┬─ indicator ── gap ─┬─┴─ indicator ─┴───▶
-                     │      │                    │
-                     └      └────────────────────┘
+                     ┌                            ┌────╴◀─── gap ───┐
+                     │                            │                 │
+                     │         principal          │    ancestor     │
+                   3 │   ───┬─╴ pattern ── gap ─┬─┴─ qualification ─┴───▶
+                     │      │                   │
+                     └      └───────────────────┘
                  
-                     ┌                                ┌──╴◀── gap ──┐
-                     │                                │             │
-                     │          direct                │  ancestor   │           document
-                   4 │   ───┬─ indicator ── gap ─┬──┬─┴─ indicator ─┴─ gap ─┬── indicator ────▶
-                     │      │                    │  │                       │
-                     └      └────────────────────┘  └───────────────────────┘
+                     ┌                               ┌────╴◀─── gap ───┐
+                     │                               │                 │
+                     │         principal             │    ancestor     │             document
+                   4 │   ───┬─╴ pattern ── gap ─┬──┬─┴─ qualification ─┴─ gap ─┬── qualification ────▶
+                     │      │                   │  │                           │
+                     └      └───────────────────┘  └───────────────────────────┘
 
-                diagram, The four forms of an impliable fractum indicator.
+                diagram, The four forms of a fractum indicator.
 
-            - Where used in the languagage definition, these forms are qualified by the specification
-              of a default value for the direct indicator, which also serves as the implied value
-              of the whole impliable fractum indicator if all its components are omitted.
-            - It may be used to indicate a non-Breccian referent.
-                - Where a processor is unable to find such a referent, or otherwise to deal with it,
-                  that should not prevent the reader trying to deal with it manually.
+            - Where a formal definition refers to a fractum indicator, the reference must be qualified
+              by the specification of a default value for the principal pattern, which also serves as
+              the implied value of the whole fractum indicator if all its components are omitted.
 
-            direct indicator
-                - A indicator of the principal fractum by the pattern of its own text.
+        principal pattern
+            - An indicator of the principal fractum by the pattern of its text.
 
-                       ───╴‘`’╶── pattern ──╴‘`’╶───▶
+                   ───╴‘`’╶── pattern ──╴‘`’╶───▶
 
-                - The indication it gives is the return value of this procedure:
-                    if( the pattern contains one or more subexpression grouping constructs ‘(…)’ )
-                        : re `subexpression grouping constructs`
-                          see https://perldoc.perl.org/perlreref.html#SYNTAX
-                        for( each match of the pattern )
-                            if( at least one subexpression captures a text sequence,
-                                 and all captured text sequences lie within the same fractal head )
-                                + Set as indicated the fractal head’s fractum.
-                    else
-                        for( each match of the pattern )
-                            + Set as indicated the fractum whose head contains the first matched character
-                              in linear order.
-                    if( exactly one fractum is indicated )
-                        return( the indicated fractum )
-                    if( the referent document is Breccian )
-                        throw( error, the indicator is ambiguous )
+            - The indication it gives is the return value of this procedure:
+                if( the pattern contains one or more subexpression grouping constructs ‘(…)’ )
+                    : re `subexpression grouping constructs`
+                      see https://perldoc.perl.org/perlreref.html#SYNTAX
+                    for( each match of the pattern )
+                        if( at least one subexpression captures a text sequence, and all captured
+                               text sequences lie within the same fractal head )
+                            + Set as indicated the fractal head’s fractum.
+                else
+                    for( each match of the pattern )
+                        + Set as indicated the fractum whose head contains the first matched character
+                          in linear order.
+                if( exactly one fractum is indicated )
+                    return( the indicated fractum )
+                if( the referent document is Breccian )
+                    throw( error, the indication is ambiguous )
 
-                generalized pattern( fractal head )
-                    / Returns a generalized pattern of the given `fractal head`, which is commonly used
-                      to specify the default value for a direct indicator.
-                    + Set `p` to the text of the given `fractal head`.
-                    + Trim `p` of commentary.
-                    + Trim `p` of leading whitespace on its first line.
-                    + Trim `p` of trailing whitespace.
-                    + Set `p` to literalized pattern( `p` ).
-                        : see `^^literalized pattern\( string \)$`
-                    + Collapse all remaining whitespace of `p` to ‘\s+’.
-                        / Neutralizing differences in indentation and line wrapping.
-                    if( `fractal head` is a divider )
-                        + Anchor `p` by prepending ‘^^’.
-                        for( each repetitive sequence (S) of a drawing character (C) in `p` )
-                            + Collapse S to a single C followed by ‘+’.
-                            / Neutralizing differences in horizontal length, e.g. owing to indentation.
-                    else if( `p` ends with literalized pattern(‘+’) or literalized pattern(‘!!’) )
-                        / Then `fractal head` may comprise a task bullet or alarm bullet.
-                        if( `p` does not comprise literalized pattern(‘+’) or literalized pattern(‘!!’) )
-                            / Viz the (potential) bullet here is not ‘+’ or ‘!!’ alone.
-                            + Append ‘?’.
-                                / Making the terminal ‘+’ or ‘!!’ optional in order to ensure a pattern
-                                  broad enough to match a generic bullet.
-                                / A use case here is to join a generic head ‘foo’, for instance,
-                                  from a task head ‘foo+’, in order to task ‘foo’ for action.
-                        + Set `p` to broadened to division titling( `p` ).
-                            : see `^^broadened to division titling\( pattern \)$`
-                    + Anchor `p` by appending ‘$$’.
-                    return( `p` )
+            generalized pattern( fractal head )
+                / Returns a generalized pattern of the given `fractal head`, which is commonly used
+                  to specify the default value for a principal pattern.
+                + Set `p` to the text of the given `fractal head`.
+                + Trim `p` of commentary.
+                + Trim `p` of leading whitespace on its first line.
+                + Trim `p` of trailing whitespace.
+                + Set `p` to literalized pattern( `p` ).
+                    : see `^^literalized pattern\( string \)$`
+                + Collapse all remaining whitespace of `p` to ‘\s+’.
+                    / Neutralizing differences in indentation and line wrapping.
+                if( `fractal head` is a divider )
+                    + Anchor `p` by prepending ‘^^’.
+                    for( each repetitive sequence (S) of a drawing character (C) in `p` )
+                        + Collapse S to a single C followed by ‘+’.
+                        / Neutralizing differences in horizontal length, e.g. owing to indentation.
+                else if( `p` ends with literalized pattern(‘+’) or literalized pattern(‘!!’) )
+                    / Then `fractal head` may comprise a task bullet or alarm bullet.
+                    if( `p` does not comprise literalized pattern(‘+’) or literalized pattern(‘!!’) )
+                        / Viz the (potential) bullet here is not ‘+’ or ‘!!’ alone.
+                        + Append ‘?’.
+                            / Making the terminal ‘+’ or ‘!!’ optional in order to ensure a pattern
+                              broad enough to match a generic bullet.
+                            / A use case here is to join a generic head ‘foo’, for instance,
+                              from a task head ‘foo+’, in order to task ‘foo’ for action.
+                    + Set `p` to broadened to division titling( `p` ).
+                        : see `^^broadened to division titling\( pattern \)$`
+                + Anchor `p` by appending ‘$$’.
+                return( `p` )
 
-                broadened to division titling( p )
-                    / Returns the given pattern `p` broadened to match division titling.
-                    + Anchor `p` by prepending ‘^ *’.
-                    + Ensure that `p` functions in *case insensitive* mode (`i`).
-                        : re `\*case insensitive\* mode`
-                          see https://perldoc.perl.org/perlreref.html#OPERATORS
-                    return( `p` )
+            broadened to division titling( p )
+                / Returns the given pattern `p` broadened to match division titling.
+                + Anchor `p` by prepending ‘^ *’.
+                + Ensure that `p` functions in *case insensitive* mode (`i`).
+                    : re `\*case insensitive\* mode`
+                      see https://perldoc.perl.org/perlreref.html#OPERATORS
+                return( `p` )
 
-            ancestor indicator
-                - An indicator of an ancestor of the principal fractum.
-                - It indicates the ancestor by the pattern of its text.
+        ancestor qualification
+            - An indicator of an ancestor of the principal fractum.
+            - It indicates the ancestor by the pattern of its text.
 
-                       ───╴‘@’╶── gap ──╴‘`’╶── pattern ──╴‘`’╶───▶
+                   ───╴‘@’╶── gap ──╴‘`’╶── pattern ──╴‘`’╶───▶
 
-                - Where multiple indicators appear in series, each successor indicates an ancestor
-                  of the one indicated by its predecessor.
+            - Where multiple ancestor qualifications appear in series, each successor indicates
+              an ancestor of the one indicated by its predecessor.
 
-            document indicator
-                - An indicator of the document of the principal fractum.
+        document qualification
+            - An indicator of the document of the principal fractum.
 
-                       ───╴‘@’╶── gap ─── URI reference ────▶
+                   ───╴‘@’╶── gap ─── URI reference ────▶
 
-                    : re `URI reference` see https://tools.ietf.org/html/rfc3986#section-4.1
+                : re `URI reference` see https://tools.ietf.org/html/rfc3986#section-4.1
 
 
 
