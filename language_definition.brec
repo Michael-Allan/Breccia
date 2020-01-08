@@ -446,19 +446,18 @@ Definition of the Breccian language
                           start a new sequence of inverse labeling.
 
             division titling
-                / Part of a division label.
-                - Division titling is any part of a division label that (discounting spaces, 20)
-                  leads the line on which it occurs.
+                / A type of division labeling.
+                - Division titling is division labeling that (discounting spaces, 20) leads the line
+                  on which it occurs.
                     : see `^^character identification$` @ `^^ Notes$`
                 -
-                       ┈┈┈
-                     
-                         this is division titling
-                     
-                       ┈┈┈  this is not
+                       ┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄╮
+                        This is division titling, ┊  This is not
+                        and this too              ┊
+                       ┄┄┄┄┄┄┄┄┄┄┄┄┄ This is not ┄╯
 
-                        example, An instance of division titling.  The drawing sequences here
-                          (dotted lines) are perfectly indented.
+                        example: An example of division titling.  The drawing sequences here
+                          (dashed lines) are perfectly indented.
 
                 - Presenters may give greater prominence to division titling,
                   e.g. showing it in bold face.
