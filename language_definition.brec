@@ -101,7 +101,7 @@ Definition of the Breccian language
             - The referrer clause indicates the referrer, or referrers, by a pattern of text
               occuring in the head of the reference’s parent.
 
-                   ───╴‘re’╶── gap ──╴‘`’╶─ pattern ─╴‘`’╶────▶
+                   ───╴‘re’╶── gap ──╴‘`’╶── pattern ──╴‘`’╶────▶
 
                 - Failing a parental head, the reference is misplaced and the document malformed.
                     / This occurs only when the parent is a headless document fractum.
@@ -275,7 +275,7 @@ Definition of the Breccian language
      Descriptor
     ────────────
         / Part of a document head or point head.
-        - Elaborative, explanatory text at the head of a document or point.
+        - Elaborative, explanatory text in the head of a document or point.
         - It starts with a gap.
 
                            · · · ·
@@ -293,7 +293,7 @@ Definition of the Breccian language
             - The descriptor of a formal point, however, is further constrained.
                 : re `formal point` see `^^◇ formal point$` @ `^^typology$` @ `^^ Fractum$`
         gap
-            - A formal intermediary within a descriptor.
+            - A type of separator used in a descriptor.
 
                   ┌────────────────────────╴◀──────────────────────────────────┐
                   │                                                            │
@@ -589,7 +589,7 @@ Definition of the Breccian language
             direct indicator
                 - A indicator of the principal fractum by the pattern of its own text.
 
-                       ───╴‘`’╶─ pattern ─╴‘`’╶───▶
+                       ───╴‘`’╶── pattern ──╴‘`’╶───▶
 
                 - The indication it gives is the return value of this procedure:
                     if( the pattern contains one or more subexpression grouping constructs ‘(…)’ )
@@ -825,11 +825,11 @@ Definition of the Breccian language
             - Perfect indentation comes at the start of a line.
             - It comprises zero or more segments of space characters, each four in length.
 
-                           ┌─────────╴◀───────────┐
-               start ┊     │                      │
-                of   ┊╶──┬─┴─╴‘ ’╶╴‘ ’╶╴‘ ’╶╴‘ ’╶─┴─┬───▶
-               line  ┊   │                          │
-                         └──────────────────────────┘
+                           ┌───────────╴◀────────────┐
+               start ┊     │                         │
+                of   ┊╶──┬─┴─╴‘ ’╶─╴‘ ’╶─╴‘ ’╶─╴‘ ’╶─┴─┬───▶
+               line  ┊   │                             │
+                         └─────────────────────────────┘
 
 
 
