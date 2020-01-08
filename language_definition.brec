@@ -15,7 +15,7 @@ Definition of the Breccian language
               │
               ▼
 
-            figure, The form of a Breccian text.
+            diagram, The form of a Breccian text.
 
     document fractum
         / A Breccian document in formal terms.
@@ -88,7 +88,7 @@ Definition of the Breccian language
                          │           └───────┘ │
                          └─────────────────────┘
 
-                figure, The form of the descriptor in an associative reference.
+                diagram, The form of the descriptor in an associative reference.
 
         - The referrer clause indicates the referrer or referrers.
         - The referent clause indicates the referent.
@@ -179,7 +179,7 @@ Definition of the Breccian language
                                     i              ii          iii
 
                     : re `head successor` see `^^\| the head successor$` @ `^^ Fractum$`
-                figure, The form of a bullet.
+                diagram, The form of a bullet.
 
         - While the precise internal form varies according to the point type, every bullet is formally
           conditioned by basic contraints operating in several regions, here numbered i, ii, iii.
@@ -254,7 +254,7 @@ Definition of the Breccian language
                                                          │       └─────────────────┘ │
                                                          └───────────────────────────┘
 
-                    figure, The form of inline commentary.
+                    diagram, The form of inline commentary.
 
         block commentary
             - Commentary comprising whole lines. \ [‘commentary’]
@@ -268,7 +268,7 @@ Definition of the Breccian language
                                 └───────────┘           │       └─────────────────┘ │
                                                         └───────────────────────────┘
 
-                    figure, The form of a line of block commentary.
+                    diagram, The form of a line of block commentary.
 
 
 
@@ -285,9 +285,10 @@ Definition of the Breccian language
                            ·     ·       ┊
                            · · · ·
                     : re `head successor` see `^^\| the head successor$` @ `^^ Fractum$`
-                figure, The form of a descriptor.
+                diagram, The abstract form of a descriptor.
 
-        - What follows the gap (?) depends on the type of fractum in which the descriptor appears.
+        - What follows the gap (abstracted from the diagram) depends on the type of fractum
+          in which the descriptor appears.
             - Here most descriptors are largely free form, constrained only by the end boundary
               of their head (as shown).
             - The descriptor of a formal point, however, is further constrained.
@@ -337,7 +338,7 @@ Definition of the Breccian language
                       │
                       ▼
 
-                    figure, The form of a divider.
+                    diagram, The form of a divider.
 
             divider segment
                 / Part of a divider.
@@ -361,7 +362,7 @@ Definition of the Breccian language
                               divider segment, point,
                                 or end of document
 
-                        figure, The form of a divider segment.
+                        diagram, The form of a divider segment.
 
                 - Any characters subsequent to the divider mark are largely free form, constrained only
                   by the end boundary of the segment, as shown.
@@ -407,7 +408,7 @@ Definition of the Breccian language
                                │
                                ▼
 
-                    figure, The form of a division label.
+                    diagram, The form of a division label.
 
             inverse labeling
                 / A deprecated part of a division label.
@@ -420,7 +421,7 @@ Definition of the Breccian language
                                                        │ └──────────────────┘                  │
                                                        └───────────────────────────────────────┘
 
-                        figure, The form of inverse labeling.
+                        diagram, The form of inverse labeling.
 
                 - Presenters show inverse labeling, together with any space characters
                   that immediately precede or follow it, in reverse video.
@@ -456,8 +457,8 @@ Definition of the Breccian language
                      
                        ┈┈┈  this is not
 
-                        figure, Example of division titling.  The drawing sequences here
-                          are perfectly indented.
+                        example, An instance of division titling.  The drawing sequences here
+                          (dotted lines) are perfectly indented.
 
                 - Presenters may give greater prominence to division titling,
                   e.g. showing it in bold face.
@@ -563,7 +564,7 @@ Definition of the Breccian language
                       └─────────────┘  │   └───────┘                │  │ └───────┘             │
                                        └────────────────────────────┘  └───────────────────────┘
 
-                figure, The form of an impliable fractum indicator.
+                diagram, The form of an impliable fractum indicator.
 
             - Where used in the languagage definition, this form is qualified by the specification
               of a default value for its first component (the direct indicator), which also serves
@@ -683,7 +684,7 @@ Definition of the Breccian language
                line  ┊          │                 │
                                 └─────────────────┘
 
-                figure, The form of each line in a blind.  This figure is itself an example
+                diagram, The form of each line in a blind.  This diagram is itself an example
                   of a blind comprising six lines.
 
         - Regardless of its indentation, a blind does not interrupt the fractal head in which it occurs;
@@ -756,7 +757,7 @@ Definition of the Breccian language
                line  ┊                              │                │     ┊
                                                     └────────────────┘
                     : re `head successor` see `^^\| the head successor$` @ `^^ Fractum$`
-                figure, The form of a point head.
+                diagram, The form of a point head.
 
         - The internal form of the bullet, the internal form of the descriptor,
           and whether the descriptor may be omitted all depend on the type of point.
