@@ -705,14 +705,15 @@ Definition of the Breccian language
     ─────────
         - An associative reference with a referential command of `join`.
         - In effect it stands for the fractal body of its referent.
-        - Any referrer clause on a jointer indicates the referrer in particular as the rationale
-          for the jointer’s presence in the text.
+        - Any referrer clause in a jointer indicates the referrer in particular as the rationale
+          for writing the jointer into the text.
         effect
             - The effect is located in the simulacrum.
             - There each parent of the jointer gains for a child each child of the referent
               that does not duplicate a pre-existing child.
-                / Where in the source code the referent fractum itself has a jointer as its child,
-                  the effect will apply recursively in the simulacrum.
+                / Not to imply that the text would be presentable in this form.
+                / If in the source code the referent fractum itself has a jointer as its child,
+                  then the effect will apply recursively.
             - By the same token, the children of the referent gain for a parent each parent
               of the jointer that does not duplicate a pre-existing parent.
                 / Again, the effect here is recursive.
