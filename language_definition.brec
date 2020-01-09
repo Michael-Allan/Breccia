@@ -777,7 +777,7 @@ Definition of the Breccian language
      Pointer
     ─────────
         - An associative reference with a referential command of `see`.
-        - It directs the reader’s attention from the referrer to the referent.
+        - Its only effect is to form a reference.
 
 
 
