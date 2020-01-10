@@ -223,8 +223,8 @@ Definition of the Breccian language
         - Processors interpret command points and execute their commands in linear order.
 
         null command
-            - A command point that does nothing. \ It is an artifact of formal consistency,
-                \ the descriptor being optional in the head of all point types.
+            - A command point that does nothing. \ The null command is an artifact of formal consistency;
+                \ it occurs only because a descriptor is defined as optional in the head of a point.
             - Its descriptor has this form:
 
                    ───┬─ gap ─┬───▶
