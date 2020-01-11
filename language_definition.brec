@@ -106,7 +106,11 @@ Definition of the Breccian language
 
                 - Failing a parental head, the reference is misplaced and the document malformed.
                     / This occurs only when the parent is a headless document fractum.
-            - It works thus:
+            - The referrer clause is optional.
+                - If omitted, then the head of the reference’s parent is taken in effect as the referrer.
+
+            effect
+                - The effect is located in the simulacrum.
                 if( the pattern contains one or more subexpression grouping constructs ‘(…)’ )
                     : re `subexpression grouping constructs`
                       see https://perldoc.perl.org/perlreref.html#SYNTAX
@@ -116,43 +120,45 @@ Definition of the Breccian language
                 else
                     for( each match of the pattern within the head of the reference’s parent )
                         + Set as a referrer the whole of the matching text.
-            - The referrer clause is optional.
-                - If omitted, then the head of the reference’s parent is taken as the referrer.
 
         referent clause
             - The referent clause indicates the referent.
 
-                                                  URI
-                      ┌─╴‘join’╶─┐         ┌── reference ──┐
-                   ───┤          ├── gap ──┤               ├────▶
-                      └──╴‘see’╶─┘         │    fractum    │
-                                           └── indicator ──┘
+                                                                          URI
+                      ┌─╴‘join’╶─┐                                 ┌── reference ──┐
+                   ───┤          ├── gap ─┬─╴‘privately’╶─ gap ─┬──┤               ├────▶
+                      └──╴‘see’╶─┘        │                     │  │    fractum    │
+                                          └─────────────────────┘  └── indicator ──┘
                       └───────────┘
                        referential
                          command
 
                 : re `‘(join)’` see `^^ Jointer$`
                 : re `‘(see)’` see `^^ Pointer$`
+                : re `‘(privately)’` see `\`privately\` is given` @ `^^effect$`
                 : re `(URI)$.*(reference)` see https://tools.ietf.org/html/rfc3986#section-4.1
 
-            / The referential command determines the type and overall function
+            - The referential command determines the type and overall function
               of the associative reference.
                 : re `type` see `^^◇ associative reference$` @ `^^typology$` @ `^^ Fractum$`
-            - The referent clause works thus:
+            - A non-private reference to a private referent of the same author, or authors, is malformed.
+
+            effect
+                - The effect is located in the simulacrum.
                 if( a URI reference is given )
                     + Take the referent of the URI reference as the indicated referent.
                 else
                     - A fractum indicator is given.
                     if( its principal pattern is omitted )
-                        + Set the principal pattern to pattern `p`, formed thus:
-                            if( the reference has a referrer clause )
-                                + Set `p` to the pattern given in the referrer clause.
-                                + Set `p` to broadened to division titling( `p` ).
-                                    : see `^^broadened to division titling\( pattern \)$`
-                                + Anchor `p` by appending ‘$$’.
-                            else
-                                + Set `p` to generalized pattern( head of the reference’s parent ).
-                                    : see `^^generalized pattern\( fractal head \)$`
+                        if( the reference has a referrer clause )
+                            + Set `p` to the pattern given in the referrer clause.
+                            + Set `p` to broadened to division titling( `p` ).
+                                : see `^^broadened to division titling\( pattern \)$`
+                            + Anchor `p` by appending ‘$$’.
+                        else
+                            + Set `p` to generalized pattern( head of the reference’s parent ).
+                                : see `^^generalized pattern\( fractal head \)$`
+                        + Set the principal pattern to `p`.
                     if( the principal pattern contains a subexpression grouping construct ‘(…)’ )
                         : re `subexpression grouping construct`
                           see https://perldoc.perl.org/perlreref.html#SYNTAX
@@ -160,6 +166,8 @@ Definition of the Breccian language
                           captured by all such grouping constructs of the pattern.
                     else
                         + Take as the indicated referent the whole of the indicated fractum.
+                if( `privately` is given )
+                    + Append as a child of the associative reference a privatizer.
 
 
 
@@ -491,6 +499,7 @@ Definition of the Breccian language
                                 • jointer
                                 • pointer
                             • null command
+                            • privatizer
                     ◇ material point
                         ◇ specialized material point
                             • alarm point
@@ -779,6 +788,19 @@ Definition of the Breccian language
     ─────────
         - An associative reference with a referential command of `see`.
         - Its only effect is to form a reference.
+
+
+
+    ━━━━━━━━━━━━
+     Privatizer
+    ────────────
+        / A command point.
+        - It marks its parent as a private fractum.
+        - Its descriptor has this form:
+
+               ───╴‘private’╶────▶
+
+            diagram, The form of the descriptor in a privatizer.
 
 
 
