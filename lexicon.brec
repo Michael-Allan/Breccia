@@ -14,7 +14,7 @@ Definition of terms for project Breccia
                 : re `points` see `^^typology$` @ `^^ Fractum$` @ language_definition.brec
     Breccian
         ─ adjective
-            - Relating to Breccia.
+            : see `^^Breccia$`
     comment block
         ─ noun
             - One or more lines of block commentary in contiguous sequence.
@@ -31,7 +31,7 @@ Definition of terms for project Breccia
             : see `^^─ noun$` @ `^^fractum$`
     fractal
         ─ adjective
-            - Relating to fracta.
+            : see `^^fractum$`
     fractum
         ─ noun
             - The basic formal unit of Breccian composition, hierarchy and order.
@@ -52,7 +52,7 @@ Definition of terms for project Breccia
             : see `^^ Simulacrum$` @ http://reluk.ca/project/Breccia/language_definition.brec
     simulacral
         ─ adjective
-            - Relating to simulacra.
+            : see `^^ Simulacrum$` @ http://reluk.ca/project/Breccia/language_definition.brec
     source
         ─ mass noun
             - Source code.
