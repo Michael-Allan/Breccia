@@ -795,7 +795,7 @@ Definition of the Breccian language
      Privatizer
     ────────────
         / A command point.
-        - It marks its parent as a private fractum.
+        - It marks its parent, together with all simulacral descendants, as private fracta.
         - Its descriptor has this form:
 
                ───╴‘private’╶────▶
