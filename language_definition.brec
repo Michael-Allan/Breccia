@@ -824,7 +824,7 @@ Definition of the Breccian language
         / A specialized material point.
         - A point with a bullet comprising ‘+’, or ending with ‘+’.
         - It describes work to be done or undertaken.
-            / After the definition of ‘task’ from the Oxford English dictionary.
+            / After the definition of ‘task’ in the Oxford English Dictionary.
                 : see https://www.lexico.com/en/definition/task
         \ Defining a specialized point for tasking is justified by the Breccian purpose of drafting,
         \ for which inline tasking is an important capability.
