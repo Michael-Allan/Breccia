@@ -112,7 +112,7 @@ Definition of the Breccian language
 
             effect
                 - The effect is located in the simulacrum.
-                if( the pattern contains one or more subexpression grouping constructs ‘(…)’ )
+                if( the referrer clause contains one or more subexpression grouping constructs ‘(…)’ )
                     : re `subexpression grouping constructs`
                       see https://perldoc.perl.org/perlreref.html#SYNTAX
                     for( each match of the pattern within the head of the reference’s parent )
