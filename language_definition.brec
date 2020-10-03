@@ -478,7 +478,7 @@ Definition of the Breccian language
             - A group of siblings led by a bodiless division (bare divider).
             - It comprises the bodiless division and its subsequent siblings (in linear order)
               prior to the next sibling (if any) that is itself a division.
-            / It is a flat form of partition, as opposed to the hierarchical form of true division.
+            / It is a flat form of partition, as opposed to the recursive form of true division.
             / It may be transformed to a true division by indenting the siblings to instead
               make them children of the divider.
 
@@ -487,7 +487,7 @@ Definition of the Breccian language
     ━━━━━━━━━
      Fractum
     ─────────
-        - The basic formal unit of Breccian composition, hierarchy and order.
+        - The basic formal unit of Breccian composition, recursion and order.
 
         typology
             • document fractum
@@ -827,9 +827,9 @@ Definition of the Breccian language
         - It describes work to be done or undertaken.
             / After the definition of ‘task’ in the Oxford English Dictionary.
                 : see https://www.lexico.com/en/definition/task
-        \ Defining a specialized point for tasking is justified by the Breccian purpose of drafting,
+        \ Defining a specialized point for tasking is justified by the Breccian purpose of text drafting
         \ for which inline tasking is an important capability.
-            \ re `purpose of drafting` see `for outlining and drafting` @ README.html
+            \ re `purpose of text drafting` see `for point-form outlining and drafting` @ README.html
 
 
 

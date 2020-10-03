@@ -9,12 +9,9 @@ Definition of terms for project Breccia
     Breccia
         / pronounced /brɛ́kɪə/ as in ‘breckia’ \ Cf. the geologic homograph pronounced /brɛ́tʃə/.
         ─ mass noun
-            - A lightweight markup language for outlining and drafting based on hierarchical indentation
-              of points and subpoints.
-                : see `lightweight markup.+outlining and drafting.+hierarchical indentation.+points`
-                  @ README.html
-                : re `hierarchical indentation` see `hierarchy` @ `^^ Fractum$` @ language_definition.brec
-                : re `points` see `^^typology$` @ `^^ Fractum$` @ language_definition.brec
+            - A lightweight markup language for point-form outlining and drafting
+              based on sequences and recursions of text elements known as a fracta.
+                : see `lightweight markup.+drafting.+recurs.+fracta` @ README.html
     Breccian
         ─ adjective
             : see `^^Breccia$`
@@ -37,8 +34,8 @@ Definition of terms for project Breccia
             : see `^^fractum$`
     fractum
         ─ noun
-            - The basic formal unit of Breccian composition, hierarchy and order.
-                : see `basic formal unit of Breccian composition, hierarchy and order\.$`
+            - The basic formal unit of Breccian composition, recursion and order.
+                : see `basic formal unit of Breccian composition, recursion and order\.$`
                   @ `^^ Fractum$` @ language_definition.brec
             : see `^^─ plural noun$` @ `^^fracta$`
     linear order
