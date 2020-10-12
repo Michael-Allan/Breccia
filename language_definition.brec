@@ -146,13 +146,12 @@ Definition of the Breccian language
 
             effect
                 - The effect is located in the simulacrum.
-                if( a URI reference is given )
+                if( a URI reference appears in the referent clause )
                     + Take the referent of the URI reference as the indicated referent.
-                else
-                    - A fractum indicator is given.
-                    if( its principal pattern is omitted )
-                        if( the reference has a referrer clause )
-                            + Set `p` to the pattern given in the referrer clause.
+                else a fractum indicator appears in the referent clause
+                    if( the fractum indicator’s principal pattern is omitted )
+                        if( the larger associative reference has a referrer clause )
+                            + Set `p` to the pattern contained in the referrer clause.
                             + Set `p` to broadened to division titling( `p` ).
                                 : see `^^broadened to division titling\( pattern \)$`
                             + Anchor `p` by appending ‘$$’.
@@ -167,7 +166,7 @@ Definition of the Breccian language
                           captured by all such grouping constructs of the pattern.
                     else
                         + Take as the indicated referent the whole of the indicated fractum.
-                if( `privately` is given )
+                if( `privately` appears in the referent clause )
                     + Append as a child of the associative reference a privatizer.
 
 
@@ -618,9 +617,8 @@ Definition of the Breccian language
                     throw( error, the indication is ambiguous )
 
             generalized pattern( fractal head )
-                / Returns a generalized pattern of the given `fractal head`, which is commonly used
-                  to specify the default value for a principal pattern.
-                + Set `p` to the text of the given `fractal head`.
+                / Transforms `fractal head` to a principal pattern.
+                + Set `p` to the text of `fractal head`.
                 + Trim `p` of commentary.
                 + Trim `p` of leading whitespace on its first line.
                 + Trim `p` of trailing whitespace.
@@ -648,7 +646,7 @@ Definition of the Breccian language
                 return( `p` )
 
             broadened to division titling( p )
-                / Returns the given pattern `p` broadened to match division titling.
+                / Broadens pattern `p` to match division titling.
                 + Anchor `p` by prepending ‘^ *’.
                 + Ensure that `p` functions in *case insensitive* mode (`i`).
                     : re `\*case insensitive\* mode`
@@ -758,7 +756,7 @@ Definition of the Breccian language
                 : re `(multiline mode).+(option \`m\`)`
                   see https://perldoc.perl.org/perlreref.html#OPERATORS
         literalized pattern( string )
-            / Returns the given string as a literally enquoted pattern, as defined for Perl `quotemeta`.
+            return( the literally enquoted pattern of `string`, as defined for Perl `quotemeta` )
                 : re `quotemeta` see https://perldoc.perl.org/functions/quotemeta.html
 
 
