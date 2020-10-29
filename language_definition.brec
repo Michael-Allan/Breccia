@@ -574,19 +574,19 @@ Definition of the Breccian language
                    2 │   ───╴ pattern ─────▶
                      └
                  
-                     ┌                            ┌────╴◀─── gap ───┐
-                     │                            │                 │
-                     │         principal          │    ancestor     │
-                   3 │   ───┬─╴ pattern ── gap ─┬─┴─ qualification ─┴───▶
+                     ┌                            ┌──╴◀── gap ──┐
+                     │                            │             │
+                     │         principal          │  ancestor   │
+                   3 │   ───┬─╴ pattern ── gap ─┬─┴─ qualifier ─┴───▶
                      │      │                   │
                      └      └───────────────────┘
                  
-                     ┌                               ┌────╴◀─── gap ───┐
-                     │                               │                 │
-                     │         principal             │    ancestor     │             document
-                   4 │   ───┬─╴ pattern ── gap ─┬──┬─┴─ qualification ─┴─ gap ─┬── qualification ────▶
-                     │      │                   │  │                           │
-                     └      └───────────────────┘  └───────────────────────────┘
+                     ┌                               ┌──╴◀── gap ──┐
+                     │                               │             │
+                     │         principal             │  ancestor   │           document
+                   4 │   ───┬─╴ pattern ── gap ─┬──┬─┴─ qualifier ─┴─ gap ─┬── qualifier ────▶
+                     │      │                   │  │                       │
+                     └      └───────────────────┘  └───────────────────────┘
 
                 diagram, The four forms of a fractum indicator.
 
@@ -653,17 +653,17 @@ Definition of the Breccian language
                       see https://perldoc.perl.org/perlreref.html#OPERATORS
                 return( `p` )
 
-        ancestor qualification
-            - An indicator of an ancestor of the principal fractum.
+        ancestor qualifier
+            - A qualifier indicating an ancestor of the principal fractum.
             - It indicates the ancestor by the pattern of its text.
 
                    ───╴‘@’╶── gap ──╴‘`’╶── pattern ──╴‘`’╶───▶
 
-            - Where multiple ancestor qualifications appear in series, each successor indicates
+            - Where multiple ancestor qualifiers appear in series, each successor indicates
               an ancestor of the one indicated by its predecessor.
 
-        document qualification
-            - An indicator of the document of the principal fractum.
+        document qualifier
+            - A qualifier indicating the document of the principal fractum.
 
                    ───╴‘@’╶── gap ─── URI reference ────▶
 
