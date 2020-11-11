@@ -98,6 +98,9 @@ Definition of the Breccian language
         - Multiple referrers may be overlapped or nested in any manner.
             / via multiple, sibling references
             / via a single reference that indicates multiple referrers at once
+        - An associative reference to a private referent of the same author, or authors,
+          must itself be private, else the reference is malformed.
+            : re `private` see `^^ Privatizer$`
 
         referrer clause
             - The referrer clause indicates the referrer, or referrers, by a pattern of text
@@ -136,13 +139,13 @@ Definition of the Breccian language
 
                 : re `‘(join)’` see `^^ Jointer$`
                 : re `‘(see)’` see `^^ Pointer$`
-                : re `‘(privately)’` see `\`privately\` is given` @ `^^effect$`
+                : re `‘(privately)’` see `\`privately\` appears` @ `^^effect$`
                 : re `(URI)$.*(reference)` see https://tools.ietf.org/html/rfc3986#section-4.1
 
-            - The referential command determines the type and overall function
+            - The referential command determines the type and overall effect
               of the associative reference.
                 : re `type` see `^^◇ associative reference$` @ `^^typology$` @ `^^ Fractum$`
-            - A non-private reference to a private referent of the same author, or authors, is malformed.
+                : re `overall effect` see @ `^^ Associative reference$`
 
             effect
                 - The effect is located in the simulacrum.
@@ -168,6 +171,14 @@ Definition of the Breccian language
                         + Take as the indicated referent the whole of the indicated fractum.
                 if( `privately` appears in the referent clause )
                     + Append as a child of the associative reference a privatizer.
+
+        overall effect
+            : join `^^effect$` @ `^^referrer clause$`
+            : join `^^effect$` @ `^^referent clause$`
+            if( the referential command is `join` )
+                : join `^^effect$` @ `^^ Jointer$`
+            else
+                : see `effect` @ `^^ Pointer$`
 
 
 
