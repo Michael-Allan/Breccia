@@ -5,12 +5,12 @@ Definition of the Breccian language
 
               │
               │
-              ├──────┐
-              ╵      │     \ [graphical syntax notation], q.v. at end notes
-           document  ▲
-           fractum   │
-              ╷      │
-              ├──────┘
+              ├─────┐
+              ╵     │     \ [graphical syntax notation], q.v. at end notes
+           document │
+           fractum  ▲
+              ╷     │
+              ├─────┘
               │
               │
               ▼
@@ -21,34 +21,39 @@ Definition of the Breccian language
         / A Breccian document in formal terms.
         - It comprises a head formed as a descriptor and/or a body formed as a sequence of body fracta.
 
-                       │
-                       │
-                       ├──────┐     ┐
-                       ╵      │     │
-                   descriptor │     │ head
-                       ╷      ▼     │
-                 ┌─────┤      │     ┘
-                 │     ├──────┘
-                 │     │            ┐
-                 │     ├─────┐      │
-                 ▼     ╵     │      │
-                 │   body    ▲      │ body
-                 │  fractum  │      │
-                 │     ╷     │      │
-                 │     ├─────┘      │
-                 └─────┤            ┘
-                       │
-                       │
-                       ▼
+                      │
+                      │
+                      ├──────┐    ┐
+                      ╵      │    │
+                  descriptor │    │ head
+                      ╷      │    │
+                 ┌────┤      │    ┘
+                 │    ├──────┘
+                 │    │
+                 │    ├────┐      ┐
+                 │    ╵    │      │
+                 │  body   ▲      │
+                 │ fractum │      │ body
+                 │    ╷    │      │
+                 │    ├────┘      │
+                 └────┤           ┘
+                      │
+                      │
+                      ▼
 
-        - Either the descriptor or the body may be omitted, but not both.
+        - Either the descriptor or the body may be absent, but not both.
+            / Absence of both implies no fractum and an empty document.
+        - The descriptor is absent (and a body fractum present) if the first line of the document
+          is perfectly indented and not part of a comment block.
+            : re `perfectly indented` see `^^perfect indentation$` @ `^^ Whitepace$`
 
     document title
         - The document title, if any, is determined by the first fractal head in linear order
           that yields a non-empty result after collapsing the whitespace of the relevant part
           of its content according to head type:
             • document head or point head
-                - The relevant part is the whole head exclusive of commentary and indentation blinds.
+                - The relevant part is the whole head exclusive of comment carriers
+                  and indentation blinds.
             • divider
                 - The relevant part is its first label.
 
@@ -57,7 +62,6 @@ Definition of the Breccian language
     ━━━━━━━━━━━━━
      Alarm point
     ─────────────
-        / A specialized material point.
         - A point with a bullet comprising ‘!!’, or ending with ‘!!’.
         - It forms urgent matter for the attention of authors.
             / E.g. indicating an error in the document.
@@ -67,12 +71,11 @@ Definition of the Breccian language
     ━━━━━━━━━━━━━
      Aside point
     ─────────────
-        / A specialized material point.
         - A point with a bullet comprising ‘/’.
         - It forms matter of less prominence than its place would otherwise suggest.
             / E.g. matter to which the reader should give less attention on a first reading.
-        - Its descriptor, if present, is largely free form.
-            : see `most descriptors are largely free form.$` @ `^^ Descriptor$`
+        - Its descriptor, if present, is largely free-form.
+            : see `most descriptors are largely free-form.$` @ `^^ Descriptor$`
 
 
 
@@ -80,19 +83,22 @@ Definition of the Breccian language
      Associative reference
     ───────────────────────
         / A command point.
-        - It indicates an object (the referent) and associates with it one or more preceding
-          character sequences (the referrer, or referrers).
+        - It forms a reference by associating one or more pre-existing text sequences (referrer,
+          or referrers) with a remote object (referent).
         - Its descriptor has this form:
 
-                            referrer            referent
-               ─── gap ──┬── clause ── gap ──┬── clause ────▶
-                         │                   │
-                         └───────────────────┘
+                           referrer            imperative
+              ╶── gap ──┬─╴ clause ── gap ──┬─╴  clause  ────▶
+                        │                   │
+                        └───────────────────┘
 
+                : re `(referrer).*$.*╴ (clause)` see `^^ referrer clause$`
+                : re `(imperative).*$.*  (clause)` see `^^ imperative clause$`
                 diagram, The form of the descriptor in an associative reference.
 
-        - The referrer clause indicates the referrer or referrers.
-        - The referent clause indicates the referent.
+        - The referrer clause indicates the referrer or referrers, while the imperative clause
+          (in its referent clause) indicates the referent.
+            : re `referent clause` see same @ `^^- The imperative clause includes`
         - A single referrer may be associated with multiple referents.
             / via multiple, sibling references that indicate the same referrer
         - Multiple referrers may be overlapped or nested in any manner.
@@ -102,83 +108,260 @@ Definition of the Breccian language
           must itself be private, else the reference is malformed.
             : re `private` see `^^ Privatizer$`
 
-        referrer clause
-            - The referrer clause indicates the referrer, or referrers, by a pattern of text
-              occuring in the head of the reference’s parent.
+        ─────────────────
+         referrer clause
+        ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
+            - Any referrer clause explicitly locates one or more referrers in the head
+              of the reference’s parent.
+            - Absent a referrer clause, the whole head is taken as the sole referrer.
+            - Otherwise the referrers are located in the head by a pattern of text.
 
-                   ───╴‘re’╶── gap ──╴‘`’╶── pattern ──╴‘`’╶────▶
+                  ╶──╴‘re’╶── gap ──╴‘`’╶── pattern ──╴‘`’╶───▶
 
-                - Failing a parental head, the reference is misplaced and the document malformed.
-                    / This occurs only when the parent is a headless document fractum.
-            - The referrer clause is optional.
-                - If omitted, then the head of the reference’s parent is taken in effect as the referrer.
-
-            effect
-                - The effect is located in the simulacrum.
-                if( the referrer clause contains one or more subexpression grouping constructs ‘(…)’ )
-                    : re `subexpression grouping constructs`
-                      see https://perldoc.perl.org/perlreref.html#SYNTAX
-                    for( each match of the pattern within the head of the reference’s parent )
-                        if( at least one subexpression captures a text sequence )
-                            + Set as a referrer the union of all captured text sequences.
+            referrers()
+                / Every associative reference defines the resolution of its referrers, as follows.
+                - A list in linear order of text sequences, each to be taken as a referrer.
+                    : re `text sequences` see `^^original resource$` @ `^^ Notes$`
+                deem+ `h` a text sequence, that of `parental head text()`;
+                      `tt` a list of text sequences, intitally empty
+                if( no referrer clause is present )
+                    + Append `h` to `tt`.
                 else
-                    for( each match of the pattern within the head of the reference’s parent )
-                        + Set as a referrer the whole of the matching text.
-
-        referent clause
-            - The referent clause indicates the referent.
-
-                                                                          URI
-                      ┌─╴‘join’╶─┐                                 ┌── reference ──┐
-                   ───┤          ├── gap ─┬─╴‘privately’╶─ gap ─┬──┤               ├────▶
-                      └──╴‘see’╶─┘        │                     │  │    fractum    │
-                                          └─────────────────────┘  └── indicator ──┘
-                      └───────────┘
-                       referential
-                         command
-
-                : re `‘(join)’` see `^^ Jointer$`
-                : re `‘(see)’` see `^^ Pointer$`
-                : re `‘(privately)’` see `\`privately\` appears` @ `^^effect$`
-                : re `(URI)$.*(reference)` see https://tools.ietf.org/html/rfc3986#section-4.1
-
-            - The referential command determines the type and overall effect
-              of the associative reference.
-                : re `type` see `^^◇ associative reference$` @ `^^typology$` @ `^^ Fractum$`
-                : re `overall effect` see @ `^^ Associative reference$`
-
-            effect
-                - The effect is located in the simulacrum.
-                if( a URI reference appears in the referent clause )
-                    + Take the referent of the URI reference as the indicated referent.
-                else a fractum indicator appears in the referent clause
-                    if( the fractum indicator’s principal pattern is omitted )
-                        if( the larger associative reference has a referrer clause )
-                            + Set `p` to the pattern contained in the referrer clause.
-                            + Set `p` to broadened to division titling( `p` ).
-                                : see `^^broadened to division titling\( pattern \)$`
-                            + Anchor `p` by appending ‘$$’.
+                    deem+ `p` a pattern, that of the referrer clause
+                    for( each match `m` of `p` against `h` )
+                        if( `m` captured no group  )
+                            + Append to `tt` the whole text sequence of `m`.
                         else
-                            + Set `p` to generalized pattern( head of the reference’s parent ).
-                                : see `^^generalized pattern\( fractal head \)$`
-                        + Set the principal pattern to `p`.
-                    if( the principal pattern contains a subexpression grouping construct ‘(…)’ )
-                        : re `subexpression grouping construct`
-                          see https://perldoc.perl.org/perlreref.html#SYNTAX
-                        + Take as the indicated referent the union of the text sequences
-                          captured by all such grouping constructs of the pattern.
-                    else
-                        + Take as the indicated referent the whole of the indicated fractum.
-                if( `privately` appears in the referent clause )
-                    + Append as a child of the associative reference a privatizer.
+                            + Append to `tt` a disjoint text sequence comprising the union
+                              of all captured text sequences of `m`.
+                    if( `tt` is empty )
+                        throw+ broken `re` clause, pattern `p` not found
+                return+ `tt`
 
-        overall effect
-            : join `^^effect$` @ `^^referrer clause$`
-            : join `^^effect$` @ `^^referent clause$`
+            parental head text()
+                - The text sequence of the parent head.
+                    : re `text sequence` see `^^original resource$` @ `^^ Notes$`
+                deem+ `p` a fractum, the parent of the associative reference
+                if( `p` is headless )
+                    / The parent is a headless document fractum.
+                    throw+ headless parent, reference is misplaced
+                return+ the text sequence of the head of `p`
+
+        ───────────────────
+         imperative clause
+        ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
+            - The imperative clause includes a referential command, and includes or implies
+              a referent clause.
+
+                         referential
+                           command
+                        ┌──────────┐
+                                      ┌───────────────────────────┐
+                                      │                           │
+                        ┌─╴‘see’╶──┐  │             inferential   │
+                     ┌──┤          ├──┴── gap ──┬──╴ referent  ╶──┴───┐
+                     │  └─╴‘join’╶─┘            │    indicator        │
+                     │                          │                     │
+                  ╶──┤  ┌─╴‘cf.’╶──┐            │       fractum       ├────▶
+                     │  │          │            │  ┌── indicator ──┐  │
+                     │  ├─╴‘e.g.’╶─┤            └──┤               ├──┘
+                     └──┤          ├───── gap ─────┤   resource    │
+                        ├─╴‘i.e.’╶─┤               └── indicator ──┘
+                        │          │
+                        ├─╴‘NB’╶───┤            └────────────────────┘
+                        │          │               referent clause
+                        ├─╴‘N.B.’╶─┤
+                        │          │
+                        ├─╴‘viz.’╶─┤
+                        │          └──────╴◀────────┐
+                        └─╴‘see’╶─┐                 │
+                                  └── gap ─╴‘also’╶─┘
+
+                    : re `(inferential).*$.*(referent).*$.*(indicator)`
+                      see `^^inferential referent indicator$`
+                    : re `(fractum).*$.*(indicator)` see `^^ Fractum indicator$`
+                    : re `(resource).*$.*(indicator)` see `^^ Resource indicator$`
+                        / The diagram includes a resource indicator only for sake of clarity.  Redundant,
+                          it exactly equals a fractum indicator *comprising* a resource indicator.
+            - The referential command of an imperative clause determines the overall type
+              of associative reference, with implications for its overall effect.
+                : re `overall type$ *of associative reference`
+                  see `^^. associative reference$` @ `^^ fractal types$`
+                : re `overall effect` see `^^ effect of an associative reference$`
+            - Any referent clause (inferential referent indicator, fractum indicator or URI reference)
+              explicitly indicates the referent.
+                - Absent the referent clause, any referrer clause *implies* the referent.
+                - Absent the referrer clause, the referent is implied by the fractal head of the parent.
+
+            inferential referent indicator
+                - An inferential referent indicator comprises one or more of three parts that together
+                  define (i) referrer similarity, (ii) referential form and (iii) containment.
+
+                          referrer similarity
+                             ┌─── i ────┐
+                                                     ┌────────────────────────────┐
+                         ┌───────────────────────────┤ ┌──╴‘head’╶──┐             │
+                      ╶──┤ ┌───╴‘same’╶────┐         └─┤            │             │   containment
+                         └─┤               ├─┬── gap ──┤            ├─┬─┬── gap ──┴──╴  clause   ╶──┬───▶
+                           └──╴‘similar’╶──┘ │         └──╴‘term’╶──┘ │ │                           │
+                                             └────────────────────────┘ └───────────────────────────┘
+                     
+                                                         └── ii ──┘                 └──── iii ────┘
+                                                      referential form                containment
+
+                - The definition of referential form (ii) determines the form of the referent
+                  and how to locate it.  Specifically:
+                    • ‘head’ defines the referent as a fractum
+                       to be located by the pattern of its head, while
+                    • ‘term’ defines the referent as a text sequence to be located by its own pattern.
+                        / Though formally allowed, such a referent is meaningless
+                          where the referential command is `join`.
+                            : see `^^- Where the referent is a text sequence` @ `^^effect$`
+                              @ `^^ Jointer$`
+                - In either case, the operative pattern that pinpoints the referent is constructed
+                  by inference from the pattern of the referrer, or referrers.
+                    - Any containment clause (iii) delimits the context in which the pattern is sought.
+                - The definition of referrer similarity (i) determines how broadly or narrowly
+                  the pattern is to be constructed.
+                    : see `^^pattern construction based on referrer similarity$` @ `^^ Notes$`
+
+                default referrer similarity()
+                    return+ ‘similar’
+
+                default referential form()
+                    if( the containing associative reference includes a referrer clause )
+                        return+ ‘term’
+                    return+ ‘head’
+
+                indicated referent( inferential referent indicator `iIR` if present )
+                    - The fractum or text sequence to be taken as the referent.
+                        : re `fractum or text sequence` see `^^original resource$` @ `^^ Notes$`
+                    deem+ `iF` a fractum indicator;
+                          `fR` a referential form
+                    if( `iIR` is absent )
+                        + Set `fR` to `default referential form()`.
+                        + Set `iIR` to an an inferential referent indicator comprising `fR`.
+                    else if( `iIR` defines a referential form )
+                        + Set `fR` to that referential form.
+                    else
+                        + Set `fR` to `default referential form()`.
+
+                    if( the referential form `fR` is ‘head’ )
+                        + Set `iF` to `inferred pattern()` of `iIR` in gap-delimited conjunction
+                          with any containment clause of `iIR`.
+                        return+ `indicated fractum( iF )`
+
+                    / It follows that the referential form `fR` is ‘term’.
+                    if( `iIR` includes a containment clause )
+                        + Set `iF` to the fractum indicator of the containment clause.
+                    deem+ `f` a fractum, that of `indicated fractum( iF if set )`;
+                          `p` a pattern, that of `inferred pattern()` of `iIR`;
+                          `tt` a list of text sequences, intitally empty
+                    for( each match `m` of `p` against the text sequence of the head of `f` )
+                        if( `m` captured no group  )
+                            + Append to `tt` the whole text sequence of `m`.
+                        else
+                            + Append to `tt` each captured text sequence of `m`.
+                    if( `tt` is empty )
+                        throw+ broken reference, pattern `p` not found
+                    return+ a disjoint text sequence comprising the union of all `tt`
+
+                inferred pattern()
+                    - Constructs by inference from the pattern of the referrer, or referrers,
+                      a pattern to pinpoint the referent.
+                    deem+ `fR` the referential form if defined, else `default referential form()`;
+                          `p` a string buffer, initially empty;
+                          `rA` a fractum, that of the containing associative reference;
+                          `cR` a referrer clause if present, that of `rA`;
+                          `sR` the referrer similarity if defined, else `default referrer similarity()`
+                    if( `cR` is present ) then the pattern of the referrer(s) is the pattern of `cR`
+                        : re `pattern of the referrer` see @ `^^- Constructs by inference`
+                          @ `^^inferred pattern\(`
+                        + Set `p` to the pattern of `cR`.
+                        + Refine `p` according to referrer similarity `sR` and referential form `fR`.
+                            : see `^^pattern construction based on referrer similarity$` @ `^^ Notes$`
+                    else( then the pattern of the referrer(s) is the pattern of
+                          the parental head of `rA` )
+                        : re `pattern of the referrer` see @ `^^- Constructs by inference`
+                          @ `^^inferred pattern\(`
+                        + Set `p` to the string of `parental head text()` of `rA`.
+                        + Trim `p` of comment carriers and indentation blinds.
+                        + Trim `p` of leading and trailing whitespace.
+                        + Set `p` to `literalized pattern( p )`.
+                        + Collapse all remaining whitespace of `p` to ‘\s+’.
+                            / Neutralizing differences in indentation and line wrapping.
+                        + Further refine `p` according to referrer similarity `sR`
+                          and referential form `fR`.
+                            : see `^^pattern construction based on referrer similarity$` @ `^^ Notes$`
+                    return+ `p`
+
+            containment clause
+
+                  ╶──╴‘@’╶── gap ── fractum indicator ────▶
+
+            referent()
+                / Every associative reference defines the resolution of its referent, as follows.
+                - The text sequence, fractum or other resource to be taken as the referent.
+                    : re `text .+ other resource` see `^^original resource$` @ `^^ Notes$`
+                    : re `other resource` see head @ https://tools.ietf.org/html/rfc3986#section-1.1
+                if( the imperative clause includes a resource indicator with a `non-fractal` qualifier )
+                    return+ `indicated resource( resource indicator )`
+                deem+ `iF` a fractum indicator;
+                      `iIR` an inferential referent indicator
+                if( a referent clause is present )
+                    if( the referent clause comprises a resource indicator )
+                        + Set `iF` to a fractum indicator comprising the resource indicator.
+                    else if( the referent clause comprises a fractum indicator )
+                        + Set `iF` to the fractum indicator.
+                    else( the referent clause comprises an inferential referent indicator )
+                        + Set `iIR` to the inferential referent indicator.
+                        break+ `if( a referent clause is present )`
+                    deem+ `f` a fractum, that of `indicated fractum( iF )`;
+                          `mF` a match, the match of `f` if any occurred
+                    if( no `mF` occured or `mF` captured no group )
+                        return+ `f`
+                    return+ a disjoint text sequence comprising the union of all captured
+                      text sequences of `mF`.
+                return+ `indicated referent( iIR if set )`
+
+        ────────────────────────────────────
+         effect of an associative reference
+        ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
+            / Textual references and described effect herein are simulacral.
+                : see `^^simulacral effect and reference$` @ `^^ Notes$`
+
+            / The associative reference defines the resolution of its referrers and referent.
+            referrers()
+                : join @ `^^ referrer clause$`
+            referent()
+                : join @ `^^ imperative clause$`
+
+            / Any further effect depends on the overall type of reference as determined
+              by the referential command.
+                : re `overall type of reference` join `^^. associative reference$` @ `^^ fractal types$`
             if( the referential command is `join` )
                 : join `^^effect$` @ `^^ Jointer$`
-            else
-                : see `effect` @ `^^ Pointer$`
+
+
+
+    ━━━━━━━━━━━━━━━━
+     Autoprivatizer
+    ────────────────
+        - A privatizer that encodes within it another command, making it private.
+            / So pertaining soley to the author, or authors.
+                : cf. `^^ Comment carrier$
+        - Its descriptor has this form:
+
+              ╶──╴‘privately’╶── gap ── command point descriptor ────▶ \ No provision for a null command.
+
+            - Its descriptor formally includes the descriptor of the other command.
+        effect
+            / Textual references and described effect herein are simulacral.
+                : see `^^simulacral effect and reference$` @ `^^ Notes$`
+            if( the included command point descriptor is that of a privatizer )
+                throw+
+            + Remove ‘privately’ and its subsequent gap.
+            + Append as child a parental privatizer.
 
 
 
@@ -186,26 +369,25 @@ Definition of the Breccian language
      Bullet
     ────────
         / Part of a point head.
-        - Its internal form is determined in part by external boundaries.
+        - Its form is determined in part by external boundaries.
 
-                 perfect   ┊      start                        end            ┊   descriptor,
-               indentation ┊╶─── sequence ─┬─┬─ interior ─┬─ character ─┬───▶ ┊  head successor,
-                           ┊               │ │            │             │     ┊ or end of document
-                                           │ └────────────┘             │     ┊
-                                           └────────────────────────────┘
-                                    i              ii          iii
+                 perfect   ┊     start                            end             ┊   descriptor,
+               indentation ┊╶── sequence ──┬─┬── interior ──┬── character ──┬───▶ ┊  head successor,
+                           ┊               │ │              │               │     ┊ or end of document
+                                           │ └──────────────┘               │     ┊
+                                           └────────────────────────────────┘
+                                   i                ii            iii
 
-                    : re `head successor` see `^^\| the head successor$` @ `^^ Fractum$`
-                diagram, The form of a bullet.
-
-        - While the precise internal form varies according to the point type, every bullet is formally
+                : re `head successor` see `^^\| the head successor$` @ `^^ Fractum$`
+        - While the precise form varies according to the point type, every bullet is formally
           conditioned by basic contraints operating in several regions, here numbered i, ii, iii.
         i. start sequence, one of:
-            | a character that is neither whitespace nor backslash (5C) nor divider mark
+            ⁃ a character that is neither a whitespace nor a backslash (5C)
+              nor a divider drawing character, and
                 : see `^^character identification$` @ `^^ Notes$`
-            | one or more backslashes immediately followed by
-              a character that is neither whitespace nor backslash
-                \ Whitespace would make it a sequence of a comment block, not a bullet.
+            ⁃ one or more backslashes immediately followed by
+              a character that is neither whitespace nor backslash.
+                \ A whitespace character here, or none at all, would instead start a comment block.
         ii. interior
             - Coming after the start character and before the end character.
             - Here the bullet may contain spacing characters, and nowhere else.
@@ -222,72 +404,91 @@ Definition of the Breccian language
                         : re `Breccia Mode for Emacs` see http://reluk.ca/project/Breccia/Emacs/
                     - Here the excluded sequences are not expulsive, rather they are simply forbidden.
                 - No other whitespace is allowed.
-                    / Namely no newline; one could never be part of a bullet, only of its end boundary.
-        iii. end character, a character that is none of:
-            | whitespace
-            | a backslash subsequent to a plain space of the interior
+                    / Viz. no newline; it could never be part of a bullet, only of its end boundary.
+        iii. end character, a character that is neither:
+            ⁃ whitespace, nor
+            ⁃ a backslash subsequent to a plain space of the interior.
                 / Rather those characters would comprise the initial part of an end boundary in the form
-                  of inline commentary, so forming part of the descriptor.
+                  of a comment carrier, so forming part of the descriptor.
 
 
 
     ━━━━━━━━━━━━━━━
      Command point
     ───────────────
-        / A formal point.
         - A point with a bullet comprising ‘:’.
         - The form of its descriptor, if any, varies with the type of command point.
-            : re `type of command point` see `^^typology$` @ `^^ Fractum$`
+            : re `type of command point` see `^^ fractal types$` @ `^^ Fractum$`
             / Only in the case of a *null command* may the descriptor be omitted.
-        - Processors interpret command points and execute their commands in linear order.
+        - Processors interpret command points and run the commands they encode in linear order.
 
         null command
-            - A command point that does nothing. \ The null command is an artifact of formal consistency;
-                \ it occurs only because a descriptor is defined as optional in the head of a point.
-            - Its descriptor has this form:
+            - A command point that does nothing. \ An artifact of formal consistency,
+                \ it occurs only because a descriptor is defined as optional in a point head.
+            - Its descriptor may be omitted.
+            - If present, it has this form:
 
-                   ───┬─ gap ─┬───▶
-                      │       │
-                      └───────┘
-
+                  ╶── gap ───▶
 
 
-    ━━━━━━━━━━━━
-     Commentary
-    ────────────
-        / Part of a descriptor.
-        - Commentary is matter for the attention of authors, publishers or other atypical readers.
-        - Formally it appears as either inline commentary or block commentary.
 
-        inline commentary
-            - Commentary subsequent to non-commentary, non-whitespace on the same line. \ [‘commentary’]
+    ━━━━━━━━━━━━━━━━━
+     Comment carrier
+    ─────────────────
+        / Part of a descriptor gap or divider segment.
+        - A carrier of commentary for the attention of authors, publishers or other atypical readers.
+            : cf. `^^ Autoprivatizer$
+            : cf. `^^ Parental privatizer$
+        - Formally it appears as either a comment appender or a comment block.
+        comment appender
+            - A carrier for commentary subsequent to non-commentary on the same line.
 
-                                                         inline commentary
-                                             ┌─────────────────────────────────────────┐
+                                                                      commentary
+                                                                ┌─────────────────────┐
                  
-                                                                   ┌───╴◀────────┐
-                                 ┌─╴◀────┐     ┌─╴◀────┐           │             │
-                   inline non-   │       │ ┊   │       │           │   inline    │         ┊ end of
-                   -whitespace ╶─┴─╴‘ ’╶─┘ ┊╶──┴─╴‘\’╶─┴─┬─╴‘ ’╶─┬─┴─ character ─┴─┬─┬───▶ ┊ line
-                                           ┊             │       │                 │ │     ┊
-                                                         │       └─────────────────┘ │
-                                                         └───────────────────────────┘
+                                                                   ┌────╴◀─────────┐
+                   inline non-   ┌─╴◀────┐     ┌─╴◀────┐           │               │
+                   -whitespace   │       │ ┊   │       │           │    inline     │          ┊ end of
+                   or no-break ╶─┴─╴‘ ’╶─┘ ┊╶──┴─╴‘\’╶─┴─┬─╴‘ ’╶─┬─┴── character ──┴─┬─┬────▶ ┊ line
+                   space (A0)              ┊             │       │                   │ │      ┊
+                                                         │       └───────────────────┘ │
+                                                         └─────────────────────────────┘
+                 
+                                             └───────────────────────────────────────────┘
+                                                          comment appender
 
-                    diagram, The form of inline commentary.
+                    : re `commentary` see `^^commentary$` @ `^^ Notes$`
+                    : re `A0` see `^^character identification$` @ `^^ Notes$`
+        comment block
+            - A comment carrier that extends over a sequence of (one or more) whole lines.
 
-        block commentary
-            - Commentary comprising whole lines. \ [‘commentary’]
-            - Each line has this form:
+                                                                  commentary
+                                                            ┌─────────────────────┐
+                 
+                                                               ┌────╴◀─────────┐
+                               ┌─╴◀────┐   ┌─╴◀────┐           │               │
+                   start ┊     │       │   │       │           │    inline     │          ┊ end of
+                    of   ┊╶──┬─┴─╴‘ ’╶─┴─┬─┴─╴‘\’╶─┴─┬─╴‘ ’╶─┬─┴── character ──┴─┬─┬────▶ ┊ line
+                   line  ┊   │           │           │       │                   │ │      ┊
+                             └───────────┘           │       └───────────────────┘ │
+                                                     └─────────────────────────────┘
 
-                                                                  ┌───╴◀────────┐
-                                  ┌─╴◀────┐   ┌─╴◀────┐           │             │
-                      start ┊     │       │   │       │           │   inline    │         ┊ end of
-                       of   ┊╶──┬─┴─╴‘ ’╶─┴─┬─┴─╴‘\’╶─┴─┬─╴‘ ’╶─┬─┴─ character ─┴─┬─┬───▶ ┊ line
-                      line  ┊   │           │           │       │                 │ │     ┊
-                                └───────────┘           │       └─────────────────┘ │
-                                                        └───────────────────────────┘
+                    : re `commentary` see `^^commentary$` @ `^^ Notes$`
+                    diagram, The form of each line of a comment block.
 
-                    diagram, The form of a line of block commentary.
+        comment block label
+            / A type of commentary.  Part of a comment block.
+            - Commentary delimited by two or more backslashes in a comment block.
+
+                                                                       label
+                                                                ┌───────────────────┐
+                 
+                                                                  ┌────╴◀─────────┐
+                             ┌─╴◀────┐         ┌─╴◀────┐          │               │
+                   start     │       │         │       │      ┊   │    inline     │      ┊ end of
+                    of  ╶──┬─┴─╴‘ ’╶─┴─┬─╴‘\’╶─┴─╴‘\’╶─┴─╴‘ ’ ┊╶──┴── character ──┴────▶ ┊ line
+                   line    │           │                      ┊                          ┊
+                           └───────────┘
 
 
 
@@ -295,38 +496,43 @@ Definition of the Breccian language
      Descriptor
     ────────────
         / Part of a document head or point head.
-        - Elaborative, explanatory text in the head of a document or point.
+        - Elaborative, explanatory text in the head of a point or document fractum.
         - It starts with a gap.
 
-                           · · · ·
-                           ·     ·       ┊  head successor,
-               ─── gap ─── ·  ?  · ────▶ ┊ or end of document
-                           ·     ·       ┊
-                           · · · ·
-                    : re `head successor` see `^^\| the head successor$` @ `^^ Fractum$`
+                          · · · ·
+                          ·     ·       ┊ end boundary
+              ╶── gap ─── ·  ?  · ────▶ ┊   of head
+                          ·     ·       ┊
+                          · · · ·
+                    : re `(end boundary)$.+(of head)`
+                      see `^^- Its end boundary` @ `^^head$` @ `^^ Fractum$`
                 diagram, The abstract form of a descriptor.
 
+        - Only in the head of a document fractum may the leading gap begin with a comment block
+          or indentation blind.
         - What follows the gap (abstracted from the diagram) depends on the type of fractum
           in which the descriptor appears.
-            - Here most descriptors are largely free form, constrained only by the end boundary
+            - Most descriptors are largely free-form, constrained only by the end boundary
               of their head (as shown).
-            - The descriptor of a formal point, however, is further constrained.
-                : re `formal point` see `^^◇ formal point$` @ `^^typology$` @ `^^ Fractum$`
+            - The descriptor of a command point, however, is further constrained.
         gap
-            - A type of separator used in a descriptor.
+            - A form of separator appearing in a descriptor.
 
-                  ┌────────────────────────╴◀──────────────────────────────────┐
-                  │                                                            │
-                  │ ┌───────────────────────────╴‘ ’╶────────────────────────┐ │
-                  │ │                                                        │ │
-               ───┴─┤                                           block        ├─┴───▶
-                    │                                    ┌─── commentary ──┐ │
-                    │             inline                 │                 │ │
-                    └─┬─╴‘ ’╶── commentary ─┬─ newline ──┤   indentation   ├─┘
-                      │                     │            ├───   blind   ───┤
-                      └─────────────────────┘            │                 │
-                                                         └─────────────────┘
-
+                                            ┌────────────────────────────╴◀─────────────────┐
+                                            │                                               │
+                                            │  ┌───────────────╴‘ ’╶─────────────────────┐  │
+                  ╶──┬──────────────────────┴──┤                         comment         ├──┴────▶
+                     │  ┌─╴◀────┐              │                   ┌────╴ block ╶────┐   │
+                     │  │       │    comment   └──┬── newline ──┬──┤                 ├─┬─┘
+                     └──┴─╴‘ ’╶─┴─── appender ────┘             │  └── indentation ──┘ │
+                                                                │         blind        │
+                                                                └──────────────────────┘
+                    : re `(comment).+$.+(block)` see `^^comment block$`
+                    : re `(comment).+$.+(appender)` see `^^comment appender$`
+                    : re `(indentation).+$.+(blind)` see `^^ Indentation blind$` @ `^^ Whitepace$`
+            - Outside of a comment block, no gap contains perfect indentation.
+                / Outside of a comment block, such indentation would instead start a body fractum,
+                  and therewith form the end boundary of the gap and the head that contains it.
 
 
     ━━━━━━━━━━
@@ -334,16 +540,10 @@ Definition of the Breccian language
     ──────────
         / A body fractum.
         - A body fractum forming a part of the document markedly separate from other parts.
-            : re `markedly separate` see `^^divider$`
         - Its head is called a divider.
-
-        ─────────
-         divider
-        ┈┈┈┈┈┈┈┈┈
+        divider
             - The head of a division.
             - It comprises one or more divider segments.
-            - Therefore no two dividers can be made contiguous; rather they become two segments
-              of one divider.
 
                       │
                       │
@@ -357,365 +557,305 @@ Definition of the Breccian language
                       │
                       ▼
 
-                    diagram, The form of a divider.
+            - It follows that sibling dividers cannot be made contiguous;
+              rather their segments would join to comprise one divider.
+        divider segment
+            / Part of a divider.
+            - It starts with a perfectly indented divider drawing character.
 
-            divider segment
-                / Part of a divider.
-                - It starts with a perfectly indented divider mark.
+                                               ┌───╴◀────────┐       ┊
+                     perfect       divider     │             │       ┊ divider segment,
+                   indentation ──╴ drawing ──┬─┴─ character ─┴─┬───▶ ┊ non-divider fractum,
+                                  character  │                 │     ┊ or end of document
+                                             └─────────────────┘     ┊
 
-                         perfect      divider
-                       indentation ─── mark
-                                        ╷
-                                        │
-                                  ┌─────┤
-                                  │     ├───────┐
-                                  │     ╵       │
-                                  │  character  ▲
-                                  │     ╷       │
-                                  │     ├───────┘
-                                  └─────┤
-                                        │
-                                        │
-                                        ▼
-                              ╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴╴
-                              divider segment, point,
-                                or end of document
+                    : re `(perfect).+$.+(indentation)` see `^^perfect indentation$` @ `^^ Whitepace$`
+                    : re `(divider).+$.+(drawing).+$.+(character)` see `^^divider drawing character$`
+            - Outside of comment carriers and indentation blinds, characters between the leading,
+              divider drawing character and the end boundary of the segment (rightmost in diagram)
+              are unconstrained in form.
+        divider drawing character
+            - A character in the Unicode range 2500-259F.
+                : re `2500-259F` see `^^character identification$` @ `^^ Notes$`
+        division label
+            / Part of a divider segment.
+            - A sequence of characters that
+                ⁃ lies within a divider segment,
+                ⁃ lies outside of a comment carrier,
+                ⁃ lies outside of an indentation blind,
+                ⁃ contains no divider drawing character and
+                ⁃ excludes any leading or trailing whitespace.
+        division titles( divider `d` )
+            - A list in linear order of character strings, each to be taken as a title
+              of the division headed by `d`.
+                / Presenters may give greater prominence to division titles,
+                  e.g. showing them in bold face.
+            / Consider for example this divider:
 
-                        diagram, The form of a divider segment.
+                       ┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄╮
+                        This is a division title, ┊ This is not
+                        and it includes this      ┊
+                       ┄┄┄┄┄┄┄┄┄┄┄┄┄ This is not ┄╯
+                                                    This is a 2nd division title
 
-                - Any characters subsequent to the divider mark are largely free form, constrained only
-                  by the end boundary of the segment, as shown.
-
-            divider mark
-                - A character in the Unicode range 2500-259F.
-                    : re `2500-259F` see `^^character identification$` @ `^^ Notes$`
-                - One of a drawing character or inversion mark.
-                drawing character
-                    - Unicode 2500-2587, 2589-258F, 2591-259F.
-                inversion mark
-                    - Unicode 2588 (full block), 2590 (right half block).
+                        / Assume the horizontal lines above (‘┄┄┄’) are perfectly indented.
+                            : re `perfectly indented` see `^^perfect indentation$` @ `^^ Whitepace$`
+                / Calling `division titles( example divider )` would yield:
+                   ⇒  ‘This is a division title, and it includes this’
+                      ‘This is a 2nd division title’
+            deem+ `tt` a string list, intitally empty
+                / `tt` The list of title strings.
+            deem+ `t` a string, `n` a text line
+                / `t` The title being assembled, yet to be appended to `tt`.
+                / `n` The line whose label last contributed to `t`.
+            for( each division label `b` of divider `d` )
+                if( `b` leads the line on which it occurs, discounting spaces (20) )
+                    : see `^^character identification$` @ `^^ Notes$`
+                    - Then `b` is a titling label, meaning it contributes to a title.
+                    if( `n` is unset )
+                        - Then `b` starts the first title.
+                        + Set `t` to the string of `b`.
+                    else if( `b` occurs on the line succeeding `n` )
+                        - Then `b` appends to the title (`t`) made by its predecessor.
+                        + Set `t` to the concatenation of `t` + space character + string of `b`.
+                    else( `t` is fully assembled and `b` starts a new title )
+                        + Append to `tt` a copy of `t`.
+                        + Set `t` to the string of `b`.
+                    + Set `n` to the line on which `b` occurs.
+            if( `t` is set )
+                - Then `d` has a titling label and final title assembly `t`.
+                + Append to `tt` a copy of `t`.
+            return+ `tt`
 
         ────────────────
-         division label
+         false division
         ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
-            / Part of a divider segment.
-            - A sequence in a divider of non divider-mark characters.
-
-                               │
-                               │
-                               ╵
-                              non
-                          divider-mark,
-                         non-whitespace
-                               ╷
-                     ┌─────────┤
-                     │ ┌───────┤
-                     │ │       ├────────┐
-                     │ │       ╵        │
-                     │ │      non       ▲
-                     │ │  divider-mark  │
-                     │ │       ╷        │
-                     │ │       ├────────┘
-                     │ └───────┤
-                     │         ╵
-                     │        non
-                     │    divider-mark,
-                     │   non-whitespace
-                     │         ╷
-                     └─────────┤
-                               │
-                               │
-                               ▼
-
-                    diagram, The form of a division label.
-
-            inverse labeling
-                / A deprecated part of a division label.
-                - It occurs at the start of a division label bounded by an inversion marker.
-
-                       inversion ┊          non                  non                non
-                         marker  ┊╶───╴ divider-mark, ─┬─┬─  divider-mark, ─┬── divider-mark, ─┬───▶
-                                 ┊     non-whitespace  │ │   non-newline    │  non-whitespace  │
-                                                       │ │                  │                  │
-                                                       │ └──────────────────┘                  │
-                                                       └───────────────────────────────────────┘
-
-                        diagram, The form of inverse labeling.
-
-                - Presenters show inverse labeling, together with any space characters
-                  that immediately precede or follow it, in reverse video.
-                    \ Not ‘inverse video’.  https://www.lexico.com/en/definition/reverse_video
-                    - Exception: inline commentary is excluded and presented as is.
-                - Inverse labeling is deprecated, liable to be removed from the language.
-                    \ It concerns presentation alone, making it improper to the language.
-                    \ It has turned out to be largely useless thus far.  2019-9
-                inversion marker
-
-                                           ┌─╴◀────┐
-                              inversion    │       │
-                           ───  mark   ──┬─┴─╴‘ ’╶─┴─┬───▶
-                                         │           │
-                                         └───────────┘
-
-                    - Where a full block character (2588) succeeds an inversion mark on the same line,
-                      with at most non divider-mark characters in between, that full block is disabled
-                      as an inversion mark.
-                        : see `^^character identification$` @ `^^ Notes$`
-                        / The full block pairs with the preceding inversion mark and by itself does not
-                          start a new sequence of inverse labeling.
-
-            division titling
-                / A type of division labeling.
-                - Division titling is division labeling that (discounting spaces, 20) leads the line
-                  on which it occurs.
-                    : see `^^character identification$` @ `^^ Notes$`
-                -
-                       ┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄╮
-                        This is division titling, ┊  This is not
-                        and this too              ┊
-                       ┄┄┄┄┄┄┄┄┄┄┄┄┄ This is not ┄╯
-
-                        example: An example of division titling.  The drawing sequences here
-                          (dashed lines) are perfectly indented.
-
-                - Presenters may give greater prominence to division titling,
-                  e.g. showing it in bold face.
-
-
-        ───────────────────
-         apparent division
-        ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
-            - A group of siblings led by a bodiless division (bare divider).
-            - It comprises the bodiless division and its subsequent siblings (in linear order)
-              prior to the next sibling (if any) that is itself a division.
-            / It is a flat form of partition, as opposed to the recursive form of true division.
-            / It may be transformed to a true division by indenting the siblings to instead
-              make them children of the divider.
+            - A false division is a group of siblings wherein only the first is a true division
+              (often a headless one, a bare divider), the remainder being of other fractal types.
+            - Normally a sibling *successor* to a division is itself a division.
+                - Where it is not, it may appear (owing to its placement under the same divider)
+                  to be *part* of that division.
+                - Such an apparently *extended* division is called a false division.
+                / The appearance of extension is false because the successors lie ‘under’
+                  the same divider merely in terms of linear order, not hierarchy.
+            - False divisions are a linear form of partition,
+              as opposed to the hierarchical form of true divisions.
+            / The whole of a false division may be transformed to a true division
+              by indenting all but the first sibling into the *body* of the first.
 
 
 
     ━━━━━━━━━
      Fractum
     ─────────
-        - The basic formal unit of Breccian composition, recursion and order.
+        - A fractum is the basic formal unit of Breccian composition, recursion and order.
+        - It divides formally into two parts: a head and a body.
 
-        typology
-            • document fractum
-            ◇ body fractum
-                • division
-                ◇ point
-                    ◇ formal point
-                        ◇ command point
-                            ◇ associative reference
-                                • jointer
-                                • pointer
-                            • null command
-                            • privatizer
-                    ◇ material point
-                        ◇ specialized material point
-                            • alarm point
-                            • aside point
-                            • task point
-                        • generic point
+                      │
+                      │
+                      ╵
+                   · · · ·        ┐
+                   ·     ·        │
+                   ·  ?  ·        │ head
+                   ·     ·        │
+                   · · · ·        ┘
+                      ╷
+                      │
+                 ┌────┤           ┐
+                 │    ├────┐      │
+                 │    ╵    │      │
+                 │  body   ▲      │ body
+                 │ fractum │      │
+                 │    ╷    │      │
+                 │    ├────┘      │
+                 └────┤           ┘
+                      │
+                      │
+                      ▼
 
-        abstract form
-            - A fractum divides formally into two parts: a head and a body.
+                diagram, The abstract form of a fractum.
+        head
+            - The part of a fractum exclusive of its children.
+            - Its form (shown abstractly in the diagram) varies according to fractal type.
+            - Its end boundary (not fully shown) always comprises one of:
+                ⁃ the head successor
+                    - The head successor (S) is the fractum succeeding the head in linear order.
+                    - In terms relative to the head’s own fractum F, S is the first applicable of:
+                        ⁃ the first child of F
+                            / in its body, that is
+                        ⁃ the next sibling of F
+                        ⁃ the next sibling of the nearest ancestor of F
+                ⁃ the end of the document
+        body
+            - The part of a fractum comprising its children alone; a sequence of sibling body fracta.
+            - A body is always optional: regardless of fractal type, it may be omitted.
 
-                       │
-                       │
-                       ╵
-                    · · · ·        ┐
-                    ·     ·        │
-                    ·  ?  ·        │ head
-                    ·     ·        │
-                    · · · ·        ┘
-                       ╷
-                       │
-                 ┌─────┤           ┐
-                 │     ├─────┐     │
-                 │     ╵     │     │
-                 │   body    ▲     │ body
-                 │  fractum  │     │
-                 │     ╷     │     │
-                 │     ├─────┘     │
-                 └─────┤           ┘
-                       │
-                       │
-                       ▼
+        ───────────────
+         fractal types
+        ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
+            ◆ document fractum
+            ◆ body fractum
+                ◆ division
+                ◆ point
+                    ◆ alarm point
+                    ◆ aside point
+                    ◆ command point
+                        ◆ associative reference
+                            ◆ jointer
+                            ◆ pointer
+                        ◆ null command
+                        ◇ privatizer
+                            ◆ autoprivatizer
+                            ◆ parental privatizer
+                    ◇ generic point
+                    ◆ task point
+            legend
+                ◆ formal type
+                ◇ informal type
 
-            head
-                - The part of a fractum exclusive of its children.
-                - Its internal form (abstracted from the diagram) varies according to the fractum type.
-                - Its end boundary (not fully shown) always comprises one of:
-                    | the head successor
-                        - The head successor (S) is the fractum succeeding the head in linear order.
-                        - In terms relative to the head’s own fractum F, S is the first applicable of:
-                            | the first child of F
-                                / in its body, that is
-                            | the next sibling of F
-                            | the next sibling of the nearest ancestor of F
-                    | the end of the document
-            body
-                - The part of a fractum comprising its children alone; a sequence of sibling body fracta.
-                - A body is always optional: regardless of the fractum type, it may be omitted.
+        ─────────────────────
+         hierarchical relata
+        ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
+            : privately cf. `comparative genealogical terms$`
+              @ http://reluk.ca/project/proto-wayic/origins/doc.task
+            ancestor, of a body fractum
+                - One of the parent and the parent’s ancestors.
+                / No document fractum has an ancestor, body fracta alone have ancestors.
+            parent, of a body fractum
+                - The nearest predecessor of less indentation, if any,
+                  otherwise the document fractum.
+                / No document fractum has a parent, body fracta alone have parents.
+            sibling, of a body fractum
+                - Another of the same parent.
+                / No document fractum has a sibling, body fracta alone may have siblings.
+                / No document fractum is a sibling; all siblings are body fracta.
+            child, of a fractum
+                - One for whom the fractum is parent.
+                / No document fractum is a child; all children are body fracta, and vice versa.
+            descendant, of a fractum
+                - One of the children and their descendants.
+                / No document fractum is a descendant; all descendants are body fracta, and vice versa.
 
-        fractal relatives
-            • parent
-                - The parent of a fractum is the first applicable of:
-                    | its nearest (in linear order) fractal precedecessor of less indentation
-                    | the document fractum
-            • child
-                - A fractum that has a parent.
-                - All body fracta are children.
-                - No document fractum is a child.
+        ───────────────
+         linear relata
+        ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
+            predecessor, of a fractum or character
+                - Another that precedes in linear order.
+                / (in the definite sense, e.g. ‘the predecessor’)
+                  The immediate predecessor.
+            successor, of a fractum or character
+                - Another that follows in linear order.
+                / (in the definite sense, e.g. ‘the successor’)
+                  The immediate successor.
 
 
 
-    ━━━━━━━━━━━━━━━━━━━━
-     Fractum indication
-    ────────────────────
-        fractum indicator( default principal pattern )
-            - An indicator of a fractum, here referred to as ‘the principal fractum’.
+    ━━━━━━━━━━━━━━━━━━━
+     Fractum indicator
+    ───────────────────
+        / Part of an associative reference or other referential markup.
+        - A fractum indicator comprises one or both of a pattern series and a resource indicator.
 
-                     ┌
-                   1 │   ────▶
-                     └
-                 
-                     ┌       principal
-                   2 │   ───╴ pattern ─────▶
-                     └
-                 
-                     ┌                            ┌──╴◀── gap ──┐
-                     │                            │             │
-                     │         principal          │  ancestor   │
-                   3 │   ───┬─╴ pattern ── gap ─┬─┴─ qualifier ─┴───▶
-                     │      │                   │
-                     └      └───────────────────┘
-                 
-                     ┌                               ┌──╴◀── gap ──┐
-                     │                               │             │
-                     │         principal             │  ancestor   │           document
-                   4 │   ───┬─╴ pattern ── gap ─┬──┬─┴─ qualifier ─┴─ gap ─┬── qualifier ────▶
-                     │      │                   │  │                       │
-                     └      └───────────────────┘  └───────────────────────┘
+                 ┌──────────────────────────────────────────┐
+              ╶──┤                                          │
+                 └──┬──╴‘`’╶── pattern ──╴‘`’╶──┬──┬── CS ──┴── resource indicator ──┬────▶
+                    │                           │  │                                 │
+                    └─────────────╴◀── CS ──────┘  └─────────────────────────────────┘
 
-                diagram, The four forms of a fractum indicator.
+        - In the nominal case, absent a `non-fractal` qualifier that is, it indicates a fractum.
+            : re `\`non-fractal\` qualifier` see `^^ Resource indicator$`
+            - Any pattern series pinpoints with each pattern a fractal head, while any resource indicator
+              resolves to a Breccian document and therewith a document fractum.
+            - The overall indicated fractum is the one resolved leftmost in the indicator
+              and so deepest in the fractal hierarchy.
+            / For example, here is a fractum indicator for the present fractum:
 
-            - Where a formal definition refers to a fractum indicator, the reference must be qualified
-              by the specification of a default value for the principal pattern, which also serves as
-              the implied value of the whole fractum indicator if all its components are omitted.
+                   `^^/ For example, here is` @ `^^ Fractum indicator$` @ ./language_definition.brec
 
-        principal pattern
-            - An indicator of the principal fractum by the pattern of its text.
+        - Otherwise no actual fractal indication is here defined.
+            - The only definite indication in the presence of a `non-fractal` qualifier
+              is the indicated resource, namely the referent of the URI reference.
+                : re `URI reference` see @ `^^ Resource indicator$`
+            / It may be left to the reader to determine what more, if anything, the author intends.
 
-                   ───╴‘`’╶── pattern ──╴‘`’╶───▶
+        CS, containment separator
 
-            - The indication it gives is the return value of this procedure:
-                if( the pattern contains one or more subexpression grouping constructs ‘(…)’ )
-                    : re `subexpression grouping constructs`
-                      see https://perldoc.perl.org/perlreref.html#SYNTAX
-                    for( each match of the pattern )
-                        if( at least one subexpression captures a text sequence, and all captured
-                               text sequences lie within the same fractal head )
-                            + Set as indicated the fractal head’s fractum.
-                else
-                    for( each match of the pattern )
-                        + Set as indicated the fractum whose head contains the first matched character
-                          in linear order.
-                if( exactly one fractum is indicated )
-                    return( the indicated fractum )
-                if( the referent document is Breccian )
-                    throw( error, the indication is ambiguous )
+              ╶── gap ──╴‘@’╶── gap ───▶
 
-            generalized pattern( fractal head )
-                / Transforms `fractal head` to a principal pattern.
-                + Set `p` to the text of `fractal head`.
-                + Trim `p` of commentary.
-                + Trim `p` of leading whitespace on its first line.
-                + Trim `p` of trailing whitespace.
-                + Set `p` to literalized pattern( `p` ).
-                    : see `^^literalized pattern\( string \)$`
-                + Collapse all remaining whitespace of `p` to ‘\s+’.
-                    / Neutralizing differences in indentation and line wrapping.
-                if( `fractal head` is a divider )
-                    + Anchor `p` by prepending ‘^^’.
-                    for( each repetitive sequence (S) of a drawing character (C) in `p` )
-                        + Collapse S to a single C followed by ‘+’.
-                        / Neutralizing differences in horizontal length, e.g. owing to indentation.
-                else if( `p` ends with literalized pattern(‘+’) or literalized pattern(‘!!’) )
-                    / Then `fractal head` may comprise a task bullet or alarm bullet.
-                    if( `p` does not comprise literalized pattern(‘+’) or literalized pattern(‘!!’) )
-                        / Viz the (potential) bullet here is not ‘+’ or ‘!!’ alone.
-                        + Append ‘?’.
-                            / Making the terminal ‘+’ or ‘!!’ optional in order to ensure a pattern
-                              broad enough to match a generic bullet.
-                            / A use case here is to join a generic head ‘foo’, for instance,
-                              from a task head ‘foo+’, in order to task ‘foo’ for action.
-                    + Set `p` to broadened to division titling( `p` ).
-                        : see `^^broadened to division titling\( pattern \)$`
-                + Anchor `p` by appending ‘$$’.
-                return( `p` )
-
-            broadened to division titling( p )
-                / Broadens pattern `p` to match division titling.
-                + Anchor `p` by prepending ‘^ *’.
-                + Ensure that `p` functions in *case insensitive* mode (`i`).
-                    : re `\*case insensitive\* mode`
-                      see https://perldoc.perl.org/perlreref.html#OPERATORS
-                return( `p` )
-
-        ancestor qualifier
-            - A qualifier indicating an ancestor of the principal fractum.
-            - It indicates the ancestor by the pattern of its text.
-
-                   ───╴‘@’╶── gap ──╴‘`’╶── pattern ──╴‘`’╶───▶
-
-            - Where multiple ancestor qualifiers appear in series, each successor indicates
-              an ancestor of the one indicated by its predecessor.
-
-        document qualifier
-            - A qualifier indicating the document of the principal fractum.
-
-                   ───╴‘@’╶── gap ─── URI reference ────▶
-
-                : re `URI reference` see https://tools.ietf.org/html/rfc3986#section-4.1
+        indicated fractum( fractum indicator `i` if present )
+            - The fractum indicated, together with any match that occurred to pinpoint it.
+                : re `fractum` see `^^original resource$` @ `^^ Notes$`
+            deem+ `p` a pattern
+                / The next pattern to seek in the body of fractum `f`.
+            if( `i` is present )
+                if( `i` includes a resource indicator with a `non-fractal` qualifier )
+                    throw+ non-fractal resource
+                if( `i` includes a pattern series )
+                    + Set `p` to the final pattern in linear order.
+            deem+ `r` a resource, namely `indicated resource( any resource indicator of i )`
+            if( `r` contains no document fractum )
+                throw+ non-Breccian resource
+            deem+ `f` a fractum, initially the document fractum of `r`;
+                  `mF` a match;
+                  `desc` a fractum
+                / `desc` A descendant fractum of `f`, the last matched.
+            while( `p` is set )
+                for( each match `m` of pattern `p` against the body of `f` )
+                    deem+ `head` the fractal head intersected by the first line of `m`
+                    unless( all lines of `m` intersect `head` )
+                        throw+ ambiguous reference, `p` intersects multiple heads
+                    if( `desc` is set )
+                        throw+ ambiguous reference, `p` matches multiple fracta
+                    + Set `desc` to the fractum of `head`.
+                    + Set `mF` to `m`.
+                if( `desc` is unset )
+                    throw+ broken reference, pattern `p` not found
+                + Set `f` to `desc`.
+                + Unset `desc`.
+                + Set `p` to its predecessor in `i`, if any, else unset it.
+            return+ `f` and any `mF`
 
 
 
     ━━━━━━━━━━━━━━━
      Generic point
     ───────────────
-        / A material point.
-        - A point with a bullet outside the form of any specialized material point.
-        - Otherwise a generic point is largely free form.
+        - A point of no formal subtype.
+            : see `^^ fractal types$`
+        - It is largely free-form.
             - Its bullet is conditioned only by the basic constraints.
-                : re `basic constraints` see `(basic constraints) ` @ `^^ Bullet$`
+                : re `basic constraints` see `basic constraints` @ `^^ Bullet$`
             - Likewise its descriptor, which may also be omitted.
                 : re `Likewise its descriptor`
-                  see `most descriptors are largely free form.$` @ `^^ Descriptor$`
+                  see `most descriptors are largely free-form.$` @ `^^ Descriptor$`
 
 
 
     ━━━━━━━━━━━━━━━━━━━
      Indentation blind
     ───────────────────
-        / Part of a descriptor.
-        - A sequence of lines each headed by a single no-break space (A0)
-          and thereby excluded from the Breccian rules of indentation.
+        / Part of a descriptor gap or divider segment.
+        - A sequence of lines whose first non-space character (viz. not 20) is a no-break space (A0).
             : see `^^character identification$` @ `^^ Notes$`
         -
-                                  ┌───╴◀────────┐
-                                  │             │
-               start ┊            │   inline    │
-                of   ┊╶─── A0 ──┬─┴─ character ─┴─┬───▶
-               line  ┊          │                 │
-                                └─────────────────┘
+                                                ┌───╴◀────────┐
+                           ┌─╴◀────┐            │             │
+               start ┊     │       │            │   inline    │        ┊ end of
+                of   ┊╶──┬─┴─╴‘ ’╶─┴─┬── A0 ──┬─┴─ character ─┴─┬────▶ ┊ line
+               line  ┊   └───────────┘        │                 │      ┊
+                                              └─────────────────┘
 
-                diagram, The form of each line in a blind.  This diagram is itself an example
-                  of a blind comprising six lines.
+                diagram, The form of each line in an indentation blind.  This diagram itself
+                  is an example of a blind comprising several such lines.
 
-        - Regardless of its indentation, a blind does not interrupt the fractal head in which it occurs;
-          rather the head continues (blindly in regard to indentation) through the blind.
+        - The lines of an indentation blind are blind to perfect indentation.
+            - The leading no-break space ensures that no line of an indentation blind,
+              regardless of its indentation, is *perfectly* indented.
+                : re `.perfectly. indented` see `^^perfect indentation$` @ `^^ Whitepace$`
+            - Therefore no indentation blind ever interrupts the fractal head in which it occurs;
+              always the head continues through the blind.
+        - Outside of any comment appender, the inline characters after the leading no-break space
+          are unconstrained in form.
 
 
 
@@ -727,8 +867,13 @@ Definition of the Breccian language
         - Any referrer clause in a jointer indicates the referrer in particular as the rationale
           for writing the jointer into the text.
         effect
-            - The effect is located in the simulacrum.
-            - There each parent of the jointer gains for a child each child of the referent
+            / Textual references and described effect herein are simulacral.
+                : see `^^simulacral effect and reference$` @ `^^ Notes$`
+            - Where the referent is a non-fractal resource, the jointer has no effect beyond
+              that of an associative reference.
+            - Where the referent is a text sequence, instead the referent is taken as the fractum
+              in whose head the text sequence occurs.
+            - Each parent of the jointer gains for a child each child of the referent
               that does not duplicate a pre-existing child.
                 / Not to imply that the text would be presentable in this form.
                 / If in the source code the referent fractum itself has a jointer as its child,
@@ -736,7 +881,20 @@ Definition of the Breccian language
             - By the same token, the children of the referent gain for a parent each parent
               of the jointer that does not duplicate a pre-existing parent.
                 / Again, the effect here is recursive.
-            - In both cases, the duplication test ignores variations in commentary and whitespacing.
+            - In both cases, the duplication test ignores variance in whitespace and comment carriers.
+
+
+
+    ━━━━━━━━━━━━━━━━━━━━━
+     Parental privatizer
+    ─────────────────────
+        - A command point that makes a private fractum of its simulacral parent.
+            / So pertaining soley to the author, or authors.
+                : cf. `^^ Comment carrier$
+            / The effect applies to the parent and all its descendants.
+        - Its descriptor has this form:
+
+              ╶──╴‘private’╶───▶
 
 
 
@@ -749,68 +907,85 @@ Definition of the Breccian language
                 : re `Perl compatible regular expression` see https://perldoc.perl.org/perlreref.html
                 • `\t` symbolizes not a tab, but one unit of perfect indentation.
                 • `^^` expands to `^\t*`, an anchored, leading sequence of perfect indentation.
-                    - To put an actual `^^` in the pattern, insert a regexp comment, as with `^(?#)^`.
-                • `$$` expands to `(?: +\\(?: .*)?)?$`, allowing for inline commentary and ignoring it.
-                    - To put an actual `$$` in the pattern, insert a regexp comment, as with `$(?#)$`.
-                • Literal backquote characters ‘`’ are forbidden.
-                    - Patterns in Breccia are formally delimited using backquote characters ‘`’.
+                    - To put an actual `^^` in the pattern, interpose a comment, as with `^(?#)^`.
+                • `$$` expands to `(?: +\\(?: .*)?)?$`, allowing for a comment appender and ignoring it.
+                    - To put an actual `$$` in the pattern, interpose a comment, as with `$(?#)$`.
+                • A literal backquote character ‘`’ is forbidden.
+                    - Generally patterns are delimited by backquote characters ‘`’.
                     - To put a backquote character ‘`’ in a pattern, escape it with a backslash ‘\`’.
                     / Of course, backslashes themselves remain escapable, too.
                         / The trailing backquote delimiter in pattern `foo\\`, for example, is not
                           escaped by the preceding backslash because the backslash itself is escaped.
-                • Breccian inline commentary is forbidden.
-                    - No start sequence of inline commentary may appear in the pattern.
-                        / For example `·\·` or `·\\·`, where each ‘·’ stands for a space character.
+                • The proper form of a comment appender cannot appear in the pattern.
+                    / E.g. taking ‘·’ as a space character, neither `·\·` nor `·\\·` may appear.
+                    / It would form an actual comment appender.
                     - Replace it with an equivalent.
-                        / For example `··` and `·\N{U+005C}·` respectively.
+                        / E.g. `··` instead of `·\·`, and `·\N{U+005C}·` instead of `·\\·`.
             - Patterns function in multiline mode, aka option `m`.
                 : re `(multiline mode).+(option \`m\`)`
                   see https://perldoc.perl.org/perlreref.html#OPERATORS
-        literalized pattern( string )
-            return( the literally enquoted pattern of `string`, as defined for Perl `quotemeta` )
-                : re `quotemeta` see https://perldoc.perl.org/functions/quotemeta.html
-
 
 
     ━━━━━━━
      Point
     ───────
         / A body fractum.
-        - The more common of the body fractum types.
-            : re `body fractum types` see `^^typology$` @ `^^ Fractum$`
-        - Its head comprises a perfectly indented bullet, and often a descriptor.
+        - A point is the more common type of body fractum, itself divided into multiple subtypes.
+            : see `^^ fractal types$` @ `^^ Fractum$`
+        - Always its head comprises a perfectly indented bullet, and often a descriptor.
 
-               start ┊       perfect                                       ┊  head successor,
-                of   ┊╶─── indentation ─── bullet ──┬── descriptor ──┬───▶ ┊ or end of document
-               line  ┊                              │                │     ┊
+               start ┊       perfect                                        ┊  head successor,
+                of   ┊╶─── indentation ─── bullet ──┬── descriptor ──┬────▶ ┊ or end of document
+               line  ┊                              │                │      ┊
                                                     └────────────────┘
+                    : re `(perfect).+$.+(indentation)` see `^^perfect indentation$` @ `^^ Whitepace$`
                     : re `head successor` see `^^\| the head successor$` @ `^^ Fractum$`
                 diagram, The form of a point head.
 
-        - The internal form of the bullet, the internal form of the descriptor,
-          and whether the descriptor may be omitted all depend on the type of point.
-            : re `type of point` see `^^typology$` @ `^^ Fractum$`
+        - The form of the bullet, the form of the descriptor, and whether the descriptor may be omitted
+          all depend on the particular subtype of point.
+            : re `subtype of point` see `^^. point$` @ `^^ fractal types$` @ `^^ Fractum$`
 
 
 
     ━━━━━━━━━
      Pointer
     ─────────
-        - An associative reference with a referential command of `see`.
-        - Its only effect is to form a reference.
+        - An associative reference whose referential command is one of:
+            ⁃ `cf.`
+            ⁃ `e.g.`
+            ⁃ `i.e.`
+            ⁃ `NB`
+            ⁃ `N.B.`
+            ⁃ `see`
+            ⁃ `see also` \ Has no abbreviated form.  https://english.stackexchange.com/q/491883/371457
+            ⁃ `viz.`
 
 
 
-    ━━━━━━━━━━━━
-     Privatizer
-    ────────────
-        / A command point.
-        - It marks its parent, together with all simulacral descendants, as private fracta.
-        - Its descriptor has this form:
+    ━━━━━━━━━━━━━━━━━━━━
+     Resource indicator
+    ────────────────────
+        / Part of an associative reference or other referential markup.
+        -
+              ╶──┬──╴‘non-fractal’╶── gap ──┬── URI reference ────▶
+                 │                          │
+                 └──────────────────────────┘
 
-               ───╴‘private’╶────▶
-
-            diagram, The form of the descriptor in a privatizer.
+                : re `URI reference` see https://tools.ietf.org/html/rfc3986#section-4.1
+        - The `non-fractal` qualifier, if present, stops any runtime attempt to distinguish fracta
+          in the URI referent.
+            / Authors may use it to forestall runtime errors, e.g. in cases where the referent
+              is non-Breccian or malformed.
+        indicated resource( resource indicator `i` if present )
+            : re `resource` see head @ https://tools.ietf.org/html/rfc3986#section-1.1
+            : re `resource` see `^^original resource$` @ `^^ Notes$`
+            deem+ `r` a resource, initially the present document
+            if( `i` is present )
+                unless( the URI reference of `i` resolves to a referent )
+                    throw+ broken reference
+                + Set `r` to the referent.
+            return+ `r`
 
 
 
@@ -819,19 +994,21 @@ Definition of the Breccian language
     ────────────
         - A simulacrum is the dynamic, runtime form of a Breccian text,
           as opposed to the static, written form of its source code.
-        - Initially equal to the source text, the simulacral text is transformed at runtime
-          by the effect of embedded command points.
+        - It results from executing the text.
+        - Initially made equal to the source text at runtime, the simulacral text is then transformed
+          by the effect of its embedded command points.
+        - The transforms themselves are executed till repeated execution leaves the simulacrum unchanged.
+        - If execution throws an error or other exception, then no simulacrum results.
         default referent: source code or simulacrum?
-            - Throughout the language definition, the default for formal referents is the source code.
-            - Where it might otherwise be questioned whether the definition is referring to the source
-              versus the simulacral text, it is taken as referring to the source text.
+            - Throughout the language definition, the default referent is the source code.
+            - Where otherwise it would be unclear whether the definition is referring to the simulacral
+              versus the source text, take it as referring to the source text.
 
 
 
     ━━━━━━━━━━━━
      Task point
     ────────────
-        / A specialized material point.
         - A point with a bullet comprising ‘+’, or ending with ‘+’.
         - It describes work to be done or undertaken.
             / After the definition of ‘task’ in the Oxford English Dictionary.
@@ -848,20 +1025,22 @@ Definition of the Breccian language
         / A class of character.
         allowed whitespace
             : see `^^character identification$` @ `^^ Notes$`
-            • space (20)
+            • plain space ‘ ’ (20)
             • newline (A, D)
             • no-break space (A0) as described for use in bullets and indentation blinds
             \ Allowing any other horizontal whitespace (9, 2000-200A, 202F, 205F, 3000)
             \ would be too confusing in Breccia, where indentation determines syntax.
         perfect indentation
-            - Perfect indentation comes at the start of a line.
-            - It comprises zero or more segments of space characters, each four in length.
+            - Perfect indentation comprises zero or more plain-space sequences (20),
+              each four characters in length, properly bound.
 
-                           ┌───────────╴◀────────────┐
-               start ┊     │                         │
-                of   ┊╶──┬─┴─╴‘ ’╶─╴‘ ’╶─╴‘ ’╶─╴‘ ’╶─┴─┬───▶
-               line  ┊   │                             │
-                         └─────────────────────────────┘
+                               ┌───────────╴◀────────────┐
+                   start ┊     │                         │       ┊
+                    of   ┊╶──┬─┴─╴‘ ’╶─╴‘ ’╶─╴‘ ’╶─╴‘ ’╶─┴─┬───▶ ┊ non-whitespace
+                   line  ┊   │                             │     ┊
+                             └─────────────────────────────┘
+
+            - The start boundary is the start of a line, and the end boundary a non-whitepace character.
 
 
 
@@ -871,13 +1050,23 @@ Definition of the Breccian language
         character identification
             - Characters are here identified by the hexadecimal codes of the Unicode standard.
                 : re `Unicode standard` see https://www.unicode.org/standard/standard.html
-      \ [‘commentary’]
-      \     - It comprises commentary, but not necessarily a comment.
-      \     - Rather it might be only part of a larger comment that extends across several lines.
-      \     - A comment might begin as inline commentary, for example, then continue as block commentary.
+        commentary
+            - Though unclear from the diagram, the part labeled ‘commentary’ excludes any leading
+              or trailing space character.
       \ [graphical syntax notation]
       \     - The present text uses syntax diagrams because it is aimed at Breccian authors in general,
       \       who are not expected to be comfortable with a textual notation such as Backus-Naur Form.
+        original resource
+            - Each text sequence, markup element or other resource here mentioned is the original
+              in its place, not a separate copy of the original.
+        pattern construction based on referrer similarity
+            : see @ http://reluk.ca/project/Breccia/action_plan.brec
+            - How the construction is refined according to referrer similarity in particular cases
+              has yet to be defined, pending implementation trials.
+        simulacral effect and reference
+            - The described effect is located in the simulacrum.
+            - Here the default referent is the simulacral text, not the source text.
+                : cf. `^^default referent` @ `^^ Simulacrum$`
 
 
 
