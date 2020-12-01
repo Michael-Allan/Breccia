@@ -171,7 +171,7 @@ Definition of the Breccian language
                         ├─╴‘NB’╶───┤            └────────────────────┘
                         │          │               referent clause
                         ├─╴‘N.B.’╶─┤
-                        │          │
+                        │          │  \ [no ‘q.v.’]
                         ├─╴‘viz.’╶─┤
                         │          └──────╴◀────────┐
                         └─╴‘see’╶─┐                 │
@@ -1051,9 +1051,16 @@ Definition of the Breccian language
         commentary
             - Though unclear from the diagram, the part labeled ‘commentary’ excludes any leading
               or trailing space character.
-      \ [graphical syntax notation]
-      \     - The present text uses syntax diagrams because it is aimed at Breccian authors in general,
-      \       who are not expected to be comfortable with a textual notation such as Backus-Naur Form.
+     \\ [graphical syntax notation]
+     \      - The present text uses syntax diagrams because it is aimed at Breccian authors in general,
+     \        who are not expected to be comfortable with a textual notation such as Backus-Naur Form.
+     \\ [no ‘q.v.’]
+     \      - No referential command of `q.v.` is defined.
+     \      ∵ It would complicate the definition.
+     \          ∵ Formally it would make grammatical sense to the reader only in conjunction with both
+     \            no referrer clause, and either an inferential referent indicator or no referent clause.
+     \      ∵ It would be redundant.
+     \          ∵ The present commands suffice to handle all potential use cases of `q.v.`.
         original resource
             - Each text sequence, markup element or other resource here mentioned is the original
               in its place, not a separate copy of the original.
