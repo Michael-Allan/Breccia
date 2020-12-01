@@ -139,7 +139,7 @@ Definition of the Breccian language
                 return+ `tt`
 
             parental head text()
-                - The text sequence of the parent head.
+                - The text sequence of the head of the parent of the associative reference.
                     : re `text sequence` see `^^original resource$` @ `^^ Notes$`
                 deem+ `p` a fractum, the parent of the associative reference
                 if( `p` is headless )
@@ -271,8 +271,7 @@ Definition of the Breccian language
                       a pattern to pinpoint the referent.
                     deem+ `fR` the referential form if defined, else `default referential form()`;
                           `p` a string buffer, initially empty;
-                          `rA` a fractum, that of the containing associative reference;
-                          `cR` a referrer clause if present, that of `rA`;
+                          `cR` the referrer clause if present;
                           `sR` the referrer similarity if defined, else `default referrer similarity()`
                     if( `cR` is present ) then the pattern of the referrer(s) is the pattern of `cR`
                         : re `pattern of the referrer` see @ `^^- Constructs by inference`
@@ -280,11 +279,10 @@ Definition of the Breccian language
                         + Set `p` to the pattern of `cR`.
                         + Refine `p` according to referrer similarity `sR` and referential form `fR`.
                             : see `^^pattern construction based on referrer similarity$` @ `^^ Notes$`
-                    else( then the pattern of the referrer(s) is the pattern of
-                          the parental head of `rA` )
+                    else( then the pattern of the referrer(s) is the pattern of the parental head )
                         : re `pattern of the referrer` see @ `^^- Constructs by inference`
                           @ `^^inferred pattern\(`
-                        + Set `p` to the string of `parental head text()` of `rA`.
+                        + Set `p` to the string of `parental head text()`.
                         + Trim `p` of comment carriers and indentation blinds.
                         + Trim `p` of leading and trailing whitespace.
                         + Set `p` to `literalized pattern( p )`.
@@ -330,7 +328,7 @@ Definition of the Breccian language
             / Textual references and described effect herein are simulacral.
                 : see `^^simulacral effect and reference$` @ `^^ Notes$`
 
-            / The associative reference defines the resolution of its referrers and referent.
+            - The associative reference defines the resolution of its referrers and referent.
             referrers()
                 : join @ `^^ referrer clause$`
             referent()

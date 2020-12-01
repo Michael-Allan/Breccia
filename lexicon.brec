@@ -1,7 +1,6 @@
 Definition of terms for project Breccia
 
-    / For a general index of all terms
-        : see http://reluk.ca/project/wayic/refractory/index.brec
+    : see also http://reluk.ca/project/wayic/refractory/index.brec
 
     .brec
         - The file extension for Breccia.
@@ -21,6 +20,7 @@ Definition of terms for project Breccia
     formal
         ─ adjective
             - (of a fractal type) Defined by a form particular to it.
+                : e.g. `^^◆ formal type$` @ `^^legend$` @ `^^fractal types$` @ language_definition.brec
         : cf. `^^informal$`
     fracta
         ─ plural noun
@@ -44,6 +44,7 @@ Definition of terms for project Breccia
     informal
         ─ adjective
             - (of a fractal type) Defined in terms of other factal types.
+                : e.g. `^^◆ informal type$` @ `^^legend$` @ `^^fractal types$` @ language_definition.brec
         : cf. `^^formal$`
     linear order
         ─ mass noun
