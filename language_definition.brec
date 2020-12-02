@@ -769,6 +769,9 @@ Breccia language definition
             / For example, here is a fractum indicator for the present fractum:
 
                    `^^/ For example, here is` @ `^^ Fractum indicator$` @ ./language_definition.brec
+                 
+                   └────────────────────────┘   └─────────────────────┘  └──────────────────────────┘
+                            pattern                     pattern               resource indicator
 
         - Otherwise no actual fractal indication is here defined.
             - The only definite indication in the presence of a `non-fractal` qualifier
