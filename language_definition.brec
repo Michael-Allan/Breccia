@@ -75,7 +75,7 @@ Breccia language definition
         - It forms matter of less prominence than its place would otherwise suggest.
             / E.g. matter to which the reader should give less attention on a first reading.
         - Its descriptor, if present, is largely free-form.
-            : see `most descriptors are largely free-form.$` @ `^^ Descriptor$`
+            : see `most descriptors are largely free-form\.$` @ `^^ Descriptor$`
 
 
 
@@ -92,8 +92,8 @@ Breccia language definition
                         │                   │
                         └───────────────────┘
 
-                : re `(referrer).*$.*╴ (clause)` see `^^ referrer clause$`
-                : re `(imperative).*$.*  (clause)` see `^^ imperative clause$`
+                : re `(referrer).*\R.*╴ (clause)` see `^^ referrer clause$`
+                : re `(imperative).*\R.*  (clause)` see `^^ imperative clause$`
                 diagram, The form of the descriptor in an associative reference.
 
         - The referrer clause indicates the referrer or referrers, while the imperative clause
@@ -177,15 +177,15 @@ Breccia language definition
                         └─╴‘see’╶─┐                 │
                                   └── gap ─╴‘also’╶─┘
 
-                    : re `(inferential).*$.*(referent).*$.*(indicator)`
+                    : re `(inferential).*\R.*(referent).*\R.*(indicator)`
                       see `^^inferential referent indicator$`
-                    : re `(fractum).*$.*(indicator)` see `^^ Fractum indicator$`
-                    : re `(resource).*$.*(indicator)` see `^^ Resource indicator$`
+                    : re `(fractum).*\R.*(indicator)` see `^^ Fractum indicator$`
+                    : re `(resource).*\R.*(indicator)` see `^^ Resource indicator$`
                         / The diagram includes a resource indicator only for sake of clarity.  Redundant,
                           it exactly equals a fractum indicator *comprising* a resource indicator.
             - The referential command of an imperative clause determines the overall type
               of associative reference, with implications for its overall effect.
-                : re `overall type$ *of associative reference`
+                : re `overall type\R *of associative reference`
                   see `^^. associative reference$` @ `^^ fractal types$`
                 : re `overall effect` see `^^ effect of an associative reference$`
             - Any referent clause (inferential referent indicator, fractum indicator or URI reference)
@@ -347,7 +347,7 @@ Breccia language definition
     ────────────────
         - A privatizer that encodes within it another command, making it private.
             / So pertaining soley to the author, or authors.
-                : cf. `^^ Comment carrier$
+                : cf. `^^ Comment carrier$`
         - Its descriptor has this form:
 
               ╶──╴‘privately’╶── gap ── command point descriptor ────▶ \ No provision for a null command.
@@ -376,7 +376,7 @@ Breccia language definition
                                            └────────────────────────────────┘
                                    i                ii            iii
 
-                : re `head successor` see `^^\| the head successor$` @ `^^ Fractum$`
+                : re `head successor` see `^^⁃ the head successor$` @ `^^ Fractum$`
         - While the precise form varies according to the point type, every bullet is formally
           conditioned by basic contraints operating in several regions, here numbered i, ii, iii.
         i. start sequence, one of:
@@ -435,8 +435,8 @@ Breccia language definition
     ─────────────────
         / Part of a descriptor gap or divider segment.
         - A carrier of commentary for the attention of authors, publishers or other atypical readers.
-            : cf. `^^ Autoprivatizer$
-            : cf. `^^ Parental privatizer$
+            : cf. `^^ Autoprivatizer$`
+            : cf. `^^ Parental privatizer$`
         - Formally it appears as either a comment appender or a comment block.
         comment appender
             - A carrier for commentary subsequent to non-commentary on the same line.
@@ -502,7 +502,7 @@ Breccia language definition
               ╶── gap ─── ·  ?  · ────▶ ┊   of head
                           ·     ·       ┊
                           · · · ·
-                    : re `(end boundary)$.+(of head)`
+                    : re `(end boundary)\R.+(of head)`
                       see `^^- Its end boundary` @ `^^head$` @ `^^ Fractum$`
                 diagram, The abstract form of a descriptor.
 
@@ -525,9 +525,9 @@ Breccia language definition
                      └──┴─╴‘ ’╶─┴─── appender ────┘             │  └── indentation ──┘ │
                                                                 │         blind        │
                                                                 └──────────────────────┘
-                    : re `(comment).+$.+(block)` see `^^comment block$`
-                    : re `(comment).+$.+(appender)` see `^^comment appender$`
-                    : re `(indentation).+$.+(blind)` see `^^ Indentation blind$` @ `^^ Whitepace$`
+                    : re `(comment).+\R.+(block)` see `^^comment block$`
+                    : re `(comment).+\R.+(appender)` see `^^comment appender$`
+                    : re `(indentation).+\R.+(blind)` see `^^ Indentation blind$` @ `^^ Whitepace$`
             - Outside of a comment block, no gap contains perfect indentation.
                 / Outside of a comment block, such indentation would instead start a body fractum,
                   and therewith form the end boundary of the gap and the head that contains it.
@@ -567,8 +567,8 @@ Breccia language definition
                                   character  │                 │     ┊ or end of document
                                              └─────────────────┘     ┊
 
-                    : re `(perfect).+$.+(indentation)` see `^^perfect indentation$` @ `^^ Whitepace$`
-                    : re `(divider).+$.+(drawing).+$.+(character)` see `^^divider drawing character$`
+                    : re `(perfect).+\R.+(indentation)` see `^^perfect indentation$` @ `^^ Whitepace$`
+                    : re `(divider).+\R.+(drawing).+\R.+(character)` see `^^divider drawing character$`
             - Outside of comment carriers and indentation blinds, characters between the leading,
               divider drawing character and the end boundary of the segment (rightmost in diagram)
               are unconstrained in form.
@@ -891,7 +891,7 @@ Breccia language definition
     ─────────────────────
         - A command point that makes a private fractum of its simulacral parent.
             / So pertaining soley to the author, or authors.
-                : cf. `^^ Comment carrier$
+                : cf. `^^ Comment carrier$`
             / The effect applies to the parent and all its descendants.
         - Its descriptor has this form:
 
@@ -902,29 +902,72 @@ Breccia language definition
     ━━━━━━━━━━━━━━━━━━
      Pattern matching
     ──────────────────
-        - Matching character sequences with regular expressions.
-        pattern
-            - The form of a pattern is a Perl-compatible regular expression modified as follows.
-                : re `Perl compatible regular expression` see https://perldoc.perl.org/perlreref.html
-                • `\t` symbolizes not a tab, but one unit of perfect indentation.
-                • `^^` expands to `^\t*`, an anchored, leading sequence of perfect indentation.
-                    - To put an actual `^^` in the pattern, interpose a comment, as with `^(?#)^`.
-                • `$$` expands to `(?: +\\(?: .*)?)?$`, allowing for a comment appender and ignoring it.
-                    - To put an actual `$$` in the pattern, interpose a comment, as with `$(?#)$`.
-                • A literal backquote character ‘`’ is forbidden.
-                    - Generally patterns are delimited by backquote characters ‘`’.
-                    - To put a backquote character ‘`’ in a pattern, escape it with a backslash ‘\`’.
-                    / Of course, backslashes themselves remain escapable, too.
-                        / The trailing backquote delimiter in pattern `foo\\`, for example, is not
-                          escaped by the preceding backslash because the backslash itself is escaped.
-                • The proper form of a comment appender cannot appear in the pattern.
-                    / E.g. taking ‘·’ as a space character, neither `·\·` nor `·\\·` may appear.
-                    / It would form an actual comment appender.
-                    - Replace it with an equivalent.
-                        / E.g. `··` instead of `·\·`, and `·\N{U+005C}·` instead of `·\\·`.
-            - Patterns function in multiline mode, aka option `m`.
-                : re `(multiline mode).+(option \`m\`)`
-                  see https://perldoc.perl.org/perlreref.html#OPERATORS
+        - Certain command points use regular-expression patterns to match text sequences.
+        - Pattern matching there is blind both to comment carriers and to sequences of space characters
+          that immediately precede a comment appender.
+            / Effectively they are removed before matching proceeeds.
+        - It proceeds in multiline mode, as for Perl’s `m` operator.
+            : see `^^m$` @ non-fractal https://perldoc.perl.org/perlre#Modifiers
+        - The pattern language comprises a subset of the formal elements defined by Perl,
+          together with a few additions tailored to Breccia, all as detailed below.
+
+        \b
+            - Word boundary.
+            : see https://perldoc.perl.org/perlrebackslash#%5Cb%7B%7D,-%5Cb,-%5CB%7B%7D,-%5CB
+        \d
+            - Decimal digit.
+            : see https://perldoc.perl.org/perlrebackslash#Character-classes
+        \R
+            - Line break.
+            : see https://perldoc.perl.org/perlrebackslash#%5CR
+        \t
+            - Four spaces, viz. one unit of Breccian perfect indentation.
+                / As opposed to (Perl) a tab character.
+                    : see https://perldoc.perl.org/perlrebackslash#Fixed-characters
+        \N{⋯}
+            - Character or character sequence by name or number.
+            : see https://perldoc.perl.org/perlrebackslash#Named-or-numbered-characters-and-character-sequences
+        \ 
+            - To take ‘away the special meaning of the character following it’.
+            : see https://perldoc.perl.org/perlrebackslash#The-backslash
+            / It could inadvertently form a comment appender:
+
+                      : see ` \\ ` @ non-fractal foo.html
+
+                / To avoid that, use instead an equivalent pattern, such as:
+
+                      : see ` \\\N{U+20}` @ non-fractal foo.html
+        ^^
+            - Breccian perfect indentation.
+            / Equivalent to `^\t*`
+        ^
+            - The beginning of a line (zero width).
+            : see https://perldoc.perl.org/perlre#Metacharacters
+        .
+            - Any character except a logical newline.
+            : see https://perldoc.perl.org/perlre#Metacharacters
+        $
+            - The end of a line (zero width).
+            : see https://perldoc.perl.org/perlre#Metacharacters
+        |
+            - Alternation.
+            : see https://perldoc.perl.org/perlre#Metacharacters
+        (⋯)
+            - Capture group.
+            : see https://perldoc.perl.org/perlre#Capture-groups
+        (?:⋯)
+            - Cluster group.
+            : see https://perldoc.perl.org/perlre#(?:pattern)
+            / Excluding the flag modifiers.
+        *
+            - Zero or more times.
+            : see https://perldoc.perl.org/perlre#Metacharacters
+        + 
+            - One or more times.
+            : see https://perldoc.perl.org/perlre#Metacharacters
+        ?
+            - Once or not at all.
+            : see https://perldoc.perl.org/perlre#Metacharacters
 
 
     ━━━━━━━
@@ -939,7 +982,7 @@ Breccia language definition
                 of   ┊╶─── indentation ─── bullet ──┬── descriptor ──┬────▶ ┊ or end of document
                line  ┊                              │                │      ┊
                                                     └────────────────┘
-                    : re `(perfect).+$.+(indentation)` see `^^perfect indentation$` @ `^^ Whitepace$`
+                    : re `(perfect).+\R.+(indentation)` see `^^perfect indentation$` @ `^^ Whitepace$`
                     : re `head successor` see `^^\| the head successor$` @ `^^ Fractum$`
                 diagram, The form of a point head.
 
