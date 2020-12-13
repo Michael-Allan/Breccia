@@ -675,15 +675,23 @@ Breccia language definition
         head
             - The part of a fractum exclusive of its children.
             - Its form (shown abstractly in the diagram) varies according to fractal type.
-            - Its end boundary (not fully shown) always comprises one of:
-                ⁃ the head successor
+            - Never does the head of a body fractum, however, begin with a newline.
+                / Only a document head may begin with a newline.
+                - Every newline belongs to the same fractal part as the character that precedes it;
+                  or, if no character precedes it, then it belongs to the document head.
+            - Always its end boundary (not fully shown) comprises one of:
+                • The head successor.
                     - The head successor (S) is the fractum succeeding the head in linear order.
                     - In terms relative to the head’s own fractum F, S is the first applicable of:
-                        ⁃ the first child of F
-                            / in its body, that is
-                        ⁃ the next sibling of F
-                        ⁃ the next sibling of the nearest ancestor of F
-                ⁃ the end of the document
+                        ⁃ The first child of F.
+                            / In its body, that is.
+                        ⁃ The next sibling of F.
+                        ⁃ The next sibling of the nearest ancestor of F.
+                    - Always in this case the final character sequence of the head comprises a newline.
+                        / Even a point that nominally omits its descriptor — unless it happens to be
+                          the final fractum of the document — must in fact have a descriptor comprising
+                          one or more newlines.
+                • The end of the document.
         body
             - The part of a fractum comprising its children alone; a sequence of sibling body fracta.
             - A body is always optional: regardless of fractal type, it may be omitted.
@@ -1070,7 +1078,7 @@ Breccia language definition
         allowed whitespace
             : see `^^character identification$` @ `^^ Notes$`
             • plain space ‘ ’ (20)
-            • newline (A, D)
+            • newline (A and/or D)
             • no-break space (A0) as described for use in bullets and indentation blinds
             \ Allowing any other horizontal whitespace (9, 2000-200A, 202F, 205F, 3000)
             \ would be too confusing in Breccia, where indentation determines syntax.
