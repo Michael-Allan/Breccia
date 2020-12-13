@@ -637,7 +637,7 @@ Breccia language definition
                 / The appearance of extension is false because the successors lie ‘under’
                   the same divider merely in terms of linear order, not hierarchy.
             - False divisions are a linear form of partition,
-              as opposed to the hierarchical form of true divisions.
+              as opposed to the hierarchic form of true divisions.
             / The whole of a false division may be transformed to a true division
               by indenting all but the first sibling into the *body* of the first.
 
@@ -720,7 +720,7 @@ Breccia language definition
                 ◇ informal type
 
         ─────────────────────
-         hierarchical relata
+         hierarchic relata
         ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
             : privately cf. `comparative genealogical terms$`
               @ http://reluk.ca/project/proto-wayic/origins/doc.task
