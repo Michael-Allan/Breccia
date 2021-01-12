@@ -383,9 +383,9 @@ Breccia language definition
             ⁃ a character that is neither a whitespace nor a backslash (5C)
               nor a divider drawing character, and
                 : see `^^character identification$` @ `^^ Notes$`
-            ⁃ one or more backslashes immediately followed by
-              a character that is neither whitespace nor backslash.
-                \ A whitespace character here, or none at all, would instead start a comment block.
+            ⁃ one or more backslashes immediately followed by a character
+              that is neither backslash nor plain space (20) nor newline.
+                \ A space or newline here, or no character at all, would instead start a comment block.
         ii. interior
             - Coming after the start character and before the end character.
             - Here the bullet may contain spacing characters, and nowhere else.
@@ -677,7 +677,7 @@ Breccia language definition
             - Its form (shown abstractly in the diagram) varies according to fractal type.
             - Never does the head of a body fractum, however, begin with a newline.
                 / Only a document head may begin with a newline.
-                - Every newline belongs to the same fractal part as the character that precedes it;
+                - Every newline belongs to the same fractal head as the character that precedes it;
                   or, if no character precedes it, then it belongs to the document head.
             - Always its end boundary (not fully shown) comprises one of:
                 • The head successor.
@@ -687,10 +687,10 @@ Breccia language definition
                             / In its body, that is.
                         ⁃ The next sibling of F.
                         ⁃ The next sibling of the nearest ancestor of F.
-                    - Always in this case the final character sequence of the head comprises a newline.
-                        / Even a point that nominally omits its descriptor — unless it happens to be
-                          the final fractum of the document — must in fact have a descriptor comprising
-                          one or more newlines.
+                    - Always in this case the final character sequence of the head
+                      comprises one or more newlines.
+                        / In this case, even a point head that nominally omits its descriptor
+                          must in fact have a descriptor comprising one or more newlines.
                 • The end of the document.
         body
             - The part of a fractum comprising its children alone; a sequence of sibling body fracta.
