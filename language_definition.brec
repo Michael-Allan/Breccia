@@ -74,8 +74,7 @@ Breccia language definition
         - A point with a bullet comprising ‘/’.
         - It forms matter of less prominence than its place would otherwise suggest.
             / E.g. matter to which the reader should give less attention on a first reading.
-        - Its descriptor, if present, is largely free-form.
-            : see `most descriptors are largely free-form\.$` @ `^^ Descriptor$`
+        - Its descriptor, if present, is largely free in form.
 
 
 
@@ -363,54 +362,6 @@ Breccia language definition
 
 
 
-    ━━━━━━━━
-     Bullet
-    ────────
-        / Part of a point head.
-        - Its form is determined in part by external boundaries.
-
-                 perfect   ┊     start                            end             ┊   descriptor,
-               indentation ┊╶── sequence ──┬─┬── interior ──┬── character ──┬───▶ ┊  head successor,
-                           ┊               │ │              │               │     ┊ or end of document
-                                           │ └──────────────┘               │     ┊
-                                           └────────────────────────────────┘
-                                   i                ii            iii
-
-                : re `head successor` see `^^⁃ the head successor$` @ `^^ Fractum$`
-        - While the precise form varies according to the point type, every bullet is formally
-          conditioned by basic contraints operating in several regions, here numbered i, ii, iii.
-        i. start sequence, one of:
-            ⁃ a character that is neither a whitespace nor a backslash (5C)
-              nor a divider drawing character, and
-                : see `^^character identification$` @ `^^ Notes$`
-            ⁃ one or more backslashes immediately followed by a character
-              that is neither backslash nor plain space (20) nor newline.
-                \ A space or newline here, or no character at all, would instead start a comment block.
-        ii. interior
-            - Coming after the start character and before the end character.
-            - Here the bullet may contain spacing characters, and nowhere else.
-                - One or more plain spaces (20) may follow an alphanumeric character.
-                    : see `^^character identification$` @ `^^ Notes$`
-                    - Following any other character (C), they would expel both C and themselves
-                      from the interior.
-                        / So making C either the end character if it meets the constraints of one,
-                          or part of the end boundary.
-                - One or more no-break spaces (A0) may follow any non-alphanumeric character
-                  other than a plain space, and other than a backslash occuring in a backslash sequence
-                  at the start of the bullet. \ The backslash case is excluded because it would
-                    \ complicate Breccia Mode for Emacs, and anyway appears to be useless.
-                        : re `Breccia Mode for Emacs` see http://reluk.ca/project/Breccia/Emacs/
-                    - Here the excluded sequences are not expulsive, rather they are simply forbidden.
-                - No other whitespace is allowed.
-                    / Viz. no newline; it could never be part of a bullet, only of its end boundary.
-        iii. end character, a character that is neither:
-            ⁃ whitespace, nor
-            ⁃ a backslash subsequent to a plain space of the interior.
-                / Rather those characters would comprise the initial part of an end boundary in the form
-                  of a comment carrier, so forming part of the descriptor.
-
-
-
     ━━━━━━━━━━━━━━━
      Command point
     ───────────────
@@ -438,6 +389,7 @@ Breccia language definition
             : cf. `^^ Autoprivatizer$`
             : cf. `^^ Parental privatizer$`
         - Formally it appears as either a comment appender or a comment block.
+
         comment appender
             - A carrier for commentary subsequent to non-commentary on the same line.
 
@@ -510,7 +462,7 @@ Breccia language definition
           or indentation blind.
         - What follows the gap (abstracted from the diagram) depends on the type of fractum
           in which the descriptor appears.
-            - Most descriptors are largely free-form, constrained only by the end boundary
+            - Most descriptors are largely free in form, constrained only by the end boundary
               of their head (as shown).
             - The descriptor of a command point, however, is further constrained.
         gap
@@ -536,9 +488,8 @@ Breccia language definition
     ━━━━━━━━━━
      Division
     ──────────
-        / A body fractum.
-        - A body fractum forming a part of the document markedly separate from other parts.
-        - Its head is called a divider.
+        - A body fractum with a head in the form of a divider.
+
         divider
             - The head of a division.
             - It comprises one or more divider segments.
@@ -557,6 +508,7 @@ Breccia language definition
 
             - It follows that sibling dividers cannot be made contiguous;
               rather their segments would join to comprise one divider.
+
         divider segment
             / Part of a divider.
             - It starts with a perfectly indented divider drawing character.
@@ -572,6 +524,7 @@ Breccia language definition
             - Outside of comment carriers and indentation blinds, characters between the leading,
               divider drawing character and the end boundary of the segment (rightmost in diagram)
               are unconstrained in form.
+
         divider drawing character
             - A character in the Unicode range 2500-259F.
                 : re `2500-259F` see `^^character identification$` @ `^^ Notes$`
@@ -831,12 +784,7 @@ Breccia language definition
     ───────────────
         - A point of no formal subtype.
             : see `^^ fractal types$`
-        - It is largely free-form.
-            - Its bullet is conditioned only by the basic constraints.
-                : re `basic constraints` see `basic constraints` @ `^^ Bullet$`
-            - Likewise its descriptor, which may also be omitted.
-                : re `Likewise its descriptor`
-                  see `most descriptors are largely free-form.$` @ `^^ Descriptor$`
+        - It is largely free in form and its descriptor may be omitted.
 
 
 
@@ -844,23 +792,20 @@ Breccia language definition
      Indentation blind
     ───────────────────
         / Part of a descriptor gap or divider segment.
-        - A sequence of lines whose first non-space character (viz. not 20) is a no-break space (A0).
+        - A sequence of lines whose first non-plain-space character (non-20) is a no-break space (A0).
             : see `^^character identification$` @ `^^ Notes$`
-        -
-                                                ┌───╴◀────────┐
-                           ┌─╴◀────┐            │             │
-               start ┊     │       │            │   inline    │        ┊ end of
-                of   ┊╶──┬─┴─╴‘ ’╶─┴─┬── A0 ──┬─┴─ character ─┴─┬────▶ ┊ line
+                ·
+                           ┌─╴◀────┐            ┌───╴◀────────┐        ┊
+               start ┊     │       │            │             │        ┊ end of line or
+                of   ┊╶──┬─┴─╴‘ ’╶─┴─┬── A0 ──┬─┴─ character ─┴─┬────▶ ┊ comment appender
                line  ┊   └───────────┘        │                 │      ┊
                                               └─────────────────┘
 
                 diagram, The form of each line in an indentation blind.  This diagram itself
                   is an example of a blind comprising several such lines.
 
-        - The lines of an indentation blind are blind to perfect indentation.
-            - The leading no-break space ensures that no line of an indentation blind,
-              regardless of its indentation, is *perfectly* indented.
-                : re `.perfectly. indented` see `^^perfect indentation$` @ `^^ Whitepace$`
+        - Regardless of its indentation, no line of an indentation blind is *perfectly* indented.
+            : re `.perfectly. indented` see `^^perfect indentation$` @ `^^ Whitepace$`
             - Therefore no indentation blind ever interrupts the fractal head in which it occurs;
               always the head continues through the blind.
         - Outside of any comment appender, the inline characters after the leading no-break space
@@ -981,10 +926,7 @@ Breccia language definition
     ━━━━━━━
      Point
     ───────
-        / A body fractum.
-        - A point is the more common type of body fractum, itself divided into multiple subtypes.
-            : see `^^ fractal types$` @ `^^ Fractum$`
-        - Always its head comprises a perfectly indented bullet, and often a descriptor.
+        - A body fractum with a head in this form:
 
                start ┊       perfect                                        ┊  head successor,
                 of   ┊╶─── indentation ─── bullet ──┬── descriptor ──┬────▶ ┊ or end of document
@@ -994,9 +936,48 @@ Breccia language definition
                     : re `head successor` see `^^\| the head successor$` @ `^^ Fractum$`
                 diagram, The form of a point head.
 
-        - The form of the bullet, the form of the descriptor, and whether the descriptor may be omitted
-          all depend on the particular subtype of point.
+        - Whether the descriptor may be omitted depends on the subtype of point.
             : re `subtype of point` see `^^. point$` @ `^^ fractal types$` @ `^^ Fractum$`
+
+        bullet
+            - The bullet of a point head is defined by its leading and trailing edges
+              as shown in the diagrams below.
+
+                                           non-backslash, non-whitespace,
+                     perfect   ┊   ┌─────╴ non-divider-drawing character ────────┐
+                   indentation ┊╶──┤                                             ├────▶
+                               ┊   └──┬─╴‘\’╶─┬──╴ non-backslash, non-newline, ──┘
+                                      │       │     non-plain-space character
+                                      └─╴◀────┘
+                        : re `(perfect).+\R.+(indentation)`
+                          see `^^perfect indentation$` @ `^^ Whitepace$`
+                        : re `divider-drawing character` see `^^divider drawing character$`
+                    diagram, The form of a bullet’s leading edge.
+
+            - The edge definitions are not mutually exclusive, their characters may overlap.
+                / The bullet may, for example, comprise a single character that alone occupies
+                  both the leading and trailing edge.
+            - Between the edges, any non-alphanumeric, non-whitespace character may be followed
+              by a single no-break space (A0).
+                : see `^^character identification$` @ `^^ Notes$`
+                / Authors may use such a no-break space in lieu of a plain space in order to avoid
+                  the formation of a trailing edge that would prematurely terminate the bullet.
+                    ·
+                                                  ┊
+                         non-alphanumeric   ┌───▶ ┊╶───╴‘ ’
+                     ┌──╴ non-whitespace ╶──┤     ┊
+                  ╶──┤      character       └───▶ ┊╶──┬── A0 ──┐                        comment
+                     │                            ┊   │        │       ┌─╴◀────┐  ┌───▶ appender
+                     └──── alphanumeric ────┐     ┊   └────────┴──┐    │       │  │
+                            character       └───▶ ┊╶──────────────┴──┬─┴─╴‘ ’╶─┴──┴──┬──▶ end of line
+                                                  ┊                  │               │    or document
+                                                                     └───────────────┘
+                        : re `(comment).+\R.+(appender)` see `^^comment appender$`
+                    diagram, The form of a bullet’s trailing edge.  The bullet
+                      itself includes only the parts left of the dashed line.
+
+            - No bullet ends with a space character (20 or A0).
+            - Any space character at the trailing edge is separate from the bullet proper.
 
 
 
@@ -1019,7 +1000,7 @@ Breccia language definition
      Resource indicator
     ────────────────────
         / Part of an associative reference or other referential markup.
-        -
+                ·
               ╶──┬──╴‘non-fractal’╶── gap ──┬── URI reference ────▶
                  │                          │
                  └──────────────────────────┘
@@ -1074,14 +1055,13 @@ Breccia language definition
     ━━━━━━━━━━━━
      Whitespace
     ────────────
-        / A class of character.
         allowed whitespace
             : see `^^character identification$` @ `^^ Notes$`
             • plain space ‘ ’ (20)
             • newline (A and/or D)
             • no-break space (A0) as described for use in bullets and indentation blinds
-            \ Allowing any other horizontal whitespace (9, 2000-200A, 202F, 205F, 3000)
-            \ would be too confusing in Breccia, where indentation determines syntax.
+            \ Allowing other horizontal whitespace characters (e.g. 9, 2000-200A, 202F, 205F, 3000)
+            \ might lead to confusion, considering that indentation determines syntax.
         perfect indentation
             - Perfect indentation comprises zero or more plain-space sequences (20),
               each four characters in length, properly bound.
