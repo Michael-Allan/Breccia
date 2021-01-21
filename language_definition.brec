@@ -388,7 +388,11 @@ Breccia language definition
         - A carrier of commentary for the attention of authors, publishers or other atypical readers.
             : cf. `^^ Autoprivatizer$`
             : cf. `^^ Parental privatizer$`
-        - Formally it appears as either a comment appender or a comment block.
+        - The commentary may include no-break spaces (A0).
+            : see `^^character identification$` @ `^^ Notes$`
+            / An author may, for example, comment out a fractum that contains a no-break space
+              without thereby introducing an error.
+        - Each comment carrier is formed as either a comment appender or a comment block.
 
         comment appender
             - A carrier for commentary subsequent to non-commentary on the same line.
@@ -1056,7 +1060,8 @@ Breccia language definition
             : see `^^character identification$` @ `^^ Notes$`
             • plain space ‘ ’ (20)
             • newline (A and/or D)
-            • no-break space (A0) as described for use in bullets and indentation blinds
+            • no-break space (A0) as described for use in bullets, indentation blinds
+              and comment carriers
             \ Allowing other horizontal whitespace characters (e.g. 9, 2000-200A, 202F, 205F, 3000)
             \ might lead to confusion, considering that indentation determines syntax.
         perfect indentation
