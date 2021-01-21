@@ -396,9 +396,8 @@ Breccia language definition
                                                                       commentary
                                                                 ┌─────────────────────┐
                  
-                                                                   ┌────╴◀─────────┐
-                   inline non-   ┌─╴◀────┐     ┌─╴◀────┐           │               │
-                   -whitespace   │       │ ┊   │       │           │    inline     │          ┊ end of
+                   inline non-   ┌─╴◀────┐     ┌─╴◀────┐           ┌────╴◀─────────┐
+                   -whitespace   │       │ ┊   │       │           │               │          ┊ end of
                    or no-break ╶─┴─╴‘ ’╶─┘ ┊╶──┴─╴‘\’╶─┴─┬─╴‘ ’╶─┬─┴── character ──┴─┬─┬────▶ ┊ line
                    space (A0)              ┊             │       │                   │ │      ┊
                                                          │       └───────────────────┘ │
@@ -415,9 +414,8 @@ Breccia language definition
                                                                   commentary
                                                             ┌─────────────────────┐
                  
-                                                               ┌────╴◀─────────┐
-                               ┌─╴◀────┐   ┌─╴◀────┐           │               │
-                   start ┊     │       │   │       │           │    inline     │          ┊ end of
+                               ┌─╴◀────┐   ┌─╴◀────┐           ┌────╴◀─────────┐
+                   start ┊     │       │   │       │           │               │          ┊ end of
                     of   ┊╶──┬─┴─╴‘ ’╶─┴─┬─┴─╴‘\’╶─┴─┬─╴‘ ’╶─┬─┴── character ──┴─┬─┬────▶ ┊ line
                    line  ┊   │           │           │       │                   │ │      ┊
                              └───────────┘           │       └───────────────────┘ │
@@ -428,14 +426,13 @@ Breccia language definition
 
         comment block label
             / A type of commentary.  Part of a comment block.
-            - Commentary delimited by two or more backslashes in a comment block.
+            - Commentary delimited by two or more backslashes in a line of a comment block.
 
                                                                        label
                                                                 ┌───────────────────┐
                  
-                                                                  ┌────╴◀─────────┐
-                             ┌─╴◀────┐         ┌─╴◀────┐          │               │
-                   start     │       │         │       │      ┊   │    inline     │      ┊ end of
+                             ┌─╴◀────┐         ┌─╴◀────┐          ┌────╴◀─────────┐
+                   start     │       │         │       │      ┊   │               │      ┊ end of
                     of  ╶──┬─┴─╴‘ ’╶─┴─┬─╴‘\’╶─┴─╴‘\’╶─┴─╴‘ ’ ┊╶──┴── character ──┴────▶ ┊ line
                    line    │           │                      ┊                          ┊
                            └───────────┘
