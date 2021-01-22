@@ -391,55 +391,54 @@ Breccia language definition
             : see `^^character identification$` @ `^^ Notes$`
             / An author may, for example, comment out a fractum that contains a no-break space
               without thereby introducing an error.
-        - Each comment carrier is formed as either a comment appender or a comment block.
+        - Each comment carrier is formed as either a comment appender or a comment block,
+          as shown in the diagrams that follow.
+            - In these diagrams, no commentary part begins or ends with a plain space character (20).
+            - Any such space at the leading or trailing edge is separate from the commentary proper.
 
         comment appender
-            - A carrier for commentary subsequent to non-commentary on the same line.
+            - A carrier of commentary subsequent to non-commentary on the same line.
 
-                                                                      commentary
-                                                                ┌─────────────────────┐
+                                                                commentary
+                                                          ┌─────────────────────┐
                  
-                   inline non-   ┌─╴◀────┐     ┌─╴◀────┐           ┌────╴◀─────────┐
-                   -whitespace   │       │ ┊   │       │           │               │          ┊ end of
-                   or no-break ╶─┴─╴‘ ’╶─┘ ┊╶──┴─╴‘\’╶─┴─┬─╴‘ ’╶─┬─┴── character ──┴─┬─┬────▶ ┊ line
-                   space (A0)              ┊             │       │                   │ │      ┊
-                                                         │       └───────────────────┘ │
-                                                         └─────────────────────────────┘
-                 
-                                             └───────────────────────────────────────────┘
-                                                          comment appender
-
-                    : re `commentary` see `^^commentary$` @ `^^ Notes$`
+                   inline non-           ┌─╴◀────┐           ┌────╴◀─────────┐
+                   -whitespace       ┊   │       │           │               │                  ┊ end
+                   or no-break ╶── S ┊╶──┴─╴‘\’╶─┴─┬── S ──┬─┴── character ──┴─┬─┬── S ──┬────▶ ┊ of
+                   space (A0)        ┊             │       │                   │ │       │      ┊ line
+                                                   │       └────────────────┬──┘ └───────┘
+                                                   └────────────────────────┘
+                    : re `S` see @ `^^ Whitespace$`
                     : re `A0` see `^^character identification$` @ `^^ Notes$`
         comment block
             - A comment carrier that extends over a sequence of (one or more) whole lines.
 
-                                                                  commentary
-                                                            ┌─────────────────────┐
+                                                              commentary
+                                                        ┌─────────────────────┐
                  
-                               ┌─╴◀────┐   ┌─╴◀────┐           ┌────╴◀─────────┐
-                   start ┊     │       │   │       │           │               │          ┊ end of
-                    of   ┊╶──┬─┴─╴‘ ’╶─┴─┬─┴─╴‘\’╶─┴─┬─╴‘ ’╶─┬─┴── character ──┴─┬─┬────▶ ┊ line
-                   line  ┊   │           │           │       │                   │ │      ┊
-                             └───────────┘           │       └───────────────────┘ │
-                                                     └─────────────────────────────┘
-
-                    : re `commentary` see `^^commentary$` @ `^^ Notes$`
+                                       ┌─╴◀────┐           ┌────╴◀─────────┐
+                   start ┊             │       │           │               │                  ┊ end
+                    of   ┊╶──┬── S ──┬─┴─╴‘\’╶─┴─┬── S ──┬─┴── character ──┴─┬─┬── S ──┬────▶ ┊ of
+                   line  ┊   │       │           │       │                   │ │       │      ┊ line
+                             └───────┘           │       └────────────────┬──┘ └───────┘
+                                                 └────────────────────────┘
+                        : re `S` see @ `^^ Whitespace$`
                     diagram, The form of each line of a comment block.
 
         comment block label
             / A type of commentary.  Part of a comment block.
             - Commentary delimited by two or more backslashes in a line of a comment block.
 
-                                                                       label
-                                                                ┌───────────────────┐
+                                                                  label
+                                                           ┌───────────────────┐
                  
-                             ┌─╴◀────┐         ┌─╴◀────┐          ┌────╴◀─────────┐
-                   start     │       │         │       │      ┊   │               │      ┊ end of
-                    of  ╶──┬─┴─╴‘ ’╶─┴─┬─╴‘\’╶─┴─╴‘\’╶─┴─╴‘ ’ ┊╶──┴── character ──┴────▶ ┊ line
-                   line    │           │                      ┊                          ┊
-                           └───────────┘
+                                           ┌─╴◀────┐         ┌────╴◀─────────┐
+                   start                   │       │     ┊   │               │      ┊                end
+                    of  ╶──┬── S ──┬─╴‘\’╶─┴─╴‘\’╶─┴── S ┊╶──┴── character ──┴────▶ ┊╶──┬── S ──┬──▶ of
+                   line    │       │                     ┊                          ┊   │       │    line
+                           └───────┘                                                    └───────┘
 
+                        : re `S` see @ `^^ Whitespace$`
 
 
     ━━━━━━━━━━━━
@@ -468,15 +467,15 @@ Breccia language definition
         gap
             - A form of separator appearing in a descriptor.
 
-                                            ┌──────────────────────╴◀───────────────────┐
-                                            │                                           │
-                                            │  ┌─────────────╴‘ ’╶───────────────────┐  │
-                  ╶──┬──────────────────────┴──┤                       comment       ├──┴────▶
-                     │  ┌─╴◀────┐              │                   ┌──╴ block ╶──┐   │
-                     │  │       │    comment   └──┬── newline ──┬──┤             ├─┬─┘
-                     └──┴─╴‘ ’╶─┴─── appender ────┘             │  └── indent ───┘ │
-                                                                │       blind      │
-                                                                └──────────────────┘
+                                     ┌──────────────────────╴◀───────────────────┐
+                                     │                                           │
+                                     │  ┌─────────────╴‘ ’╶───────────────────┐  │
+                  ╶──┬───────────────┴──┤                       comment       ├──┴────▶
+                     │                  │                   ┌──╴ block ╶──┐   │
+                     │        comment   └──┬── newline ──┬──┤             ├─┬─┘
+                     └── S ── appender ────┘             │  └── indent ───┘ │
+                                                         │       blind      │
+                                                         └──────────────────┘
                     : re `(comment).+\R.+(block)` see `^^comment block$`
                     : re `(comment).+\R.+(appender)` see `^^comment appender$`
                     : re `(indent).+\R.+(blind)` see `^^ Indent blind$` @ `^^ Whitepace$`
@@ -795,11 +794,11 @@ Breccia language definition
         - A sequence of lines whose first non-plain-space character (non-20) is a no-break space (A0).
             : see `^^character identification$` @ `^^ Notes$`
                 ·
-                           ┌─╴◀────┐            ┌───╴◀────────┐        ┊
-               start ┊     │       │            │             │        ┊ end of line or
-                of   ┊╶──┬─┴─╴‘ ’╶─┴─┬── A0 ──┬─┴─ character ─┴─┬────▶ ┊ comment appender
-               line  ┊   └───────────┘        │                 │      ┊
-                                              └─────────────────┘
+                                            ┌───╴◀────────┐        ┊
+               start ┊                      │             │        ┊ end of line or
+                of   ┊╶──┬── S ──┬── A0 ──┬─┴─ character ─┴─┬────▶ ┊ comment appender
+               line  ┊   │       │        │                 │      ┊
+                         └───────┘        └─────────────────┘
 
                 diagram, The form of each line in an indent blind.  This diagram
                   itself is an example of a blind comprising several such lines.
@@ -966,12 +965,12 @@ Breccia language definition
                                                   ┊
                          non-alphanumeric   ┌───▶ ┊╶───╴‘ ’
                      ┌──╴ non-whitespace ╶──┤     ┊
-                  ╶──┤      character       └───▶ ┊╶──┬── A0 ──┐                        comment
-                     │                            ┊   │        │       ┌─╴◀────┐  ┌───▶ appender
-                     └──── alphanumeric ────┐     ┊   └────────┴──┐    │       │  │
-                            character       └───▶ ┊╶──────────────┴──┬─┴─╴‘ ’╶─┴──┴──┬──▶ end of line
-                                                  ┊                  │               │    or document
-                                                                     └───────────────┘
+                  ╶──┤      character       └───▶ ┊╶──┬── A0 ──┐                   comment
+                     │                            ┊   │        │             ┌───▶ appender
+                     └──── alphanumeric ────┐     ┊   └────────┴──┐          │
+                            character       └───▶ ┊╶──────────────┴──┬── S ──┴─┬──▶ end of line
+                                                  ┊                  │         │
+                                                                     └─────────┘
                         : re `(comment).+\R.+(appender)` see `^^comment appender$`
                     diagram, The form of a bullet’s trailing edge.  The bullet
                       itself includes only the parts left of the dashed line.
@@ -1070,6 +1069,12 @@ Breccia language definition
                line  ┊   │                             │     ┊ character
                          └─────────────────────────────┘
 
+        S
+            - A form of separator.
+
+                 ┌─╴◀────┐
+                 │       │
+              ╶──┴─╴‘ ’╶─┴───▶
 
 
     ━━━━━━━
@@ -1078,9 +1083,6 @@ Breccia language definition
         character identification
             - Characters are here identified by the hexadecimal codes of the Unicode standard.
                 : re `Unicode standard` see https://www.unicode.org/standard/standard.html
-        commentary
-            - Though unclear from the diagram, the part labeled ‘commentary’ excludes any leading
-              or trailing space character.
      \\ [graphical syntax notation]
      \      - The present text uses syntax diagrams because it is aimed at Breccian authors in general,
      \        who are not expected to be comfortable with a textual notation such as Backus-Naur Form.
