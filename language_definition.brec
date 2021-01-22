@@ -531,17 +531,16 @@ Breccia language definition
                 : re `2500-259F` see `^^character identification$` @ `^^ Notes$`
         division label
             / Part of a divider segment.
-            - A sequence of characters that
-                ⁃ lies within a divider segment,
-                ⁃ lies outside of a comment carrier,
-                ⁃ lies outside of an indentation blind,
-                ⁃ contains no divider drawing character and
-                ⁃ excludes any leading or trailing whitespace.
+            - A sequence in a divider segment of non-divider-drawing characters exclusive of any
+                ⁃ comment carrier,
+                ⁃ indentation blind or
+                ⁃ leading or trailing space characters (20).
+                    : see `^^character identification$` @ `^^ Notes$`
         division titles( divider `d` )
             - A list in linear order of character strings, each to be taken as a title
               of the division headed by `d`.
-                / Presenters may give greater prominence to division titles,
-                  e.g. showing them in bold face.
+            - A division title comprises all division labels of contiguous lines (one or more in number)
+              each of which precedes any divider drawing character of the same line.
             / Consider for example this divider:
 
                        ┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄╮
@@ -555,6 +554,8 @@ Breccia language definition
                 / Calling `division titles( example divider )` would yield:
                    ⇒  ‘This is a division title, and it includes this’
                       ‘This is a 2nd division title’
+            / Presenters may give greater prominence to division titles,
+              e.g. showing them in bold face.
             deem+ `tt` a string list, intitally empty
                 / `tt` The list of title strings.
             deem+ `t` a string, `n` a text line
