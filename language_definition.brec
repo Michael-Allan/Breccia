@@ -878,6 +878,7 @@ Breccia language definition
                 : see `^^perfect indent$` @ `^^ Whitepace$
                 / As opposed to (Perl) a tab character.
                     : see https://perldoc.perl.org/perlrebackslash#Fixed-characters
+            : cf. `^^\^\^$`
         \N{⋯}
             - Character or character sequence by name or number.
             : see https://perldoc.perl.org/perlrebackslash#Named-or-numbered-characters-and-character-sequences
@@ -891,11 +892,11 @@ Breccia language definition
                 / To avoid that, use instead an equivalent pattern, such as:
 
                       : see ` \\\N{U+20}` @ non-fractal foo.html
-        ^^
-            - A perfect indent, equivalent to `^\t*`
         ^
             - The beginning of a line (zero width).
             : see https://perldoc.perl.org/perlre#Metacharacters
+        ^^
+            - A perfect indent, equivalent to `^\t*`
         .
             - Any character except a logical newline.
             : see https://perldoc.perl.org/perlre#Metacharacters
@@ -1062,16 +1063,12 @@ Breccia language definition
             \ Allowing other horizontal whitespace characters (e.g. 9, 2000-200A, 202F, 205F, 3000)
             \ might lead to confusion, considering that indentation determines syntax.
         perfect indent
-            - A perfect indent comprises zero or more plain-space sequences (20),
-              each four characters in length, properly bound.
 
-                               ┌───────────╴◀────────────┐
-                   start ┊     │                         │       ┊
-                    of   ┊╶──┬─┴─╴‘ ’╶─╴‘ ’╶─╴‘ ’╶─╴‘ ’╶─┴─┬───▶ ┊ non-whitespace
-                   line  ┊   │                             │     ┊
-                             └─────────────────────────────┘
-
-            - The start boundary is the start of a line, and the end boundary a non-whitepace character.
+                           ┌───────────╴◀────────────┐
+               start ┊     │                         │       ┊
+                of   ┊╶──┬─┴─╴‘ ’╶─╴‘ ’╶─╴‘ ’╶─╴‘ ’╶─┴─┬───▶ ┊ non-whitespace
+               line  ┊   │                             │     ┊ character
+                         └─────────────────────────────┘
 
 
 
