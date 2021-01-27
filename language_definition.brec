@@ -186,8 +186,7 @@ Breccia language definition
                 : re `overall type\R *of associative reference`
                   see `^^. associative reference$` @ `^^ fractal types$`
                 : re `overall effect` see `^^ effect of an associative reference$`
-            - Any referent clause (inferential referent indicator, fractum indicator or URI reference)
-              explicitly indicates the referent.
+            - Any referent clause explicitly indicates the referent.
                 - Absent the referent clause, any referrer clause *implies* the referent.
                 - Absent the referrer clause, the referent is implied by the fractal head of the parent.
 
@@ -735,7 +734,7 @@ Breccia language definition
 
         - Otherwise no actual fractal indication is here defined.
             - The only definite indication in the presence of a `non-fractal` qualifier
-              is the indicated resource, namely the referent of the URI reference.
+              is the indicated resource as a whole, namely the referent of the URI reference.
                 : re `URI reference` see @ `^^ Resource indicator$`
             / It may be left to the reader to determine what more, if anything, the author intends.
 
@@ -1006,7 +1005,7 @@ Breccia language definition
 
                 : re `URI reference` see https://tools.ietf.org/html/rfc3986#section-4.1
         - The `non-fractal` qualifier, if present, stops any runtime attempt to distinguish fracta
-          in the URI referent.
+          in the referent.
             / Authors may use it to forestall runtime errors, e.g. in cases where the referent
               is non-Breccian or malformed.
         indicated resource( resource indicator `i` if present )
