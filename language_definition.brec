@@ -719,7 +719,8 @@ Breccia language definition
                     │                           │  │                                 │
                     └─────────────╴◀── CS ──────┘  └─────────────────────────────────┘
 
-        - In the nominal case, absent a `non-fractal` qualifier that is, it indicates a fractum.
+        - In the namesake case — absent a `non-fractal` qualifier, that is — the fractum indicator
+          indicates a fractum.
             : re `\`non-fractal\` qualifier` see `^^ Resource indicator$`
             - Any pattern series pinpoints with each pattern a fractal head, while any resource indicator
               resolves to a Breccian document and therewith a document fractum.
@@ -780,9 +781,9 @@ Breccia language definition
     ━━━━━━━━━━━━━━━
      Generic point
     ───────────────
-        - A point of no formal subtype.
+        - A catch-all designation for points of no defined subtype.
             : see `^^ fractal types$`
-        - It is largely free in form and its descriptor may be omitted.
+        - A generic point is largely free in form, and may omit a descriptor.
 
 
 
@@ -935,8 +936,8 @@ Breccia language definition
                     : re `head successor` see `^^\| the head successor$` @ `^^ Fractum$`
                 diagram, The form of a point head.
 
-        - Whether the descriptor may be omitted depends on the subtype of point.
-            : re `subtype of point` see `^^. point$` @ `^^ fractal types$` @ `^^ Fractum$`
+        - Whether the descriptor may be omitted depends on the type of point.
+            : re `type of point` see `^^. point$` @ `^^ fractal types$` @ `^^ Fractum$`
 
         bullet
             - The bullet of a point head is defined by its leading and trailing edges
