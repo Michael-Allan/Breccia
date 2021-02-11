@@ -104,7 +104,7 @@ Breccia language definition
             / via a single reference that indicates multiple referrers at once
         - An associative reference to a private referent of the same author, or authors,
           must itself be private, else the reference is malformed.
-            : re `private` see `^^ Privatizer$`
+            : re `private` see `^^◇ privatizer$` @ `^^ fractal types$`
 
         ─────────────────
          referrer clause
@@ -342,7 +342,7 @@ Breccia language definition
     ━━━━━━━━━━━━━━━━
      Autoprivatizer
     ────────────────
-        - A privatizer that encodes within it another command, making it private.
+        - A command point that encodes within it another command, making it private.
             / So pertaining soley to the author, or authors.
                 : cf. `^^ Comment carrier$`
         - Its descriptor has this form:
@@ -354,6 +354,7 @@ Breccia language definition
             / Textual references and described effect herein are simulacral.
                 : see `^^simulacral effect and reference$` @ `^^ Notes$`
             if( the included command point descriptor is that of a privatizer )
+                : re `privatizer` see `^^◇ privatizer$` @ `^^ fractal types$`
                 throw+
             + Remove ‘privately’ and its subsequent gap.
             + Append as child a parental privatizer.
@@ -384,8 +385,7 @@ Breccia language definition
     ─────────────────
         / Part of a descriptor gap or divider segment.
         - A carrier of commentary for the attention of authors, publishers or other atypical readers.
-            : cf. `^^ Autoprivatizer$`
-            : cf. `^^ Parental privatizer$`
+            : cf. `^^◇ privatizer$` @ `^^ fractal types$`
         - The commentary may include no-break spaces (A0).
             : see `^^character identification$` @ `^^ Notes$`
             / An author may, for example, comment out a fractum that contains a no-break space
