@@ -977,6 +977,9 @@ Breccia language definition
 
             - No bullet ends with a space character (20 or A0).
             - Any space character at the trailing edge is separate from the bullet proper.
+                / Here a no-break space (A0) may be used to form a bullet comprising ‘\’,
+                  which otherwise would be impossible.
+                    : e.g. `^^\\.$` @ `^^ Pattern matching$`
 
 
 
