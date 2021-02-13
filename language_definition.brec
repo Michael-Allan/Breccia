@@ -953,32 +953,33 @@ Breccia language definition
                         : re `divider-drawing character` see `^^divider drawing character$`
                     diagram, The form of a bullet’s leading edge.
 
-            - The edge definitions are not mutually exclusive, their characters may overlap.
-                / The bullet may, for example, comprise a single character that alone occupies
-                  both the leading and trailing edge.
             - Between the edges, any non-alphanumeric, non-whitespace character may be followed
               by a single no-break space (A0).
                 : see `^^character identification$` @ `^^ Notes$`
                 / Authors may use such a no-break space in lieu of a plain space in order to avoid
                   the formation of a trailing edge that would prematurely terminate the bullet.
+            - The edge diagrams are not mutually exclusive, their bullet characters may overlap.
+                / The bullet may, for example, comprise a single character that alone occupies
+                  both the leading and trailing edge.
                     ·
                                                   ┊
-                         non-alphanumeric   ┌───▶ ┊╶───╴‘ ’
-                     ┌──╴ non-whitespace ╶──┤     ┊
-                  ╶──┤      character       └───▶ ┊╶──┬── A0 ──┐                   comment
-                     │                            ┊   │        │             ┌───▶ appender
-                     └──── alphanumeric ────┐     ┊   └────────┴──┐          │
-                            character       └───▶ ┊╶──────────────┴──┬── S ──┴─┬──▶ end of line
-                                                  ┊                  │         │
-                                                                     └─────────┘
+                                            ┌───▶ ┊╶─── end of line or document
+                         non-alphanumeric   │     ┊
+                     ┌──╴ non-whitespace ╶──┼───▶ ┊╶──╴‘ ’
+                     │      character       │     ┊                           comment
+                  ╶──┤                      └───▶ ┊╶── A0 ──┐           ┌───▶ appender
+                     │     alphanumeric           ┊         │           │
+                     └────  character   ────────▶ ┊╶────────┴───┬── S ──┴─┬──▶ end of line
+                                                  ┊             │         │    or document
+                                                                └─────────┘
                         : re `(comment).+\R.+(appender)` see `^^comment appender$`
                     diagram, The form of a bullet’s trailing edge.  The bullet
-                      itself includes only the parts left of the dashed line.
+                      itself includes only parts to the left of the dashed line.
 
-            - No bullet ends with a space character (20 or A0).
-            - Any space character at the trailing edge is separate from the bullet proper.
+            / As the diagram shows, no bullet ends with a space character (20 or A0).
+              Any space character at the trailing edge is separate from the bullet proper.
                 / Here a no-break space (A0) may be used to form a bullet comprising ‘\’,
-                  which otherwise would be impossible.
+                  which otherwise would be taken to delimit a comment block.
                     : e.g. `^^\\.$` @ `^^ Pattern matching$`
 
 
