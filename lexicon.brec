@@ -55,6 +55,10 @@ Definition of terms for project Breccia
         ─ mass noun
             - (within a document) The arrangement of characters and lines in relation to each other
               according to the conventional sequence of reading.
+    newline
+        - A character or sequence of characters indicating a line break.
+        / In Breccia, it comprises either a line feed, or a carriage return followed by a line feed.
+            : see `^^allowed whitespace$` @ language_definition.brec
     private
         ─ adjective, of a fractum
             - Marked as pertaining soley to the author, or authors, by the use of a privatizer.
@@ -91,4 +95,4 @@ Definition of terms for project Breccia
             - Ancestral by way of a jointer.
 
 
-                                                    \ Copyright © 2019-2020  Michael Allan.  Licence MIT.
+                                                    \ Copyright © 2019-2021  Michael Allan.  Licence MIT.

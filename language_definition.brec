@@ -963,14 +963,14 @@ Breccia language definition
                   both the leading and trailing edge.
                     ·
                                                   ┊
-                                            ┌───▶ ┊╶─── end of line or document
+                                            ┌───▶ ┊╶─── end of line
                          non-alphanumeric   │     ┊
                      ┌──╴ non-whitespace ╶──┼───▶ ┊╶──╴‘ ’
                      │      character       │     ┊                           comment
                   ╶──┤                      └───▶ ┊╶── A0 ──┐           ┌───▶ appender
                      │     alphanumeric           ┊         │           │
                      └────  character   ────────▶ ┊╶────────┴───┬── S ──┴─┬──▶ end of line
-                                                  ┊             │         │    or document
+                                                  ┊             │         │
                                                                 └─────────┘
                         : re `(comment).+\R.+(appender)` see `^^comment appender$`
                     diagram, The form of a bullet’s trailing edge.  The bullet
@@ -1061,10 +1061,12 @@ Breccia language definition
         allowed whitespace
             : see `^^character identification$` @ `^^ Notes$`
             • plain space ‘ ’ (20)
-            • newline (A and/or D)
+            • newline comprising either a line feed (A), or a carriage return (D) followed by a line feed
             • no-break space (A0) as described for use in bullets, indent blinds and comment carriers
             \ Allowing other horizontal whitespace characters (e.g. 9, 2000-200A, 202F, 205F, 3000)
             \ might lead to confusion, considering that indentation determines syntax.
+        end of line
+            - Either a line break (indicated by a newline) or the end of the document.
         perfect indent
 
                            ┌───────────╴◀────────────┐
