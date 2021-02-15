@@ -66,10 +66,10 @@ Definition of terms for project Breccia
             - The time at which a text is executed.
     simulacra
         ─ plural noun
-            : see `^^ Simulacrum$` @ http://reluk.ca/project/Breccia/language_definition.brec
+            : see `^^ Simulacrum$` @ language_definition.brec
     simulacral
         ─ adjective
-            : see `^^ Simulacrum$` @ http://reluk.ca/project/Breccia/language_definition.brec
+            : see `^^ Simulacrum$` @ language_definition.brec
     source
         ─ mass noun
             - Source code.
