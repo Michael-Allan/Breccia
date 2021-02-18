@@ -386,10 +386,6 @@ Breccia language definition
         / Part of a descriptor gap or divider segment.
         - A carrier of commentary for the attention of authors, publishers or other atypical readers.
             : cf. `^^◇ privatizer$` @ `^^ fractal types$`
-        - The commentary may include no-break spaces (A0).
-            : see `^^character identification$` @ `^^ Notes$`
-            / An author may, for example, comment out a fractum that contains a no-break space
-              without thereby introducing an error.
         - Each comment carrier is formed as either a comment appender or a comment block,
           as shown in the diagrams that follow.
             - In these diagrams, no commentary part begins or ends with a plain space character (20).
@@ -421,6 +417,11 @@ Breccia language definition
                              └───────┘           └─────────────────────────┘ └───────┘
                         : re `S` see @ `^^ Whitespace$`
                     diagram, The form of each line of a comment block.
+
+            - The commentary of a comment block may include one or more no-break spaces (A0).
+                : see `^^character identification$` @ `^^ Notes$`
+                / An author may, for example, comment out an indent blind, or a point whose bullet
+                  contains a no-break space, without thereby introducing an error.
 
         comment block label
             / A type of commentary.  Part of a comment block.
@@ -1060,7 +1061,7 @@ Breccia language definition
             : see `^^character identification$` @ `^^ Notes$`
             • plain space ‘ ’ (20)
             • newline comprising either a line feed (A), or a carriage return (D) followed by a line feed
-            • no-break space (A0) as described for use in bullets, indent blinds and comment carriers
+            • no-break space (A0) as described for use in bullets, indent blinds and comment blocks
             \ Allowing other horizontal whitespace characters (e.g. 9, 2000-200A, 202F, 205F, 3000)
             \ might lead to confusion, considering that indentation determines syntax.
         end of line
