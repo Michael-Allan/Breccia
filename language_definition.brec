@@ -398,29 +398,27 @@ Breccia language definition
         comment appender
             - A carrier of commentary subsequent to non-commentary on the same line.
 
-                                                                commentary
-                                                          ┌─────────────────────┐
+                                                              commentary
+                                                          ┌─────────────────┐
                  
-                   inline non-           ┌─╴◀────┐           ┌────╴◀─────────┐
-                   -whitespace       ┊   │       │           │               │                  ┊ end
-                   or no-break ╶── S ┊╶──┴─╴‘\’╶─┴─┬── S ──┬─┴── character ──┴─┬─┬── S ──┬────▶ ┊ of
-                   space (A0)        ┊             │       │                   │ │       │      ┊ line
-                                                   │       └────────────────┬──┘ └───────┘
-                                                   └────────────────────────┘
+                   inline non-           ┌─╴◀────┐         ┌────╴◀─────────┐
+                   -whitespace       ┊   │       │         │               │                  ┊ end
+                   or no-break ╶── S ┊╶──┴─╴‘\’╶─┴─┬── S ──┴── character ──┴─┬─┬── S ──┬────▶ ┊ of
+                   space (A0)        ┊             │                         │ │       │      ┊ line
+                                                   └─────────────────────────┘ └───────┘
                     : re `S` see @ `^^ Whitespace$`
                     : re `A0` see `^^character identification$` @ `^^ Notes$`
         comment block
             - A comment carrier that extends over a sequence of (one or more) whole lines.
 
-                                                              commentary
-                                                        ┌─────────────────────┐
+                                                            commentary
+                                                        ┌─────────────────┐
                  
-                                       ┌─╴◀────┐           ┌────╴◀─────────┐
-                   start ┊             │       │           │               │                  ┊ end
-                    of   ┊╶──┬── S ──┬─┴─╴‘\’╶─┴─┬── S ──┬─┴── character ──┴─┬─┬── S ──┬────▶ ┊ of
-                   line  ┊   │       │           │       │                   │ │       │      ┊ line
-                             └───────┘           │       └────────────────┬──┘ └───────┘
-                                                 └────────────────────────┘
+                                       ┌─╴◀────┐         ┌────╴◀─────────┐
+                   start ┊             │       │         │               │                  ┊ end
+                    of   ┊╶──┬── S ──┬─┴─╴‘\’╶─┴─┬── S ──┴── character ──┴─┬─┬── S ──┬────▶ ┊ of
+                   line  ┊   │       │           │                         │ │       │      ┊ line
+                             └───────┘           └─────────────────────────┘ └───────┘
                         : re `S` see @ `^^ Whitespace$`
                     diagram, The form of each line of a comment block.
 
@@ -429,7 +427,7 @@ Breccia language definition
             - Commentary delimited by two or more backslashes in a line of a comment block.
 
                                                                   label
-                                                           ┌───────────────────┐
+                                                            ┌─────────────────┐
                  
                                            ┌─╴◀────┐         ┌────╴◀─────────┐
                    start                   │       │     ┊   │               │      ┊                end
