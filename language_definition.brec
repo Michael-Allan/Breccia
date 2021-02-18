@@ -284,7 +284,7 @@ Breccia language definition
                         + Trim `p` of leading and trailing whitespace.
                         + Set `p` to `literalized pattern( p )`.
                         + Collapse all remaining whitespace of `p` to ‘\s+’.
-                            / Neutralizing differences in indentation and line wrapping.
+                            / Neutralizing differences of indentation and line wrapping.
                         + Further refine `p` according to referrer similarity `sR`
                           and referential form `fR`.
                             : see `^^pattern construction based on referrer similarity$` @ `^^ Notes$`
@@ -678,7 +678,7 @@ Breccia language definition
                 - One of the parent and the parent’s ancestors.
                 / No document fractum has an ancestor, body fracta alone have ancestors.
             parent, of a body fractum
-                - The nearest predecessor of less indentation, if any, otherwise the document fractum.
+                - The nearest predecessor of less indent, if any, otherwise the document fractum.
                 / No document fractum has a parent, body fracta alone have parents.
             sibling, of a body fractum
                 - Another of the same parent.
