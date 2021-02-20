@@ -942,7 +942,7 @@ Breccia language definition
             - The bullet of a point head is defined by its leading and trailing edges
               as shown in the diagrams below.
 
-                                           non-backslash, non-whitespace,
+                                       non-backslash, non-whitespace,
                    perfect ┊   ┌─────╴ non-divider-drawing character ────────┐
                    indent  ┊╶──┤                                             ├────▶
                            ┊   └──┬─╴‘\’╶─┬──╴ non-backslash, non-newline, ──┘
