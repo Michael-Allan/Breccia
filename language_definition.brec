@@ -147,7 +147,7 @@ Breccia language definition
                 : re `overall type\R *of associative reference`
                   see `^^. associative reference$` @ `^^ fractal types$`
                 : re `overall effect` see `^^ effect of an associative reference$`
-            - Any referent clause explicitly indicates the referent.
+            - The referent clause, if any, explicitly indicates the referent.
                 - Absent the referent clause, any referrer clause *implies* the referent.
                 - Absent the referrer clause, the referent is implied by the fractal head of the parent.
 
