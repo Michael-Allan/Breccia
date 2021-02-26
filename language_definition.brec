@@ -1,7 +1,7 @@
 Breccia language definition
 
-    - Breccia in practice is a production of texts, each comprising one or more documents.
-    - Here the documents are defined in formal terms as document fracta.
+    - A Breccian text comprises one or more documents.
+    - Each document is defined in formal terms as document fractum.
 
               │
               │
@@ -15,46 +15,7 @@ Breccia language definition
               │
               ▼
 
-            diagram, The form of a Breccian text.
-
-    document fractum
-        / A Breccian document in formal terms.
-        - It comprises a head formed as a descriptor and/or a body formed as a sequence of body fracta.
-
-                      │
-                      │
-                      ├──────┐    ┐
-                      ╵      │    │
-                  descriptor │    │ head
-                      ╷      │    │
-                 ┌────┤      │    ┘
-                 │    ├──────┘
-                 │    │
-                 │    ├────┐      ┐
-                 │    ╵    │      │
-                 │  body   ▲      │
-                 │ fractum │      │ body
-                 │    ╷    │      │
-                 │    ├────┘      │
-                 └────┤           ┘
-                      │
-                      │
-                      ▼
-
-        - Either the descriptor or the body may be absent, but not both.
-            / Absence of both implies no fractum and an empty document.
-        - The descriptor is absent (and a body fractum present) if the first line of the document
-          is perfectly indented and not part of a comment block.
-            : re `perfectly indented` see `^^perfect indent$` @ `^^ Whitepace$`
-
-    document title
-        - The document title, if any, is determined by the first fractal head in linear order
-          that yields a non-empty result after collapsing the whitespace of the relevant part
-          of its content according to head type:
-            • document head or point head
-                - The relevant part is the whole head exclusive of comment carriers and indent blinds.
-            • divider
-                - The relevant part is its first label.
+            diagram, The form of a Breccian document.
 
 
 
@@ -244,7 +205,7 @@ Breccia language definition
                         + Set `fR` to `default referential form()`.
 
                     if( the referential form `fR` is ‘head’ )
-                        + Set `iF` to `inferred pattern()` of `iIR` in gap-delimited conjunction
+                        + Set `iF` to `inferred pattern()` of `iIR` in space-delimited conjunction
                           with any containment clause of `iIR`.
                         return+ `indicated fractum( iF )`
 
@@ -439,49 +400,6 @@ Breccia language definition
                         : re `S` see @ `^^ Whitespace$`
 
 
-    ━━━━━━━━━━━━
-     Descriptor
-    ────────────
-        / Part of a document head or point head.
-        - Elaborative, explanatory text in the head of a point or document fractum.
-        - It starts with a gap.
-
-                          · · · ·
-                          ·     ·       ┊ end boundary
-              ╶── gap ─── ·  ?  · ────▶ ┊   of head
-                          ·     ·       ┊
-                          · · · ·
-                    : re `(end boundary)\R.+(of head)`
-                      see `^^- Its end boundary` @ `^^head$` @ `^^ Fractum$`
-                diagram, The abstract form of a descriptor.
-
-        - Only in the head of a document fractum may the leading gap begin with a comment block
-          or indent blind.
-        - What follows the gap (abstracted from the diagram) depends on the type of fractum
-          in which the descriptor appears.
-            - Most descriptors are largely free in form, constrained only by the end boundary
-              of their head (as shown).
-            - The descriptor of a command point, however, is further constrained.
-        gap
-            - A form of separator appearing in a descriptor.
-
-                                     ┌──────────────────────╴◀───────────────────┐
-                                     │                                           │
-                                     │  ┌─────────────╴‘ ’╶───────────────────┐  │
-                  ╶──┬───────────────┴──┤                       comment       ├──┴────▶
-                     │                  │                   ┌──╴ block ╶──┐   │
-                     │        comment   └──┬── newline ──┬──┤             ├─┬─┘
-                     └── S ── appender ────┘             │  └── indent ───┘ │
-                                                         │       blind      │
-                                                         └──────────────────┘
-                    : re `(comment).+\R.+(block)` see `^^comment block$`
-                    : re `(comment).+\R.+(appender)` see `^^comment appender$`
-                    : re `(indent).+\R.+(blind)` see `^^ Indent blind$` @ `^^ Whitepace$`
-            - Outside of a comment block, no gap contains a perfect indent.
-                / Outside of a comment block, such an indent would instead start a body fractum,
-                  and therewith form the end boundary of the gap and the head that contains it.
-
-
     ━━━━━━━━━━
      Division
     ──────────
@@ -591,6 +509,64 @@ Breccia language definition
               as opposed to the hierarchic form of true divisions.
             / The whole of a false division may be transformed to a true division
               by indenting all but the first sibling into the *body* of the first.
+
+
+
+    ━━━━━━━━━━━━━━━━━━
+     Document fractum
+    ──────────────────
+        / A Breccian document in formal terms.
+        - It comprises a head formed as a document descriptor and/or a body formed as a sequence
+          of body fracta.
+
+                      │
+                      │
+                      ├──────┐
+                      ╵      │    ┐
+                   document  │    │
+                  descriptor │    │ head
+                      ╷      │    │
+                 ┌────┤      │    ┘
+                 │    ├──────┘
+                 │    │
+                 │    ├────┐      ┐
+                 │    ╵    │      │
+                 │  body   ▲      │
+                 │ fractum │      │ body
+                 │    ╷    │      │
+                 │    ├────┘      │
+                 └────┤           ┘
+                      │
+                      │
+                      ▼
+
+        - Either the head or the body may be absent, not both.
+            / Absence of both implies no fractum at all, and an empty document.
+        - The head is absent (and a body fractum present) if the first line of the document
+          is perfectly indented and not part of a comment block.
+            : re `perfectly indented` see `^^perfect indent$` @ `^^ Whitepace$`
+
+        document descriptor
+            : cf. point descriptor
+            - The head of a document fractum.
+            - It is largely free in form, constrained only by the end boundary of the fractal head.
+
+                       · · · ·
+                       ·     ·       ┊ end boundary
+                  ╶─── ·  ?  · ────▶ ┊   of head
+                       ·     ·       ┊
+                       · · · ·
+                        : re `(end boundary)\R.+(of head)`
+                          see `^^- Always its end boundary` @ `^^head$` @ `^^ Fractum$`
+        document title
+            - The document title, if any, is determined by the first fractal head in linear order
+              that yields a non-empty result after collapsing the whitespace of the relevant part
+              of its content according to head type:
+                • document head or point head
+                    - The relevant part is the whole head exclusive of comment carriers
+                      and indent blinds.
+                • divider
+                    - The relevant part is its first label.
 
 
 
@@ -927,7 +903,7 @@ Breccia language definition
     ───────
         - A body fractum with a head in this form:
 
-               start ┊     perfect                                     ┊  head successor,
+               start ┊     perfect                   point             ┊  head successor,
                 of   ┊╶─── indent ─── bullet ──┬── descriptor ──┬────▶ ┊ or end of document
                line  ┊                         │                │      ┊
                                                └────────────────┘
@@ -980,6 +956,44 @@ Breccia language definition
                 / Here a no-break space (A0) may be used to form a bullet comprising ‘\’,
                   which otherwise would be taken to delimit a comment block.
                     : e.g. `^^\\.$` @ `^^ Pattern matching$`
+
+        point descriptor
+            : cf. document descriptor
+            - Elaborative, explanatory text in the head of a point.
+            - It starts with a gap.
+
+                              · · · ·
+                              ·     ·       ┊ end boundary
+                  ╶── gap ─── ·  ?  · ────▶ ┊   of head
+                              ·     ·       ┊
+                              · · · ·
+                        : re `(end boundary)\R.+(of head)`
+                          see `^^- Always its end boundary` @ `^^head$` @ `^^ Fractum$`
+                    diagram, The abstract form of a point descriptor.
+
+            - The leading gap may be further constrained in form, depending on the type of point.
+                : re `type of point` see `^^. point$` @ `^^ fractal types$` @ `^^ Fractum$`
+            - What follows the gap (abstracted from the diagram) also depends on the point type.
+                / Here some types are largely free in form, constrained only by the end boundary of the
+                  fractal head (as shown), while others, such as command points, are tightly constrained.
+            gap
+                - A form of separator appearing in a point descriptor.
+
+                                         ┌──────────────────────╴◀───────────────────┐
+                                         │                                           │
+                                         │  ┌─────────────╴‘ ’╶───────────────────┐  │
+                      ╶──┬───────────────┴──┤                       comment       ├──┴────▶
+                         │                  │                   ┌──╴ block ╶──┐   │
+                         │        comment   └──┬── newline ──┬──┤             ├─┬─┘
+                         └── S ── appender ────┘             │  └── indent ───┘ │
+                                                             │       blind      │
+                                                             └──────────────────┘
+                        : re `(comment).+\R.+(block)` see `^^comment block$`
+                        : re `(comment).+\R.+(appender)` see `^^comment appender$`
+                        : re `(indent).+\R.+(blind)` see `^^ Indent blind$` @ `^^ Whitepace$`
+                - Outside of a comment block, no gap contains a perfect indent.
+                    / Outside of a comment block, such an indent would instead start a body fractum,
+                      and therewith form the end boundary of the containing head.
 
 
 
