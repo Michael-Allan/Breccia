@@ -46,23 +46,23 @@ Breccia language definition
           or referrers) with a remote object (referent).
         - Its descriptor has this form:
 
-                           referrer            imperative
-              ╶── gap ──┬─╴ clause ── gap ──┬─╴  clause  ────▶
-                        │                   │
-                        └───────────────────┘
+                         referrer            referential             referent
+              ╶── S ──┬─╴ clause ── gap ──┬─╴  command  ───┬─ gap ──╴ clause  ──┬───▶
+                      │                   │                │                    │
+                      └───────────────────┘                └────────────────────┘
 
                 : re `(referrer).*\R.*╴ (clause)` see `^^ referrer clause$`
-                : re `(imperative).*\R.*  (clause)` see `^^ imperative clause$`
+                : re `(referential).*\R.*  (command)` see `^^ referential command$`
+                : re `(referent).*\R.*  (clause)` see `^^ referent clause$`
                 diagram, The form of the descriptor in an associative reference.
 
-        - The referrer clause indicates the referrer or referrers, while the imperative clause
-          (in its referent clause) indicates the referent.
-            : re `referent clause` see same @ `^^- The imperative clause includes`
+        - The referrer clause, if any, indicates the referrer or referrers,
+          while the referent clause indicates the referent.
         - A single referrer may be associated with multiple referents.
-            / via multiple, sibling references that indicate the same referrer
+            / Via multiple, sibling references that indicate the same referrer.
         - Multiple referrers may be overlapped or nested in any manner.
-            / via multiple, sibling references
-            / via a single reference that indicates multiple referrers at once
+            / Via multiple, sibling references.
+            / Via a single reference that indicates multiple referrers at once.
         - An associative reference to a private referent of the same author, or authors,
           must itself be private, else the reference is malformed.
             : re `private` see `^^◇ privatizer$` @ `^^ fractal types$`
@@ -70,7 +70,7 @@ Breccia language definition
         ─────────────────
          referrer clause
         ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
-            - Any referrer clause explicitly locates one or more referrers in the head
+            - The referrer clause, if any, explicitly locates one or more referrers in the head
               of the reference’s parent.
             - Absent a referrer clause, the whole head is taken as the sole referrer.
             - Otherwise the referrers are located in the head by a pattern of text.
@@ -106,50 +106,55 @@ Breccia language definition
                     throw+ headless parent, reference is misplaced
                 return+ the text sequence of the head of `p`
 
-        ───────────────────
-         imperative clause
-        ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
-            - The imperative clause includes a referential command, and includes or implies
-              a referent clause.
 
-                         referential
-                           command
-                        ┌──────────┐
-                                      ┌───────────────────────────┐
-                                      │                           │
-                        ┌─╴‘see’╶──┐  │             inferential   │
-                     ┌──┤          ├──┴── gap ──┬──╴ referent  ╶──┴───┐
-                     │  └─╴‘join’╶─┘            │    indicator        │
-                     │                          │                     │
-                  ╶──┤  ┌─╴‘cf.’╶──┐            │       fractum       ├────▶
-                     │  │          │            │  ┌── indicator ──┐  │
-                     │  ├─╴‘e.g.’╶─┤            └──┤               ├──┘
-                     └──┤          ├───── gap ─────┤   resource    │
-                        ├─╴‘i.e.’╶─┤               └── indicator ──┘
-                        │          │
-                        ├─╴‘NB’╶───┤            └────────────────────┘
-                        │          │               referent clause
-                        ├─╴‘N.B.’╶─┤
-                        │          │  \ [no ‘q.v.’]
-                        ├─╴‘viz.’╶─┤
-                        │          └──────╴◀────────┐
-                        └─╴‘see’╶─┐                 │
-                                  └── gap ─╴‘also’╶─┘
+        ─────────────────────
+         referential command
+        ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
+            - The referential command determines the overall type of associative reference,
+              with implications for its overall effect.
+                : re `overall type\R *of associative reference`
+                  see `^^. associative reference$` @ `^^ fractal types$`
+                : re `overall effect` see `^^ effect of an associative reference$`
+                    ·
+                     ┌─╴‘cf.’╶──┐
+                     │          │
+                     ├─╴‘e.g.’╶─┤
+                     │          │
+                     ├─╴‘i.e.’╶─┤
+                  ╶──┤          ├────▶
+                     ├─╴‘join’╶─┤
+                     │          │
+                     ├─╴‘NB’╶───┤
+                     │          │
+                     ├─╴‘N.B.’╶─┤
+                     │          │  \ [no ‘q.v.’]
+                     ├── see+ ──┤
+                     │          │
+                     └─╴‘viz.’╶─┘
+
+            see+ 
+
+                  ╶──╴‘see’╶──┬── S ──╴‘also’╶──┬───▶
+                              │                 │
+                              └─────────────────┘
+
+        ─────────────────
+         referent clause
+        ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
+            - The referent clause, if any, explicitly indicates the referent.
+                - Absent a referent clause, any referrer clause *implies* the referent.
+                - Absent a referrer clause, the referent is implied by the fractal head of the parent.
+
+                         inferential
+                     ┌──╴ referent  ╶──┐
+                     │    indicator    │
+                  ╶──┤                 ├────▶
+                     │     fractum     │
+                     └─── indicator ───┘
 
                     : re `(inferential).*\R.*(referent).*\R.*(indicator)`
                       see `^^inferential referent indicator$`
                     : re `(fractum).*\R.*(indicator)` see `^^ Fractum indicator$`
-                    : re `(resource).*\R.*(indicator)` see `^^ Resource indicator$`
-                        / The diagram includes a resource indicator only for sake of clarity.  Redundant,
-                          it exactly equals a fractum indicator *comprising* a resource indicator.
-            - The referential command of an imperative clause determines the overall type
-              of associative reference, with implications for its overall effect.
-                : re `overall type\R *of associative reference`
-                  see `^^. associative reference$` @ `^^ fractal types$`
-                : re `overall effect` see `^^ effect of an associative reference$`
-            - The referent clause, if any, explicitly indicates the referent.
-                - Absent the referent clause, any referrer clause *implies* the referent.
-                - Absent the referrer clause, the referent is implied by the fractal head of the parent.
 
             inferential referent indicator
                 - An inferential referent indicator comprises one or more of three parts that together
@@ -167,8 +172,17 @@ Breccia language definition
                                                          └── ii ──┘                 └──── iii ────┘
                                                       referential form                containment
 
-                - The definition of referential form (ii) determines the form of the referent
-                  and how to locate it.  Specifically:
+                / Examples of its use are:
+
+                       : re `foo` see same @ `^^bar$`
+                       : cf. @ `^^foo$`
+
+                  (It reads better with some referential commands than with others.)
+                - Referrer similarity (i) determines how broadly or narrowly the pattern
+                  of referential form (ii) is to be constructed.
+                    : see `^^pattern construction based on referrer similarity$` @ `^^ Notes$`
+                - Referential form (ii) determines the form of the referent and how to locate it.
+                  Specifically:
                     • ‘head’ defines the referent as a fractum
                        to be located by the pattern of its head, while
                     • ‘term’ defines the referent as a text sequence to be located by its own pattern.
@@ -176,12 +190,9 @@ Breccia language definition
                           where the referential command is `join`.
                             : see `^^- Where the referent is a text sequence` @ `^^effect$`
                               @ `^^ Jointer$`
-                - In either case, the operative pattern that pinpoints the referent is constructed
-                  by inference from the pattern of the referrer, or referrers.
-                    - Any containment clause (iii) delimits the context in which the pattern is sought.
-                - The definition of referrer similarity (i) determines how broadly or narrowly
-                  the pattern is to be constructed.
-                    : see `^^pattern construction based on referrer similarity$` @ `^^ Notes$`
+                    - In either case, the operative pattern that pinpoints the referent is constructed
+                      by inference from the pattern of the referrer, or referrers.
+                - Containment (iii) delimits the context in which the pattern is sought.
 
                 default referrer similarity()
                     return+ ‘similar’
@@ -260,14 +271,12 @@ Breccia language definition
                 - The text sequence, fractum or other resource to be taken as the referent.
                     : re `text .+ other resource` see `^^original resource$` @ `^^ Notes$`
                     : re `other resource` see head @ https://tools.ietf.org/html/rfc3986#section-1.1
-                if( the imperative clause includes a resource indicator with a `non-fractal` qualifier )
+                if( the referent clause includes a resource indicator with a `non-fractal` qualifier )
                     return+ `indicated resource( resource indicator )`
                 deem+ `iF` a fractum indicator;
                       `iIR` an inferential referent indicator
                 if( a referent clause is present )
-                    if( the referent clause comprises a resource indicator )
-                        + Set `iF` to a fractum indicator comprising the resource indicator.
-                    else if( the referent clause comprises a fractum indicator )
+                    if( the referent clause comprises a fractum indicator )
                         + Set `iF` to the fractum indicator.
                     else( the referent clause comprises an inferential referent indicator )
                         + Set `iIR` to the inferential referent indicator.
@@ -290,7 +299,7 @@ Breccia language definition
             referrers()
                 : join @ `^^ referrer clause$`
             referent()
-                : join @ `^^ imperative clause$`
+                : join @ `^^ referent clause$`
 
             / Any further effect depends on the overall type of reference as determined
               by the referential command.
@@ -303,19 +312,23 @@ Breccia language definition
     ━━━━━━━━━━━━━━━━
      Autoprivatizer
     ────────────────
-        - A command point that encodes within it another command, making it private.
+        - A command point that encodes within it another command point, making it private.
             / So pertaining soley to the author, or authors.
                 : cf. `^^ Comment carrier$`
         - Its descriptor has this form:
 
-              ╶──╴‘privately’╶── gap ── command point descriptor ────▶ \ No provision for a null command.
+                                               trim-form
+              ╶─── S ──╴‘privately’╶── gap ── command-point ────▶
+                                               descriptor
 
-            - Its descriptor formally includes the descriptor of the other command.
+        - The descriptor formally includes that of another command point
+          exclusive of its leading whitespace.
+            - The other command point must be neither a privatizer nor a null command.
+                : re `privatizer` see `^^◇ privatizer$` @ `^^ fractal types$`
         effect
             / Textual references and described effect herein are simulacral.
                 : see `^^simulacral effect and reference$` @ `^^ Notes$`
-            if( the included command point descriptor is that of a privatizer )
-                : re `privatizer` see `^^◇ privatizer$` @ `^^ fractal types$`
+            if( the included command point descriptor is that of a privatizer or null command )
                 throw+
             + Remove ‘privately’ and its subsequent gap.
             + Append as child a parental privatizer.
