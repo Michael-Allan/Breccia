@@ -44,17 +44,17 @@ Breccia language definition
         / A command point.
         - It forms a reference by associating one or more pre-existing text sequences (referrer,
           or referrers) with a remote object (referent).
-        - Its descriptor has this form:
+        - Its command has this form:
 
-                         referrer            referential             referent
-              ╶── S ──┬─╴ clause ── gap ──┬─╴  command  ───┬─ gap ──╴ clause  ──┬───▶
-                      │                   │                │                    │
-                      └───────────────────┘                └────────────────────┘
+                    referrer            referential             referent
+              ╶──┬─╴ clause ── gap ──┬─╴  command  ───┬─ gap ──╴ clause  ──┬───▶
+                 │                   │                │                    │
+                 └───────────────────┘                └────────────────────┘
 
                 : re `(referrer).*\R.*╴ (clause)` see `^^ referrer clause$`
                 : re `(referential).*\R.*  (command)` see `^^ referential command$`
                 : re `(referent).*\R.*  (clause)` see `^^ referent clause$`
-                diagram, The form of the descriptor in an associative reference.
+                diagram, The form of the command in an associative reference.
 
         - The referrer clause, if any, indicates the referrer or referrers,
           while the referent clause indicates the referent.
@@ -65,7 +65,7 @@ Breccia language definition
             / Via a single reference that indicates multiple referrers at once.
         - An associative reference to a private referent of the same author, or authors,
           must itself be private, else the reference is malformed.
-            : re `private` see `^^◇ privatizer$` @ `^^ fractal types$`
+            : re `private` see `^^ Privatizer$`
 
         ─────────────────
          referrer clause
@@ -309,57 +309,33 @@ Breccia language definition
 
 
 
-    ━━━━━━━━━━━━━━━━
-     Autoprivatizer
-    ────────────────
-        - A command point that encodes within it another command point, making it private.
-            / So pertaining soley to the author, or authors.
-                : cf. `^^ Comment carrier$`
-        - Its descriptor has this form:
-
-                                               trim-form
-              ╶─── S ──╴‘privately’╶── gap ── command-point ────▶
-                                               descriptor
-
-        - The descriptor formally includes that of another command point
-          exclusive of its leading whitespace.
-            - The other command point must be neither a privatizer nor a null command.
-                : re `privatizer` see `^^◇ privatizer$` @ `^^ fractal types$`
-        effect
-            / Textual references and described effect herein are simulacral.
-                : see `^^simulacral effect and reference$` @ `^^ Notes$`
-            if( the included command point descriptor is that of a privatizer or null command )
-                throw+
-            + Remove ‘privately’ and its subsequent gap.
-            + Append as child a parental privatizer.
-
-
-
     ━━━━━━━━━━━━━━━
      Command point
     ───────────────
         - A point with a bullet comprising ‘:’.
-        - The form of its descriptor, if any, varies with the type of command point.
+        - Its descriptor has this form:
+
+              ╶── S ──┬──╴‘privately’╶─ S ──┬── command ───┬── gap ──┬───▶
+                      │                     │              │         │
+                      └─────────────────────┘              └─────────┘
+
+        - The form of the command varies with the type of command point.
             : re `type of command point` see `^^ fractal types$` @ `^^ Fractum$`
-            / Only in the case of a *null command* may the descriptor be omitted.
         - Processors interpret command points and run the commands they encode in linear order.
-
-        null command
-            - A command point that does nothing. \ An artifact of formal consistency,
-                \ it occurs only because a descriptor is defined as optional in a point head.
-            - Its descriptor may be omitted.
-            - If present, it has this form:
-
-                  ╶── gap ───▶
+        - The effect of ‘privately’, if present, is as follows.
+            / Textual references and described effect herein are simulacral.
+                : see `^^simulacral effect and reference$` @ `^^ Notes$`
+            + Remove ‘privately’ and its subsequent S.
+            + Append as child of the command point a privatizer.
 
 
 
     ━━━━━━━━━━━━━━━━━
      Comment carrier
     ─────────────────
-        / Part of a descriptor gap or divider segment.
+        / Part of a point-descriptor gap or divider segment.
         - A carrier of commentary for the attention of authors, publishers or other atypical readers.
-            : cf. `^^◇ privatizer$` @ `^^ fractal types$`
+            : cf. `^^ Privatizer$`
         - Each comment carrier is formed as either a comment appender or a comment block,
           as shown in the diagrams that follow.
             - In these diagrams, no commentary part begins or ends with a plain space character (20).
@@ -649,10 +625,7 @@ Breccia language definition
                         ◆ associative reference
                             ◆ jointer
                             ◆ pointer
-                        ◆ null command
-                        ◇ privatizer
-                            ◆ autoprivatizer
-                            ◆ parental privatizer
+                        ◆ privatizer
                     ◇ generic point
                     ◆ task point
             legend
@@ -771,7 +744,7 @@ Breccia language definition
     ───────────────
         - A catch-all designation for points of no defined subtype.
             : see `^^ fractal types$`
-        - A generic point is largely free in form, and may omit a descriptor.
+        - A generic point is largely free in form.
 
 
 
@@ -823,19 +796,6 @@ Breccia language definition
               of the jointer that does not duplicate a pre-existing parent.
                 / Again, the effect here is recursive.
             - In both cases, the duplication test ignores variance in whitespace and comment carriers.
-
-
-
-    ━━━━━━━━━━━━━━━━━━━━━
-     Parental privatizer
-    ─────────────────────
-        - A command point that makes a private fractum of its simulacral parent.
-            / So pertaining soley to the author, or authors.
-                : cf. `^^ Comment carrier$`
-            / The effect applies to the parent and all its descendants.
-        - Its descriptor has this form:
-
-              ╶──╴‘private’╶───▶
 
 
 
@@ -924,9 +884,6 @@ Breccia language definition
                     : re `head successor` see `^^\| the head successor$` @ `^^ Fractum$`
                 diagram, The form of a point head.
 
-        - Whether the descriptor may be omitted depends on the type of point.
-            : re `type of point` see `^^. point$` @ `^^ fractal types$` @ `^^ Fractum$`
-
         bullet
             - The bullet of a point head is defined by its leading and trailing edges
               as shown in the diagrams below.
@@ -989,24 +946,25 @@ Breccia language definition
             - What follows the gap (abstracted from the diagram) also depends on the point type.
                 / Here some types are largely free in form, constrained only by the end boundary of the
                   fractal head (as shown), while others, such as command points, are tightly constrained.
-            gap
-                - A form of separator appearing in a point descriptor.
 
-                                         ┌──────────────────────╴◀───────────────────┐
-                                         │                                           │
-                                         │  ┌─────────────╴‘ ’╶───────────────────┐  │
-                      ╶──┬───────────────┴──┤                       comment       ├──┴────▶
-                         │                  │                   ┌──╴ block ╶──┐   │
-                         │        comment   └──┬── newline ──┬──┤             ├─┬─┘
-                         └── S ── appender ────┘             │  └── indent ───┘ │
-                                                             │       blind      │
-                                                             └──────────────────┘
-                        : re `(comment).+\R.+(block)` see `^^comment block$`
-                        : re `(comment).+\R.+(appender)` see `^^comment appender$`
-                        : re `(indent).+\R.+(blind)` see `^^ Indent blind$` @ `^^ Whitepace$`
-                - Outside of a comment block, no gap contains a perfect indent.
-                    / Outside of a comment block, such an indent would instead start a body fractum,
-                      and therewith form the end boundary of the containing head.
+        gap
+            - A form of separator appearing in a point descriptor.
+
+                                     ┌──────────────────────╴◀───────────────────┐
+                                     │                                           │
+                                     │  ┌─────────────╴‘ ’╶───────────────────┐  │
+                  ╶──┬───────────────┴──┤                       comment       ├──┴────▶
+                     │                  │                   ┌──╴ block ╶──┐   │
+                     │        comment   └──┬── newline ──┬──┤             ├─┬─┘
+                     └── S ── appender ────┘             │  └── indent ───┘ │
+                                                         │       blind      │
+                                                         └──────────────────┘
+                    : re `(comment).+\R.+(block)` see `^^comment block$`
+                    : re `(comment).+\R.+(appender)` see `^^comment appender$`
+                    : re `(indent).+\R.+(blind)` see `^^ Indent blind$` @ `^^ Whitepace$`
+            - Outside of a comment block, no gap contains a perfect indent.
+                / Outside of a comment block, such an indent would instead start a body fractum,
+                  and therewith form the end boundary of the containing head.
 
 
 
@@ -1022,6 +980,19 @@ Breccia language definition
             ⁃ `see`
             ⁃ `see also` \ Has no abbreviated form.  https://english.stackexchange.com/q/491883/371457
             ⁃ `viz.`
+
+
+
+    ━━━━━━━━━━━━
+     Privatizer
+    ────────────
+        - A command point that makes a private fractum of its simulacral parent.
+            / So pertaining soley to the author, or authors.
+                : cf. `^^ Comment carrier$`
+            / The effect applies to the parent and all its descendants.
+        - Its command has this form:
+
+              ╶──╴‘private’╶───▶
 
 
 
