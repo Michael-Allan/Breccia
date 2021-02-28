@@ -616,21 +616,22 @@ Breccia language definition
          fractal types
         ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
             ◆ document fractum
-            ◆ body fractum
+            ◇ body fractum
                 ◆ division
-                ◆ point
+                ◇ point
                     ◆ alarm point
                     ◆ aside point
-                    ◆ command point
-                        ◆ associative reference
+                    ◇ command point
+                        ◇ associative reference
                             ◆ jointer
                             ◆ pointer
                         ◆ privatizer
-                    ◇ generic point
+                    ◆ generic point †
                     ◆ task point
             legend
-                ◆ formal type
-                ◇ informal type
+                ◇ abstract type
+                ◆ concrete type
+                † informal type
 
         ─────────────────────
          hierarchic relata
