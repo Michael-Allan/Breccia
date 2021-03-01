@@ -396,7 +396,7 @@ Breccia language definition
 
         divider
             - The head of a division.
-            - It comprises one or more divider segments.
+            - It comprises all contiguous divider segments.
 
                       │
                       │
@@ -410,7 +410,7 @@ Breccia language definition
                       │
                       ▼
 
-            - It follows that sibling dividers cannot be made contiguous;
+            / It follows that sibling dividers cannot be made contiguous;
               rather their segments would join to comprise one divider.
 
         divider segment
@@ -596,9 +596,10 @@ Breccia language definition
                 - Every newline belongs to the same fractal head as the character that precedes it;
                   or, if no character precedes it, then it belongs to the document head.
             - Always its end boundary (not fully shown) comprises one of:
-                • The head successor.
-                    - The head successor (S) is the fractum succeeding the head in linear order.
-                    - In terms relative to the head’s own fractum F, S is the first applicable of:
+                • the head successor
+                    - The head successor is the fractum succeeding the head in linear order.
+                    - In terms relative to the head’s own fractum F, the head successor is the first
+                      applicable of:
                         ⁃ The first child of F.
                             / In its body, that is.
                         ⁃ The next sibling of F.
@@ -607,7 +608,7 @@ Breccia language definition
                       comprises one or more newlines.
                         / In this case, even a point head that nominally omits its descriptor
                           must in fact have a descriptor comprising one or more newlines.
-                • The end of the document.
+                • the end of the document
         body
             - The part of a fractum comprising its children alone; a sequence of sibling body fracta.
             - A body is always optional: regardless of fractal type, it may be omitted.
@@ -877,12 +878,13 @@ Breccia language definition
     ───────
         - A body fractum with a head in this form:
 
-               start ┊     perfect                   point             ┊  head successor,
-                of   ┊╶─── indent ─── bullet ──┬── descriptor ──┬────▶ ┊ or end of document
+               start ┊     perfect                   point             ┊ end boundary
+                of   ┊╶─── indent ─── bullet ──┬── descriptor ──┬────▶ ┊   of head
                line  ┊                         │                │      ┊
                                                └────────────────┘
                     : re `(perfect).+\R.+(indent)` see `^^perfect indent$` @ `^^ Whitepace$`
-                    : re `head successor` see `^^\| the head successor$` @ `^^ Fractum$`
+                    : re `(end boundary)\R.+(of head)`
+                      see `^^- Always its end boundary` @ `^^head$` @ `^^ Fractum$`
                 diagram, The form of a point head.
 
         bullet
