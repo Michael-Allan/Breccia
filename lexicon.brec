@@ -22,6 +22,8 @@ Definition of terms for project Breccia
     execute
         ─ verb, with object
             - Read and put (a text) into effect.
+    file head
+        - Another term for a file descriptor.
     formal
         ─ adjective
             - (of a fractal type) Defined by a form particular to it.
@@ -39,6 +41,8 @@ Definition of terms for project Breccia
                 : see `basic formal unit of Breccian composition, recursion and order\.$`
                   @ `^^ Fractum$` @ language_definition.brec
             : see `^^─ plural noun$` @ `^^fracta$`
+    headless file
+        - A Breccian file without a document descriptor.
     hierarchic order
         ─ mass noun
             - (among fracta) The order of hierarchic relata.
@@ -53,7 +57,7 @@ Definition of terms for project Breccia
         : cf. `^^formal$`
     linear order
         ─ mass noun
-            - (within a document) The arrangement of characters and lines in relation to each other
+            - (within a file) The arrangement of characters and lines in relation to each other
               according to the conventional sequence of reading.
     newline
         - A character or sequence of characters indicating a line break.

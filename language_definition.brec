@@ -1,13 +1,13 @@
 Breccia language definition
 
-    - A Breccian text comprises one or more documents.
-    - Each document is defined in formal terms as document fractum.
+    - A Breccian text comprises one or more files.
+    - Each file is defined in formal terms as file fractum.
 
               │
               │
               ├─────┐
               ╵     │     \ [graphical syntax notation], q.v. at end notes
-           document │
+             file   │
            fractum  ▲
               ╷     │
               ├─────┘
@@ -15,7 +15,7 @@ Breccia language definition
               │
               ▼
 
-            diagram, The form of a Breccian document.
+            diagram, The form of a Breccian file.
 
 
 
@@ -24,7 +24,7 @@ Breccia language definition
     ─────────────
         - A point with a bullet comprising ‘!!’, or ending with ‘!!’.
         - It forms urgent matter for the attention of authors.
-            / E.g. indicating an error in the document.
+            / E.g. indicating a problem with the text.
 
 
 
@@ -102,7 +102,7 @@ Breccia language definition
                     : re `text sequence` see `^^original resource$` @ `^^ Notes$`
                 deem+ `p` a fractum, the parent of the associative reference
                 if( `p` is headless )
-                    / The parent is a headless document fractum.
+                    / The parent is a headless file fractum.
                     throw+ headless parent, reference is misplaced
                 return+ the text sequence of the head of `p`
 
@@ -420,7 +420,7 @@ Breccia language definition
                                           ┌───╴◀────────┐       ┊
                    perfect    divider     │             │       ┊ divider segment,
                    indent ──╴ drawing ──┬─┴─ character ─┴─┬───▶ ┊ non-divider fractum,
-                             character  │                 │     ┊ or end of document
+                             character  │                 │     ┊ or end of file
                                         └─────────────────┘     ┊
 
                     : re `(perfect).+\R.+(indent)` see `^^perfect indent$` @ `^^ Whitepace$`
@@ -501,18 +501,18 @@ Breccia language definition
 
 
 
-    ━━━━━━━━━━━━━━━━━━
-     Document fractum
-    ──────────────────
-        / A Breccian document in formal terms.
-        - It comprises a head formed as a document descriptor and/or a body formed as a sequence
+    ━━━━━━━━━━━━━━
+     File fractum
+    ──────────────
+        / A Breccian file in formal terms.
+        - It comprises a head formed as a file descriptor and/or a body formed as a sequence
           of body fracta.
 
                       │
                       │
                       ├──────┐
                       ╵      │    ┐
-                   document  │    │
+                     file    │    │
                   descriptor │    │ head
                       ╷      │    │
                  ┌────┤      │    ┘
@@ -530,14 +530,15 @@ Breccia language definition
                       ▼
 
         - Either the head or the body may be absent, not both.
-            / Absence of both implies no fractum at all, and an empty document.
-        - The head is absent (and a body fractum present) if the first line of the document
+            / Absence of both implies no fractum at all, and an empty file.
+        - The head is absent (and a body fractum present) if the first line of the file
           is perfectly indented and not part of a comment block.
             : re `perfectly indented` see `^^perfect indent$` @ `^^ Whitepace$`
 
-        document descriptor
+        file descriptor
+            / Aka ‘file head’.
             : cf. point descriptor
-            - The head of a document fractum.
+            - The head of a file fractum.
             - It is largely free in form, constrained only by the end boundary of the fractal head.
 
                        · · · ·
@@ -547,11 +548,11 @@ Breccia language definition
                        · · · ·
                         : re `(end boundary)\R.+(of head)`
                           see `^^- Always its end boundary` @ `^^head$` @ `^^ Fractum$`
-        document title
-            - The document title, if any, is determined by the first fractal head in linear order
+        file title
+            - The file title, if any, is determined by the first fractal head in linear order
               that yields a non-empty result after collapsing the whitespace of the relevant part
               of its content according to head type:
-                • document head or point head
+                • file head or point head
                     - The relevant part is the whole head exclusive of comment carriers
                       and indent blinds.
                 • divider
@@ -592,9 +593,9 @@ Breccia language definition
             - The part of a fractum exclusive of its children.
             - Its form (shown abstractly in the diagram) varies according to fractal type.
             - Never does the head of a body fractum, however, begin with a newline.
-                / Only a document head may begin with a newline.
+                / Only a file head may begin with a newline.
                 - Every newline belongs to the same fractal head as the character that precedes it;
-                  or, if no character precedes it, then it belongs to the document head.
+                  or, if no character precedes it, then it belongs to the file head.
             - Always its end boundary (not fully shown) comprises one of:
                 • the head successor
                     - The head successor is the fractum succeeding the head in linear order.
@@ -608,7 +609,7 @@ Breccia language definition
                       comprises one or more newlines.
                         / In this case, even a point head that nominally omits its descriptor
                           must in fact have a descriptor comprising one or more newlines.
-                • the end of the document
+                • the end of the file
         body
             - The part of a fractum comprising its children alone; a sequence of sibling body fracta.
             - A body is always optional: regardless of fractal type, it may be omitted.
@@ -616,7 +617,7 @@ Breccia language definition
         ───────────────
          fractal types
         ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
-            ◆ document fractum
+            ◆ file fractum
             ◇ body fractum
                 ◆ division
                 ◇ point
@@ -641,20 +642,20 @@ Breccia language definition
               @ http://reluk.ca/project/proto-wayic/origins/doc.task
             ancestor, of a body fractum
                 - One of the parent and the parent’s ancestors.
-                / No document fractum has an ancestor, body fracta alone have ancestors.
+                / No file fractum has an ancestor, body fracta alone have ancestors.
             parent, of a body fractum
-                - The nearest predecessor of less indent, if any, otherwise the document fractum.
-                / No document fractum has a parent, body fracta alone have parents.
+                - The nearest predecessor of less indent, if any, otherwise the file fractum.
+                / No file fractum has a parent, body fracta alone have parents.
             sibling, of a body fractum
                 - Another of the same parent.
-                / No document fractum has a sibling, body fracta alone may have siblings.
-                / No document fractum is a sibling; all siblings are body fracta.
+                / No file fractum has a sibling, body fracta alone may have siblings.
+                / No file fractum is a sibling; all siblings are body fracta.
             child, of a fractum
                 - One for whom the fractum is parent.
-                / No document fractum is a child; all children are body fracta, and vice versa.
+                / No file fractum is a child; all children are body fracta, and vice versa.
             descendant, of a fractum
                 - One of the children and their descendants.
-                / No document fractum is a descendant; all descendants are body fracta, and vice versa.
+                / No file fractum is a descendant; all descendants are body fracta, and vice versa.
 
         ───────────────
          linear relata
@@ -686,7 +687,7 @@ Breccia language definition
           indicates a fractum.
             : re `\`non-fractal\` qualifier` see `^^ Resource indicator$`
             - Any pattern series pinpoints with each pattern a fractal head, while any resource indicator
-              resolves to a Breccian document and therewith a document fractum.
+              resolves to a Breccian file and therewith a file fractum.
             - The overall indicated fractum is the one resolved leftmost in the indicator
               and so deepest in the fractal hierarchy.
             / For example, here is a fractum indicator for the present fractum:
@@ -717,9 +718,9 @@ Breccia language definition
                 if( `i` includes a pattern series )
                     + Set `p` to the final pattern in linear order.
             deem+ `r` a resource, namely `indicated resource( any resource indicator of i )`
-            if( `r` contains no document fractum )
+            if( `r` contains no file fractum )
                 throw+ non-Breccian resource
-            deem+ `f` a fractum, initially the document fractum of `r`;
+            deem+ `f` a fractum, initially the file fractum of `r`;
                   `mF` a match;
                   `desc` a fractum
                 / `desc` A descendant fractum of `f`, the last matched.
@@ -931,7 +932,7 @@ Breccia language definition
                     : e.g. `^^\\.$` @ `^^ Pattern matching$`
 
         point descriptor
-            : cf. document descriptor
+            : cf. file descriptor
             - Elaborative, explanatory text in the head of a point.
             - It starts with a gap.
 
@@ -1016,7 +1017,7 @@ Breccia language definition
         indicated resource( resource indicator `i` if present )
             : re `resource` see head @ https://tools.ietf.org/html/rfc3986#section-1.1
             : re `resource` see `^^original resource$` @ `^^ Notes$`
-            deem+ `r` a resource, initially the present document
+            deem+ `r` a resource, initially the present file
             if( `i` is present )
                 unless( the URI reference of `i` resolves to a referent )
                     throw+ broken reference
@@ -1066,7 +1067,7 @@ Breccia language definition
             \ Allowing other horizontal whitespace characters (e.g. 9, 2000-200A, 202F, 205F, 3000)
             \ might lead to confusion, considering that indentation determines syntax.
         end of line
-            - Either a line break (indicated by a newline) or the end of the document.
+            - Either a line break (indicated by a newline) or the end of the file.
         perfect indent
 
                            ┌───────────╴◀────────────┐
