@@ -138,6 +138,8 @@ Breccia language definition
                               │                 │
                               └─────────────────┘
 
+                \ ‘See also’ has no abbreviated form.  https://english.stackexchange.com/q/491883/371457
+
         ─────────────────
          referent clause
         ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
@@ -181,15 +183,11 @@ Breccia language definition
                 - Referrer similarity (i) determines how broadly or narrowly the pattern
                   of referential form (ii) is to be constructed.
                     : see `^^pattern construction based on referrer similarity$` @ `^^ Notes$`
-                - Referential form (ii) determines the form of the referent and how to locate it.
-                  Specifically:
-                    • ‘head’ defines the referent as a fractum
-                       to be located by the pattern of its head, while
-                    • ‘term’ defines the referent as a text sequence to be located by its own pattern.
-                        / Though formally allowed, such a referent is meaningless
-                          where the referential command is `join`.
-                            : see `^^- Where the referent is a text sequence` @ `^^effect$`
-                              @ `^^ Jointer$`
+                - Referential form (ii) determines the form of the referent and how to locate it:
+                        • ‘head’ defines the referent as a fractum
+                           to be located by the pattern of its head, while
+                        • ‘term’ defines the referent as a text sequence
+                           to be located by its own pattern.
                     - In either case, the operative pattern that pinpoints the referent is constructed
                       by inference from the pattern of the referrer, or referrers.
                 - Containment (iii) delimits the context in which the pattern is sought.
@@ -781,6 +779,7 @@ Breccia language definition
      Jointer
     ─────────
         - An associative reference with a referential command of `join`.
+            : cf. `^^Pointer$`
         - In effect it stands for the fractal body of its referent.
         - Any referrer clause in a jointer indicates the referrer in particular as the rationale
           for writing the jointer into the text.
@@ -976,15 +975,8 @@ Breccia language definition
     ━━━━━━━━━
      Pointer
     ─────────
-        - An associative reference whose referential command is one of:
-            ⁃ `cf.`
-            ⁃ `e.g.`
-            ⁃ `i.e.`
-            ⁃ `NB`
-            ⁃ `N.B.`
-            ⁃ `see`
-            ⁃ `see also` \ Has no abbreviated form.  https://english.stackexchange.com/q/491883/371457
-            ⁃ `viz.`
+        - An associative reference whose referential command is other than ‘join’.
+        : cf. `^^Jointer$`
 
 
 
