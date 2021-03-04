@@ -19,9 +19,9 @@ Definition of terms for project Breccia
     Breccian
         ─ adjective
             : see `^^Breccia$`
-    execute
+    compile
         ─ verb, with object
-            - Read and put (a text) into effect.
+            - Convert (a text) from source to simulacral form.
     file head
         - Another term for a file descriptor.
     formal
@@ -66,25 +66,23 @@ Definition of terms for project Breccia
     private
         ─ adjective, of a fractum
             - Marked as pertaining soley to the author, or authors, by the use of a privatizer.
-    run
-        ─ verb, with object
-            : join @ `^^execute$`
-    runtime
-        ─ noun
-            - The time at which a text is executed.
     simulacra
         ─ plural noun
-            : see `^^ Simulacrum$` @ language_definition.brec
+            : see `^^simulacrum$`
     simulacral
         ─ adjective
-            : see `^^ Simulacrum$` @ language_definition.brec
+            : see `^^simulacrum$`
+    simulacrum
+        ─ noun
+            - A Breccian text in compiled, executable form,
+              as opposed to the initial, written form of its source code.
+                : see @ `^^Simulacrum$` @ language_definition.brec
     source
         ─ mass noun
             - Source code.
     source code
         ─ mass noun
-            - The static, written form of Breccian texts, as opposed to the dynamic, runtime form
-              of their simulacra.
+            - Breccian text in written form, as opposed to simulacral form.
     subjoin
         ─ verb
             - Descend by way of a jointer.
