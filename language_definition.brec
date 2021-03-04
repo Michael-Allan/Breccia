@@ -1,7 +1,6 @@
 Breccia language definition
 
-    - A Breccian text comprises one or more files.
-    - Each file is defined in formal terms as file fractum.
+    - A Breccian text comprises one or more file fracta.
 
               │
               │
@@ -15,7 +14,8 @@ Breccia language definition
               │
               ▼
 
-            diagram, The form of a Breccian file.
+            : re `(file).*\R.*(fractum)` see `^^ File fractum$`
+            diagram, The form of a Breccian text.
 
 
 
@@ -51,9 +51,9 @@ Breccia language definition
                  │                   │                │                    │
                  └───────────────────┘                └────────────────────┘
 
-                : re `(referrer).*\R.*╴ (clause)` see `^^ referrer clause$`
+                : re `(referrer).*\R.*(clause)` see `^^ referrer clause$`
                 : re `(referential).*\R.*  (command)` see `^^ referential command$`
-                : re `(referent).*\R.*  (clause)` see `^^ referent clause$`
+                : re `(referent).*\R.*clause.*(clause)` see `^^ referent clause$`
                 diagram, The form of the command in an associative reference.
 
         - The referrer clause, if any, indicates the referrer or referrers,
@@ -502,7 +502,8 @@ Breccia language definition
     ━━━━━━━━━━━━━━
      File fractum
     ──────────────
-        / A Breccian file in formal terms.
+        - The largest formal unit of Breccian composition,
+          nominally encompassing the content of a single file.
         - It comprises a head formed as a file descriptor and/or a body formed as a sequence
           of body fracta.
 
@@ -527,6 +528,8 @@ Breccia language definition
                       │
                       ▼
 
+                : re `(file).*\R.*(descriptor)` see `^^file descriptor$`
+                : re `(body).*\R.*(fractum)` see `^^ fractal types$`
         - Either the head or the body may be absent, not both.
             / Absence of both implies no fractum at all, and an empty file.
         - The head is absent (and a body fractum present) if the first line of the file
