@@ -247,7 +247,7 @@ Breccia language definition
                         + Set `p` to the pattern of `cR`.
                         + Refine `p` according to referrer similarity `sR` and referential form `fR`.
                             : see `^^pattern construction based on referrer similarity$` @ `^^ Notes$`
-                    else( then the pattern of the referrer(s) is the pattern of the parental head )
+                    else( the pattern of the referrer(s) is the pattern of the parental head )
                         : re `pattern of the referrer` see @ `^^- Constructs by inference`
                           @ `^^inferred pattern\(`
                         + Set `p` to the string of `parental head text()`.
@@ -788,14 +788,17 @@ Breccia language definition
                 : see `^^simulacral effect and reference$` @ `^^ Notes$`
             - Where the referent is a non-fractal resource, the jointer has no effect beyond
               that of an associative reference.
-            - Where the referent is a text sequence, instead the referent is taken as the fractum
-              in whose head the text sequence occurs.
-            - Each parent of the jointer gains for a child each child of the referent
+            deem+ `sub` the fractum to subjoin
+            if( the referent is a fractum )
+                + Set `sub` to the referent.
+            else( the referent is a text sequence )
+                + Set `sub` to the fractum whose head contains the referent.
+            - Each parent of the jointer gains for a child each child of `sub`
               that does not duplicate a pre-existing child.
                 / Not to imply that the text would be presentable in this form.
-                / If in the source code the referent fractum itself has a jointer as its child,
+                / If in the source code `sub` itself has a jointer as its child,
                   then the effect will apply recursively.
-            - By the same token, the children of the referent gain for a parent each parent
+            - By the same token, the children of `sub` gain for a parent each parent
               of the jointer that does not duplicate a pre-existing parent.
                 / Again, the effect here is recursive.
             - In both cases, the duplication test ignores variance in whitespace and comment carriers.
