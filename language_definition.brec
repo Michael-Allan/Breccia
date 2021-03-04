@@ -198,7 +198,8 @@ Breccia language definition
                     return+ ‘similar’
 
                 default referential form()
-                    if( the containing associative reference includes a referrer clause )
+                    if( the containing associative reference includes a referrer clause
+                      and the referential command is not `join` )
                         return+ ‘term’
                     return+ ‘head’
 
