@@ -349,7 +349,6 @@ Breccia language definition
                    -plain-space ╶── S ┊╶──┴─╴‘\’╶─┴─┬── S ──┴── character ──┴─┬─┬── S ──┬────▶ ┊ of
                    (non-20)           ┊             │                         │ │       │      ┊ line
                                                     └─────────────────────────┘ └───────┘
-                    : re `S` see @ `^^ Whitespace$`
                     : re `A0` see `^^character identification$` @ `^^ Notes$`
         comment block
             - A comment carrier that extends over a sequence of (one or more) whole lines.
@@ -362,7 +361,7 @@ Breccia language definition
                     of   ┊╶──┬── S ──┬─┴─╴‘\’╶─┴─┬── S ──┴── character ──┴─┬─┬── S ──┬────▶ ┊ of
                    line  ┊   │       │           │                         │ │       │      ┊ line
                              └───────┘           └─────────────────────────┘ └───────┘
-                        : re `S` see @ `^^ Whitespace$`
+
                     diagram, The form of each line of a comment block.
 
             - The commentary of a comment block may include one or more no-break spaces (A0).
@@ -383,7 +382,6 @@ Breccia language definition
                    line    │       │                     ┊                          ┊   │       │    line
                            └───────┘                                                    └───────┘
 
-                        : re `S` see @ `^^ Whitespace$`
 
 
     ━━━━━━━━━━
