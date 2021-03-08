@@ -916,7 +916,8 @@ Breccia language definition
                 : see `^^character identification$` @ `^^ Notes$`
                 / Authors may use such a no-break space in lieu of a plain space in order to avoid
                   the formation of a trailing edge that would prematurely terminate the bullet.
-            - The edge diagrams are not mutually exclusive, their bullet characters may overlap.
+            - The two edge diagrams (above and below) are not mutually exclusive,
+              their bullet characters may overlap.
                 / The bullet may, for example, comprise a single character that alone occupies
                   both the leading and trailing edge.
                     ·
