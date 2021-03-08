@@ -913,9 +913,10 @@ Breccia language definition
 
             - Between the edges, any non-alphanumeric, non-whitespace character may be followed
               by a single no-break space (A0).
-                : see `^^character identification$` @ `^^ Notes$`
                 / Authors may use such a no-break space in lieu of a plain space in order to avoid
                   the formation of a trailing edge that would prematurely terminate the bullet.
+                : re `alphanumeric` see `^^alphanumeric$` @ `^^ Notes$`
+                : re `A0` see `^^character identification$` @ `^^ Notes$`
             - The two edge diagrams (above and below) are not mutually exclusive,
               their bullet characters may overlap.
                 / The bullet may, for example, comprise a single character that alone occupies
@@ -1107,6 +1108,11 @@ Breccia language definition
     ━━━━━━━
      Notes
     ───────
+        alphanumeric
+            - An alphanumeric character is a grapheme cluster wherein the base character either
+              has Unicode property `alphabetic` or belongs to general category `Nd`.
+                : re `alphabetic` see https://www.unicode.org/reports/tr44/tr44-26.html#Alphabetic
+                : re `Nd` see https://www.unicode.org/reports/tr44/tr44-26.html#General_Category_Values
         character identification
             - Characters are here identified by the hexadecimal codes of the Unicode standard.
                 : re `Unicode standard` see https://www.unicode.org/standard/standard.html
