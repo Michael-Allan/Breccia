@@ -42,7 +42,7 @@ Definition of terms for project Breccia
                   @ `^^ Fractum$` @ language_definition.brec
             : see `^^─ plural noun$` @ `^^fracta$`
     headless file
-        - A Breccian file without a document descriptor.
+        - A Breccian file without a file descriptor.
     hierarchic order
         ─ mass noun
             - (among fracta) The order of hierarchic relata.
