@@ -627,7 +627,7 @@ Breccia language definition
                             ◆ jointer
                             ◆ pointer
                         ◆ privatizer
-                    ◆ generic point †
+                    ◆ plain point †
                     ◆ task point
             legend
                 ◇ abstract type
@@ -739,15 +739,6 @@ Breccia language definition
                 + Unset `desc`.
                 + Set `p` to its predecessor in `i`, if any, else unset it.
             return+ `f` and any `mF`
-
-
-
-    ━━━━━━━━━━━━━━━
-     Generic point
-    ───────────────
-        - A catch-all designation for points of no defined subtype.
-            : see `^^ fractal types$`
-        - A generic point is largely free in form.
 
 
 
@@ -881,6 +872,15 @@ Breccia language definition
             : join `^^simulacral reference$` @ `^^ Notes$`
             return+ the literally enquoted pattern of `string`, as defined for Perl `quotemeta`
                 : re `quotemeta` see https://perldoc.perl.org/functions/quotemeta.html
+
+
+    ━━━━━━━━━━━━━
+     Plain point
+    ─────────────
+        - A catch-all designation for points of no defined subtype.
+            : see `^^ fractal types$`
+        - A plain point is largely free in form.
+
 
 
     ━━━━━━━
