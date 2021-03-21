@@ -538,15 +538,15 @@ Breccia language definition
             / Aka ‘file head’.
             : cf. point descriptor
             - The head of a file fractum.
-            - It is largely free in form, constrained only by the end boundary of the fractal head.
+            - It is largely free in form, constrained only by its end boundary.
 
-                       · · · ·
-                       ·     ·       ┊ end boundary
-                  ╶─── ·  ?  · ────▶ ┊   of head
-                       ·     ·       ┊
-                       · · · ·
-                        : re `(end boundary)\R.+(of head)`
-                          see `^^- Always its end boundary` @ `^^head$` @ `^^ Fractum$`
+                               · · · ·
+                   start ┊     ·     ·       ┊ end boundary
+                    of   ┊╶─── ·  ?  · ────▶ ┊   of head
+                   line  ┊     ·     ·       ┊
+                               · · · ·
+                    : re `(end boundary)\R.+(of head)`
+                      see `^^- Always its end boundary` @ `^^head$` @ `^^ Fractum$`
         file title
             - The file title, if any, is determined by the first fractal head in linear order
               that yields a non-empty result after collapsing the whitespace of the relevant part
