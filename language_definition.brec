@@ -500,62 +500,82 @@ Breccia language definition
     ━━━━━━━━━━━━━━
      File fractum
     ──────────────
-        - The largest formal unit of Breccian composition,
-          nominally encompassing the content of a single file.
-        - It comprises a head formed as a file descriptor and/or a body formed as a sequence
-          of body fracta.
+        - The largest formal unit of Breccian composition, forming the content of a file.
+        - It comprises a head formed as a file descriptor
+          and/or a body formed as a sequenceof body fracta.
 
-                      │
-                      │
-                      ├──────┐
-                      ╵      │    ┐
-                     file    │    │
-                  descriptor │    │ head
-                      ╷      │    │
-                 ┌────┤      │    ┘
-                 │    ├──────┘
-                 │    │
-                 │    ├────┐      ┐
-                 │    ╵    │      │
-                 │  body   ▲      │
-                 │ fractum │      │ body
-                 │    ╷    │      │
-                 │    ├────┘      │
-                 └────┤           ┘
-                      │
-                      │
-                      ▼
+               start of file
+               ┄┄┄┄┄┄┄┄┄┄┄┄┄
+                     │
+                     │
+                     ├──────┐
+                     ╵      │    ┐
+                    file    │    │
+                 descriptor │    │ head
+                     ╷      │    │
+                ┌────┤      │    ┘
+                │    ├──────┘
+                │    │
+                │    ├────┐      ┐
+                │    ╵    │      │
+                │  body   ▲      │
+                │ fractum │      │ body
+                │    ╷    │      │
+                │    ├────┘      │
+                └────┤           ┘
+                     │
+                     │
+                     ▼
+               ┄┄┄┄┄┄┄┄┄┄┄┄┄
+                end of file
 
-                : re `(file).*\R.*(descriptor)` see `^^file descriptor$`
-                : re `(body).*\R.*(fractum)` see `^^ fractal types$`
+                    : re `(file).*\R.*(descriptor)` see `^^ File descriptor$`
+                    : re `(body).*\R.*(fractum)` see `^^ fractal types$`
+                diagram, The form of a file fractum.
+
         - Either the head or the body may be absent, not both.
             / Absence of both implies no fractum at all, and an empty file.
         - The head is absent (and a body fractum present) if the first line of the file
           is perfectly indented and not part of a comment block.
             : re `perfectly indented` see `^^perfect indent$` @ `^^ Whitepace$`
 
-        file descriptor
+        ─────────────────
+         file descriptor
+        ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
             / Aka ‘file head’.
-            : cf. point descriptor
+            : cf. `^^point descriptor$`
             - The head of a file fractum.
-            - It is largely free in form, constrained only by its end boundary.
+            - It is largely free in form, constrained only by the lead gap and end boundary.
 
-                               · · · ·
-                   start ┊     ·     ·       ┊ end boundary
-                    of   ┊╶─── ·  ?  · ────▶ ┊   of head
-                   line  ┊     ·     ·       ┊
-                               · · · ·
-                    : re `(end boundary)\R.+(of head)`
-                      see `^^- Always its end boundary` @ `^^head$` @ `^^ Fractum$`
-        file title
+                             ┌──────╴◀─────────────┐
+                   start ┊   │                     │         ┊ end boundary
+                    of   ┊╶──┴── gap ──┬── term ╶──┴──┬────▶ ┊   of head
+                   file  ┊             │              │      ┊
+                                       └──────────────┘
+                        : re `(end boundary)\R.+(of head)`
+                          see `^^- Always its end boundary` @ `^^head$` @ `^^ Fractum$`
+                    diagram, The form of a file descriptor.
+
+            lead gap
+                - The first gap of the descriptor.
+                - It must not comprise a perfect indent.
+                    / Here a perfect indent would form the start of a body, not of a head.
+            term
+                - A sequence of non-whitespace characters that does not comprise
+                  a sequence of backslashes ‘\’.
+                    / Here a sequence of backslashes ‘\’ would instead delimit a comment carrier;
+                      so forming part of a gap, not of a term.
+
+        ────────────
+         file title
+        ┈┈┈┈┈┈┈┈┈┈┈┈
             - The file title, if any, is determined by the first fractal head in linear order
               that yields a non-empty result after collapsing the whitespace of the relevant part
               of its content according to head type:
                 • file head or point head
-                    - The relevant part is the whole head exclusive of comment carriers
-                      and indent blinds.
+                    - The relevant part excludes comment carriers and precedes any indent blind.
                 • divider
-                    - The relevant part is its first label.
+                    - The relevant part is the first label.
 
 
 
@@ -634,9 +654,9 @@ Breccia language definition
                 ◆ concrete type
                 † informal type
 
-        ─────────────────────
+        ───────────────────
          hierarchic relata
-        ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
+        ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
             : privately cf. `comparative genealogical terms$`
               @ http://reluk.ca/project/proto-wayic/origins/doc.task
             ancestor, of a body fractum
@@ -749,7 +769,7 @@ Breccia language definition
         - A sequence of lines whose first non-plain-space character (non-20) is a no-break space (A0).
             : see `^^character identification$` @ `^^ Notes$`
                 ·
-                                            ┌───╴◀────────┐        ┊
+                                            ┌───╴◀────────┐
                start ┊                      │             │        ┊ end of line or
                 of   ┊╶──┬── S ──┬── A0 ──┬─┴─ character ─┴─┬────▶ ┊ comment appender
                line  ┊   │       │        │                 │      ┊
@@ -828,13 +848,15 @@ Breccia language definition
             - Character or character sequence by name or number.
             : see https://perldoc.perl.org/perlrebackslash#Named-or-numbered-characters-and-character-sequences
         \ 
-            - To take ‘away the special meaning of the character following it’.
-            : see https://perldoc.perl.org/perlrebackslash#The-backslash
-            / It could inadvertently form a comment appender:
+            - It ‘either takes away the special meaning of the character following it, \
+              or it is the start of a backslash or escape sequence.’
+                : see https://perldoc.perl.org/perlrebackslash#The-backslash
+            - Note that it could, instead, inadvertently form a comment appender;
+              as it does here, for example:
 
                       : see ` \\ ` @ non-fractal foo.html
 
-                / To avoid that, use instead an equivalent pattern, such as:
+                - To avoid that, substitute an equivalent pattern, such as:
 
                       : see ` \\\N{U+20}` @ non-fractal foo.html
         ^
@@ -943,7 +965,7 @@ Breccia language definition
                     : e.g. `^^\\.$` @ `^^ Pattern matching$`
 
         point descriptor
-            : cf. file descriptor
+            : cf. `^^ file descriptor$`
             - Elaborative, explanatory text in the head of a point.
             - It starts with a gap.
 
@@ -961,25 +983,6 @@ Breccia language definition
             - What follows the gap (abstracted from the diagram) also depends on the point type.
                 / Here some types are largely free in form, constrained only by the end boundary of the
                   fractal head (as shown), while others, such as command points, are tightly constrained.
-
-        gap
-            - A form of separator appearing in a point descriptor.
-
-                                     ┌──────────────────────╴◀───────────────────┐
-                                     │                                           │
-                                     │  ┌─────────────╴‘ ’╶───────────────────┐  │
-                  ╶──┬───────────────┴──┤                       comment       ├──┴────▶
-                     │                  │                   ┌──╴ block ╶──┐   │
-                     │        comment   └──┬── newline ──┬──┤             ├─┬─┘
-                     └── S ── appender ────┘             │  └── indent ───┘ │
-                                                         │       blind      │
-                                                         └──────────────────┘
-                    : re `(comment).+\R.+(block)` see `^^comment block$`
-                    : re `(comment).+\R.+(appender)` see `^^comment appender$`
-                    : re `(indent).+\R.+(blind)` see `^^ Indent blind$` @ `^^ Whitepace$`
-            - Outside of a comment block, no gap contains a perfect indent.
-                / Outside of a comment block, such an indent would instead start a body fractum,
-                  and therewith form the end boundary of the containing head.
 
 
 
@@ -1013,11 +1016,14 @@ Breccia language definition
                  │                          │
                  └──────────────────────────┘
 
-                : re `URI reference` see https://tools.ietf.org/html/rfc3986#section-4.1
+                    : re `URI reference` see https://tools.ietf.org/html/rfc3986#section-4.1
+                diagram, The form of a resource indicator.
+
         - The `non-fractal` qualifier, if present, stops any attempt
           to distinguish fracta in the referent during compilation.
             / Authors may use it to forestall compiler errors, e.g. in cases where the referent
               is non-Breccian or malformed.
+
         indicated resource( resource indicator `i` if present )
             : re `resource` see head @ https://tools.ietf.org/html/rfc3986#section-1.1
             : re `resource` see `^^original resource$` @ `^^ Notes$`
@@ -1028,6 +1034,58 @@ Breccia language definition
                     throw+ broken reference
                 + Set `r` to the referent.
             return+ `r`
+
+
+
+    ━━━━━━━━━━━━
+     Separation
+    ────────────
+        allowed whitespace
+            : see `^^character identification$` @ `^^ Notes$`
+            • plain space ‘ ’ (20)
+            • newline comprising either a line feed (A), or a carriage return (D) followed by a line feed
+            • no-break space (A0) as described for use in bullets, indent blinds and comment blocks
+            \ Allowing other horizontal whitespace characters (e.g. 9, 2000-200A, 202F, 205F, 3000)
+            \ might lead to confusion, considering that indentation determines syntax.
+
+        end of line
+            - Each line end is formed either as a line break indicated by a newline,
+              or as the end of the file.
+
+        gap
+            - A separator in the following form.
+
+                                     ┌──────────────────────╴◀───────────────────┐
+                                     │                                           │
+                                     │  ┌─────────────╴‘ ’╶───────────────────┐  │
+                  ╶──┬───────────────┴──┤                       comment       ├──┴────▶
+                     │                  │                   ┌──╴ block ╶──┐   │
+                     │        comment   └──┬── newline ──┬──┤             ├─┬─┘
+                     └── S ── appender ────┘             │  └── indent ───┘ │
+                                                         │       blind      │
+                                                         └──────────────────┘
+                    : re `(comment).+\R.+(block)` see `^^comment block$`
+                    : re `(comment).+\R.+(appender)` see `^^comment appender$`
+                    : re `(indent).+\R.+(blind)` see `^^ Indent blind$` @ `^^ Whitepace$`
+            - Outside of a comment block, no gap contains a perfect indent.
+                / Outside of a comment block, such an indent would instead start a body fractum,
+                  and therewith form the end boundary of the containing head.
+
+        perfect indent
+            - A separator in the following form.
+
+                               ┌───────────╴◀────────────┐
+                   start ┊     │                         │       ┊
+                    of   ┊╶──┬─┴─╴‘ ’╶─╴‘ ’╶─╴‘ ’╶─╴‘ ’╶─┴─┬───▶ ┊ non-whitespace
+                   line  ┊   │                             │     ┊ character
+                             └─────────────────────────────┘
+
+        S
+            - A separator in the following form.
+
+                     ┌─╴◀────┐
+                     │       │
+                  ╶──┴─╴‘ ’╶─┴───▶
 
 
 
@@ -1074,35 +1132,6 @@ Breccia language definition
         \ Defining a specialized point for tasking is justified by the Breccian purpose of text drafting
         \ for which inline tasking is an important capability.
             \ re `purpose of text drafting` see `for point-form outlining and drafting` @ README.html
-
-
-
-    ━━━━━━━━━━━━
-     Whitespace
-    ────────────
-        allowed whitespace
-            : see `^^character identification$` @ `^^ Notes$`
-            • plain space ‘ ’ (20)
-            • newline comprising either a line feed (A), or a carriage return (D) followed by a line feed
-            • no-break space (A0) as described for use in bullets, indent blinds and comment blocks
-            \ Allowing other horizontal whitespace characters (e.g. 9, 2000-200A, 202F, 205F, 3000)
-            \ might lead to confusion, considering that indentation determines syntax.
-        end of line
-            - Either a line break (indicated by a newline) or the end of the file.
-        perfect indent
-
-                           ┌───────────╴◀────────────┐
-               start ┊     │                         │       ┊
-                of   ┊╶──┬─┴─╴‘ ’╶─╴‘ ’╶─╴‘ ’╶─╴‘ ’╶─┴─┬───▶ ┊ non-whitespace
-               line  ┊   │                             │     ┊ character
-                         └─────────────────────────────┘
-
-        S
-            - A form of separator.
-
-                 ┌─╴◀────┐
-                 │       │
-              ╶──┴─╴‘ ’╶─┴───▶
 
 
     ━━━━━━━
