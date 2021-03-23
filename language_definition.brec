@@ -345,11 +345,13 @@ Breccia language definition
                                                            ┌─────────────────┐
                  
                                           ┌─╴◀────┐         ┌────╴◀─────────┐
-                   inline non-        ┊   │       │         │               │                  ┊ end
-                   -plain-space ╶── S ┊╶──┴─╴‘\’╶─┴─┬── S ──┴── character ──┴─┬─┬── S ──┬────▶ ┊ of
-                   (non-20)           ┊             │                         │ │       │      ┊ line
+                   inline non-        ┊   │       │         │               │               end
+                   -plain-space ╶── S ┊╶──┴─╴‘\’╶─┴─┬── S ──┴── character ──┴─┬─┬── S ──┬──╴ of ────▶
+                   (non-20)           ┊             │                         │ │       │   line
                                                     └─────────────────────────┘ └───────┘
-                    : re `A0` see `^^character identification$` @ `^^ Notes$`
+                        : re `A0` see `^^character identification$` @ `^^ Notes$`
+                    diagram, The form of a comment appender.
+
         comment block
             - A comment carrier that extends over a sequence of (one or more) whole lines.
 
@@ -357,9 +359,9 @@ Breccia language definition
                                                         ┌─────────────────┐
                  
                                        ┌─╴◀────┐         ┌────╴◀─────────┐
-                   start ┊             │       │         │               │                  ┊ end
-                    of   ┊╶──┬── S ──┬─┴─╴‘\’╶─┴─┬── S ──┴── character ──┴─┬─┬── S ──┬────▶ ┊ of
-                   line  ┊   │       │           │                         │ │       │      ┊ line
+                   start ┊             │       │         │               │               end
+                    of   ┊╶──┬── S ──┬─┴─╴‘\’╶─┴─┬── S ──┴── character ──┴─┬─┬── S ──┬──╴ of ────▶
+                   line  ┊   │       │           │                         │ │       │   line
                              └───────┘           └─────────────────────────┘ └───────┘
 
                     diagram, The form of each line of a comment block.
@@ -369,17 +371,17 @@ Breccia language definition
                 / An author may, for example, comment out an indent blind, or a point whose bullet
                   contains a no-break space, without thereby introducing an error.
 
-        comment block label
+        comment-block label
             / A type of commentary.  Part of a comment block.
             - Commentary delimited by two or more backslashes in a line of a comment block.
 
-                                                                  label
+                                                            comment-block label
                                                             ┌─────────────────┐
                  
                                            ┌─╴◀────┐         ┌────╴◀─────────┐
-                   start                   │       │     ┊   │               │      ┊                end
-                    of  ╶──┬── S ──┬─╴‘\’╶─┴─╴‘\’╶─┴── S ┊╶──┴── character ──┴────▶ ┊╶──┬── S ──┬──▶ of
-                   line    │       │                     ┊                          ┊   │       │    line
+                   start                   │       │     ┊   │               │      ┊               end
+                    of  ╶──┬── S ──┬─╴‘\’╶─┴─╴‘\’╶─┴── S ┊╶──┴── character ──┴────▶ ┊╶──┬── S ──┬──╴ of
+                   line    │       │                     ┊                          ┊   │       │   line
                            └───────┘                                                    └───────┘
 
 
@@ -412,13 +414,13 @@ Breccia language definition
             / Part of a divider.
             - It starts with a perfectly indented divider drawing character.
 
-                                          ┌───╴◀────────┐       ┊
-                   perfect    divider     │             │       ┊ divider segment,
-                   indent ──╴ drawing ──┬─┴─ character ─┴─┬───▶ ┊ non-divider fractum,
-                             character  │                 │     ┊ or end of file
-                                        └─────────────────┘     ┊
+                                                      ┌───╴◀────────┐       ┊
+                   start ┊     perfect    divider     │             │       ┊ divider segment,
+                    of   ┊╶─── indent ──╴ drawing ──┬─┴─ character ─┴─┬───▶ ┊ non-divider fractum,
+                   line  ┊               character  │                 │     ┊ or end of file
+                                                    └─────────────────┘     ┊
 
-                    : re `(perfect).+\R.+(indent)` see `^^perfect indent$` @ `^^ Whitepace$`
+                    : re `(perfect).+\R.+(indent)` see `^^perfect indent$` @ `^^ Separation$`
                     : re `(divider).+\R.+(drawing).+\R.+(character)` see `^^divider drawing character$`
             - Outside of comment carriers and indent blinds, characters between the leading,
               divider drawing character and the end boundary of the segment (rightmost in diagram)
@@ -449,7 +451,7 @@ Breccia language definition
                                                     This is a 2nd division title
 
                         / Assume the horizontal lines above (‘┄┄┄’) are perfectly indented.
-                            : re `perfectly indented` see `^^perfect indent$` @ `^^ Whitepace$`
+                            : re `perfectly indented` see `^^perfect indent$` @ `^^ Separation$`
                 / Calling `division titles( example divider )` would yield:
                    ⇒  ‘This is a division title, and it includes this’
                       ‘This is a 2nd division title’
@@ -537,7 +539,7 @@ Breccia language definition
             / Absence of both implies no fractum at all, and an empty file.
         - The head is absent (and a body fractum present) if the first line of the file
           is perfectly indented and not part of a comment block.
-            : re `perfectly indented` see `^^perfect indent$` @ `^^ Whitepace$`
+            : re `perfectly indented` see `^^perfect indent$` @ `^^ Separation$`
 
         ─────────────────
          file descriptor
@@ -545,25 +547,26 @@ Breccia language definition
             / Aka ‘file head’.
             : cf. `^^point descriptor$`
             - The head of a file fractum.
-            - It is largely free in form, constrained only by the lead gap and end boundary.
+            - It is largely free in form, constrained only by its lead gap and end boundary.
 
-                             ┌──────╴◀─────────────┐
-                   start ┊   │                     │         ┊ end boundary
-                    of   ┊╶──┴── gap ──┬── term ╶──┴──┬────▶ ┊   of head
-                   file  ┊             │              │      ┊
-                                       └──────────────┘
+                                       ┌───────╴◀──────────┐
+                   start ┊             │                   │          ┊ end boundary
+                    of   ┊╶── lead ──┬─┴── term ──┬─ gap ──┴─┬─┬────▶ ┊   of head
+                   file  ┊     gap   │            │          │ │      ┊
+                                     │            └──────────┘ │
+                                     └─────────────────────────┘
+                        : re `(lead).+\R.+(gap)` see `^^lead gap$` @ `^^ Separation$`
                         : re `(end boundary)\R.+(of head)`
                           see `^^- Always its end boundary` @ `^^head$` @ `^^ Fractum$`
                     diagram, The form of a file descriptor.
 
-            lead gap
-                - The first gap of the descriptor.
-                - It must not comprise a perfect indent.
-                    / Here a perfect indent would form the start of a body, not of a head.
             term
                 - A sequence of non-whitespace characters that does not comprise
                   a sequence of backslashes ‘\’.
                     / Here a sequence of backslashes ‘\’ would instead delimit a comment carrier;
+                - By definition, the first term will not be perfectly indented.
+                    : re `perfectly indented` see `^^perfect indent$` @ `^^ Separation$`
+                    / Here a perfect indent would instead form the start of a body, not of a head.
                       so forming part of a gap, not of a term.
 
         ────────────
@@ -770,16 +773,16 @@ Breccia language definition
             : see `^^character identification$` @ `^^ Notes$`
                 ·
                                             ┌───╴◀────────┐
-               start ┊                      │             │        ┊ end of line or
-                of   ┊╶──┬── S ──┬── A0 ──┬─┴─ character ─┴─┬────▶ ┊ comment appender
-               line  ┊   │       │        │                 │      ┊
+               start ┊                      │             │     comment appender
+                of   ┊╶──┬── S ──┬── A0 ──┬─┴─ character ─┴─┬──╴ or end of line ╶───▶
+               line  ┊   │       │        │                 │
                          └───────┘        └─────────────────┘
 
                 diagram, The form of each line in an indent blind.  This diagram
                   itself is an example of a blind comprising several such lines.
 
         - Regardless of its indentation, no line of an indent blind is perfectly indented.
-            : re `perfectly indented` see `^^perfect indent$` @ `^^ Whitepace$`
+            : re `perfectly indented` see `^^perfect indent$` @ `^^ Separation$`
             - Therefore no indent blind ever interrupts the fractal head in which it occurs;
               always the head continues through the blind.
         - Outside of any comment appender, the inline characters after the leading no-break space
@@ -840,7 +843,7 @@ Breccia language definition
             : see https://perldoc.perl.org/perlrebackslash#%5CR
         \t
             - Four spaces, viz. one unit of perfect indentation.
-                : see `^^perfect indent$` @ `^^ Whitepace$
+                : see `^^perfect indent$` @ `^^ Separation$
                 / As opposed to (Perl) a tab character.
                     : see https://perldoc.perl.org/perlrebackslash#Fixed-characters
             : cf. `^^\^\^$`
@@ -865,7 +868,7 @@ Breccia language definition
         ^^
             - A perfect indent, equivalent to `^\t*`
         .
-            - Any character except a logical newline.
+            - Any character except a newline.
             : see https://perldoc.perl.org/perlre#Metacharacters
         $
             - The end of a line (zero width).
@@ -914,7 +917,7 @@ Breccia language definition
                 of   ┊╶─── indent ─── bullet ──┬── descriptor ──┬────▶ ┊   of head
                line  ┊                         │                │      ┊
                                                └────────────────┘
-                    : re `(perfect).+\R.+(indent)` see `^^perfect indent$` @ `^^ Whitepace$`
+                    : re `(perfect).+\R.+(indent)` see `^^perfect indent$` @ `^^ Separation$`
                     : re `(end boundary)\R.+(of head)`
                       see `^^- Always its end boundary` @ `^^head$` @ `^^ Fractum$`
                 diagram, The form of a point head.
@@ -929,7 +932,7 @@ Breccia language definition
                            ┊   └──┬─╴‘\’╶─┬──╴ non-backslash, non-newline, ──┘
                                   │       │     non-plain-space character
                                   └─╴◀────┘
-                        : re `(perfect).+\R.+(indent)` see `^^perfect indent$` @ `^^ Whitepace$`
+                        : re `(perfect).+\R.+(indent)` see `^^perfect indent$` @ `^^ Separation$`
                         : re `divider-drawing character` see `^^divider drawing character$`
                     diagram, The form of a bullet’s leading edge.
 
@@ -1055,21 +1058,32 @@ Breccia language definition
         gap
             - A separator in the following form.
 
-                                     ┌──────────────────────╴◀───────────────────┐
-                                     │                                           │
-                                     │  ┌─────────────╴‘ ’╶───────────────────┐  │
-                  ╶──┬───────────────┴──┤                       comment       ├──┴────▶
-                     │                  │                   ┌──╴ block ╶──┐   │
-                     │        comment   └──┬── newline ──┬──┤             ├─┬─┘
-                     └── S ── appender ────┘             │  └── indent ───┘ │
-                                                         │       blind      │
-                                                         └──────────────────┘
-                    : re `(comment).+\R.+(block)` see `^^comment block$`
+                                                    ┌───────────────╴◀──────────┐
+                                                    │  ┌───────┐                │
+                     ┌─────────┐                    │  │       │                │
+                     │       ┌─┴── newline ───┐     │  ├── S ──┴── newline ──┐  │
+                     │       │                │     │  │                     │  │
+                  ╶──┴── S ──┼──── comment ╶──┴──┬──┴──┼── comment block ────┼──┴──┬──┬── S ──┬────▶
+                             │     appender      │     │                     │     │  │       │
+                             │                   │     └── indent blind ─────┘     │  └──┬────┘
+                             │                   │                                 │     │
+                             │                   └─────────────────────────────────┘     │
+                             └───────────────────────────────────────────────────────────┘
+
                     : re `(comment).+\R.+(appender)` see `^^comment appender$`
-                    : re `(indent).+\R.+(blind)` see `^^ Indent blind$` @ `^^ Whitepace$`
-            - Outside of a comment block, no gap contains a perfect indent.
-                / Outside of a comment block, such an indent would instead start a body fractum,
-                  and therewith form the end boundary of the containing head.
+        lead gap
+            - A separator in the following form.
+
+                                ┌───────────────╴◀──────────┐
+                                │  ┌───────┐                │
+                                │  │       │                │
+                                │  ├── S ──┴── newline ──┐  │
+                   start ┊      │  │                     │  │
+                    of   ┊╶──┬──┴──┼── comment block ────┼──┴──┬── S ──┬────▶
+                   file  ┊   │     │                     │     │       │
+                             │     └── indent blind ─────┘     └──┬────┘
+                             │                                    │
+                             └──────── S ─────────────────────────┘
 
         perfect indent
             - A separator in the following form.
