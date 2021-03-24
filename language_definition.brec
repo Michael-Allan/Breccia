@@ -46,10 +46,10 @@ Breccia language definition
           or referrers) with a remote object (referent).
         - Its command has this form:
 
-                    referrer            referential             referent
-              ╶──┬─╴ clause ── gap ──┬─╴  command  ───┬─ gap ──╴ clause  ──┬───▶
-                 │                   │                │                    │
-                 └───────────────────┘                └────────────────────┘
+                    referrer          referential           referent
+              ╶──┬─╴ clause ── P ──┬─╴  command  ───┬─ P ──╴ clause  ──┬───▶
+                 │                 │                │                  │
+                 └─────────────────┘                └──────────────────┘
 
                 : re `(referrer).*\R.*(clause)` see `^^ referrer clause$`
                 : re `(referential).*\R.*  (command)` see `^^ referential command$`
@@ -83,7 +83,7 @@ Breccia language definition
             - Absent a referrer clause, the whole head is taken as the sole referrer.
             - Otherwise the referrers are located in the head by a pattern of text.
 
-                  ╶──╴‘re’╶── gap ──╴‘`’╶── pattern ──╴‘`’╶───▶
+                  ╶──╴‘re’╶── P ──╴‘`’╶── pattern ──╴‘`’╶───▶
 
             referrers( associative reference )
                 : join `^^simulacral reference$` @ `^^ Notes$`
@@ -174,15 +174,15 @@ Breccia language definition
 
                           referrer similarity
                              ┌─── i ────┐
-                                                     ┌────────────────────────────┐
-                         ┌───────────────────────────┤ ┌──╴‘head’╶──┐             │
-                      ╶──┤ ┌───╴‘same’╶────┐         └─┤            │             │   containment
-                         └─┤               ├─┬── gap ──┤            ├─┬─┬── gap ──┴──╴  clause   ╶──┬───▶
-                           └──╴‘similar’╶──┘ │         └──╴‘term’╶──┘ │ │                           │
-                                             └────────────────────────┘ └───────────────────────────┘
+                                                   ┌──────────────────────────┐
+                         ┌─────────────────────────┤ ┌──╴‘head’╶──┐           │
+                      ╶──┤ ┌───╴‘same’╶────┐       └─┤            │           │   containment
+                         └─┤               ├─┬── P ──┤            ├─┬─┬── P ──┴──╴  clause   ╶──┬───▶
+                           └──╴‘similar’╶──┘ │       └──╴‘term’╶──┘ │ │                         │
+                                             └──────────────────────┘ └─────────────────────────┘
                      
-                                                         └── ii ──┘                 └──── iii ────┘
-                                                      referential form                containment
+                                                       └── ii ──┘               └──── iii ────┘
+                                                    referential form              containment
 
                 / Examples of its use are:
 
@@ -277,7 +277,7 @@ Breccia language definition
 
             containment clause
 
-                  ╶──╴‘@’╶── gap ── fractum indicator ────▶
+                  ╶──╴‘@’╶── P ── fractum indicator ────▶
 
             referent( associative reference )
                 : join `^^simulacral reference$` @ `^^ Notes$`
@@ -311,9 +311,9 @@ Breccia language definition
         - A point with a bullet comprising ‘:’.
         - Its descriptor has this form:
 
-              ╶── S ──┬──╴‘privately’╶─ S ──┬── command ───┬── gap ──┬───▶
-                      │                     │              │         │
-                      └─────────────────────┘              └─────────┘
+              ╶── S ──┬──╴‘privately’╶─ S ──┬── command ───┬── P ──┬───▶
+                      │                     │              │       │
+                      └─────────────────────┘              └───────┘
 
         - The form of the command varies with the type of command point.
             : re `type of command point` see `^^ fractal types$` @ `^^ Fractum$`
@@ -330,7 +330,6 @@ Breccia language definition
     ━━━━━━━━━━━━━━━━━
      Comment carrier
     ─────────────────
-        / Part of a point-descriptor gap or divider segment.
         - A carrier of commentary for the attention of authors, publishers or other atypical readers.
             : cf. `^^ Privatizer$`
         - Each comment carrier is formed as either a comment appender or a comment block,
@@ -547,15 +546,14 @@ Breccia language definition
             / Aka ‘file head’.
             : cf. `^^point descriptor$`
             - The head of a file fractum.
-            - It is largely free in form, constrained only by its lead gap and end boundary.
+            - It is largely free in form, constrained only by its foregap (F) and end boundary.
 
-                                       ┌───────╴◀──────────┐
-                   start ┊             │                   │          ┊ end boundary
-                    of   ┊╶── lead ──┬─┴── term ──┬─ gap ──┴─┬─┬────▶ ┊   of head
-                   file  ┊     gap   │            │          │ │      ┊
-                                     │            └──────────┘ │
-                                     └─────────────────────────┘
-                        : re `(lead).+\R.+(gap)` see `^^lead gap$` @ `^^ Separation$`
+                                    ┌───────╴◀─────────┐
+                   start ┊          │                  │        ┊ end boundary
+                    of   ┊╶── F ──┬─┴── term ──┬── P ──┴─┬────▶ ┊   of head
+                   file  ┊        │            │         │      ┊
+                                  │            └──┬──────┘
+                                  └───────────────┘
                         : re `(end boundary)\R.+(of head)`
                           see `^^- Always its end boundary` @ `^^head$` @ `^^ Fractum$`
                     diagram, The form of a file descriptor.
@@ -564,10 +562,10 @@ Breccia language definition
                 - A sequence of non-whitespace characters that does not comprise
                   a sequence of backslashes ‘\’.
                     / Here a sequence of backslashes ‘\’ would instead delimit a comment carrier;
+                      so forming part of a gap (F or P), not of a term.
                 - By definition, the first term will not be perfectly indented.
                     : re `perfectly indented` see `^^perfect indent$` @ `^^ Separation$`
                     / Here a perfect indent would instead form the start of a body, not of a head.
-                      so forming part of a gap, not of a term.
 
         ────────────
          file title
@@ -727,7 +725,7 @@ Breccia language definition
 
         CS, containment separator
 
-              ╶── gap ──╴‘@’╶── gap ───▶
+              ╶── P ──╴‘@’╶── P ───▶
 
         indicated fractum( fractum indicator `i` if present )
             : join `^^simulacral reference$` @ `^^ Notes$`
@@ -768,7 +766,6 @@ Breccia language definition
     ━━━━━━━━━━━━━━
      Indent blind
     ──────────────
-        / Part of a descriptor gap or divider segment.
         - A sequence of lines whose first non-plain-space character (non-20) is a no-break space (A0).
             : see `^^character identification$` @ `^^ Notes$`
                 ·
@@ -970,20 +967,20 @@ Breccia language definition
         point descriptor
             : cf. `^^ file descriptor$`
             - Elaborative, explanatory text in the head of a point.
-            - It starts with a gap.
+            - It starts with a postgap separator.
 
-                              · · · ·
-                              ·     ·       ┊ end boundary
-                  ╶── gap ─── ·  ?  · ────▶ ┊   of head
-                              ·     ·       ┊
-                              · · · ·
+                            · · · ·
+                            ·     ·       ┊ end boundary
+                  ╶── P ─── ·  ?  · ────▶ ┊   of head
+                            ·     ·       ┊
+                            · · · ·
                         : re `(end boundary)\R.+(of head)`
                           see `^^- Always its end boundary` @ `^^head$` @ `^^ Fractum$`
                     diagram, The abstract form of a point descriptor.
 
-            - The leading gap may be further constrained in form, depending on the type of point.
+            - The postgap may be further constrained in form, depending on the type of point.
                 : re `type of point` see `^^. point$` @ `^^ fractal types$` @ `^^ Fractum$`
-            - What follows the gap (abstracted from the diagram) also depends on the point type.
+            - What follows the postgap (abstracted from the diagram) also depends on the point type.
                 / Here some types are largely free in form, constrained only by the end boundary of the
                   fractal head (as shown), while others, such as command points, are tightly constrained.
 
@@ -1015,9 +1012,9 @@ Breccia language definition
     ────────────────────
         / Part of an associative reference or other referential markup.
                 ·
-              ╶──┬──╴‘non-fractal’╶── gap ──┬── URI reference ────▶
-                 │                          │
-                 └──────────────────────────┘
+              ╶──┬──╴‘non-fractal’╶── P ──┬── URI reference ────▶
+                 │                        │
+                 └────────────────────────┘
 
                     : re `URI reference` see https://tools.ietf.org/html/rfc3986#section-4.1
                 diagram, The form of a resource indicator.
@@ -1055,35 +1052,31 @@ Breccia language definition
             - Each line end is formed either as a line break indicated by a newline,
               or as the end of the file.
 
-        gap
-            - A separator in the following form.
+        F
+            - Foregap, a separator in the following form.
 
-                                                    ┌───────────────╴◀──────────┐
-                                                    │  ┌───────┐                │
-                     ┌─────────┐                    │  │       │                │
-                     │       ┌─┴── newline ───┐     │  ├── S ──┴── newline ──┐  │
-                     │       │                │     │  │                     │  │
-                  ╶──┴── S ──┼──── comment ╶──┴──┬──┴──┼── comment block ────┼──┴──┬──┬── S ──┬────▶
-                             │     appender      │     │                     │     │  │       │
-                             │                   │     └── indent blind ─────┘     │  └──┬────┘
-                             │                   │                                 │     │
-                             │                   └─────────────────────────────────┘     │
-                             └───────────────────────────────────────────────────────────┘
+                             ┌──────────────╴◀────────────┐
+                             │                            │
+                             │  ┌─── comment block ────┐  │
+                             │  │                      │  │
+                             │  ├───── indent blind ───┤  │
+                   start ┊   │  │                      │  │
+                    of   ┊╶──┴──┼────────┬── newline ──┴──┴──┬────▶
+                   line  ┊      │        │                   │
+                                └── S ─┬─┘                   │
+                                       └─────────────────────┘
 
+        P
+            - Postgap, a separator in the following form.
+
+                     ┌─────────┐
+                     │       ┌─┴── newline ───┐
+                     │       │                │
+                  ╶──┴── S ──┼──── comment ╶──┴──┬── F ──┬────▶
+                             │     appender      │       │
+                             │                   └──┬────┘
+                             └──────────────────────┘
                     : re `(comment).+\R.+(appender)` see `^^comment appender$`
-        lead gap
-            - A separator in the following form.
-
-                                ┌───────────────╴◀──────────┐
-                                │  ┌───────┐                │
-                                │  │       │                │
-                                │  ├── S ──┴── newline ──┐  │
-                   start ┊      │  │                     │  │
-                    of   ┊╶──┬──┴──┼── comment block ────┼──┴──┬── S ──┬────▶
-                   file  ┊   │     │                     │     │       │
-                             │     └── indent blind ─────┘     └──┬────┘
-                             │                                    │
-                             └──────── S ─────────────────────────┘
 
         perfect indent
             - A separator in the following form.

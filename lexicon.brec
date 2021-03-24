@@ -24,6 +24,9 @@ Definition of terms for project Breccia
             - Convert (a text) from source to simulacral form.
     file head
         - Another term for a file descriptor.
+    foregap
+        - A type of separator.
+            : see `^^F$` @ `^^ Separation$` @ language_definition.brec
     formal
         ─ adjective
             - (of a fractal type) Defined by a form particular to it.
@@ -63,6 +66,9 @@ Definition of terms for project Breccia
         - A character or sequence of characters indicating a line break.
         / In Breccia, it comprises either a line feed, or a carriage return followed by a line feed.
             : see `^^allowed whitespace$` @ language_definition.brec
+    postgap
+        - A type of separator.
+            : see `^^P$` @ `^^ Separation$` @ language_definition.brec
     private
         ─ adjective, of a fractum
             - Marked as pertaining soley to the author, or authors, by the use of a privatizer.
