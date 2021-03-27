@@ -311,7 +311,7 @@ Breccia language definition
         - A point with a bullet comprising ‘:’.
         - Its descriptor has this form:
 
-              ╶── S ──┬──╴‘privately’╶─ S ──┬── command ───┬── P ──┬───▶
+              ╶── S ──┬──╴‘privately’╶─ S ──┬── command ───┬── P ──┬───▶   \ [S not P]
                       │                     │              │       │
                       └─────────────────────┘              └───────┘
 
@@ -1172,6 +1172,9 @@ Breccia language definition
         simulacral reference
             - Herein the default referent is the simulacrum, not the source code.
                 : cf. `^^default referent` @ `^^ Simulacrum$`
+     \\ [S not P]
+     \      - So parsers may reach the command and reify the fractal type without having to navigate
+     \        the complexity of a postgap.
 
 
 
