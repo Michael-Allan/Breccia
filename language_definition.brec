@@ -407,7 +407,7 @@ Breccia language definition
                       ▼
 
             / It follows that sibling dividers cannot be made contiguous;
-              rather their segments would join to comprise one divider.
+              rather their segments would coalesce to comprise one divider.
 
         divider segment
             / Part of a divider.
