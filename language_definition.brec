@@ -433,7 +433,7 @@ Breccia language definition
             - A sequence in a divider segment of non-divider-drawing characters exclusive of any
                 ⁃ comment carrier,
                 ⁃ indent blind or
-                ⁃ leading or trailing space characters (20).
+                ⁃ leading or trailing plain space characters (20).
                     : see `^^character identification$` @ `^^ Notes$`
         division titles( divider `d` )
             : join `^^simulacral reference$` @ `^^ Notes$`
@@ -462,7 +462,7 @@ Breccia language definition
                 / `t` The title being assembled, yet to be appended to `tt`.
                 / `n` The line whose label last contributed to `t`.
             for( each division label `b` of divider `d` )
-                if( `b` leads the line on which it occurs, discounting spaces (20) )
+                if( `b` leads the line on which it occurs, discounting plain spaces (20) )
                     : see `^^character identification$` @ `^^ Notes$`
                     - Then `b` is a titling label, meaning it contributes to a title.
                     if( `n` is unset )
@@ -1015,7 +1015,6 @@ Breccia language definition
               ╶──┬──╴‘non-fractal’╶── P ──┬── URI reference ────▶
                  │                        │
                  └────────────────────────┘
-
                     : re `URI reference` see https://tools.ietf.org/html/rfc3986#section-4.1
                 diagram, The form of a resource indicator.
 
@@ -1079,21 +1078,22 @@ Breccia language definition
                     : re `(comment).+\R.+(appender)` see `^^comment appender$`
 
         perfect indent
-            - A separator in the following form.
+            - A separator comprising zero or more plain space characters (20) in the following form.
 
                                ┌───────────╴◀────────────┐
                    start ┊     │                         │       ┊
                     of   ┊╶──┬─┴─╴‘ ’╶─╴‘ ’╶─╴‘ ’╶─╴‘ ’╶─┴─┬───▶ ┊ non-whitespace
                    line  ┊   │                             │     ┊ character
                              └─────────────────────────────┘
+                    : re `20` see `^^character identification$` @ `^^ Notes$`
 
         S
-            - A separator in the following form.
+            - A separator comprising plain space characters (20) in the following form.
 
                      ┌─╴◀────┐
                      │       │
                   ╶──┴─╴‘ ’╶─┴───▶
-
+                                        : re `20` see `^^character identification$` @ `^^ Notes$`
 
 
     ━━━━━━━━━━━━
@@ -1150,7 +1150,7 @@ Breccia language definition
                 : re `alphabetic` see https://www.unicode.org/reports/tr44/tr44-26.html#Alphabetic
                 : re `Nd` see https://www.unicode.org/reports/tr44/tr44-26.html#General_Category_Values
         character identification
-            - Characters are here identified by the hexadecimal codes of the Unicode standard.
+            - Characters are identified by the hexadecimal codes of the Unicode standard.
                 : re `Unicode standard` see https://www.unicode.org/standard/standard.html
      \\ [graphical syntax notation]
      \      - The present text uses syntax diagrams because it is aimed at Breccian authors in general,
