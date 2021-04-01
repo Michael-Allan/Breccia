@@ -348,7 +348,8 @@ Breccia language definition
                    -plain-space ╶── S ┊╶──┴─╴‘\’╶─┴─┬── S ──┴── character ──┴─┬─┬── S ──┬──╴ of ────▶
                    (non-20)           ┊             │                         │ │       │   line
                                                     └─────────────────────────┘ └───────┘
-                        : re `A0` see `^^character identification$` @ `^^ Notes$`
+                        : re `20` see `^^character identification$` @ `^^ Notes$`
+                        : re `(end)\R.*(of).*\R.*(line)\R` see `^^end of line$`
                     diagram, The form of a comment appender.
 
         comment block
@@ -362,7 +363,7 @@ Breccia language definition
                     of   ┊╶──┬── S ──┬─┴─╴‘\’╶─┴─┬── S ──┴── character ──┴─┬─┬── S ──┬──╴ of ────▶
                    line  ┊   │       │           │                         │ │       │   line
                              └───────┘           └─────────────────────────┘ └───────┘
-
+                        : re `(end)\R.*(of).*\R.*(line)\R` see `^^end of line$`
                     diagram, The form of each line of a comment block.
 
             - The commentary of a comment block may include one or more no-break spaces (A0).
@@ -382,6 +383,7 @@ Breccia language definition
                     of  ╶──┬── S ──┬─╴‘\’╶─┴─╴‘\’╶─┴── S ┊╶──┴── character ──┴────▶ ┊╶──┬── S ──┬──╴ of
                    line    │       │                     ┊                          ┊   │       │   line
                            └───────┘                                                    └───────┘
+                    : re `(end)\R.*(of).*\R.*(line)\R` see `^^end of line$`
 
 
 
@@ -954,6 +956,7 @@ Breccia language definition
                      └────  character   ────────▶ ┊╶────────┴───┬── S ──┴─┬──▶ end of line
                                                   ┊             │         │
                                                                 └─────────┘
+                        : re `A0` see `^^character identification$` @ `^^ Notes$`
                         : re `(comment).+\R.+(appender)` see `^^comment appender$`
                     diagram, The form of a bullet’s trailing edge.  The bullet
                       itself includes only parts to the left of the dashed line.
