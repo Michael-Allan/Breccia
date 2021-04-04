@@ -774,20 +774,18 @@ Breccia language definition
             : see `^^character identification$` @ `^^ Notes$`
                 ·
                                             ┌───╴◀────────┐
-               start ┊                      │             │     comment appender
-                of   ┊╶──┬── S ──┬── A0 ──┬─┴─ character ─┴─┬──╴ or end of line ╶───▶
-               line  ┊   │       │        │                 │
-                         └───────┘        └─────────────────┘
-
+               start ┊                      │             │    ┌─── end of line ───┐
+                of   ┊╶──┬── S ──┬── A0 ──┬─┴─ character ─┴─┬──┤                   ├────▶
+               line  ┊   │       │        │                 │  └── S ── comment ╶──┘
+                         └───────┘        └─────────────────┘           appender
+                    : re `(comment).+\R.+(appender)` see `^^comment appender$`
                 diagram, The form of each line in an indent blind.  This diagram
                   itself is an example of a blind comprising several such lines.
 
-        - Regardless of its indentation, no line of an indent blind is perfectly indented.
+        - By definition, no line of an indent blind can be perfectly indented, regardless of its S width.
             : re `perfectly indented` see `^^perfect indent$` @ `^^ Separation$`
             - Therefore no indent blind ever interrupts the fractal head in which it occurs;
               always the head continues through the blind.
-        - Outside of any comment appender, the inline characters after the leading no-break space
-          are unconstrained in form.
 
 
 
