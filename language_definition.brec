@@ -158,19 +158,12 @@ Breccia language definition
                 - Absent a referent clause, any referrer clause *implies* the referent.
                 - Absent a referrer clause, the referent is implied by the fractal head of the parent.
 
-                         inferential
-                     ┌──╴ referent  ╶──┐
-                     │    indicator    │
-                  ╶──┤                 ├────▶
-                     │     fractum     │
-                     └─── indicator ───┘
+                     ┌── inferential referent indicant ──┐
+                  ╶──┤                                   ├────▶
+                     └───────── fractum indicant ────────┘
 
-                    : re `(inferential).*\R.*(referent).*\R.*(indicator)`
-                      see `^^inferential referent indicator$`
-                    : re `(fractum).*\R.*(indicator)` see `^^ Fractum indicator$`
-
-            inferential referent indicator
-                - An inferential referent indicator comprises one or more of three parts that together
+            inferential referent indicant
+                - An inferential referent indicant comprises one or more of three parts that together
                   define (i) referrer similarity, (ii) referential form and (iii) containment.
 
                           referrer similarity
@@ -214,15 +207,15 @@ Breccia language definition
                         return+ ‘term’
                     return+ ‘head’
 
-                indicated referent( inferential referent indicator `iIR` if present )
+                indicated referent( inferential referent indicant `iIR` if present )
                     : join `^^simulacral reference$` @ `^^ Notes$`
                     - The fractum or text sequence to be taken as the referent.
                         : re `fractum or text sequence` see `^^original resource$` @ `^^ Notes$`
-                    deem+ `iF` a fractum indicator;
+                    deem+ `iF` a fractum indicant;
                           `fR` a referential form
                     if( `iIR` is absent )
                         + Set `fR` to `default referential form()`.
-                        + Set `iIR` to an an inferential referent indicator comprising `fR`.
+                        + Set `iIR` to an an inferential referent indicant comprising `fR`.
                     else if( `iIR` defines a referential form )
                         + Set `fR` to that referential form.
                     else
@@ -235,7 +228,7 @@ Breccia language definition
 
                     / It follows that the referential form `fR` is ‘term’.
                     if( `iIR` includes a containment clause )
-                        + Set `iF` to the fractum indicator of the containment clause.
+                        + Set `iF` to the fractum indicant of the containment clause.
                     deem+ `f` a fractum, that of `indicated fractum( iF if set )`;
                           `p` a pattern, that of `inferred pattern()` of `iIR`;
                           `tt` a list of text sequences, intitally empty
@@ -278,7 +271,7 @@ Breccia language definition
 
             containment clause
 
-                  ╶──╴‘@’╶── P ── fractum indicator ────▶
+                  ╶──╴‘@’╶── P ── fractum indicant ────▶
 
             referent( associative reference )
                 : join `^^simulacral reference$` @ `^^ Notes$`
@@ -286,15 +279,15 @@ Breccia language definition
                 - The text sequence, fractum or other resource to be taken as the referent.
                     : re `text .+ other resource` see `^^original resource$` @ `^^ Notes$`
                     : re `other resource` see head @ https://tools.ietf.org/html/rfc3986#section-1.1
-                if( the referent clause includes a resource indicator with a `non-fractal` qualifier )
-                    return+ `indicated resource( resource indicator )`
-                deem+ `iF` a fractum indicator;
-                      `iIR` an inferential referent indicator
+                if( the referent clause includes a resource indicant with a `non-fractal` qualifier )
+                    return+ `indicated resource( resource indicant )`
+                deem+ `iF` a fractum indicant;
+                      `iIR` an inferential referent indicant
                 if( a referent clause is present )
-                    if( the referent clause comprises a fractum indicator )
-                        + Set `iF` to the fractum indicator.
-                    else( the referent clause comprises an inferential referent indicator )
-                        + Set `iIR` to the inferential referent indicator.
+                    if( the referent clause comprises a fractum indicant )
+                        + Set `iF` to the fractum indicant.
+                    else( the referent clause comprises an inferential referent indicant )
+                        + Set `iIR` to the inferential referent indicant.
                         break+ `if( a referent clause is present )`
                     deem+ `f` a fractum, that of `indicated fractum( iF )`;
                           `mF` a match, the match of `f` if any occurred
@@ -694,55 +687,55 @@ Breccia language definition
 
 
 
-    ━━━━━━━━━━━━━━━━━━━
-     Fractum indicator
-    ───────────────────
+    ━━━━━━━━━━━━━━━━━━
+     Fractum indicant
+    ──────────────────
         / Part of an associative reference or other referential markup.
-        - A fractum indicator comprises one or both of a pattern series and a resource indicator.
+        - A fractum indicant comprises one or both of a pattern series and a resource indicant.
 
                  ┌──────────────────────────────────────────┐
               ╶──┤                                          │
-                 └──┬──╴‘`’╶── pattern ──╴‘`’╶──┬──┬── CS ──┴── resource indicator ──┬────▶
-                    │                           │  │                                 │
-                    └─────────────╴◀── CS ──────┘  └─────────────────────────────────┘
+                 └──┬──╴‘`’╶── pattern ──╴‘`’╶──┬──┬── CS ──┴── resource indicant ──┬────▶
+                    │                           │  │                                │
+                    └─────────────╴◀── CS ──────┘  └────────────────────────────────┘
 
                 : re `pattern` see `^^ Pattern matching$`
-        - In the namesake case — absent a `non-fractal` qualifier, that is — the fractum indicator
+        - In the namesake case — absent a `non-fractal` qualifier, that is — the fractum indicant
           indicates a fractum.
-            : re `\`non-fractal\` qualifier` see `^^ Resource indicator$`
-            - Any pattern series pinpoints with each pattern a fractal head, while any resource indicator
+            : re `\`non-fractal\` qualifier` see `^^ Resource indicant$`
+            - Any pattern series pinpoints with each pattern a fractal head, while any resource indicant
               resolves to a Breccian file and therewith a file fractum.
-            - The overall indicated fractum is the one resolved leftmost in the indicator
+            - The overall indicated fractum is the one resolved leftmost in the indicant
               and so deepest in the fractal hierarchy.
-            / For example, here is a fractum indicator for the present fractum:
+            / For example, here is a fractum indicant for the present fractum:
 
-                   `^^/ For example, here is` @ `^^ Fractum indicator$` @ ./language_definition.brec
+                   `^^/ For example, here is` @ `^^ Fractum indicant$` @ ./language_definition.brec
                  
-                   └────────────────────────┘   └─────────────────────┘  └──────────────────────────┘
-                            pattern                     pattern               resource indicator
+                   └────────────────────────┘   └────────────────────┘  └──────────────────────────┘
+                            pattern                     pattern              resource indicant
 
         - Otherwise no actual fractal indication is here defined.
             - The only definite indication in the presence of a `non-fractal` qualifier
               is the indicated resource as a whole, namely the referent of the URI reference.
-                : re `URI reference` see @ `^^ Resource indicator$`
+                : re `URI reference` see @ `^^ Resource indicant$`
             / It may be left to the reader to determine what more, if anything, the author intends.
 
         CS, containment separator
 
               ╶── P ──╴‘@’╶── P ───▶
 
-        indicated fractum( fractum indicator `i` if present )
+        indicated fractum( fractum indicant `i` if present )
             : join `^^simulacral reference$` @ `^^ Notes$`
             - The fractum indicated, together with any match that occurred to pinpoint it.
                 : re `fractum` see `^^original resource$` @ `^^ Notes$`
             deem+ `p` a pattern
                 / The next pattern to seek in the body of fractum `f`.
             if( `i` is present )
-                if( `i` includes a resource indicator with a `non-fractal` qualifier )
+                if( `i` includes a resource indicant with a `non-fractal` qualifier )
                     throw+ non-fractal resource
                 if( `i` includes a pattern series )
                     + Set `p` to the final pattern in linear order.
-            deem+ `r` a resource, namely `indicated resource( any resource indicator of i )`
+            deem+ `r` a resource, namely `indicated resource( any resource indicant of i )`
             if( `r` contains no file fractum )
                 throw+ non-Breccian resource
             deem+ `f` a fractum, initially the file fractum of `r`;
@@ -1006,23 +999,23 @@ Breccia language definition
 
 
 
-    ━━━━━━━━━━━━━━━━━━━━
-     Resource indicator
-    ────────────────────
+    ━━━━━━━━━━━━━━━━━━━
+     Resource indicant
+    ───────────────────
         / Part of an associative reference or other referential markup.
                 ·
               ╶──┬──╴‘non-fractal’╶── P ──┬── URI reference ────▶
                  │                        │
                  └────────────────────────┘
                     : re `URI reference` see https://tools.ietf.org/html/rfc3986#section-4.1
-                diagram, The form of a resource indicator.
+                diagram, The form of a resource indicant.
 
         - The `non-fractal` qualifier, if present, stops any attempt
           to distinguish fracta in the referent during compilation.
             / Authors may use it to forestall compiler errors, e.g. in cases where the referent
               is non-Breccian or malformed.
 
-        indicated resource( resource indicator `i` if present )
+        indicated resource( resource indicant `i` if present )
             : re `resource` see head @ https://tools.ietf.org/html/rfc3986#section-1.1
             : re `resource` see `^^original resource$` @ `^^ Notes$`
             : join `^^simulacral reference$` @ `^^ Notes$`
@@ -1158,7 +1151,7 @@ Breccia language definition
      \      - No referential command of `q.v.` is defined.
      \      ∵ It would complicate the definition.
      \          ∵ Formally it would make grammatical sense to the reader only in conjunction with both
-     \            no referrer clause, and either an inferential referent indicator or no referent clause.
+     \            no referrer clause, and either an inferential referent indicant or no referent clause.
      \      ∵ It would be redundant.
      \          ∵ The present commands suffice to handle all potential use cases of `q.v.`.
         original resource
