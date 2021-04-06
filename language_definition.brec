@@ -1165,8 +1165,8 @@ Breccia language definition
             - Herein the default referent is the simulacrum, not the source code.
                 : cf. `^^default referent` @ `^^ Simulacrum$`
      \\ [S not P]
-     \      - So parsers may reach the command and reify the fractal type without having to navigate
-     \        the complexity of a postgap.
+     \      - Simple plain-space separators (S) before the command, that parsers may reach the command
+     \        and reify the fractal type without having to navigate the complex form of a postgap (P).
 
 
 
