@@ -22,8 +22,8 @@ Breccia language definition
     ━━━━━━━━━━━━━
      Alarm point
     ─────────────
-        - A point with a bullet comprising ‘!!’, or ending with ‘!!’.
-        - It forms urgent matter for the attention of authors.
+        - A point wherein the bullet comprises ‘!!’ or ends with ‘!!’.
+        - Nominally it forms urgent matter for the attention of authors.
             / E.g. indicating a problem with the text.
 
 
@@ -31,8 +31,8 @@ Breccia language definition
     ━━━━━━━━━━━━━
      Aside point
     ─────────────
-        - A point with a bullet comprising ‘/’.
-        - It forms matter of less prominence than its place would otherwise suggest.
+        - A point wherein the bullet comprises ‘/’.
+        - Nominally it forms matter of less import than its place would otherwise suggest.
             / E.g. matter to which the reader should give less attention on a first reading.
         - Its descriptor, if present, is largely free in form.
 
@@ -1124,10 +1124,8 @@ Breccia language definition
     ━━━━━━━━━━━━
      Task point
     ────────────
-        - A point with a bullet comprising ‘+’, or ending with ‘+’.
-        - It describes work to be done or undertaken.
-            / After the definition of ‘task’ in the Oxford English Dictionary.
-                : see https://www.lexico.com/en/definition/task
+        - A point wherein the bullet comprises ‘+’ or ends with ‘+’.
+        - Nominally it describes or indicates work to be done.
         \ Defining a specialized point for tasking is justified by the Breccian purpose of text drafting
         \ for which inline tasking is an important capability.
             \ re `purpose of text drafting` see `for point-form outlining and drafting` @ README.html
