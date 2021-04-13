@@ -554,14 +554,9 @@ Breccia language definition
                           see `^^- Always its end boundary` @ `^^head$` @ `^^ Fractum$`
                     diagram, The form of a file descriptor.
 
-            term
-                - A sequence of non-whitespace characters that does not comprise
-                  a sequence of backslashes ‘\’.
-                    / Here a sequence of backslashes ‘\’ would instead delimit a comment carrier;
-                      so forming part of a gap (F or P), not of a term.
-                - By definition, the first term will not be perfectly indented.
-                    : re `perfectly indented` see `^^perfect indent$` @ `^^ Separation$`
-                    / Here a perfect indent would instead form the start of a body, not of a head.
+            - By definition, the first term will not be perfectly indented.
+                : re `perfectly indented` see `^^perfect indent$` @ `^^ Separation$`
+                / Here a perfect indent would instead form the start of a body, not of a head.
 
         ────────────
          file title
@@ -629,6 +624,12 @@ Breccia language definition
         body
             - The part of a fractum comprising its children alone; a sequence of sibling body fracta.
             - A body is always optional: regardless of fractal type, it may be omitted.
+        term
+            - Substansive content of a fractal head outside of a separator.
+            - Formally a sequence of non-whitespace characters that does not comprise
+              a sequence of backslashes ‘\’.
+                / Here a sequence of backslashes ‘\’ would instead delimit a comment carrier;
+                  so forming part of a separator (F or P), not of a term.
 
         ───────────────
          fractal types
@@ -959,22 +960,20 @@ Breccia language definition
         point descriptor
             : cf. `^^ file descriptor$`
             - Elaborative, explanatory text in the head of a point.
-            - It starts with a postgap separator.
+            - It is largely free in form, constrained only by its end boundary.
 
-                            · · · ·
-                            ·     ·       ┊ end boundary
-                  ╶── P ─── ·  ?  · ────▶ ┊   of head
-                            ·     ·       ┊
-                            · · · ·
+                              ┌───────╴◀─────────┐
+                          ┊   │                  │        ┊ end boundary
+                   bullet ┊╶──┴── P ──┬── term ──┴─┬────▶ ┊   of head
+                          ┊           │            │      ┊
+                                      └────────────┘
                         : re `(end boundary)\R.+(of head)`
                           see `^^- Always its end boundary` @ `^^head$` @ `^^ Fractum$`
-                    diagram, The abstract form of a point descriptor.
+                    diagram, The form of a point descriptor.
 
-            - The postgap may be further constrained in form, depending on the type of point.
-                : re `type of point` see `^^. point$` @ `^^ fractal types$` @ `^^ Fractum$`
-            - What follows the postgap (abstracted from the diagram) also depends on the point type.
-                / Here some types are largely free in form, constrained only by the end boundary of the
-                  fractal head (as shown), while others, such as command points, are tightly constrained.
+            - Point descriptors of particular types may be further constrained.
+                : re `particular types` see `^^. point$` @ `^^ fractal types$` @ `^^ Fractum$`
+                : e.g. `^^ Command point$`
 
 
 
