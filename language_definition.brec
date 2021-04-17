@@ -157,6 +157,7 @@ Breccia language definition
             - The referent clause, if any, explicitly indicates the referent.
                 - Absent a referent clause, any referrer clause *implies* the referent.
                 - Absent a referrer clause, the referent is implied by the fractal head of the parent.
+            - The form of a referent clause is:
 
                      ┌── inferential referent indicant ──┐
                   ╶──┤                                   ├────▶
