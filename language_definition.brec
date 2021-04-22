@@ -135,7 +135,7 @@ Breccia language definition
                   see `^^. associative reference$` @ `^^ fractal types$`
                 : re `overall effect` see `^^compile\( associative reference \)$`
                     ·
-                     ┌─╴‘cf.’╶──┐
+                     ┌── cf.+ ──┐
                      │          │
                      ├─╴‘e.g.’╶─┤
                      │          │
@@ -151,13 +151,22 @@ Breccia language definition
                      │          │
                      └─╴‘viz.’╶─┘
 
-            see+ 
+            cf.+ 
 
-                  ╶──╴‘see’╶──┬── S ──╴‘also’╶──┬───▶
+                  ╶──╴‘cf.’╶──┬── S ──╴‘e.g.’╶──┬───▶
                               │                 │
                               └─────────────────┘
 
-                \ ‘See also’ has no abbreviated form.  https://english.stackexchange.com/q/491883/371457
+            see+ 
+
+                                      ┌──╴‘also’╶──┐
+                  ╶──╴‘see’╶──┬── S ──┤            ├──┬───▶
+                              │       └──╴‘e.g.’╶──┘  │
+                              │                       │
+                              └───────────────────────┘
+                    \ ‘See also’ at least has no abbreviated form.
+                    \ https://english.stackexchange.com/q/491883/371457
+
 
         ─────────────────
          referent clause
@@ -964,7 +973,7 @@ Breccia language definition
               Any space character at the trailing edge is separate from the bullet proper.
                 / Here a no-break space (A0) may be used to defeat the formation of a special bullet
                   (alarm, aside, command or task bullet) or comment delimiter that would otherwise occur.
-                    : re `task bullet` e.g. `^^see\+.$` @ `^^ referential command$`
+                    : re `task bullet` see e.g. `^^see\+.$` @ `^^ referential command$`
                     : re `comment delimiter` e.g. `^^\\.$` @ `^^ Pattern matching$`
 
         point descriptor
