@@ -22,19 +22,27 @@ Breccia language definition
     ━━━━━━━━━━━━━
      Alarm point
     ─────────────
-        - A point wherein the bullet comprises ‘!!’ or ends with ‘!!’.
+        - A point wherein the bullet comprises ‘!!’ or ends with ‘!!’ and is not directly followed
+          by a no-break space (A0).
+            : re `A0` see `^^character identification$` @ `^^ Notes$`
         - Nominally it forms urgent matter for the attention of authors.
             / E.g. indicating a problem with the text.
+        - Its descriptor, if present, is largely free in form.
+            / It may not start with a no-break space, however, as then the point would instead
+              be a plain point.
 
 
 
     ━━━━━━━━━━━━━
      Aside point
     ─────────────
-        - A point wherein the bullet comprises ‘/’.
+        - A point wherein the bullet comprises ‘/’ and is not directly followed by a no-break space (A0).
+            : re `A0` see `^^character identification$` @ `^^ Notes$`
         - Nominally it forms matter of less import than its place would otherwise suggest.
             / E.g. matter to which the reader should give less attention on a first reading.
         - Its descriptor, if present, is largely free in form.
+            / It may not start with a no-break space, however, as then the point would instead
+              be a plain point.
 
 
 
@@ -303,7 +311,7 @@ Breccia language definition
     ━━━━━━━━━━━━━━━
      Command point
     ───────────────
-        - A point with a bullet comprising ‘:’.
+        - A point wherein the bullet comprises ‘:’ and is not directly followed by a no-break space (A0).
         - Its descriptor has this form:
 
               ╶── S ──┬──╴‘privately’╶─ S ──┬── command ───┬── P ──┬───▶   \ [S not P]
@@ -954,24 +962,29 @@ Breccia language definition
 
             / As the diagram shows, no bullet ends with a space character (20 or A0).
               Any space character at the trailing edge is separate from the bullet proper.
-                / Here a no-break space (A0) may be used to form a bullet comprising ‘\’,
-                  which otherwise would be taken to delimit a comment block.
-                    : e.g. `^^\\.$` @ `^^ Pattern matching$`
+                / Here a no-break space (A0) may be used to defeat the formation of a special bullet
+                  (alarm, aside, command or task bullet) or comment delimiter that would otherwise occur.
+                    : re `task bullet` e.g. `^^see\+.$` @ `^^ referential command$`
+                    : re `comment delimiter` e.g. `^^\\.$` @ `^^ Pattern matching$`
 
         point descriptor
             : cf. `^^ file descriptor$`
             - Elaborative, explanatory text in the head of a point.
             - It is largely free in form, constrained only by its end boundary.
 
-                              ┌───────╴◀─────────┐
-                          ┊   │                  │        ┊ end boundary
-                   bullet ┊╶──┴── P ──┬── term ──┴─┬────▶ ┊   of head
-                          ┊           │            │      ┊
-                                      └────────────┘
+                                             ┌───────╴◀─────────┐
+                          ┊   ┌───────────┐  │                  │        ┊ end boundary
+                   bullet ┊╶──┤           ├──┴── P ──┬── term ──┴─┬────▶ ┊   of head
+                          ┊   └─── A0 ──┬─┘          │            │      ┊
+                                        │            └─┬──────────┘
+                                        └──────────────┘
                         : re `(end boundary)\R.+(of head)`
                           see `^^- Always its end boundary` @ `^^head$` @ `^^ Fractum$`
+                        : re `A0` see `^^character identification$` @ `^^ Notes$`
                     diagram, The form of a point descriptor.
 
+            / The option of a leading no-break space (A0) occurs only for a bullet ending with
+              a non-alphanumeric, non-whitespace character,
             - Point descriptors of particular types may be further constrained.
                 : re `particular types` see `^^. point$` @ `^^ fractal types$` @ `^^ Fractum$`
                 : e.g. `^^ Command point$`
@@ -1124,11 +1137,16 @@ Breccia language definition
     ━━━━━━━━━━━━
      Task point
     ────────────
-        - A point wherein the bullet comprises ‘+’ or ends with ‘+’.
+        - A point wherein the bullet comprises ‘+’ or ends with ‘+’ and is not directly followed
+          by a no-break space (A0).
+            : re `A0` see `^^character identification$` @ `^^ Notes$`
         - Nominally it describes or indicates work to be done.
         \ Defining a specialized point for tasking is justified by the Breccian purpose of text drafting
         \ for which inline tasking is an important capability.
             \ re `purpose of text drafting` see `for point-form outlining and drafting` @ README.html
+        - Its descriptor, if present, is largely free in form.
+            / It may not start with a no-break space, however, as then the point would instead
+              be a plain point.
 
 
     ━━━━━━━
