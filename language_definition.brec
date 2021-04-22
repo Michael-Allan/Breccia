@@ -841,7 +841,7 @@ Breccia language definition
             : see https://perldoc.perl.org/perlrebackslash#%5CR
         \t
             - Four spaces, viz. one unit of perfect indentation.
-                : see `^^perfect indent$` @ `^^ Separation$
+                : see `^^perfect indent$` @ `^^ Separation$`
                 / As opposed to (Perl) a tab character.
                     : see https://perldoc.perl.org/perlrebackslash#Fixed-characters
             : cf. `^^\^\^$`
