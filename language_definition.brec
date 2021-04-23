@@ -444,7 +444,8 @@ Breccia language definition
                 : re `2500-259F` see `^^character identification$` @ `^^ Notes$`
         division label
             / Part of a divider segment.
-            - A sequence in a divider segment of non-divider-drawing characters exclusive of any
+            - A sequence of non-divider-drawing characters within a line of a divider segment,
+              exclusive of any
                 ⁃ comment carrier,
                 ⁃ indent blind or
                 ⁃ leading or trailing plain space characters (20).
