@@ -293,10 +293,11 @@ Breccia language definition
 
             referent( associative reference )
                 : join `^^simulacral reference$` @ `^^ Notes$`
-                / The compiler resolves the referent of an associative reference as follows.
                 - The text sequence, fractum or other resource to be taken as the referent.
                     : re `text .+ other resource` see `^^original resource$` @ `^^ Notes$`
-                    : re `other resource` see head @ https://tools.ietf.org/html/rfc3986#section-1.1
+                    : re `other resource` see head @ non-fractal
+                      https://tools.ietf.org/html/rfc3986#section-1.1
+                / The compiler resolves the referent as follows.
                 if( the referent clause includes a resource indicant with a `non-fractal` qualifier )
                     return+ `indicated resource( resource indicant )`
                 deem+ `iF` a fractum indicant;
@@ -674,8 +675,8 @@ Breccia language definition
         ───────────────────
          hierarchic relata
         ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
-            : privately cf. `comparative genealogical terms$`
-              @ http://reluk.ca/project/proto-wayic/origins/doc.task
+            : privately cf. `comparative genealogical terms$` @ non-fractal
+              http://reluk.ca/project/proto-wayic/origins/doc.task
             ancestor, of a body fractum
                 - One of the parent and the parent’s ancestors.
                 / No file fractum has an ancestor, body fracta alone have ancestors.
@@ -1039,7 +1040,7 @@ Breccia language definition
               is non-Breccian or malformed.
 
         indicated resource( resource indicant `i` if present )
-            : re `resource` see head @ https://tools.ietf.org/html/rfc3986#section-1.1
+            : re `resource` see head @ non-fractal https://tools.ietf.org/html/rfc3986#section-1.1
             : re `resource` see `^^original resource$` @ `^^ Notes$`
             : join `^^simulacral reference$` @ `^^ Notes$`
             deem+ `r` a resource, initially the present file
