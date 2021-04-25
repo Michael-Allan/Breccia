@@ -49,7 +49,7 @@ Breccia language definition
     ━━━━━━━━━━━━━━━━━━━━━━━
      Associative reference
     ───────────────────────
-        / A command point.
+        / A type of command point.
         - It forms a reference by associating one or more pre-existing text sequences (referrer,
           or referrers) with a remote object (referent).
         - Its command has this form:
