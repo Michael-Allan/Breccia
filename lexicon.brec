@@ -82,7 +82,7 @@ Definition of terms for project Breccia
         ─ noun
             - A Breccian text in compiled, executable form,
               as opposed to the initial, written form of its source code.
-                : see @ `^^Simulacrum$` @ language_definition.brec
+                : see @ `^^ Simulacrum$` @ language_definition.brec
     source
         ─ mass noun
             - Source code.
