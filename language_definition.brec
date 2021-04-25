@@ -76,7 +76,6 @@ Breccia language definition
             : re `private` see `^^ Privatizer$`
 
         compile( associative reference )
-            : see @ `^^compilation$` @ `^^ Simulacrum$`
             : join `^^simulacral reference$` @ `^^ Notes$`
             referrers( associative reference )
                 : join
@@ -332,7 +331,6 @@ Breccia language definition
             : re `type of command point` see `^^ fractal types$` @ `^^ Fractum$`
 
         compile( command point )
-            : see @ `^^compilation$` @ `^^ Simulacrum$`
             : join `^^simulacral reference$` @ `^^ Notes$`
             if( `privately` is present )
                 + Remove `privately` and the `S` that follows it.
@@ -812,7 +810,6 @@ Breccia language definition
         - Any referrer clause in a jointer indicates the referrer in particular as the rationale
           for writing the jointer into the text.
         compile( jointer )
-            : see @ `^^compilation$` @ `^^ Simulacrum$`
             : join `^^simulacral reference$` @ `^^ Notes$`
             if( the referent of the jointer is a non-fractal resource )
                 return+
@@ -1119,23 +1116,22 @@ Breccia language definition
           as opposed to the initial, written form of its source code.
         - It is a more literal form of the text, one step closer to the meaning.
         - It results from compiling the source code.
-
-        compilation
-            : join `^^simulacral reference$` @ `^^ Notes$`
             - Compilation is the ad hoc work of various tools and other software
               here referred to as compilers.
-            - Initially making it equal to the source form, the compiler constructs the simulacral form
+            - Initially equal to the source form, the compiler constructs the simulacral form
               by the transformative effect of executing its embedded command points, as follows.
 
-            for( each command point in linear order )
-                compile( command point )
-                    : join
-            for( each associative reference in linear order )
-                compile( associative reference )
-                    : join
-            for( each jointer in linear order )
-                compile( jointer )
-                    : join
+        compile( file )
+            : join `^^simulacral reference$` @ `^^ Notes$`
+            for( each command point of the file in linear order )
+                compile+ command point
+                    : join `^^compile\( command point \)$`
+            for( each associative reference of the file in linear order )
+                compile+ associative reference
+                    : join `^^compile\( associative reference \)$`
+            for( each jointer of the file in linear order )
+                compile+ jointer
+                    : join `^^compile\( jointer \)$`
 
         default referent: source code or simulacrum?
             - Except where defined otherwise, the default referent in the language definition
