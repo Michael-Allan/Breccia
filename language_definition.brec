@@ -1123,12 +1123,14 @@ Breccia language definition
 
         compile( file )
             : join `^^simulacral reference$` @ `^^ Notes$`
-            for( each command point of the file in linear order )
-                compile+ command point
-                    : join `^^compile\( command point \)$`
             for( each associative reference of the file in linear order )
                 compile+ associative reference
                     : join `^^compile\( associative reference \)$`
+                / Compiled early, associative references find their referents in the simulacrum
+                  before its transformation in later compilations.
+            for( each command point of the file in linear order )
+                compile+ command point
+                    : join `^^compile\( command point \)$`
             for( each jointer of the file in linear order )
                 compile+ jointer
                     : join `^^compile\( jointer \)$`
