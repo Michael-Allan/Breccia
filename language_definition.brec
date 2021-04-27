@@ -788,7 +788,7 @@ Breccia language definition
                                             ┌───╴◀────────┐
                start ┊                      │             │    ┌─── end of line ───┐
                 of   ┊╶──┬── S ──┬── A0 ──┬─┴─ character ─┴─┬──┤                   ├────▶
-               line  ┊   │       │        │                 │  └── S ── comment ╶──┘
+               line  ┊   │       │        │                 │  └── S ── comment ───┘
                          └───────┘        └─────────────────┘           appender
                     : re `(comment).+\R.+(appender)` see `^^comment appender$`
                 diagram, The form of each line in an indent blind.  This diagram
