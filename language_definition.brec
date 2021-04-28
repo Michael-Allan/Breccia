@@ -1120,7 +1120,6 @@ Breccia language definition
               here referred to as compilers.
             - Initially equal to the source form, the compiler constructs the simulacral form
               by the transformative effect of executing its embedded command points, as follows.
-
         compile( file )
             : join `^^simulacral reference$` @ `^^ Notes$`
             for( each associative reference of the file in linear order )
@@ -1134,7 +1133,6 @@ Breccia language definition
             for( each jointer of the file in linear order )
                 compile+ jointer
                     : join `^^compile\( jointer \)$`
-
         default referent: source code or simulacrum?
             - Except where defined otherwise, the default referent in the language definition
               is the source code.
