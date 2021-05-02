@@ -398,6 +398,29 @@ Breccia language definition
 
 
 
+    ━━━━━━━━━━━━━
+     Compilation
+    ─────────────
+        - The compilation of a simulacrum from a Breccian file.
+        - Compilation is the transformative work of various tools, all referred to here as ‘compilers’.
+        - Initially equal to the source form, the compiler constructs the simulacral form
+          by the transformative effect of executing its embedded command points, as follows.
+        compile( Breccian file `f` )
+            : join `^^simulacral reference$` @ `^^ Notes$`
+            for( each associative reference of `f` in linear order )
+                compile(+ associative reference )
+                    : join
+                / Compiled early, associative references find their referents in the simulacrum
+                  before its transformation in later compilations.
+            for( each command point of `f` in linear order )
+                compile(+ command point )
+                    : join
+            for( each jointer of `f` in linear order )
+                compile(+ jointer )
+                    : join
+
+
+
     ━━━━━━━━━━
      Division
     ──────────
@@ -820,13 +843,11 @@ Breccia language definition
                 + Set `sub` to the fractum whose head contains the referent.
             - Each parent of the jointer gains for a child each child of `sub`
               that does not duplicate a pre-existing child.
-                / Not to imply that the text would be presentable in this form.
-                / If in the source code `sub` itself has a jointer as its child,
-                  then the effect will apply recursively.
-            - By the same token, the children of `sub` gain for a parent each parent
-              of the jointer that does not duplicate a pre-existing parent.
-                / Again, the effect here is recursive.
-            - In both cases, the duplication test ignores variance in whitespace and comment carriers.
+                / Not to imply that the text would be presentable in this form.  Take it as merely
+                  logical, wherefore the step-by-step details of its compilation are here omitted.
+                - Here the duplication test ignores differences in whitespacing and comment carriage.
+                - If in the source code `sub` itself has a jointer as its child,
+                  then the effect applies recursively.
 
 
 
@@ -1112,27 +1133,11 @@ Breccia language definition
     ━━━━━━━━━━━━
      Simulacrum
     ────────────
-        - A Breccian text in compiled, executable form,
+        - A Breccian file in compiled, executable form,
           as opposed to the initial, written form of its source code.
-        - It is a more literal form of the text, one step closer to the meaning.
-        - It results from compiling the source code.
-            - Compilation is the ad hoc work of various tools and other software
-              here referred to as compilers.
-            - Initially equal to the source form, the compiler constructs the simulacral form
-              by the transformative effect of executing its embedded command points, as follows.
-        compile( file )
-            : join `^^simulacral reference$` @ `^^ Notes$`
-            for( each associative reference of the file in linear order )
-                compile+ associative reference
-                    : join `^^compile\( associative reference \)$`
-                / Compiled early, associative references find their referents in the simulacrum
-                  before its transformation in later compilations.
-            for( each command point of the file in linear order )
-                compile+ command point
-                    : join `^^compile\( command point \)$`
-            for( each jointer of the file in linear order )
-                compile+ jointer
-                    : join `^^compile\( jointer \)$`
+        - It is a more literal form of the file, one step closer to the meaning of its text.
+        - It results from a process of compilation.
+            : re `compilation` see
         default referent: source code or simulacrum?
             - Except where defined otherwise, the default referent in the language definition
               is the source code.
