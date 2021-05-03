@@ -401,7 +401,7 @@ Breccia language definition
     ━━━━━━━━━━━━━
      Compilation
     ─────────────
-        - The compilation of a simulacrum from a Breccian file.
+        - Compilation of a simulacrum from a Breccian file.
         - Compilation is the transformative work of various tools, all referred to here as ‘compilers’.
         - Initially equal to the source form, the compiler constructs the simulacral form
           by the transformative effect of executing its embedded command points, as follows.
