@@ -329,6 +329,8 @@ Breccia language definition
 
         - The form of the command varies with the type of command point.
             : re `type of command point` see `^^ fractal types$` @ `^^ Fractum$`
+        - The `privately` modifier, if present, is equivalent to putting a privatizer
+          on the command point.
 
         compile( command point )
             : join `^^simulacral reference$` @ `^^ Notes$`
