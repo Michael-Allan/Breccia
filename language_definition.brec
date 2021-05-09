@@ -77,10 +77,10 @@ Breccia language definition
 
         compile( associative reference )
             : join `^^simulacral reference$` @ `^^ Notes$`
-            referrers( associative reference )
-                : join
-            referent( associative reference )
-                : join
+            referrers(+ associative reference )
+                : see
+            referent(+ associative reference )
+                : see
 
         ─────────────────
          referrer clause
@@ -411,15 +411,15 @@ Breccia language definition
             : join `^^simulacral reference$` @ `^^ Notes$`
             for( each associative reference of `f` )
                 compile(+ associative reference )
-                    : join
+                    : see
                 / Compiled early, associative references find their referents in the simulacrum
                   before its transformation in later compilations.
             for( each command point of `f` in linear order )
                 compile(+ command point )
-                    : join
+                    : see
             for( each jointer of `f` in linear order )
                 compile(+ jointer )
-                    : join
+                    : see
 
 
 
@@ -746,7 +746,6 @@ Breccia language definition
                 : re `pattern` see `^^ Pattern matching$`
         - In the namesake case — absent a `non-fractal` qualifier, that is — the fractum indicant
           indicates a fractum.
-            : re `\`non-fractal\` qualifier` see `^^ Resource indicant$`
             - Any pattern series pinpoints with each pattern a fractal head, while any resource indicant
               resolves to a Breccian file and therewith a file fractum.
             - The overall indicated fractum is the one resolved leftmost in the indicant
