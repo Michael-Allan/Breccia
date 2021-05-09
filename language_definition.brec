@@ -857,8 +857,6 @@ Breccia language definition
     ──────────────────
         - The pattern language comprises a subset of the regular-expression elements defined by Perl,
           together with a few additions tailored to Breccia, all as detailed below.
-        - Pattern matching proceeds in multiline mode, as for Perl’s `m` operator.
-            : see `^^m$` @ non-fractal https://perldoc.perl.org/perlre#Modifiers
 
         \b
             - Word boundary.
