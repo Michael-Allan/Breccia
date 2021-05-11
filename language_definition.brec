@@ -409,7 +409,7 @@ Breccia language definition
           by the transformative effect of executing its embedded command points, as follows.
         compile( Breccian file `f` )
             : join `^^simulacral reference$` @ `^^ Notes$`
-            for( each associative reference of `f` )
+            for( each associative reference of `f` in linear order )
                 compile(+ associative reference )
                     : see
                 / Compiled early, associative references find their referents in the simulacrum
