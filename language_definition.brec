@@ -77,10 +77,10 @@ Breccia language definition
 
         compile( associative reference )
             : join `^^simulacral reference$` @ `^^ Notes$`
-            referrers(+ associative reference )
-                : see
-            referent(+ associative reference )
-                : see
+            + `referrers( associative reference )`
+                : re `\`(.+)\`` see same head
+            + `referent( associative reference )`
+                : re `\`(.+)\`` see same head
 
         ─────────────────
          referrer clause
@@ -410,16 +410,16 @@ Breccia language definition
         compile( Breccian file `f` )
             : join `^^simulacral reference$` @ `^^ Notes$`
             for( each associative reference of `f` in linear order )
-                compile(+ associative reference )
-                    : see
+                + `compile( associative reference )`
+                    : re `\`(.+)\`` see same head
                 / Compiled early, associative references find their referents in the simulacrum
                   before its transformation in later compilations.
             for( each command point of `f` in linear order )
-                compile(+ command point )
-                    : see
+                + `compile( command point )`
+                    : re `\`(.+)\`` see same head
             for( each jointer of `f` in linear order )
-                compile(+ jointer )
-                    : see
+                + `compile( jointer )`
+                    : re `\`(.+)\`` see same head
 
 
 
