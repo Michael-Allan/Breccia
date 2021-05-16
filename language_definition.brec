@@ -1,6 +1,6 @@
 Breccia language definition
 
-    - A Breccian text comprises one or more file fracta.
+    - A Breccian text comprises one or more file fracta, each contained in a separate file.
 
               │
               │
