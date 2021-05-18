@@ -1132,7 +1132,7 @@ Breccia language definition
     ━━━━━━━━━━━━
      Simulacrum
     ────────────
-        - A Breccian file in compiled, executable form,
+        - The compiled, executable form of a Breccian file,
           as opposed to the initial, written form of its source code.
         - It is a more literal form of the file, one step closer to the meaning of its text.
         - It results from a process of compilation.

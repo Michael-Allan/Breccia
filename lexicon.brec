@@ -79,7 +79,7 @@ Definition of terms for project Breccia
             : see `^^simulacrum$`
     simulacrum
         ─ noun
-            - A Breccian text in compiled, executable form,
+            - The compiled, executable form of a Breccian text,
               as opposed to the initial, written form of its source code.
                 : see @ `^^ Simulacrum$` @ language_definition.brec
     source
