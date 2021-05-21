@@ -1183,8 +1183,8 @@ Breccia language definition
      \      ∵ It would be redundant.
      \          ∵ The present commands suffice to handle all potential use cases of `q.v.`.
         original resource
-            - Each text sequence, markup element or other resource here mentioned is the original
-              in its place, not a separate copy of the original.
+            - Each text sequence, markup element or other resource here mentioned is that of the original
+              in its place, not a separate copy of it.
         pattern construction based on referrer similarity
             : see @ http://reluk.ca/project/Breccia/action_plan.brec
             - How the construction is refined according to referrer similarity in particular cases
