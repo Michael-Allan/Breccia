@@ -842,13 +842,12 @@ Breccia language definition
                 + Set `sub` to the referent.
             else( the referent is a text sequence )
                 + Set `sub` to the fractum whose head contains the referent.
-            - Each parent of the jointer gains for a child each child of `sub`
-              that does not duplicate a pre-existing child.
-                / Not to imply that the text would be presentable in this form.  Take it as merely
-                  logical, wherefore the step-by-step details of its compilation are here omitted.
+            - Each parent of the jointer gains for a subjoint child, which is not an actual child,
+              each child of `sub` that does not duplicate a pre-existing child.
                 - Here the duplication test ignores differences in whitespacing and comment carriage.
                 - If in the source code `sub` itself has a jointer as its child,
                   then the effect applies recursively.
+                / Processors may at times treat subjoint children in a manner similar to actual children.
 
 
 
