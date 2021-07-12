@@ -139,7 +139,7 @@ Breccia language definition
                      ├─╴‘e.g.’╶─┤
                      │          │
                      ├─╴‘i.e.’╶─┤
-                  ╶──┤          ├────▶
+                  ╶──┤          ├───▶
                      ├─╴‘join’╶─┤
                      │          │
                      ├─╴‘NB’╶───┤
@@ -358,7 +358,7 @@ Breccia language definition
                  
                                           ┌─╴◀────┐         ┌────╴◀─────────┐
                    inline non-        ┊   │       │         │               │               end
-                   -plain-space ╶── S ┊╶──┴─╴‘\’╶─┴─┬── S ──┴── character ──┴─┬─┬── S ──┬──╴ of ────▶
+                   -plain-space ╶── S ┊╶──┴─╴‘\’╶─┴─┬── S ──┴── character ──┴─┬─┬── S ──┬──╴ of ───▶
                    (non-20)           ┊             │                         │ │       │   line
                                                     └─────────────────────────┘ └───────┘
                         : re `20` see `^^character identification$` @ `^^ Notes$`
@@ -373,7 +373,7 @@ Breccia language definition
                  
                                        ┌─╴◀────┐         ┌────╴◀─────────┐
                    start ┊             │       │         │               │               end
-                    of   ┊╶──┬── S ──┬─┴─╴‘\’╶─┴─┬── S ──┴── character ──┴─┬─┬── S ──┬──╴ of ────▶
+                    of   ┊╶──┬── S ──┬─┴─╴‘\’╶─┴─┬── S ──┴── character ──┴─┬─┬── S ──┬──╴ of ───▶
                    line  ┊   │       │           │                         │ │       │   line
                              └───────┘           └─────────────────────────┘ └───────┘
                         : re `(end)\R.*(of).*\R.*(line)\R` see `^^end of line$`
@@ -392,10 +392,10 @@ Breccia language definition
                                                             ┌─────────────────┐
                  
                                            ┌─╴◀────┐         ┌────╴◀─────────┐
-                   start                   │       │     ┊   │               │      ┊               end
-                    of  ╶──┬── S ──┬─╴‘\’╶─┴─╴‘\’╶─┴── S ┊╶──┴── character ──┴────▶ ┊╶──┬── S ──┬──╴ of
-                   line    │       │                     ┊                          ┊   │       │   line
-                           └───────┘                                                    └───────┘
+                   start                   │       │     ┊   │               │     ┊               end
+                    of  ╶──┬── S ──┬─╴‘\’╶─┴─╴‘\’╶─┴── S ┊╶──┴── character ──┴───▶ ┊╶──┬── S ──┬──╴ of
+                   line    │       │                     ┊                         ┊   │       │   line
+                           └───────┘                                                   └───────┘
                     : re `(end)\R.*(of).*\R.*(line)\R` see `^^end of line$`
 
 
@@ -588,9 +588,9 @@ Breccia language definition
             - It is largely free in form, constrained only by its foregap (F) and end boundary.
 
                                     ┌───────╴◀─────────┐
-                   start ┊          │                  │        ┊ end boundary
-                    of   ┊╶── F ──┬─┴── term ──┬── P ──┴─┬────▶ ┊   of head
-                   file  ┊        │            │         │      ┊
+                   start ┊          │                  │       ┊ end boundary
+                    of   ┊╶── F ──┬─┴── term ──┬── P ──┴─┬───▶ ┊   of head
+                   file  ┊        │            │         │     ┊
                                   │            └──┬──────┘
                                   └───────────────┘
                         : re `(end boundary)\R.+(of head)`
@@ -739,7 +739,7 @@ Breccia language definition
 
                  ┌──────────────────────────────────────────┐
               ╶──┤                                          │
-                 └──┬──╴‘`’╶── pattern ──╴‘`’╶──┬──┬── CS ──┴── resource indicant ──┬────▶
+                 └──┬──╴‘`’╶── pattern ──╴‘`’╶──┬──┬── CS ──┴── resource indicant ──┬───▶
                     │                           │  │                                │
                     └─────────────╴◀── CS ──────┘  └────────────────────────────────┘
 
@@ -811,7 +811,7 @@ Breccia language definition
                 ·
                                             ┌───╴◀────────┐
                start ┊                      │             │    ┌─── end of line ───┐
-                of   ┊╶──┬── S ──┬── A0 ──┬─┴─ character ─┴─┬──┤                   ├────▶
+                of   ┊╶──┬── S ──┬── A0 ──┬─┴─ character ─┴─┬──┤                   ├───▶
                line  ┊   │       │        │                 │  └── S ── comment ───┘
                          └───────┘        └─────────────────┘           appender
                     : re `(comment).+\R.+(appender)` see `^^comment appender$`
@@ -938,9 +938,9 @@ Breccia language definition
     ───────
         - A body fractum with a head in this form:
 
-               start ┊     perfect                   point             ┊ end boundary
-                of   ┊╶─── indent ─── bullet ──┬── descriptor ──┬────▶ ┊   of head
-               line  ┊                         │                │      ┊
+               start ┊     perfect                   point            ┊ end boundary
+                of   ┊╶─── indent ─── bullet ──┬── descriptor ──┬───▶ ┊   of head
+               line  ┊                         │                │     ┊
                                                └────────────────┘
                     : re `(perfect).+\R.+(indent)` see `^^perfect indent$` @ `^^ Separation$`
                     : re `(end boundary)\R.+(of head)`
@@ -953,7 +953,7 @@ Breccia language definition
 
                                        non-backslash, non-whitespace,
                    perfect ┊   ┌─────╴ non-divider-drawing character ────────┐
-                   indent  ┊╶──┤                                             ├────▶
+                   indent  ┊╶──┤                                             ├───▶
                            ┊   └──┬─╴‘\’╶─┬──╴ non-backslash, non-newline, ──┘
                                   │       │     non-plain-space character
                                   └─╴◀────┘
@@ -976,10 +976,10 @@ Breccia language definition
                                             ┌───▶ ┊╶─── end of line
                          non-alphanumeric   │     ┊
                      ┌──╴ non-whitespace ╶──┼───▶ ┊╶──╴‘ ’
-                     │      character       │     ┊                           comment
-                  ╶──┤                      └───▶ ┊╶── A0 ──┐           ┌───▶ appender
+                     │      character       │     ┊                            comment
+                  ╶──┤                      └───▶ ┊╶── A0 ──┐           ┌────▶ appender
                      │     alphanumeric           ┊         │           │
-                     └────  character   ────────▶ ┊╶────────┴───┬── S ──┴─┬──▶ end of line
+                     └────  character   ────────▶ ┊╶────────┴───┬── S ──┴─┬───▶ end of line
                                                   ┊             │         │
                                                                 └─────────┘
                         : re `A0` see `^^character identification$` @ `^^ Notes$`
@@ -1000,9 +1000,9 @@ Breccia language definition
             - It is largely free in form, constrained only by its end boundary.
 
                                              ┌───────╴◀─────────┐
-                          ┊   ┌───────────┐  │                  │        ┊ end boundary
-                   bullet ┊╶──┤           ├──┴── P ──┬── term ──┴─┬────▶ ┊   of head
-                          ┊   └─── A0 ──┬─┘          │            │      ┊
+                          ┊   ┌───────────┐  │                  │       ┊ end boundary
+                   bullet ┊╶──┤           ├──┴── P ──┬── term ──┴─┬───▶ ┊   of head
+                          ┊   └─── A0 ──┬─┘          │            │     ┊
                                         │            └─┬──────────┘
                                         └──────────────┘
                         : re `(end boundary)\R.+(of head)`
@@ -1044,7 +1044,7 @@ Breccia language definition
     ───────────────────
         / Part of an associative reference or other referential markup.
                 ·
-              ╶──┬──╴‘non-fractal’╶── P ──┬── URI reference ────▶
+              ╶──┬──╴‘non-fractal’╶── P ──┬── URI reference ───▶
                  │                        │
                  └────────────────────────┘
                     : re `URI reference` see https://tools.ietf.org/html/rfc3986#section-4.1
@@ -1092,7 +1092,7 @@ Breccia language definition
                              │  │                      │  │
                              │  ├───── indent blind ───┤  │
                    start ┊   │  │                      │  │
-                    of   ┊╶──┴──┼────────┬── newline ──┴──┴──┬────▶
+                    of   ┊╶──┴──┼────────┬── newline ──┴──┴──┬───▶
                    line  ┊      │        │                   │
                                 └── S ─┬─┘                   │
                                        └─────────────────────┘
@@ -1103,7 +1103,7 @@ Breccia language definition
                      ┌─────────┐
                      │       ┌─┴── newline ───┐
                      │       │                │
-                  ╶──┴── S ──┼──── comment ╶──┴──┬── F ──┬────▶
+                  ╶──┴── S ──┼──── comment ╶──┴──┬── F ──┬───▶
                              │     appender      │       │
                              │                   └──┬────┘
                              └──────────────────────┘
