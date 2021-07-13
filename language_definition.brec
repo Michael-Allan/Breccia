@@ -184,7 +184,7 @@ Breccia language definition
                   define (i) referrer similarity, (ii) referential form and (iii) containment.
 
                           referrer similarity
-                             ┌─── i ────┐
+                             ╭┄┄┄ i ┄┄┄┄╮
                                                    ┌──────────────────────────┐
                          ┌─────────────────────────┤ ┌──╴‘head’╶──┐           │
                       ╶──┤ ┌───╴‘same’╶────┐       └─┤            │           │   containment
@@ -192,7 +192,7 @@ Breccia language definition
                            └──╴‘similar’╶──┘ │       └──╴‘term’╶──┘ │ │                         │
                                              └──────────────────────┘ └─────────────────────────┘
                      
-                                                       └── ii ──┘               └──── iii ────┘
+                                                       ╰┄┄ ii ┄┄╯               ╰┄┄┄┄ iii ┄┄┄┄╯
                                                     referential form              containment
 
                 / Examples of its use are:
@@ -354,7 +354,7 @@ Breccia language definition
             - A carrier of commentary subsequent to non-commentary on the same line.
 
                                                                commentary
-                                                           ┌─────────────────┐
+                                                           ╭┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄╮
                  
                                           ┌─╴◀────┐         ┌────╴◀─────────┐
                    inline non-        ┊   │       │         │               │               end
@@ -369,7 +369,7 @@ Breccia language definition
             - A comment carrier that extends over a sequence of (one or more) whole lines.
 
                                                             commentary
-                                                        ┌─────────────────┐
+                                                        ╭┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄╮
                  
                                        ┌─╴◀────┐         ┌────╴◀─────────┐
                    start ┊             │       │         │               │               end
@@ -389,7 +389,7 @@ Breccia language definition
             - Commentary delimited by two or more backslashes in a line of a comment block.
 
                                                             comment-block label
-                                                            ┌─────────────────┐
+                                                            ╭┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄╮
                  
                                            ┌─╴◀────┐         ┌────╴◀─────────┐
                    start                   │       │     ┊   │               │     ┊               end
@@ -549,20 +549,20 @@ Breccia language definition
                      │
                      │
                      ├──────┐
-                     ╵      │    ┐
-                    file    │    │
-                 descriptor │    │ head
-                     ╷      │    │
-                ┌────┤      │    ┘
+                     ╵      │    ╮
+                    file    │    ┊
+                 descriptor │    ┊ head
+                     ╷      │    ┊
+                ┌────┤      │    ╯
                 │    ├──────┘
                 │    │
-                │    ├────┐      ┐
-                │    ╵    │      │
-                │  body   ▲      │
-                │ fractum │      │ body
-                │    ╷    │      │
-                │    ├────┘      │
-                └────┤           ┘
+                │    ├────┐      ╮
+                │    ╵    │      ┊
+                │  body   ▲      ┊
+                │ fractum │      ┊ body
+                │    ╷    │      ┊
+                │    ├────┘      ┊
+                └────┤           ╯
                      │
                      │
                      ▼
@@ -623,21 +623,21 @@ Breccia language definition
                       │
                       │
                       ╵
-                   · · · ·        ┐
-                   ·     ·        │
-                   ·  ?  ·        │ head
-                   ·     ·        │
-                   · · · ·        ┘
+                   · · · ·        ╮
+                   ·     ·        ┊
+                   ·  ?  ·        ┊ head
+                   ·     ·        ┊
+                   · · · ·        ╯
                       ╷
                       │
-                 ┌────┤           ┐
-                 │    ├────┐      │
-                 │    ╵    │      │
-                 │  body   ▲      │ body
-                 │ fractum │      │
-                 │    ╷    │      │
-                 │    ├────┘      │
-                 └────┤           ┘
+                 ┌────┤           ╮
+                 │    ├────┐      ┊
+                 │    ╵    │      ┊
+                 │  body   ▲      ┊ body
+                 │ fractum │      ┊
+                 │    ╷    │      ┊
+                 │    ├────┘      ┊
+                 └────┤           ╯
                       │
                       │
                       ▼
@@ -754,7 +754,7 @@ Breccia language definition
 
                    `^^/ For example, here is` @ `^^ Fractum indicant$` @ ./language_definition.brec
                  
-                   └────────────────────────┘   └────────────────────┘  └──────────────────────────┘
+                   ╰┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄╯   ╰┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄╯  ╰┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄╯
                             pattern                     pattern              resource indicant
 
         - Otherwise no actual fractal indication is here defined.
