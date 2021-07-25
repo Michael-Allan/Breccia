@@ -645,6 +645,7 @@ Breccia language definition
                       ▼
 
                 diagram, The abstract form of a fractum.
+
         head
             - The part of a fractum exclusive of its children.
             - Its form (shown abstractly in the diagram) varies according to fractal type.
