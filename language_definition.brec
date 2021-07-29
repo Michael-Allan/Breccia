@@ -703,34 +703,34 @@ Breccia language definition
         ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
             : privately cf. `comparative genealogical terms$` @ non-fractal
               http://reluk.ca/project/proto-wayic/origins/doc.task
-            ancestor, of a body fractum
-                - Its parent, or an ancestor of the parent.
+            ancestor, of a body fractum B
+                - The parent of B, or an ancestor of the parent.
                 / No file fractum has an ancestor, body fracta alone have ancestors.
-            parent, of a body fractum
-                - Its nearest fractal predecessor of less indent, if any, otherwise the file fractum.
+            parent, of a body fractum B
+                - B’s nearest fractal predecessor of less indent, if any, otherwise the file fractum.
                 / No file fractum has a parent, body fracta alone have parents.
-            sibling, of a body fractum
-                - Another body fractum of the same parent.
+            sibling, of a body fractum B
+                - Another body fractum of the same parent as B.
                 / No file fractum has a sibling, body fracta alone may have siblings.
                 / No file fractum is a sibling; all siblings are body fracta.
-            child, of a fractum
-                - One for whom the fractum is parent.
+            child, of a fractum F
+                - One for whom F is parent.
                 / No file fractum is a child; all children are body fracta, and vice versa.
-            descendant, of a fractum
-                - A child of the fractum, or a descendant of the child.
+            descendant, of a fractum F
+                - A child of F, or a descendant of the child.
                 / No file fractum is a descendant; all descendants are body fracta, and vice versa.
 
         ───────────────
          linear relata
         ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
-            predecessor, of a fractum or character
-                - Another that precedes it in linear order.
+            predecessor, of a fractum or character X
+                - Another that precedes X in linear order.
                 / (in the definite sense, e.g. ‘the predecessor’)
-                  The immediate predecessor.
-            successor, of a fractum or character
-                - Another that follows it in linear order.
+                  The immediate predecessor of X.
+            successor, of a fractum or character X
+                - Another that follows X in linear order.
                 / (in the definite sense, e.g. ‘the successor’)
-                  The immediate successor.
+                  The immediate successor of X.
 
 
 
