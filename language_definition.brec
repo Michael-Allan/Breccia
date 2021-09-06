@@ -325,14 +325,27 @@ Breccia language definition
         - A point wherein the bullet comprises ‘:’ and is not directly followed by a no-break space (A0).
         - Its descriptor has this form:
 
-              ╶── S ──┬──╴‘privately’╶─ S ──┬── command ───┬── P ──┬───▶   \ [S not P]
-                      │                     │              │       │
-                      └─────────────────────┘              └───────┘
+              ╶── S ──┬──╴‘privately’╶─ S ──┬── command ──┬── P ──┬── appendage clause ──┬──▶
+                      │                     │             │       │                      │
+                      └─────────────────────┘             │       └──┬───────────────────┘
+                                                          └──────────┘                      \ [S not P]
 
         - The form of the command varies with the type of command point.
             : re `type of command point` see `^^ fractal types$` @ `^^ Fractum$`
         - The `privately` modifier, if present, is equivalent to putting a privatizer
           on the command point.
+
+        appendage clause
+            - A clause of free-form, descriptive text appended to a command point.
+
+                                     appendage
+                           ╭┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄╮
+                 
+                            ┌─────╴◀────────┐
+                            │               │
+                  ╶──╴‘:’╶──┴── P ── term ──┴─┬── P ──┬──▶
+                                              │       │
+                                              └───────┘
 
         compile( command point )
             : join `^^simulacral reference$` @ `^^ Notes$`
@@ -999,7 +1012,7 @@ Breccia language definition
 
         point descriptor
             : cf. `^^ file descriptor$`
-            - Elaborative, explanatory text in the head of a point.
+            - Descriptive text in the head of a point.
             - It is largely free in form, constrained only by its end boundary.
 
                                              ┌───────╴◀─────────┐
