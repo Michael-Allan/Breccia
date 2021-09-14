@@ -47,7 +47,7 @@ Definition of terms for project Breccia
         - A Breccian file without a file descriptor.
     hierarchic order
         ─ mass noun
-            - (among fracta) The order of hierarchic relata.
+            - The order of hierarchic relata.
                 : re `hierarchic relata` see head @ language_definition.brec
     hierarchy
         - (of fracta) The system of relations among hierarchic relata.
@@ -59,7 +59,7 @@ Definition of terms for project Breccia
         : cf. `^^formal$`
     linear order
         ─ mass noun
-            - (within a file) The arrangement of characters and lines in relation to each other
+            - The arrangement in a file of characters and lines in relation to each other
               according to the conventional sequence of reading.
     newline
         - A character or sequence of characters indicating a line break.
@@ -69,8 +69,9 @@ Definition of terms for project Breccia
         - A type of separator.
             : see `^^P$` @ `^^ Separation$` @ language_definition.brec
     private
-        ─ adjective, of a fractum
-            - Marked as pertaining soley to the author, or authors, by the use of a privatizer.
+        ─ adjective
+            - (of a fractum) Marked as pertaining soley to the author, or authors,
+              by the use of a privatizer.
     simulacra
         ─ plural noun
             : see `^^simulacrum$`
