@@ -134,23 +134,27 @@ Breccia language definition
                   see `^^. associative reference$` @ `^^ fractal types$`
                 : re `overall effect` see `^^compile\( associative reference \)$`
                     ·
-                     ┌── cf.+ ──┐
-                     │          │
-                     ├─╴‘e.g.’╶─┤
-                     │          │
-                     ├─╴‘i.e.’╶─┤
-                     │          │
-                     ├─╴‘join’╶─┤
-                  ╶──┤          ├───▶
-                     ├─╴‘NB’╶───┤
-                     │          │
-                     ├─╴‘N.B.’╶─┤
-                     │          │  \ [no ‘q.v.’]
-                     ├─╴‘sc.’╶──┤
-                     │          │
-                     ├── see+ ──┤
-                     │          │
-                     └─╴‘viz.’╶─┘
+                     ┌── cf.+ ───┐
+                     │           │
+                     ├─╴‘contra’─┤
+                     │           │
+                     ├─╴‘e.g.’╶──┤
+                     │           │
+                     ├─╴‘i.e.’╶──┤
+                     │           │
+                     ├─╴‘join’╶──┤
+                  ╶──┤           ├───▶
+                     ├─╴‘NB’╶────┤
+                     │           │
+                     ├─╴‘N.B.’╶──┤
+                     │           │
+                     ├─╴‘pace’╶──┤
+                     │           │  \ [no ‘q.v.’]
+                     ├─╴‘sc.’╶───┤
+                     │           │
+                     ├── see+ ───┤
+                     │           │
+                     └─╴‘viz.’╶──┘
 
             cf.+ 
 
