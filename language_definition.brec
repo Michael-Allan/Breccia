@@ -92,7 +92,9 @@ Breccia language definition
 
                   ╶──╴‘re’╶── P ──╴‘`’╶── pattern ──╴‘`’╶───▶
 
-                    : re `pattern` see `^^ Pattern matching$`
+                        : re `pattern` see `^^ Pattern matching$`
+                    diagram, The form of a referrer clause in an associative reference.
+
             referrers( associative reference )
                 : join `^^simulacral reference$` @ `^^ Notes$`
                 / The compiler resolves the referrers of an associative reference as follows.
@@ -338,6 +340,7 @@ Breccia language definition
             : re `type of command point` see `^^ fractal types$` @ `^^ Fractum$`
         - The `privately` modifier, if present, is equivalent to putting a privatizer
           on the command point.
+            : see `^^if.+privately.+is present` @ `^^compile\( command point \)$`
 
         appendage clause
             - A clause of free-form, descriptive text appended to a command point.
@@ -1094,7 +1097,8 @@ Breccia language definition
         allowed whitespace
             : see `^^character identification$` @ `^^ Notes$`
             • plain space ‘ ’ (20)
-            • newline comprising either a line feed (A), or a carriage return (D) followed by a line feed
+            • newline comprising either a line feed (A),
+              or carriage return followed by a line feed (D, A)
             • no-break space (A0) as described for use in bullets, indent blinds and comment blocks
             \ Allowing other horizontal whitespace characters (e.g. 9, 2000-200A, 202F, 205F, 3000)
             \ might lead to confusion, considering that indentation determines syntax.
