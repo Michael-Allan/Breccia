@@ -933,13 +933,14 @@ Breccia language definition
             / Excluding the flag modifiers.
         *
             - Zero or more times.
-            : see https://perldoc.perl.org/perlre#Metacharacters
+            : see https://perldoc.perl.org/perlre#Quantifiers
         + 
             - One or more times.
-            : see https://perldoc.perl.org/perlre#Metacharacters
+            : see https://perldoc.perl.org/perlre#Quantifiers
         ?
-            - Once or not at all.
-            : see https://perldoc.perl.org/perlre#Metacharacters
+            - Once or not at all; when used as a quantifier
+            - Non-greedy; when used to qualify a quantifier
+            : see https://perldoc.perl.org/perlre#Quantifiers
 
         literalized pattern( string )
             : join `^^simulacral reference$` @ `^^ Notes$`
