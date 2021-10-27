@@ -1210,7 +1210,7 @@ Breccia language definition
             - Each text sequence, markup element or other resource here mentioned is that of the original
               in its place, not a separate copy of it.
         pattern construction based on referrer similarity
-            : see @ http://reluk.ca/project/Breccia/action_plan.brec
+            : see @ http://reluk.ca/project/Breccia/notepad.brec
             - How the construction is refined according to referrer similarity in particular cases
               has yet to be defined, pending implementation trials.
         simulacral reference
