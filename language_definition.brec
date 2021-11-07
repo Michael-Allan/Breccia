@@ -151,12 +151,18 @@ Breccia language definition
                      ├─╴‘N.B.’╶──┤
                      │           │
                      ├─╴‘pace’╶──┤
-                     │           │  \ [no ‘q.v.’]
+                     │           │
+                     ├─╴‘q.v.’╶──┤
+                     │           │
                      ├─╴‘sc.’╶───┤
                      │           │
                      ├── see+ ───┤
                      │           │
                      └─╴‘viz.’╶──┘
+
+            / Referential command `q.v.` is of limited use.  It makes grammatical sense
+              only when a) the referrer clause is absent, and b) the referent clause
+              is either absent or comprises an inferential referent indicant.
 
             cf.+ 
 
@@ -1199,13 +1205,6 @@ Breccia language definition
      \\ [graphical syntax notation]
      \      - The present text uses syntax diagrams because it is aimed at Breccian authors in general,
      \        who are not expected to be comfortable with a textual notation such as Backus-Naur Form.
-     \\ [no ‘q.v.’]
-     \      - No referential command of `q.v.` is defined.
-     \      ∵ It would complicate the definition.
-     \          ∵ Formally it would make grammatical sense to the reader only in conjunction with both
-     \            no referrer clause, and either an inferential referent indicant or no referent clause.
-     \      ∵ It would be redundant.
-     \          ∵ The present commands suffice to handle all potential use cases of `q.v.`.
         original resource
             - Each text sequence, markup element or other resource here mentioned is that of the original
               in its place, not a separate copy of it.
