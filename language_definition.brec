@@ -1017,12 +1017,13 @@ Breccia language definition
                     diagram, The form of a bullet’s trailing edge.  The bullet
                       itself includes only parts to the left of the dashed line.
 
-            / As the diagram shows, no bullet ends with a space character (20 or A0).
-              Any space character at the trailing edge is separate from the bullet proper.
-                / Here a no-break space (A0) may be used to defeat the formation of a special bullet
-                  (alarm, aside, command or task bullet) or comment delimiter that would otherwise occur.
-                    : re `task bullet` see e.g. `^^see\+.$` @ `^^ referential command$`
-                    : re `comment delimiter` e.g. `^^\\.$` @ `^^ Pattern matching$`
+            / As the diagram shows, no bullet ends with a space character, whether plain or no-break.
+              Rather any space character at the trailing edge is separate from the bullet proper.
+            / One purpose of placing a no-break space (A0) in this position is to defeat the formation
+              of a special bullet (alarm, aside, command or task bullet) or comment delimiter that
+              otherwise would occur.  The present text contains examples of that usage.
+                : re `(task bullet).*\R.*(example)` see `^^see\+\N{U+A0}$` @ `^^ referential command$`
+                : re `(comment delimiter).*\R.*(example)` see `^^\\\N{U+A0}$` @ `^^ Pattern matching$`
 
         point descriptor
             : cf. `^^ file descriptor$`
@@ -1221,4 +1222,4 @@ Breccia language definition
 
 
 
-                                                    \ Copyright © 2019-2021  Michael Allan.  Licence MIT.
+                                                    \ Copyright © 2019-2022  Michael Allan.  Licence MIT.
