@@ -886,6 +886,18 @@ Breccia language definition
         - The pattern language comprises a subset of the regular-expression elements defined by Perl,
           together with a few additions tailored to Breccia, all as detailed below.
 
+        \ 
+            - It ‘either takes away the special meaning of the character following it, \
+              or it is the start of a backslash or escape sequence.’
+                : see https://perldoc.perl.org/perlrebackslash#The-backslash
+            - Note that it could, instead, inadvertently form a comment appender;
+              as it does here, for example:
+
+                      : see ` \\ ` @ non-fractal foo.html
+
+                - To avoid that, substitute an equivalent pattern, such as:
+
+                      : see ` \\\N{U+20}` @ non-fractal foo.html
         \b
             - Word boundary.
             : see https://perldoc.perl.org/perlrebackslash#%5Cb%7B%7D,-%5Cb,-%5CB%7B%7D,-%5CB
@@ -904,18 +916,6 @@ Breccia language definition
         \N{⋯}
             - Character or character sequence by name or number.
             : see https://perldoc.perl.org/perlrebackslash#Named-or-numbered-characters-and-character-sequences
-        \ 
-            - It ‘either takes away the special meaning of the character following it, \
-              or it is the start of a backslash or escape sequence.’
-                : see https://perldoc.perl.org/perlrebackslash#The-backslash
-            - Note that it could, instead, inadvertently form a comment appender;
-              as it does here, for example:
-
-                      : see ` \\ ` @ non-fractal foo.html
-
-                - To avoid that, substitute an equivalent pattern, such as:
-
-                      : see ` \\\N{U+20}` @ non-fractal foo.html
         ^
             - The beginning of a line (zero width).
             : see https://perldoc.perl.org/perlre#Metacharacters
