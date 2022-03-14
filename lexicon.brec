@@ -41,8 +41,8 @@ Definition of terms for project Breccia
     fractum
         ─ noun
             - The basic formal unit of Breccian composition, recursion and order.
-                : see `basic formal unit of Breccian composition, recursion and order\.$`
-                  @ `^^ Fractum$` @ language_definition.brec
+                : see `basic formal unit of Breccian composition, recursion and order\.$` @
+                  `^^ Fractum$` @ language_definition.brec
     headless file
         - A Breccian file without a file descriptor.
     hierarchic order

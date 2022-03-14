@@ -281,15 +281,15 @@ Breccia language definition
                           `cR` the referrer clause if present;
                           `sR` the referrer similarity if defined, else `default referrer similarity()`
                     if( `cR` is present ) then the pattern of the referrer(s) is the pattern of `cR`
-                        : re `pattern of the referrer` see @ `^^- Constructs by inference`
-                          @ `^^inferred pattern\(`
+                        : re `pattern of the referrer` see @ `^^- Constructs by inference` @
+                          `^^inferred pattern\(`
                         + Set `p` to the pattern of `cR`.
                         + Refine `p` according to referrer similarity `sR` and referential form `fR`.
                             : see `^^pattern-matcher compilation based on referrer similarity$` @
                               `^^ Notes$`
                     else( the pattern of the referrer(s) is the pattern of the parental head )
-                        : re `pattern of the referrer` see @ `^^- Constructs by inference`
-                          @ `^^inferred pattern\(`
+                        : re `pattern of the referrer` see @ `^^- Constructs by inference` @
+                          `^^inferred pattern\(`
                         + Set `p` to the string of `parental head text()`.
                         + Trim `p` of comment carriers and indent blinds.
                         + Trim `p` of leading and trailing whitespace.
