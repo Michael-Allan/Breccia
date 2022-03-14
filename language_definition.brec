@@ -92,7 +92,7 @@ Breccia language definition
 
                   ╶──╴‘re’╶── P ──╴‘`’╶── pattern ──╴‘`’╶───▶
 
-                        : re `pattern` see `^^ Pattern matching$`
+                        : re `pattern` see `^^ Regular-expression pattern matching$`
                     diagram, The form of a referrer clause in an associative reference.
 
             referrers( associative reference )
@@ -215,9 +215,9 @@ Breccia language definition
                        : cf. @ `^^foo$`
 
                   (It reads better with some referential commands than with others.)
-                - Referrer similarity (i) determines how broadly or narrowly the pattern
-                  of referential form (ii) is to be constructed.
-                    : see `^^pattern construction based on referrer similarity$` @ `^^ Notes$`
+                - Referrer similarity (i) determines how broadly or narrowly the pattern of referential
+                  form (ii) is to be interpreted for purposes of constructing its inferred definition.
+                    : see `^^pattern-matcher compilation based on referrer similarity$` @ `^^ Notes$`
                 - Referential form (ii) determines the form of the referent and how to locate it:
                         • ‘head’ defines the referent as a fractum
                            to be located by the pattern of its head, while
@@ -285,7 +285,8 @@ Breccia language definition
                           @ `^^inferred pattern\(`
                         + Set `p` to the pattern of `cR`.
                         + Refine `p` according to referrer similarity `sR` and referential form `fR`.
-                            : see `^^pattern construction based on referrer similarity$` @ `^^ Notes$`
+                            : see `^^pattern-matcher compilation based on referrer similarity$` @
+                              `^^ Notes$`
                     else( the pattern of the referrer(s) is the pattern of the parental head )
                         : re `pattern of the referrer` see @ `^^- Constructs by inference`
                           @ `^^inferred pattern\(`
@@ -297,7 +298,8 @@ Breccia language definition
                             / Neutralizing differences of indentation and line wrapping.
                         + Further refine `p` according to referrer similarity `sR`
                           and referential form `fR`.
-                            : see `^^pattern construction based on referrer similarity$` @ `^^ Notes$`
+                            : see `^^pattern-matcher compilation based on referrer similarity$` @
+                              `^^ Notes$`
                     return+ `p`
 
             containment clause
@@ -772,7 +774,7 @@ Breccia language definition
                     │                           │  │                                │
                     └─────────────╴◀── CS ──────┘  └────────────────────────────────┘
 
-                : re `pattern` see `^^ Pattern matching$`
+                : re `pattern` see `^^ Regular-expression pattern matching$`
         - In the namesake case — absent a `non-fractal` qualifier, that is — the fractum indicant
           indicates a fractum.
             - Any pattern series pinpoints with each pattern a fractal head, while any resource indicant
@@ -880,80 +882,6 @@ Breccia language definition
 
 
 
-    ━━━━━━━━━━━━━━━━━━
-     Pattern matching
-    ──────────────────
-        - The pattern language comprises a subset of the regular-expression elements defined by Perl,
-          together with a few additions tailored to Breccia, all as detailed below.
-
-        \ 
-            - It ‘either takes away the special meaning of the character following it, \
-              or it is the start of a backslash or escape sequence.’
-                : see https://perldoc.perl.org/perlrebackslash#The-backslash
-            - Note that it could, instead, inadvertently form a comment appender;
-              as it does here, for example:
-
-                      : see ` \\ ` @ non-fractal foo.html
-
-                - To avoid that, substitute an equivalent pattern, such as:
-
-                      : see ` \\\N{U+20}` @ non-fractal foo.html
-        \b
-            - Word boundary.
-            : see https://perldoc.perl.org/perlrebackslash#%5Cb%7B%7D,-%5Cb,-%5CB%7B%7D,-%5CB
-        \d
-            - Decimal digit.
-            : see https://perldoc.perl.org/perlrebackslash#Character-classes
-        \R
-            - Line break.
-            : see https://perldoc.perl.org/perlrebackslash#%5CR
-        \t
-            - Four spaces, viz. one unit of perfect indentation.
-                : see `^^perfect indent$` @ `^^ Separation$`
-                / As opposed to (Perl) a tab character.
-                    : see https://perldoc.perl.org/perlrebackslash#Fixed-characters
-            : cf. `^^\^\^$`
-        \N{⋯}
-            - Character or character sequence by name or number.
-            : see https://perldoc.perl.org/perlrebackslash#Named-or-numbered-characters-and-character-sequences
-        ^
-            - The beginning of a line (zero width).
-            : see https://perldoc.perl.org/perlre#Metacharacters
-        ^^
-            - A perfect indent, equivalent to `^\t*`
-        .
-            - Any character except a newline.
-            : see https://perldoc.perl.org/perlre#Metacharacters
-        $
-            - The end of a line (zero width).
-            : see https://perldoc.perl.org/perlre#Metacharacters
-        |
-            - Alternation.
-            : see https://perldoc.perl.org/perlre#Metacharacters
-        (⋯)
-            - Capture group.
-            : see https://perldoc.perl.org/perlre#Capture-groups
-        (?:⋯)
-            - Cluster group.
-            : see https://perldoc.perl.org/perlre#(?:pattern)
-            / Excluding the flag modifiers.
-        *
-            - Zero or more times.
-            : see https://perldoc.perl.org/perlre#Quantifiers
-        + 
-            - One or more times.
-            : see https://perldoc.perl.org/perlre#Quantifiers
-        ?
-            - Once or not at all; when used as a quantifier
-            - Non-greedy; when used to qualify a quantifier
-            : see https://perldoc.perl.org/perlre#Quantifiers
-
-        literalized pattern( string )
-            : join `^^simulacral reference$` @ `^^ Notes$`
-            return+ the literally enquoted pattern of `string`, as defined for Perl `quotemeta`
-                : re `quotemeta` see https://perldoc.perl.org/functions/quotemeta.html
-
-
     ━━━━━━━━━━━━━
      Plain point
     ─────────────
@@ -1023,7 +951,8 @@ Breccia language definition
               of a special bullet (alarm, aside, command or task bullet) or comment delimiter that
               otherwise would occur.  The present text contains examples of that usage.
                 : re `(task bullet).*\R.*(example)` see `^^see\+\N{U+A0}$` @ `^^ referential command$`
-                : re `(comment delimiter).*\R.*(example)` see `^^\\\N{U+A0}$` @ `^^ Pattern matching$`
+                : re `(comment delimiter).*\R.*(example)` see `^^\\\N{U+A0}$` @
+                  `^^ Regular-expression pattern matching$`
 
         point descriptor
             : cf. `^^ file descriptor$`
@@ -1068,6 +997,80 @@ Breccia language definition
 
               ╶──╴‘private’╶───▶
 
+
+
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     Regular-expression pattern matching
+    ─────────────────────────────────────
+        - The pattern language comprises a subset of the regular-expression elements defined by Perl,
+          together with a few additions tailored to Breccia, all as detailed below.
+
+        \ 
+            - It ‘either takes away the special meaning of the character following it, \
+              or it is the start of a backslash or escape sequence.’
+                : see https://perldoc.perl.org/perlrebackslash#The-backslash
+            - Note that it could, instead, inadvertently form a comment appender;
+              as it does here, for example:
+
+                      : see ` \\ ` @ non-fractal foo.html
+
+                - To avoid that, substitute an equivalent pattern, such as:
+
+                      : see ` \\\N{U+20}` @ non-fractal foo.html
+        \b
+            - Word boundary.
+            : see https://perldoc.perl.org/perlrebackslash#%5Cb%7B%7D,-%5Cb,-%5CB%7B%7D,-%5CB
+        \d
+            - Decimal digit.
+            : see https://perldoc.perl.org/perlrebackslash#Character-classes
+        \R
+            - Line break.
+            : see https://perldoc.perl.org/perlrebackslash#%5CR
+        \t
+            - Four spaces, viz. one unit of perfect indentation.
+                : see `^^perfect indent$` @ `^^ Separation$`
+                / As opposed to (Perl) a tab character.
+                    : see https://perldoc.perl.org/perlrebackslash#Fixed-characters
+            : cf. `^^\^\^$`
+        \N{⋯}
+            - Character or character sequence by name or number.
+            : see https://perldoc.perl.org/perlrebackslash#Named-or-numbered-characters-and-character-sequences
+        ^
+            - The beginning of a line (zero width).
+            : see https://perldoc.perl.org/perlre#Metacharacters
+        ^^
+            - A perfect indent, equivalent to `^\t*`
+        .
+            - Any character except a newline.
+            : see https://perldoc.perl.org/perlre#Metacharacters
+        $
+            - The end of a line (zero width).
+            : see https://perldoc.perl.org/perlre#Metacharacters
+        |
+            - Alternation.
+            : see https://perldoc.perl.org/perlre#Metacharacters
+        (⋯)
+            - Capture group.
+            : see https://perldoc.perl.org/perlre#Capture-groups
+        (?:⋯)
+            - Cluster group.
+            : see https://perldoc.perl.org/perlre#(?:pattern)
+            / Excluding the flag modifiers.
+        *
+            - Zero or more times.
+            : see https://perldoc.perl.org/perlre#Quantifiers
+        + 
+            - One or more times.
+            : see https://perldoc.perl.org/perlre#Quantifiers
+        ?
+            - Once or not at all; when used as a quantifier
+            - Non-greedy; when used to qualify a quantifier
+            : see https://perldoc.perl.org/perlre#Quantifiers
+
+        literalized pattern( string )
+            : join `^^simulacral reference$` @ `^^ Notes$`
+            return+ the literally enquoted pattern of `string`, as defined for Perl `quotemeta`
+                : re `quotemeta` see https://perldoc.perl.org/functions/quotemeta.html
 
 
     ━━━━━━━━━━━━━━━━━━━
@@ -1209,10 +1212,12 @@ Breccia language definition
         original resource
             - Each text sequence, markup element or other resource here mentioned is that of the original
               in its place, not a separate copy of it.
-        pattern construction based on referrer similarity
+        pattern-matcher compilation based on referrer similarity
             : see @ http://reluk.ca/project/Breccia/notepad.brec
-            - How the construction is refined according to referrer similarity in particular cases
-              has yet to be defined, pending implementation trials.
+            - How the compiler should construct inferred pattern definitions according to referrer
+              similarity (`same` or `similar`) has yet to be defined, pending implementation trials.
+                : re `referrer\R +similarity` see @ `^^- An inferential referent indicant comprises` @
+                  `^^inferential referent indicant$` @ `^^ referent clause$`
         simulacral reference
             - Herein the default referent is the simulacrum, not the source code.
                 : cf. `^^default referent` @ `^^ Simulacrum$`
