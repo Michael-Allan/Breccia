@@ -90,9 +90,9 @@ Breccia language definition
             - Absent a referrer clause, the whole head is taken as the sole referrer.
             - Otherwise the referrers are located in the head by a pattern of text.
 
-                  ╶──╴‘re’╶── P ──╴‘`’╶── pattern ──╴‘`’╶───▶
+                  ╶──╴‘re’╶── P ── pattern matcher ───▶
 
-                        : re `pattern` see `^^ Regular-expression pattern matching$`
+                        : re `pattern matcher` see @ `^^ Regular-expression pattern matching$`
                     diagram, The form of a referrer clause in an associative reference.
 
             referrers( associative reference )
@@ -768,13 +768,13 @@ Breccia language definition
         / Part of an associative reference or other referential markup.
         - A fractum indicant comprises one or both of a pattern series and a resource indicant.
 
-                 ┌──────────────────────────────────────────┐
-              ╶──┤                                          │
-                 └──┬──╴‘`’╶── pattern ──╴‘`’╶──┬──┬── CS ──┴── resource indicant ──┬───▶
-                    │                           │  │                                │
-                    └─────────────╴◀── CS ──────┘  └────────────────────────────────┘
+                 ┌────────────────────────────────────┐
+              ╶──┤                                    │
+                 └──┬── pattern matcher ──┬──┬── CS ──┴── resource indicant ──┬───▶
+                    │                     │  │                                │
+                    └───────╴◀── CS ──────┘  └────────────────────────────────┘
 
-                : re `pattern` see `^^ Regular-expression pattern matching$`
+                : re `pattern matcher` see @ `^^ Regular-expression pattern matching$`
         - In the namesake case — absent a `non-fractal` qualifier, that is — the fractum indicant
           indicates a fractum.
             - Any pattern series pinpoints with each pattern a fractal head, while any resource indicant
@@ -951,7 +951,7 @@ Breccia language definition
               of a special bullet (alarm, aside, command or task bullet) or comment delimiter that
               otherwise would occur.  The present text contains examples of that usage.
                 : re `(task bullet).*\R.*(example)` see `^^see\+\N{U+A0}$` @ `^^ referential command$`
-                : re `(comment delimiter).*\R.*(example)` see `^^\\\N{U+A0}$` @
+                : re `(comment delimiter).*\R.*(example)` see `^^\\\N{U+A0}$` @ `^^ pattern language$` @
                   `^^ Regular-expression pattern matching$`
 
         point descriptor
@@ -1002,75 +1002,90 @@ Breccia language definition
     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
      Regular-expression pattern matching
     ─────────────────────────────────────
-        - The pattern language comprises a subset of the regular-expression elements defined by Perl,
-          together with a few additions tailored to Breccia, all as detailed below.
-
-        \ 
-            - It ‘either takes away the special meaning of the character following it, \
-              or it is the start of a backslash or escape sequence.’
-                : see https://perldoc.perl.org/perlrebackslash#The-backslash
-            - Note that it could, instead, inadvertently form a comment appender;
-              as it does here, for example:
-
-                      : see ` \\ ` @ non-fractal foo.html
-
-                - To avoid that, substitute an equivalent pattern, such as:
-
-                      : see ` \\\N{U+20}` @ non-fractal foo.html
-        \b
-            - Word boundary.
-            : see https://perldoc.perl.org/perlrebackslash#%5Cb%7B%7D,-%5Cb,-%5CB%7B%7D,-%5CB
-        \d
-            - Decimal digit.
-            : see https://perldoc.perl.org/perlrebackslash#Character-classes
-        \R
-            - Line break.
-            : see https://perldoc.perl.org/perlrebackslash#%5CR
-        \t
-            - Four spaces, viz. one unit of perfect indentation.
-                : see `^^perfect indent$` @ `^^ Separation$`
-                / As opposed to (Perl) a tab character.
-                    : see https://perldoc.perl.org/perlrebackslash#Fixed-characters
-            : cf. `^^\^\^$`
-        \N{⋯}
-            - Character or character sequence by name or number.
-            : see https://perldoc.perl.org/perlrebackslash#Named-or-numbered-characters-and-character-sequences
-        ^
-            - The beginning of a line (zero width).
-            : see https://perldoc.perl.org/perlre#Metacharacters
-        ^^
-            - A perfect indent, equivalent to `^\t*`
-        .
-            - Any character except a newline.
-            : see https://perldoc.perl.org/perlre#Metacharacters
-        $
-            - The end of a line (zero width).
-            : see https://perldoc.perl.org/perlre#Metacharacters
-        |
-            - Alternation.
-            : see https://perldoc.perl.org/perlre#Metacharacters
-        (⋯)
-            - Capture group.
-            : see https://perldoc.perl.org/perlre#Capture-groups
-        (?:⋯)
-            - Cluster group.
-            : see https://perldoc.perl.org/perlre#(?:pattern)
-            / Excluding the flag modifiers.
-        *
-            - Zero or more times.
-            : see https://perldoc.perl.org/perlre#Quantifiers
-        + 
-            - One or more times.
-            : see https://perldoc.perl.org/perlre#Quantifiers
-        ?
-            - Once or not at all; when used as a quantifier
-            - Non-greedy; when used to qualify a quantifier
-            : see https://perldoc.perl.org/perlre#Quantifiers
 
         literalized pattern( string )
             : join `^^simulacral reference$` @ `^^ Notes$`
             return+ the literally enquoted pattern of `string`, as defined for Perl `quotemeta`
                 : re `quotemeta` see https://perldoc.perl.org/functions/quotemeta.html
+
+        pattern matcher
+
+              ╶──╴‘`’╶── pattern ──╴‘`’╶───▶
+
+                    : re `─ (pattern) ─` see `^^ pattern language$`
+                diagram, The form of a pattern matcher.
+
+
+        ──────────────────
+         pattern language
+        ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
+            - The language in which patterns are defined.
+                : re `patterns` see `^^pattern matcher$.*\R.*─ (pattern) ─`
+            - The language comprises a subset of the regular-expression elements of Perl,
+              together with a few additions tailored to Breccia, all as detailed below.
+
+            \ 
+                - It ‘either takes away the special meaning of the character following it,
+                  or it is the start of a backslash or escape sequence.’
+                    : see https://perldoc.perl.org/perlrebackslash#The-backslash
+                - Note that it could, instead, inadvertently form a comment appender;
+                  as it does here, for example:
+
+                          : see ` \\ ` @ non-fractal foo.html
+
+                    - To avoid that, substitute an equivalent pattern, such as:
+
+                          : see ` \\\N{U+20}` @ non-fractal foo.html
+            \b
+                - Word boundary.
+                : see https://perldoc.perl.org/perlrebackslash#%5Cb%7B%7D,-%5Cb,-%5CB%7B%7D,-%5CB
+            \d
+                - Decimal digit.
+                : see https://perldoc.perl.org/perlrebackslash#Character-classes
+            \R
+                - Line break.
+                : see https://perldoc.perl.org/perlrebackslash#%5CR
+            \t
+                - Four spaces, viz. one unit of perfect indentation.
+                    : see `^^perfect indent$` @ `^^ Separation$`
+                    / As opposed to (Perl) a tab character.
+                        : see https://perldoc.perl.org/perlrebackslash#Fixed-characters
+                : cf. `^^\^\^$`
+            \N{⋯}
+                - Character or character sequence by name or number.
+                : see https://perldoc.perl.org/perlrebackslash#Named-or-numbered-characters-and-character-sequences
+            ^
+                - The beginning of a line (zero width).
+                : see https://perldoc.perl.org/perlre#Metacharacters
+            ^^
+                - A perfect indent, equivalent to `^\t*`
+            .
+                - Any character except a newline.
+                : see https://perldoc.perl.org/perlre#Metacharacters
+            $
+                - The end of a line (zero width).
+                : see https://perldoc.perl.org/perlre#Metacharacters
+            |
+                - Alternation.
+                : see https://perldoc.perl.org/perlre#Metacharacters
+            (⋯)
+                - Capture group.
+                : see https://perldoc.perl.org/perlre#Capture-groups
+            (?:⋯)
+                - Cluster group.
+                : see https://perldoc.perl.org/perlre#(?:pattern)
+                / Excluding the flag modifiers.
+            *
+                - Zero or more times.
+                : see https://perldoc.perl.org/perlre#Quantifiers
+            + 
+                - One or more times.
+                : see https://perldoc.perl.org/perlre#Quantifiers
+            ?
+                - Once or not at all; when used as a quantifier
+                - Non-greedy; when used to qualify a quantifier
+                : see https://perldoc.perl.org/perlre#Quantifiers
+
 
 
     ━━━━━━━━━━━━━━━━━━━
