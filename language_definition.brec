@@ -14,7 +14,7 @@ Breccia language definition
               │
               ▼
 
-            : re `(file).*\R.*(fractum)` see `^^ File fractum$`
+            : re `(file).*(fractum)`s see `^^ File fractum$`
             diagram, The form of a Breccian text.
 
 
@@ -59,9 +59,9 @@ Breccia language definition
                  │                 │                │                  │
                  └─────────────────┘                └──────────────────┘
 
-                : re `(referrer).*\R.*(clause)` see `^^ referrer clause$`
-                : re `(referential).*\R.*  (command)` see `^^ referential command$`
-                : re `(referent).*\R.*clause.*(clause)` see `^^ referent clause$`
+                : re `(referrer).*(clause)`s see `^^ referrer clause$`
+                : re `(referential).*(command)`s see `^^ referential command$`
+                : re `(referent)\b.*clause.*(clause)`s see `^^ referent clause$`
                 diagram, The form of the command in an associative reference.
 
         - The referrer clause, if any, indicates the referrer or referrers,
@@ -132,8 +132,8 @@ Breccia language definition
         ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
             - The referential command determines the overall type of associative reference,
               with implications for its overall effect.
-                : re `overall type\R *of associative reference`
-                  see `^^. associative reference$` @ `^^ fractal types$`
+                : re `overall type of associative reference` see `^^. associative reference$` @
+                  `^^ fractal types$`
                 : re `overall effect` see `^^compile\( associative reference \)$`
                     ·
                      ┌── cf.+ ───┐
@@ -392,7 +392,7 @@ Breccia language definition
                    (non-20)           ┊             │                         │ │       │   line
                                                     └─────────────────────────┘ └───────┘
                         : re `20` see `^^character identification$` @ `^^ Notes$`
-                        : re `(end)\R.*(of).*\R.*(line)\R` see `^^end of line$`
+                        : re `(end).+(of) ─.+(line)\R`s see `^^end of line$`
                     diagram, The form of a comment appender.
 
         comment block
@@ -406,7 +406,7 @@ Breccia language definition
                     of   ┊╶──┬── S ──┬─┴─╴‘\’╶─┴─┬── S ──┴── character ──┴─┬─┬── S ──┬──╴ of ───▶
                    line  ┊   │       │           │                         │ │       │   line
                              └───────┘           └─────────────────────────┘ └───────┘
-                        : re `(end)\R.*(of).*\R.*(line)\R` see `^^end of line$`
+                        : re `(end).+(of) ─.+(line)\R`s see `^^end of line$`
                     diagram, The form of each line of a comment block.
 
             - The commentary of a comment block may include one or more no-break spaces (A0).
@@ -426,7 +426,7 @@ Breccia language definition
                     of  ╶──┬── S ──┬─╴‘\’╶─┴─╴‘\’╶─┴── S ┊╶──┴── character ──┴───▶ ┊╶──┬── S ──┬──╴ of
                    line    │       │                     ┊                         ┊   │       │   line
                            └───────┘                                                   └───────┘
-                    : re `(end)\R.*(of).*\R.*(line)\R` see `^^end of line$`
+                    : re `(end).+(of) ─.+(line)\R`s see `^^end of line$`
 
 
 
@@ -599,8 +599,8 @@ Breccia language definition
                ┄┄┄┄┄┄┄┄┄┄┄┄┄
                 end of file
 
-                    : re `(file).*\R.*(descriptor)` see `^^ File descriptor$`
-                    : re `(body).*\R.*(fractum)` see `^^ fractal types$`
+                    : re `(file).*(descriptor)`s see `^^ File descriptor$`
+                    : re `(body).*(fractum)`s see `^^ fractal types$`
                 diagram, The form of a file fractum.
 
         - Either the head or the body may be absent, not both.
@@ -950,8 +950,8 @@ Breccia language definition
             / One purpose of placing a no-break space (A0) in this position is to defeat the formation
               of a special bullet (alarm, aside, command or task bullet) or comment delimiter that
               otherwise would occur.  The present text contains examples of that usage.
-                : re `(task bullet).*\R.*(example)` see `^^see\+\N{U+A0}$` @ `^^ referential command$`
-                : re `(comment delimiter).*\R.*(example)` see `^^\\\N{U+A0}$` @ `^^ pattern language$` @
+                : re `(task bullet).*(example)`s see `^^see\+\N{U+A0}$` @ `^^ referential command$`
+                : re `(comment delimiter).*(example)`s see `^^\\\N{U+A0}$` @ `^^ pattern language$` @
                   `^^ Regular-expression pattern matching$`
 
         point descriptor
@@ -1008,19 +1008,33 @@ Breccia language definition
             return+ the literally enquoted pattern of `string`, as defined for Perl `quotemeta`
                 : re `quotemeta` see https://perldoc.perl.org/functions/quotemeta.html
 
-        pattern matcher
+        ─────────────────
+         pattern matcher
+        ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
+            - A matcher of regular-expression patterns.  Its form is:
 
-              ╶──╴‘`’╶── pattern ──╴‘`’╶───▶
-
+                                                ┌───╴◀───────┐
+                                                │            │
+                  ╶──╴‘`’╶── pattern ──╴‘`’╶──┬─┴─ modifier ─┴─┬───▶
+                                              │                │
+                                              └────────────────┘
                     : re `─ (pattern) ─` see `^^ pattern language$`
-                diagram, The form of a pattern matcher.
+
+            modifier
+
+                     ┌──╴‘m’╶──┐
+                  ╶──┤         ├───▶
+                     └──╴‘s’╶──┘
+
+                    : re `‘(m)’` see https://perldoc.perl.org/perlre#m
+                    : re `‘(s)’` see https://perldoc.perl.org/perlre#s
 
 
         ──────────────────
          pattern language
         ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
             - The language in which patterns are defined.
-                : re `patterns` see `^^pattern matcher$.*\R.*─ (pattern) ─`
+                : re `patterns` see `^^- Its form is:$.*─ (pattern) ─`ms @ `^^ pattern matcher$`
             - The language comprises a subset of the regular-expression elements of Perl,
               together with a few additions tailored to Breccia, all as detailed below.
 
@@ -1055,15 +1069,20 @@ Breccia language definition
                 - Character or character sequence by name or number.
                 : see https://perldoc.perl.org/perlrebackslash#Named-or-numbered-characters-and-character-sequences
             ^
-                - The beginning of a line (zero width).
+                - The beginning (zero width) of the text in which a match is sought,
+                  or of a line if `m` is used.
+                    : re `\`(m)\`` see `^^(modifier)$.*‘(m)’`ms @ `^^ pattern matcher$`
                 : see https://perldoc.perl.org/perlre#Metacharacters
             ^^
                 - A perfect indent, equivalent to `^\t*`
             .
-                - Any character except a newline.
+                - Any character except a newline, or any including a newline if `s` is used.
+                    : re `\`(s)\`` see `^^(modifier)$.*‘(s)’`ms @ `^^ pattern matcher$`
                 : see https://perldoc.perl.org/perlre#Metacharacters
             $
-                - The end of a line (zero width).
+                - The end (zero width) of the text in which a match is sought,
+                  or of a line if `m` is used.
+                    : re `\`(m)\`` see `^^(modifier)$.*‘(m)’`ms @ `^^ pattern matcher$`
                 : see https://perldoc.perl.org/perlre#Metacharacters
             |
                 - Alternation.
