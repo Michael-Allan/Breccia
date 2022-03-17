@@ -1093,7 +1093,6 @@ Breccia language definition
             (?:⋯)
                 - Cluster group.
                 : see https://perldoc.perl.org/perlre#(?:pattern)
-                / Excluding the flag modifiers.
             *
                 - Zero or more times.
                 : see https://perldoc.perl.org/perlre#Quantifiers
