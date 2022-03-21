@@ -2,6 +2,10 @@ Definition of terms for project Breccia
 
     : see also http://reluk.ca/project/wayic/refractory/index.brec
 
+    @
+        - A containment operator.
+        : see `^^containment clause$` @ language_definition.brec
+        : see `^^CS$` @ language_definition.brec
     alphanumeric
         - (of a character) Having a Unicode property of `Alphabetic` or `Decimal_Number`.
             : re `Alphabetic` see https://www.unicode.org/reports/tr44/tr44-26.html#Alphabetic
@@ -22,6 +26,8 @@ Definition of terms for project Breccia
     compile
         ─ verb, with object
             - Convert (a text) from source to simulacral form.
+    containment operator
+        : see `^^@$`
     file head
         - Another term for a file descriptor.
     foregap
@@ -103,4 +109,4 @@ Definition of terms for project Breccia
             - Ancestral by way of a jointer.
 
 
-                                                    \ Copyright © 2019-2021  Michael Allan.  Licence MIT.
+                                                    \ Copyright © 2019-2022  Michael Allan.  Licence MIT.

@@ -794,9 +794,11 @@ Breccia language definition
                 : re `URI reference` see @ `^^ Resource indicant$`
             / It may be left to the reader to determine what more, if anything, the author intends.
 
-        CS, containment separator
+        CS
+            - A containment separator.
+            - It comprises a containment operator ‘@’ between two postgaps.
 
-              ╶── P ──╴‘@’╶── P ───▶
+                  ╶── P ──╴‘@’╶── P ───▶
 
         indicated fractum( fractum indicant `i` if present )
             : join `^^simulacral reference$` @ `^^ Notes$`
@@ -1013,14 +1015,14 @@ Breccia language definition
         ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
             - A matcher of regular-expression patterns.  Its form is:
 
-                                                ┌───╴◀───────┐
-                                                │            │
-                  ╶──╴‘`’╶── pattern ──╴‘`’╶──┬─┴─ modifier ─┴─┬───▶
-                                              │                │
-                                              └────────────────┘
+                                                ┌──────╴◀──────────┐
+                                                │                  │
+                  ╶──╴‘`’╶── pattern ──╴‘`’╶──┬─┴─ match modifier ─┴─┬───▶
+                                              │                      │
+                                              └──────────────────────┘
                     : re `─ (pattern) ─` see `^^ pattern language$`
 
-            modifier
+            match modifier
 
                      ┌──╴‘m’╶──┐
                   ╶──┤         ├───▶
@@ -1071,18 +1073,18 @@ Breccia language definition
             ^
                 - The beginning (zero width) of the text in which a match is sought,
                   or of a line if `m` is used.
-                    : re `\`(m)\`` see `^^(modifier)$.*‘(m)’`ms @ `^^ pattern matcher$`
+                    : re `\`(m)\`` see `^^(match modifier)$.*‘(m)’`ms @ `^^ pattern matcher$`
                 : see https://perldoc.perl.org/perlre#Metacharacters
             ^^
                 - A perfect indent, equivalent to `^\t*`
             .
                 - Any character except a newline, or any including a newline if `s` is used.
-                    : re `\`(s)\`` see `^^(modifier)$.*‘(s)’`ms @ `^^ pattern matcher$`
+                    : re `\`(s)\`` see `^^(match modifier)$.*‘(s)’`ms @ `^^ pattern matcher$`
                 : see https://perldoc.perl.org/perlre#Metacharacters
             $
                 - The end (zero width) of the text in which a match is sought,
                   or of a line if `m` is used.
-                    : re `\`(m)\`` see `^^(modifier)$.*‘(m)’`ms @ `^^ pattern matcher$`
+                    : re `\`(m)\`` see `^^(match modifier)$.*‘(m)’`ms @ `^^ pattern matcher$`
                 : see https://perldoc.perl.org/perlre#Metacharacters
             |
                 - Alternation.
