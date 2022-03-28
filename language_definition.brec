@@ -92,7 +92,6 @@ Breccia language definition
 
                   ╶──╴‘re’╶── P ── pattern matcher ───▶
 
-                        : re `pattern matcher` see @ `^^ Regular-expression pattern matching$`
                     diagram, The form of a referrer clause in an associative reference.
 
             referrers( associative reference )
@@ -774,7 +773,6 @@ Breccia language definition
                     │                     │  │                                │
                     └───────╴◀── CS ──────┘  └────────────────────────────────┘
 
-                : re `pattern matcher` see @ `^^ Regular-expression pattern matching$`
         - In the namesake case — absent a `non-fractal` qualifier, that is — the fractum indicant
           indicates a fractum.
             - Any pattern series pinpoints with each pattern a fractal head, while any resource indicant
