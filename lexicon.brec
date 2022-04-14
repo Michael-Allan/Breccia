@@ -67,6 +67,8 @@ Definition of terms for project Breccia
         ─ mass noun
             - The arrangement in a file of characters and lines in relation to each other
               according to the conventional sequence of reading.
+                / Aka ‘document order’.
+                    : see e.g. https://www.w3.org/TR/DOM-Level-3-Core/glossary.html#dt-document-order
     newline
         - A character or sequence of characters indicating a line break.
         / In Breccia, it comprises either a line feed, or a carriage return followed by a line feed.
