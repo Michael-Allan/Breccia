@@ -528,7 +528,7 @@ Breccia language definition
                 / `tt` The list of title strings.
             deem+ `t` a string, `n` a text line
                 / `t` The title being assembled, yet to be appended to `tt`.
-                / `n` The line whose label last contributed to `t`.
+                / `n` The line whose division label last contributed to `t`.
             for( each division label `b` of divider `d` )
                 if( `b` leads the line on which it occurs, discounting plain spaces (20) )
                     : see `^^character identification$` @ `^^ Notes$`
@@ -639,7 +639,7 @@ Breccia language definition
                 • file head or point head
                     - The relevant part excludes comment carriers and precedes any indent blind.
                 • divider
-                    - The relevant part is the first label.
+                    - The relevant part is the first division label.
 
 
 
