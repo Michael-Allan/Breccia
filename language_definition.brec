@@ -30,6 +30,7 @@ Breccia language definition
         - Its descriptor, if present, is largely free in form.
             / It may not start with a no-break space, however, as then the point would instead
               be a plain point.
+                : see `^^. One purpose of placing a no-break space.+in this position` @ `^^bullet$`
 
 
 
@@ -43,6 +44,7 @@ Breccia language definition
         - Its descriptor, if present, is largely free in form.
             / It may not start with a no-break space, however, as then the point would instead
               be a plain point.
+                : see `^^. One purpose of placing a no-break space.+in this position` @ `^^bullet$`
 
 
 
@@ -336,6 +338,8 @@ Breccia language definition
      Command point
     ───────────────
         - A point wherein the bullet comprises ‘:’ and is not directly followed by a no-break space (A0).
+            : re `not directly followed by a no-break space` see
+              `^^. One purpose of placing a no-break space.+in this position` @ `^^bullet$`
         - Its descriptor has this form:
 
               ╶── S ──┬──╴‘privately’╶─ S ──┬── command ──┬── P ──┬── appendage clause ──┬──▶
@@ -1225,6 +1229,7 @@ Breccia language definition
         - Its descriptor, if present, is largely free in form.
             / It may not start with a no-break space, however, as then the point would instead
               be a plain point.
+                : see `^^. One purpose of placing a no-break space.+in this position` @ `^^bullet$`
 
 
 
