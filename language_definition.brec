@@ -607,8 +607,8 @@ Breccia language definition
                 diagram, The form of a file fractum.
 
         - Either the head or the body may be absent, not both.
-            / Absence of both implies no fractum at all, and an empty file.
-        - The head is absent (and a body fractum present) if the first line of the file
+            / Absence of both implies no file fractum at all, thus an empty file.
+        - The head is absent (and a body present) if the first line of the file
           is perfectly indented and not part of a comment block.
             : re `perfectly indented` see `^^perfect indent$` @ `^^ Separation$`
 
