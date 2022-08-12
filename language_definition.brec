@@ -575,7 +575,7 @@ Breccia language definition
     ──────────────
         - The largest formal unit of Breccian composition, forming the content of a file.
         - It comprises a head formed as a file descriptor
-          and/or a body formed as a sequenceof body fracta.
+          and/or a body formed as a sequence of body fracta.
 
                start of file
                ┄┄┄┄┄┄┄┄┄┄┄┄┄
