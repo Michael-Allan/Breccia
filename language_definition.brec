@@ -1251,7 +1251,7 @@ Breccia language definition
             - Each text sequence, markup element or other resource here mentioned is that of the original
               in its place, not a separate copy of it.
         pattern-matcher compilation based on referrer similarity
-            : see @ http://reluk.ca/project/Breccia/notepad.brec
+            : see @ http://reluk.ca/project/Breccia/working_notes.brec
             - How the compiler should construct inferred pattern definitions according to referrer
               similarity (`same` or `similar`) has yet to be defined, pending implementation trials.
                 : re `referrer\R +similarity` see @ `^^- An inferential referent indicant comprises` @
