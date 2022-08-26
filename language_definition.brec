@@ -161,9 +161,9 @@ Breccia language definition
                      │           │
                      └─╴‘viz.’╶──┘
 
-            / Referential command `q.v.` is of limited use.  It makes grammatical sense
-              only when a) the referrer clause is absent, and b) the referent clause
-              is either absent or comprises an inferential referent indicant.
+            / Referential command `q.v.` is of limited use.  It makes grammatical sense only when
+              a) the referrer clause is absent, and b) the referent clause is either absent (`q.v.`)
+              or comprises an inferential referent indicant (`q.v. @ foo.brec`, for example).
 
             cf.+ 
 
