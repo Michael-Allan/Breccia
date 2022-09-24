@@ -1182,7 +1182,8 @@ Breccia language definition
                     : re `(comment).+\R.+(appender)` see `^^comment appender$`
 
         perfect indent
-            - A separator comprising zero or more plain space characters (20) in the following form.
+            - A separator comprising zero or more tetrads of plain space characters (20)
+              at the start of a line, as follows.
 
                                ┌───────────╴◀────────────┐
                    start ┊     │                         │       ┊
@@ -1190,6 +1191,8 @@ Breccia language definition
                    line  ┊   │                             │     ┊ character
                              └─────────────────────────────┘
                     : re `20` see `^^character identification$` @ `^^ Notes$`
+            / A perfect indent marks the start of a body fractum.  Specifically it marks
+              the start of a point head or divider segment.
 
         S
             - A separator comprising plain space characters (20) in the following form.
