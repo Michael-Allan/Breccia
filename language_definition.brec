@@ -777,8 +777,8 @@ Breccia language definition
                     │                     │  │                                │
                     └───────╴◀── CS ──────┘  └────────────────────────────────┘
 
-        - In the namesake case — absent a `non-fractal` qualifier, that is — the fractum indicant
-          indicates a fractum.
+        - In the namesake case — absent a `non-fractal` resource indicant, that is —
+          the fractum indicant indicates a fractum.
             - Any pattern series pinpoints with each pattern a fractal head, while any resource indicant
               resolves to a Breccian file and therewith a file fractum.
             - The overall indicated fractum is the one resolved leftmost in the indicant
@@ -790,8 +790,8 @@ Breccia language definition
                    ╰┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄╯   ╰┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄╯  ╰┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄╯
                             pattern                     pattern              resource indicant
 
-        - Otherwise no actual fractal indication is here defined.
-            - The only definite indication in the presence of a `non-fractal` qualifier
+        - Otherwise no fractum is indicated.
+            - The only definite indication in the presence of a `non-fractal` resource indicant
               is the indicated resource as a whole, namely the referent of the URI reference.
                 : re `URI reference` see @ `^^ Resource indicant$`
             / It may be left to the reader to determine what more, if anything, the author intends.
