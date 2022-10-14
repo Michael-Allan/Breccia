@@ -1123,8 +1123,8 @@ Breccia language definition
 
         - The `non-fractal` qualifier, if present, stops any attempt
           to distinguish fracta in the referent during compilation.
-            / Authors may use it to forestall compiler errors, e.g. in cases where the referent
-              is non-Breccian or malformed.
+            / Authors may use it to forestall compiler errors, e.g. where the referent is malformed
+              or non-Breccian.
 
         indicated resource( resource indicant `i` if present )
             : re `resource` see head @ non-fractal https://datatracker.ietf.org/doc/html/rfc3986#section-1.1
