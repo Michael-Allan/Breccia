@@ -313,7 +313,7 @@ Breccia language definition
                 - The text sequence, fractum or other resource to be taken as the referent.
                     : re `text .+ other resource` see `^^original resource$` @ `^^ Notes$`
                     : re `other resource` see head @ non-fractal
-                      https://datatracker.ietf.org/doc/html/rfc3986#section-1.1
+                      https://www.rfc-editor.org/rfc/rfc3986#section-1.1
                 / The compiler resolves the referent as follows.
                 if( the referent clause includes a resource indicant with a `non-fractal` qualifier )
                     return+ `indicated resource( resource indicant )`
@@ -1119,7 +1119,7 @@ Breccia language definition
               ╶──┬──╴‘non-fractal’╶── P ──┬── URI reference ───▶
                  │                        │
                  └────────────────────────┘
-                    : re `URI reference` see https://datatracker.ietf.org/doc/html/rfc3986#section-4.1
+                    : re `URI reference` see https://www.rfc-editor.org/rfc/rfc3986#section-4.1
                 diagram, The form of a resource indicant.
 
         - The `non-fractal` qualifier, if present, stops any attempt
@@ -1128,7 +1128,7 @@ Breccia language definition
               or non-Breccian.
 
         indicated resource( resource indicant `i` if present )
-            : re `resource` see head @ non-fractal https://datatracker.ietf.org/doc/html/rfc3986#section-1.1
+            : re `resource` see head @ non-fractal https://www.rfc-editor.org/rfc/rfc3986#section-1.1
             : re `resource` see `^^original resource$` @ `^^ Notes$`
             : join `^^simulacral reference$` @ `^^ Notes$`
             deem+ `r` a resource, initially the present file
