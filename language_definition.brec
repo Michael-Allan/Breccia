@@ -106,7 +106,7 @@ Breccia language definition
                 if( no referrer clause is present )
                     + Append `h` to `tt`.
                 else
-                    deem+ `p` a pattern, that of the referrer clause
+                    deem+ `p` a pattern matcher, that of the referrer clause
                     for( each match `m` of `p` against `h` )
                         if( `m` captured no group  )
                             + Append to `tt` the whole text sequence of `m`.
@@ -114,7 +114,7 @@ Breccia language definition
                             + Append to `tt` a disjoint text sequence comprising the union
                               of all captured text sequences of `m`.
                     if( `tt` is empty )
-                        throw+ broken `re` clause, pattern `p` not found
+                        throw+ broken `re` clause, pattern matcher `p` not found
                 return+ `tt`
 
             parental head text()
@@ -218,7 +218,7 @@ Breccia language definition
                   (It reads better with some referential commands than with others.)
                 - Referrer similarity (i) determines how broadly or narrowly the pattern of referential
                   form (ii) is to be interpreted for purposes of constructing its inferred definition.
-                    : see `^^pattern-matcher compilation based on referrer similarity$` @ `^^ Notes$`
+                    : see `^^pattern-matcher construction based on referrer similarity$` @ `^^ Notes$`
                 - Referential form (ii) determines the form of the referent and how to locate it:
                         • ‘head’ defines the referent as a fractum
                            to be located by the pattern of its head, while
@@ -254,15 +254,15 @@ Breccia language definition
                         + Set `fR` to `default referential form()`.
 
                     if( the referential form `fR` is ‘head’ )
-                        + Set `iF` to `inferred pattern()` of `iIR` in space-delimited conjunction
-                          with any containment clause of `iIR`.
+                        + Set `iF` to `inferred pattern matcher()` of `iIR` in space-delimited
+                          conjunction with any containment clause of `iIR`.
                         return+ `indicated fractum( iF )`
 
                     / It follows that the referential form `fR` is ‘term’.
                     if( `iIR` includes a containment clause )
                         + Set `iF` to the fractum indicant of the containment clause.
                     deem+ `f` a fractum, that of `indicated fractum( iF if set )`;
-                          `p` a pattern, that of `inferred pattern()` of `iIR`;
+                          `p` a pattern, that of `inferred pattern matcher()` of `iIR`;
                           `tt` a list of text sequences, intitally empty
                     for( each match `m` of `p` against the text sequence of the head of `f` )
                         if( `m` captured no group  )
@@ -273,24 +273,24 @@ Breccia language definition
                         throw+ broken reference, pattern `p` not found
                     return+ a disjoint text sequence comprising the union of all `tt`
 
-                inferred pattern()
+                inferred pattern matcher()
                     : join `^^simulacral reference$` @ `^^ Notes$`
                     - Constructs by inference from the pattern of the referrer, or referrers,
-                      a pattern to pinpoint the referent.
+                      a pattern matcher to pinpoint the referent.
                     deem+ `fR` the referential form if defined, else `default referential form()`;
                           `p` a string buffer, initially empty;
                           `cR` the referrer clause if present;
                           `sR` the referrer similarity if defined, else `default referrer similarity()`
                     if( `cR` is present ) then the pattern of the referrer(s) is the pattern of `cR`
                         : re `pattern of the referrer` see @ `^^- Constructs by inference` @
-                          `^^inferred pattern\(`
+                          `^^inferred pattern matcher\(`
                         + Set `p` to the pattern of `cR`.
                         + Refine `p` according to referrer similarity `sR` and referential form `fR`.
-                            : see `^^pattern-matcher compilation based on referrer similarity$` @
+                            : see `^^pattern-matcher construction based on referrer similarity$` @
                               `^^ Notes$`
                     else( the pattern of the referrer(s) is the pattern of the parental head )
                         : re `pattern of the referrer` see @ `^^- Constructs by inference` @
-                          `^^inferred pattern\(`
+                          `^^inferred pattern matcher\(`
                         + Set `p` to the string of `parental head text()`.
                         + Trim `p` of comment carriers and indent blinds.
                         + Trim `p` of leading and trailing whitespace.
@@ -299,9 +299,10 @@ Breccia language definition
                             / Neutralizing differences of indentation and line wrapping.
                         + Further refine `p` according to referrer similarity `sR`
                           and referential form `fR`.
-                            : see `^^pattern-matcher compilation based on referrer similarity$` @
+                            : see `^^pattern-matcher construction based on referrer similarity$` @
                               `^^ Notes$`
-                    return+ `p`
+                    return+ a pattern matcher comprising the concatenation of ‘`’,
+                      the string of `p`, and ‘`’.
 
             containment clause
 
@@ -769,7 +770,7 @@ Breccia language definition
      Fractum indicant
     ──────────────────
         / Part of an associative reference or other referential markup.
-        - A fractum indicant comprises one or both of a pattern series and a resource indicant.
+        - A fractum indicant comprises one or both of a pattern-matcher series and a resource indicant.
 
                  ┌────────────────────────────────────┐
               ╶──┤                                    │
@@ -779,8 +780,8 @@ Breccia language definition
 
         - In the namesake case — absent a `non-fractal` resource indicant, that is —
           the fractum indicant indicates a fractum.
-            - Any pattern series pinpoints with each pattern a fractal head, while any resource indicant
-              resolves to a Breccian file and therewith a file fractum.
+            - Any pattern-matcher series pinpoints with each matcher a fractal head, while any
+              resource indicant resolves to a Breccian file and therewith a file fractum.
             - The overall indicated fractum is the one resolved leftmost in the indicant
               and so deepest in the fractal hierarchy.
             / For example, here is a fractum indicant for the present fractum:
@@ -788,7 +789,7 @@ Breccia language definition
                    `^^/ For example, here is` @ `^^ Fractum indicant$` @ ./language_definition.brec
                  
                    ╰┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄╯   ╰┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄╯  ╰┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄╯
-                            pattern                     pattern              resource indicant
+                         pattern matcher            pattern matcher          resource indicant
 
         - Otherwise no fractum is indicated.
             - The only definite indication in the presence of a `non-fractal` resource indicant
@@ -806,13 +807,13 @@ Breccia language definition
             : join `^^simulacral reference$` @ `^^ Notes$`
             - The fractum indicated, together with any match that occurred to pinpoint it.
                 : re `fractum` see `^^original resource$` @ `^^ Notes$`
-            deem+ `p` a pattern
-                / The next pattern to seek in the body of fractum `f`.
+            deem+ `p` a pattern matcher
+                / The one defining the next pattern to seek in the body of fractum `f`.
             if( `i` is present )
                 if( `i` includes a resource indicant with a `non-fractal` qualifier )
                     throw+ non-fractal resource
-                if( `i` includes a pattern series )
-                    + Set `p` to the final pattern in linear order.
+                if( `i` includes a pattern-matcher series )
+                    + Set `p` to its final pattern matcher in linear order.
             deem+ `r` a resource, namely `indicated resource( any resource indicant of i )`
             if( `r` contains no file fractum )
                 throw+ non-Breccian resource
@@ -821,7 +822,7 @@ Breccia language definition
                   `desc` a fractum
                 / `desc` A descendant fractum of `f`, the last matched.
             while( `p` is set )
-                for( each match `m` of pattern `p` against the body of `f` )
+                for( each match `m` of pattern-matcher `p` against the body of `f` )
                     deem+ `head` the fractal head intersected by the first line of `m`
                     unless( all lines of `m` intersect `head` )
                         throw+ ambiguous reference, `p` intersects multiple heads
@@ -830,7 +831,7 @@ Breccia language definition
                     + Set `desc` to the fractum of `head`.
                     + Set `mF` to `m`.
                 if( `desc` is unset )
-                    throw+ broken reference, pattern `p` not found
+                    throw+ broken reference, pattern of `p` not found
                 + Set `f` to `desc`.
                 + Unset `desc`.
                 + Set `p` to its predecessor in `i`, if any, else unset it.
@@ -1253,9 +1254,9 @@ Breccia language definition
         original resource
             - Each text sequence, markup element or other resource here mentioned is that of the original
               in its place, not a separate copy of it.
-        pattern-matcher compilation based on referrer similarity
+        pattern-matcher construction based on referrer similarity
             : see @ http://reluk.ca/project/Breccia/working_notes.brec
-            - How the compiler should construct inferred pattern definitions according to referrer
+            - How the compiler should construct inferred pattern matchers according to referrer
               similarity (`same` or `similar`) has yet to be defined, pending implementation trials.
                 : re `referrer\R +similarity` see @ `^^- An inferential referent indicant comprises` @
                   `^^inferential referent indicant$` @ `^^ referent clause$`
