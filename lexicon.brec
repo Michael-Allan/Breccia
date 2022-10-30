@@ -78,8 +78,12 @@ Definition of terms for project Breccia
             : see `^^P$` @ `^^ Separation$` @ language_definition.brec
     private
         ─ adjective
-            - (of a fractum) Marked as pertaining soley to the author, or authors,
-              by the use of a privatizer.
+            - (of Breccian text) Pertaining soley to the author, or authors.
+            : see `pertaining soley.+author.+authors` @ `^^ Privatizer$` @ language_definition.brec
+    privatize
+        ─ verb
+            - Mark as private by the use of a privatizer.
+            : see `mark.+\R.+pertaining soley.+author` @ `^^ Privatizer$` @ language_definition.brec
     simulacra
         ─ plural noun
             : see `^^simulacrum$`

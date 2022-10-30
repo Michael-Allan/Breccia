@@ -73,9 +73,9 @@ Breccia language definition
         - Multiple referrers may be overlapped or nested in any manner.
             / Via multiple, sibling references.
             / Via a single reference that indicates multiple referrers at once.
-        - An associative reference to a private referent of the same author, or authors,
-          must itself be private, else the reference is malformed.
-            : re `private` see `^^ Privatizer$`
+        - An associative reference to a privatized referent of the same author, or authors,
+          must itself be privatized, else the reference is malformed.
+            : re `privatized` see `^^ Privatizer$`
 
         compile( associative reference )
             : join `^^simulacral reference$` @ `^^ Notes$`
@@ -994,10 +994,9 @@ Breccia language definition
     ━━━━━━━━━━━━
      Privatizer
     ────────────
-        - A command point that makes a private fractum of its simulacral parent.
-            / So pertaining soley to the author, or authors.
-                : cf. `^^ Comment carrier$`
-            / The effect applies to the parent and all its descendants.
+        - A command point that privatizes its simulacral parent, marking it (and thereby all markup
+          within it) as pertaining soley to the author, or authors.
+            : cf. `^^ Comment carrier$`
         - Its command has this form:
 
               ╶──╴‘private’╶───▶
