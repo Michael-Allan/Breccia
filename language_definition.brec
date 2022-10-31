@@ -769,7 +769,7 @@ Breccia language definition
     ━━━━━━━━━━━━━━━━━━
      Fractum indicant
     ──────────────────
-        / Part of an associative reference or other referential markup.
+        / Part of an associative reference or other referential text.
         - A fractum indicant comprises one or both of a pattern-matcher series and a resource indicant.
 
                  ┌────────────────────────────────────┐
@@ -994,7 +994,7 @@ Breccia language definition
     ━━━━━━━━━━━━
      Privatizer
     ────────────
-        - A command point that privatizes its simulacral parent, marking it (and thereby all markup
+        - A command point that privatizes its simulacral parent, marking it (and thereby all text
           within it) as pertaining soley to the author, or authors.
             : cf. `^^ Comment carrier$`
         - Its command has this form:
@@ -1113,7 +1113,7 @@ Breccia language definition
     ━━━━━━━━━━━━━━━━━━━
      Resource indicant
     ───────────────────
-        / Part of an associative reference or other referential markup.
+        / Part of an associative reference or other referential text.
                 ·
               ╶──┬──╴‘non-fractal’╶── P ──┬── URI reference ───▶
                  │                        │
@@ -1251,8 +1251,8 @@ Breccia language definition
      \      - The present text uses syntax diagrams because it is aimed at Breccian authors in general,
      \        who are not expected to be comfortable with a textual notation such as Backus-Naur Form.
         original resource
-            - Each text sequence, markup element or other resource here mentioned is that of the original
-              in its place, not a separate copy of it.
+            - A text element, text sequence or other resource in its original place,
+              not a separate copy of it.
         pattern-matcher construction based on referrer similarity
             : see @ http://reluk.ca/project/Breccia/working_notes.brec
             - How the compiler should construct inferred pattern matchers according to referrer
