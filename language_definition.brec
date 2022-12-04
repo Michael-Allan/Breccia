@@ -782,6 +782,11 @@ Breccia language definition
           the fractum indicant indicates a fractum.
             - Any pattern-matcher series pinpoints with each matcher a fractal head, while any
               resource indicant resolves to a Breccian file and therewith a file fractum.
+                - Each pattern matcher of the series operates in multiple-line mode,
+                  regardless of whether match modifier `m` is given.
+                    : re `multiple-line mode` see https://perldoc.perl.org/perlre#m
+                    : re `match modifier` see `^^ pattern matcher$` @
+                      `^^ Regular-expression pattern matching$`
             - The overall indicated fractum is the one resolved leftmost in the indicant
               and so deepest in the fractal hierarchy.
             / For example, here is a fractum indicant for the present fractum:
@@ -821,8 +826,10 @@ Breccia language definition
                   `mF` a match;
                   `desc` a fractum
                 / `desc` A descendant fractum of `f`, the last matched.
-            while( `p` is set )
-                for( each match `m` of pattern-matcher `p` against the body of `f` )
+            while( pattern-matcher `p` is set )
+                + Put `p` into multiple-line mode.
+                    : re `multiple-line mode` see https://perldoc.perl.org/perlre#m
+                for( each match `m` of `p` against the body of `f` )
                     deem+ `head` the fractal head intersected by the first line of `m`
                     unless( all lines of `m` intersect `head` )
                         throw+ ambiguous reference, `p` intersects multiple heads
