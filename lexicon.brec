@@ -36,7 +36,6 @@ Definition of terms for project Breccia
     formal
         ─ adjective
             - (of a fractal type) Defined by a form particular to it.
-                : e.g. `^^◆ formal type$` @ `^^legend$` @ `^^fractal types$` @ language_definition.brec
         : cf. `^^informal$`
     fracta
         ─ plural noun
@@ -61,7 +60,7 @@ Definition of terms for project Breccia
     informal
         ─ adjective
             - (of a fractal type) Defined in terms of other fractal types.
-                : e.g. `^^◆ informal type$` @ `^^legend$` @ `^^fractal types$` @ language_definition.brec
+                : e.g. `informal type$` @ `^^legend$` @ `^^ fractal types$` @ language_definition.brec
         : cf. `^^formal$`
     linear order
         ─ mass noun

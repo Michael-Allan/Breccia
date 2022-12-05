@@ -603,7 +603,7 @@ Breccia language definition
                ┄┄┄┄┄┄┄┄┄┄┄┄┄
                 end of file
 
-                    : re `(file).*(descriptor)`s see `^^ File descriptor$`
+                    : re `(file).*(descriptor)`s see `^^ file descriptor$`
                     : re `(body).*(fractum)`s see `^^ fractal types$`
                 diagram, The form of a file fractum.
 
@@ -873,7 +873,7 @@ Breccia language definition
      Jointer
     ─────────
         - An associative reference with a referential command of `join`.
-            : cf. `^^Pointer$`
+            : cf. `^^ Pointer$`
         - In effect it stands for the fractal body of its referent.
         - Any referrer clause in a jointer indicates the referrer in particular as the rationale
           for writing the jointer into the text.
@@ -995,7 +995,7 @@ Breccia language definition
      Pointer
     ─────────
         - An associative reference whose referential command is other than ‘join’.
-        : cf. `^^Jointer$`
+        : cf. `^^ Jointer$`
 
 
 
