@@ -831,8 +831,11 @@ Breccia language definition
                 + Put `p` into multiple-line mode.
                     : re `multiple-line mode` see https://perldoc.perl.org/perlre#m
                 for( each match `m` of `p` against the body of `f` )
-                    deem+ `head` the fractal head intersected by the first line of `m`
-                    if( all lines of `m` intersect `head` ) \ [matches are confined to a single head]
+                    deem+ `head` the fractal head at which `m` starts
+                    if( `m` ends within `head` )
+                        / Else `m` extends across multiple heads and will be ignored.  Fractum-indicant
+                          pattern matches are confined to a single head. \ Match modifier `s` would tend
+                            \ to match too broadly otherwise, making it largely useless.
                         if( `desc` is set )
                             throw+ ambiguous reference, `p` matches multiple fracta
                         + Set `desc` to the fractum of `head`.
@@ -1257,9 +1260,6 @@ Breccia language definition
      \\ [graphical syntax notation]
      \      - The present text uses syntax diagrams because it is aimed at Breccian authors in general,
      \        who are not expected to be comfortable with a textual notation such as Backus-Naur Form.
-     \\ [matches are confined to a single head]
-     \      - Matches that would extend across multiple heads are ignored.
-     \      - Else match modifier `s` would tend to match too broadly, making it largely useless.
         original resource
             - A text element, text sequence or other resource in its original place,
               not a separate copy of it.
