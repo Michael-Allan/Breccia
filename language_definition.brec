@@ -824,10 +824,9 @@ Breccia language definition
             if( `r` contains no file fractum )
                 throw+ non-Breccian resource
             deem+ `f` a fractum, initially the file fractum of `r`;
-                  `mF` a match;
-                  `desc` a fractum
-                / `desc` A descendant fractum of `f`, the last matched.
-            while( pattern-matcher `p` is set )
+                  `fLast` a fractum;
+                  `mLast` a match
+            while( `p` is set )
                 + Put `p` into multiple-line mode.
                     : re `multiple-line mode` see https://perldoc.perl.org/perlre#m
                 for( each match `m` of `p` against the body of `f` )
@@ -836,16 +835,19 @@ Breccia language definition
                         / Else `m` extends across multiple heads and will be ignored.  Fractum-indicant
                           pattern matches are confined to a single head. \ Match modifier `s` would tend
                             \ to match too broadly otherwise, making it largely useless.
-                        if( `desc` is set )
+                        if( `fLast` is set )
                             throw+ ambiguous reference, `p` matches multiple fracta
-                        + Set `desc` to the fractum of `head`.
-                        + Set `mF` to `m`.
-                if( `desc` is unset )
+                        + Set `fLast` to the fractum of `head`.
+                        + Set `mLast` to `m`.
+                if( `fLast` is unset )
                     throw+ broken reference, pattern of `p` not found
-                + Set `f` to `desc`.
-                + Unset `desc`.
-                + Set `p` to its predecessor in `i`, if any, else unset it.
-            return+ `f` and any `mF`
+                + Set `f` to `fLast`.
+                if( `p` has a predecessor in `i` )
+                    + Set `p` to the predecessor.
+                    + Unset `fLast`.
+                else
+                    + Unset `p`.
+            return+ `f` and any `mLast`
 
 
 
