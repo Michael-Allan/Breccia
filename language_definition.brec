@@ -835,10 +835,15 @@ Breccia language definition
                         / Else `m` extends across multiple heads and will be ignored.  Fractum-indicant
                           pattern matches are confined to a single head. \ Match modifier `s` would tend
                             \ to match too broadly otherwise, making it largely useless.
-                        if( `fLast` is set )
-                            throw+ ambiguous reference, `p` matches multiple fracta
-                        + Set `fLast` to the fractum of `head`.
-                        + Set `mLast` to `m`.
+                        if( `i` lies outside of `head` )
+                            / Else `m` will be ignored.  Fractum-indicant pattern matches are excluded
+                              from the head in which the fractum indicant is contained.
+                                \ Patterns would be liable to match themselves otherwise,
+                                \ making them difficult to disambiguate.
+                            if( `fLast` is set )
+                                throw+ ambiguous reference, `p` matches multiple fracta
+                            + Set `fLast` to the fractum of `head`.
+                            + Set `mLast` to `m`.
                 if( `fLast` is unset )
                     throw+ broken reference, pattern of `p` not found
                 + Set `f` to `fLast`.
