@@ -841,9 +841,17 @@ Breccia language definition
                                 \ Patterns would be liable to match themselves otherwise,
                                 \ making them difficult to disambiguate.
                             if( `fLast` is set )
-                                throw+ ambiguous reference, `p` matches multiple fracta
-                            + Set `fLast` to the fractum of `head`.
-                            + Set `mLast` to `m`.
+                                if( `fLast` is unequal to the fractum of `head` )
+                                    / Else `m` is a further match in the same head and will be ignored.
+                                      In the context of a single fractal head, such ambiguity is allowed.
+                                    throw+ ambiguous reference, `p` matches multiple fracta
+                                        / Outside the narrow context of a single fractal head,
+                                          pattern ambiguity is disallowed. \ Else faced with mutable
+                                            \ referent texts, patterns would be too liable to silently
+                                            \ miss their targets and match the wrong fracta.
+                            else
+                                + Set `fLast` to the fractum of `head`.
+                                + Set `mLast` to `m`.
                 if( `fLast` is unset )
                     throw+ broken reference, pattern of `p` not found
                 + Set `f` to `fLast`.
