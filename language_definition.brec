@@ -1063,7 +1063,7 @@ Breccia language definition
          pattern language
         ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
             - The language in which patterns are defined.
-                : re `patterns` see `^^- Its form is:$.*─ (pattern) ─`ms @ `^^ pattern matcher$`
+                : re `patterns` see `^^- Its form is:$.*─ (pattern) ─`s @ `^^ pattern matcher$`
             - The language comprises a subset of the regular-expression elements of Perl,
               together with a few additions tailored to Breccia, all as detailed below.
 
@@ -1100,18 +1100,18 @@ Breccia language definition
             ^
                 - The beginning (zero width) of the text in which a match is sought,
                   or of a line if `m` is used.
-                    : re `\`(m)\`` see `^^(match modifier)$.*‘(m)’`ms @ `^^ pattern matcher$`
+                    : re `\`(m)\`` see `^^(match modifier)$.*‘(m)’`s @ `^^ pattern matcher$`
                 : see https://perldoc.perl.org/perlre#Metacharacters
             ^^
                 - A perfect indent, equivalent to `^\t*`
             .
                 - Any character except a newline, or any including a newline if `s` is used.
-                    : re `\`(s)\`` see `^^(match modifier)$.*‘(s)’`ms @ `^^ pattern matcher$`
+                    : re `\`(s)\`` see `^^(match modifier)$.*‘(s)’`s @ `^^ pattern matcher$`
                 : see https://perldoc.perl.org/perlre#Metacharacters
             $
                 - The end (zero width) of the text in which a match is sought,
                   or of a line if `m` is used.
-                    : re `\`(m)\`` see `^^(match modifier)$.*‘(m)’`ms @ `^^ pattern matcher$`
+                    : re `\`(m)\`` see `^^(match modifier)$.*‘(m)’`s @ `^^ pattern matcher$`
                 : see https://perldoc.perl.org/perlre#Metacharacters
             |
                 - Alternation.
