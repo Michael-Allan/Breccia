@@ -835,11 +835,13 @@ Breccia language definition
                         / Else `m` extends across multiple heads and will be ignored.  Fractum-indicant
                           pattern matches are confined to a single head. \ Match modifier `s` would tend
                             \ to match too broadly otherwise, making it largely useless.
+                            : re `will be ignored` see `^^ignoring a pattern match$` @ `^^ Notes$`
                         if( `i` lies outside of `head` )
                             / Else `m` will be ignored.  Fractum-indicant pattern matches are excluded
                               from the head in which the fractum indicant is contained.
                                 \ Patterns would be liable to match themselves otherwise,
                                 \ making them difficult to disambiguate.
+                                : re `will be ignored` see `^^ignoring a pattern match$` @ `^^ Notes$`
                             if( `fLast` is set )
                                 if( `fLast` is unequal to the fractum of `head` )
                                     / Else `m` is a further match in the same head and will be ignored.
@@ -1275,6 +1277,10 @@ Breccia language definition
      \\ [graphical syntax notation]
      \      - The present text uses syntax diagrams because it is aimed at Breccian authors in general,
      \        who are not expected to be comfortable with a textual notation such as Backus-Naur Form.
+        ignoring a pattern match
+            - The method of ignoring a pattern match is under trial.
+                : see e.g. http://reluk.ca/project/Breccia/Web/imager/BreccianFileTranslator.java :
+                  `seek(Matcher, ImagedBodyFractum[], int)`
         original resource
             - A text element, text sequence or other resource in its original place,
               not a separate copy of it.
