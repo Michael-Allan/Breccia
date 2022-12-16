@@ -320,11 +320,11 @@ Breccia language definition
                 deem+ `iF` a fractum indicant;
                       `iIR` an inferential referent indicant
                 if( a referent clause is present )
-                    if( the referent clause comprises a fractum indicant )
-                        + Set `iF` to the fractum indicant.
-                    else( the referent clause comprises an inferential referent indicant )
+                    if( the referent clause comprises an inferential referent indicant )
                         + Set `iIR` to the inferential referent indicant.
                         break+ `if( a referent clause is present )`
+                    else( the referent clause comprises a fractum indicant )
+                    + Set `iF` to the fractum indicant.
                     deem+ `f` a fractum, that of `indicated fractum( iF )`;
                           `mF` a match, the match of `f` if any occurred
                     if( no `mF` occured or `mF` captured no group )
@@ -823,46 +823,49 @@ Breccia language definition
             deem+ `r` a resource, namely `indicated resource( any resource indicant of i )`
             if( `r` contains no file fractum )
                 throw+ non-Breccian resource
-            deem+ `f` a fractum, initially the file fractum of `r`;
-                  `fLast` a fractum;
+            deem+ `fLast` a fractum, initially the file fractum of `r`;
                   `mLast` a match
             while( `p` is set )
                 + Put `p` into multiple-line mode.
                     : re `multiple-line mode` see https://perldoc.perl.org/perlre#m
-                for( each match `m` of `p` against the body of `f` )
-                    deem+ `head` the fractal head at which `m` starts
-                    if( `m` ends within `head` )
-                        / Else `m` extends across multiple heads and will be ignored.  Fractum-indicant
-                          pattern matches are confined to a single head. \ Match modifier `s` would tend
-                            \ to match too broadly otherwise, making it largely useless.
-                            : re `will be ignored` see `^^ignoring a pattern match$` @ `^^ Notes$`
-                        if( `i` lies outside of `head` )
-                            / Else `m` will be ignored.  Fractum-indicant pattern matches are excluded
-                              from the head in which the fractum indicant is contained.
+                for( each match `m` of `p` against the body of `fLast` )
+                    deem+ `f` the fractum in whose head `m` starts
+                    if( end boundary(`m`) exceeds end boundary(head of `f`)
+                        / Then `m` extends across multiple heads.
+                        continue+ `for`, ignoring `m`
+                            : re `ignoring .m.` see `^^ignoring a pattern match$` @ `^^ Notes$`
+                            / Fractum-indicant pattern matches are confined to a single head.
+                                \ Match modifier `s` would tend to match too broadly otherwise,
+                                \ making it largely useless.
+                    if( `i` lies within the head of `f` )
+                        continue+ `for`, ignoring `m`
+                            : re `ignoring .m.` see `^^ignoring a pattern match$` @ `^^ Notes$`
+                            / Fractum-indicant pattern matches are excluded from the head
+                              in which the fractum indicant is contained.
                                 \ Patterns would be liable to match themselves otherwise,
                                 \ making them difficult to disambiguate.
-                                : re `will be ignored` see `^^ignoring a pattern match$` @ `^^ Notes$`
-                            if( `fLast` is set )
-                                if( `fLast` is unequal to the fractum of `head` )
-                                    / Else `m` is a further match in the same head and will be ignored.
-                                      In the context of a single fractal head, such ambiguity is allowed.
-                                    throw+ ambiguous reference, `p` matches multiple fracta
-                                        / Outside the narrow context of a single fractal head,
-                                          pattern ambiguity is disallowed. \ Else faced with mutable
-                                            \ referent texts, patterns would be too liable to silently
-                                            \ miss their targets and match the wrong fracta.
-                            else
-                                + Set `fLast` to the fractum of `head`.
-                                + Set `mLast` to `m`.
-                if( `fLast` is unset )
+                    if( `mLast` is unset )
+                        + Set `mLast` to `m`.
+                        + Set `fLast` to `f`.
+                    else
+                        if( `fLast` is equal to `f` )
+                            / Then `m` is a further match in the same head.
+                            continue+ `for`, ignoring `m`
+                                : re `ignoring .m.` see `^^ignoring a pattern match$` @ `^^ Notes$`
+                                / In the context of a single fractal head, match ambiguity is allowed.
+                        throw+ ambiguous reference, `p` matches multiple fracta
+                            / Outside the narrow context of a single fractal head,
+                              pattern ambiguity is disallowed. \ Else faced with mutable
+                                \ referent texts, patterns would be too liable to silently
+                                \ miss their targets and match the wrong fracta.
+                if( `mLast` is unset )
                     throw+ broken reference, pattern of `p` not found
-                + Set `f` to `fLast`.
                 if( `p` has a predecessor in `i` )
                     + Set `p` to the predecessor.
-                    + Unset `fLast`.
+                    + Unset `mLast`.
                 else
                     + Unset `p`.
-            return+ `f` and any `mLast`
+            return+ `fLast` and any `mLast`
 
 
 
