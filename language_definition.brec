@@ -837,11 +837,12 @@ Breccia language definition
                             / Fractum-indicant pattern matches are confined to a single head.
                                 \ Match modifier `s` would tend to match too broadly otherwise,
                                 \ making it largely useless.
-                    if( `i` lies within the head of `f` )
+                    if( `p` leads the pattern-matcher series (in linear order)
+                          and `i` lies within the head of `f` )
                         continue+ `for`, ignoring `m`
                             : re `ignoring .m.` see `^^ignoring a pattern match$` @ `^^ Notes$`
-                            / Fractum-indicant pattern matches are excluded from the head
-                              in which the fractum indicant is contained.
+                            / Fractum indicants do not indicate the fracta in whose heads
+                              they are contained.
                                 \ Patterns would be liable to match themselves otherwise,
                                 \ making them difficult to disambiguate.
                     if( `mLast` is unset )
