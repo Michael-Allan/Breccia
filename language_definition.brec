@@ -1284,7 +1284,7 @@ Breccia language definition
         ignoring a pattern match
             - The method of ignoring a pattern match is under trial.
                 : see e.g. http://reluk.ca/project/Breccia/Web/imager/BreccianFileTranslator.java :
-                  `seek(Matcher, ImagedBodyFractum[], int)`
+                  `seek(Matcher, ImagedBodyFractum[], int, int)`
         original resource
             - A text element, text sequence or other resource in its original place,
               not a separate copy of it.
