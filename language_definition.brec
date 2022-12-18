@@ -785,7 +785,7 @@ Breccia language definition
                 - Each pattern matcher of the series operates in multiple-line mode,
                   regardless of whether match modifier `m` is given.
                     : re `multiple-line mode` see https://perldoc.perl.org/perlre#m
-                    : re `match modifier` see `^^ pattern matcher$` @
+                    : re `match modifier .m.` see `^^m$` @ `^^ match modifier$` @
                       `^^ Regular-expression pattern matching$`
             - The overall indicated fractum is the one resolved leftmost in the indicant
               and so deepest in the fractal hierarchy.
@@ -1055,14 +1055,31 @@ Breccia language definition
                                               └──────────────────────┘
                     : re `─ (pattern) ─` see `^^ pattern language$`
 
-            match modifier
+
+        ────────────────
+         match modifier
+        ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
+            - A parameter that dictates how a pattern matcher operates.
 
                      ┌──╴‘m’╶──┐
-                  ╶──┤         ├───▶
-                     └──╴‘s’╶──┘
+                     │         │
+                  ╶──┼──╴‘s’╶──┼───▶
+                     │         │
+                     └──╴‘p’╶──┘
 
-                    : re `‘(m)’` see https://perldoc.perl.org/perlre#m
-                    : re `‘(s)’` see https://perldoc.perl.org/perlre#s
+            m
+                - Enables multiline mode.
+                    : see https://perldoc.perl.org/perlre#m
+            s
+                - Enables dot-all mode.
+                    : see https://perldoc.perl.org/perlre#s
+            p
+                - Enables expansive space mode.
+                - The pattern is read such that any sequence of unquoted plain space characters (20)
+                  is effectively interpreted as `(?: |\N{A}|\N{D}\N{A})+`.
+                    : re `20` see `^^character identification$` @ `^^ Notes$`
+                    / With this, a single space in the pattern (or sequence of spaces) will match
+                      any number of plain spaces or newlines or both.
 
 
         ──────────────────
@@ -1106,18 +1123,18 @@ Breccia language definition
             ^
                 - The beginning (zero width) of the text in which a match is sought,
                   or of a line if `m` is used.
-                    : re `\`(m)\`` see `^^(match modifier)$.*‘(m)’`s @ `^^ pattern matcher$`
+                    : re `\`(m)\`` see `^^m$` @ `^^ match modifier$`
                 : see https://perldoc.perl.org/perlre#Metacharacters
             ^^
                 - A perfect indent, equivalent to `^\t*`
             .
                 - Any character except a newline, or any including a newline if `s` is used.
-                    : re `\`(s)\`` see `^^(match modifier)$.*‘(s)’`s @ `^^ pattern matcher$`
+                    : re `\`(s)\`` see `^^s$` @ `^^ match modifier$`
                 : see https://perldoc.perl.org/perlre#Metacharacters
             $
                 - The end (zero width) of the text in which a match is sought,
                   or of a line if `m` is used.
-                    : re `\`(m)\`` see `^^(match modifier)$.*‘(m)’`s @ `^^ pattern matcher$`
+                    : re `\`(m)\`` see `^^m$` @ `^^ match modifier$`
                 : see https://perldoc.perl.org/perlre#Metacharacters
             |
                 - Alternation.
