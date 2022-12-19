@@ -1089,6 +1089,8 @@ Breccia language definition
                 : re `patterns` see `Its form is:$.*─ (pattern) ─`s @ `^^ pattern matcher$`
             - The language comprises a subset of the regular-expression elements of Perl,
               together with a few additions tailored to Breccia, all as detailed below.
+                - To allow for future extensions to the language, the symbols `[ ] { }`
+                  may appear only in backslashed literal form, e.g. `\[ \] \{ \}`.
 
             \ 
                 - It ‘either takes away the special meaning of the character following it,
@@ -1102,6 +1104,9 @@ Breccia language definition
                     - To avoid that, substitute an equivalent pattern, such as:
 
                           : see ` \\\N{U+20}` @ non-fractal foo.html
+
+                - To allow for future extensions to the language, alphabetic backslashes
+                  are restricted to those defined below.
             \b
                 - Word boundary.
                 : see https://perldoc.perl.org/perlrebackslash#%5Cb%7B%7D,-%5Cb,-%5CB%7B%7D,-%5CB
