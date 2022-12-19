@@ -1116,12 +1116,6 @@ Breccia language definition
             \R
                 - Line break.
                 : see https://perldoc.perl.org/perlrebackslash#%5CR
-            \t
-                - Four spaces, viz. one unit of perfect indentation.
-                    : see `^^perfect indent$` @ `^^ Separation$`
-                    / As opposed to (Perl) a tab character.
-                        : see https://perldoc.perl.org/perlrebackslash#Fixed-characters
-                : cf. `^^\^\^$`
             \N{⋯}
                 - Character or character sequence by name or number.
                 : see https://perldoc.perl.org/perlrebackslash#Named-or-numbered-characters-and-character-sequences
@@ -1131,7 +1125,8 @@ Breccia language definition
                     : re `\`(m)\`` see `^^m$` @ `^^ match modifier$`
                 : see https://perldoc.perl.org/perlre#Metacharacters
             ^^
-                - A perfect indent, equivalent to `^\t*`
+                - A perfect indent, equivalent to `^(?:    )*`
+                    : re `perfect indent` see @ `^^ Separation$`
             .
                 - Any character except a newline, or any including a newline if `s` is used.
                     : re `\`(s)\`` see `^^s$` @ `^^ match modifier$`
