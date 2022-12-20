@@ -4,8 +4,8 @@ Definition of terms for project Breccia
 
     @
         - A containment operator.
-        : see `^^containment clause$` @ language_definition.brec
-        : see `^^CS$` @ language_definition.brec
+        : see `^*containment clause$` @ language_definition.brec
+        : see `^*CS$` @ language_definition.brec
     alphanumeric
         - (of a character) Having a Unicode property of `Alphabetic` or `Decimal_Number`.
             : re `Alphabetic` see https://www.unicode.org/reports/tr44/tr44-26.html#Alphabetic
@@ -22,32 +22,32 @@ Definition of terms for project Breccia
                 : see `lightweight markup.+drafting.+recurs.+fracta` @ README.html
     Breccian
         ─ adjective
-            : see `^^Breccia$`
+            : see `^*Breccia$`
     compile
         ─ verb, with object
             - Convert (a text) from source to simulacral form.
     containment operator
-        : see `^^@$`
+        : see `^*@$`
     file head
         - Another term for a file descriptor.
     foregap
         - A type of separator.
-            : see `^^F$` @ `^^ Separation$` @ language_definition.brec
+            : see `^*F$` @ `^+Separation$` @ language_definition.brec
     formal
         ─ adjective
             - (of a fractal type) Defined by a form particular to it.
-        : cf. `^^informal$`
+        : cf. `^*informal$`
     fracta
         ─ plural noun
-            : see `^^fractum$`
+            : see `^*fractum$`
     fractal
         ─ adjective
-            : see `^^fractum$`
+            : see `^*fractum$`
     fractum
         ─ noun
             - The basic formal unit of Breccian composition, recursion and order.
                 : see `basic formal unit of Breccian composition, recursion and order\.$` @
-                  `^^ Fractum$` @ language_definition.brec
+                  `^+Fractum$` @ language_definition.brec
     headless file
         - A Breccian file without a file descriptor.
     hierarchic order
@@ -60,8 +60,8 @@ Definition of terms for project Breccia
     informal
         ─ adjective
             - (of a fractal type) Defined in terms of other fractal types.
-                : e.g. `informal type$` @ `^^legend$` @ `^^ fractal types$` @ language_definition.brec
-        : cf. `^^formal$`
+                : e.g. `informal type$` @ `^*legend$` @ `^+fractal types$` @ language_definition.brec
+        : cf. `^*formal$`
     linear order
         ─ mass noun
             - The arrangement in a file of characters and lines in relation to each other
@@ -71,29 +71,29 @@ Definition of terms for project Breccia
     newline
         - A character or sequence of characters indicating a line break.
         / In Breccia, it comprises either a line feed, or a carriage return followed by a line feed.
-            : see `^^allowed whitespace$` @ language_definition.brec
+            : see `^*allowed whitespace$` @ language_definition.brec
     postgap
         - A type of separator.
-            : see `^^P$` @ `^^ Separation$` @ language_definition.brec
+            : see `^*P$` @ `^+Separation$` @ language_definition.brec
     private
         ─ adjective
             - (of Breccian text) Pertaining soley to the author, or authors.
-            : see `pertaining soley.+author.+authors` @ `^^ Privatizer$` @ language_definition.brec
+            : see `pertaining soley.+author.+authors` @ `^+Privatizer$` @ language_definition.brec
     privatize
         ─ verb
             - Mark as private by the use of a privatizer.
-            : see `mark.+\R.+pertaining soley.+author` @ `^^ Privatizer$` @ language_definition.brec
+            : see `mark.+\R.+pertaining soley.+author` @ `^+Privatizer$` @ language_definition.brec
     simulacra
         ─ plural noun
-            : see `^^simulacrum$`
+            : see `^*simulacrum$`
     simulacral
         ─ adjective
-            : see `^^simulacrum$`
+            : see `^*simulacrum$`
     simulacrum
         ─ noun
             - The compiled, executable form of a Breccian text,
               as opposed to the initial, written form of its source code.
-                : see @ `^^ Simulacrum$` @ language_definition.brec
+                : see @ `^+Simulacrum$` @ language_definition.brec
     source
         ─ mass noun
             - Source code.
