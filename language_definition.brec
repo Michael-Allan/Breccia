@@ -1061,12 +1061,17 @@ Breccia language definition
         ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
             - A parameter that dictates how a pattern matcher operates.
 
-                     ┌──╴‘m’╶──┐
+                     ┌──╴‘i’╶──┐
                      │         │
-                  ╶──┼──╴‘s’╶──┼───▶
+                     ├──╴‘m’╶──┤
+                  ╶──┤         ├───▶
+                     ├──╴‘s’╶──┤
                      │         │
                      └──╴‘p’╶──┘
 
+            i
+                - Enables case-insensitive matching.
+                    : see https://perldoc.perl.org/perlre#i
             m
                 - Enables multiline mode.
                     : see https://perldoc.perl.org/perlre#m
