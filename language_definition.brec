@@ -308,6 +308,16 @@ Breccia language definition
 
                   ╶──╴‘@’╶── P ── fractum indicant ────▶
 
+            pattern variables
+                - In the fractum-indicant patterns of a referent clause,
+                  the following variables are recognized.
+                    : re `variables` see `^*\$\{⋯\}$` @ `^^pattern language$`i @
+                      `^^regular-expression pattern matching$`i
+                ${1}, ${2}, ${3}, … ${9}
+                    - Expands to the correspondingly numbered capture of the referrer clause.
+                    - Valid only in the presence of a referrer clause whose pattern matcher contains
+                      at least that number of capture groups.
+
             referent( associative reference )
                 : join `^*simulacral reference$` @ `^+Notes$`
                 - The text sequence, fractum or other resource to be taken as the referent.
@@ -1148,6 +1158,11 @@ Breccia language definition
                   or of a line if `m` is used.
                     : re `\`(m)\`` see `^*m$` @ `^+match modifier$`
                 : see https://perldoc.perl.org/perlre#Metacharacters
+            ${⋯}
+                - Variable interpolation.
+                - Interpolates the value of the named variable.
+                - Valid only in a context that defines the variable.
+                    : e.g. `^^pattern variables`i @ `^^referent clause$`i @ `^^associative reference$`i
             |
                 - Alternation.
                 : see https://perldoc.perl.org/perlre#Metacharacters
