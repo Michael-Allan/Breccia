@@ -107,6 +107,8 @@ Breccia language definition
                     + Append `h` to `tt`.
                 else
                     deem+ `p` a pattern matcher, that of the referrer clause
+                    + Put `p` into multiple-line mode.
+                        : re `multiple-line mode` see https://perldoc.perl.org/perlre#m
                     for( each match `m` of `p` against `h` )
                         if( `m` captured no group  )
                             + Append to `tt` the whole text sequence of `m`.
@@ -264,6 +266,8 @@ Breccia language definition
                     deem+ `f` a fractum, that of `indicated fractum( iF if set )`;
                           `p` a pattern, that of `inferred pattern matcher()` of `iIR`;
                           `tt` a list of text sequences, intitally empty
+                    + Put `p` into multiple-line mode.
+                        : re `multiple-line mode` see https://perldoc.perl.org/perlre#m
                     for( each match `m` of `p` against the text sequence of the head of `f` )
                         if( `m` captured no group  )
                             + Append to `tt` the whole text sequence of `m`.
