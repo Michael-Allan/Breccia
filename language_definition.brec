@@ -319,8 +319,8 @@ Breccia language definition
                       `^^regular-expression pattern matching$`i
                 ${1}, ${2}, ${3}, … ${9}
                     - Expands to the correspondingly numbered capture of the referrer clause.
-                    - Valid only in the presence of a referrer clause whose pattern matcher contains
-                      at least that number of capture groups.
+                    - Valid only in the presence of a referrer clause whose pattern match
+                      includes a correspondingly numbered, non-empty capture.
 
             referent( associative reference )
                 : join `^*simulacral reference$` @ `^+Notes$`
