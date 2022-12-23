@@ -116,7 +116,7 @@ Breccia language definition
                             + Append to `tt` a disjoint text sequence comprising the union
                               of all captured text sequences of `m`.
                     if( `tt` is empty )
-                        throw+ broken `re` clause, pattern matcher `p` not found
+                        throw+ broken back reference, no such text `p` in parent head
                 return+ `tt`
 
             parental head text()
@@ -126,7 +126,7 @@ Breccia language definition
                 deem+ `p` a fractum, the parent of the associative reference in the source code
                 if( `p` is headless )
                     / The parent is a headless file fractum.
-                    throw+ headless parent, reference is misplaced
+                    throw+ misplaced back reference, no parent head to refer to
                 return+ the text sequence of the head of `p`
 
 
@@ -1163,7 +1163,7 @@ Breccia language definition
                     : re `\`(m)\`` see `^*m$` @ `^+match modifier$`
                 : see https://perldoc.perl.org/perlre#Metacharacters
             ${⋯}
-                - Variable interpolation.
+                - Variable interpolator.
                 - Interpolates the value of the named variable.
                 - Valid only in a context that defines the variable.
                     : e.g. `^^pattern variables`i @ `^^referent clause$`i @ `^^associative reference$`i
