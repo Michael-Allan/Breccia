@@ -110,8 +110,10 @@ Breccia language definition
                     + Put `p` into multiple-line mode.
                         : re `multiple-line mode` see https://perldoc.perl.org/perlre#m
                     for( each match `m` of `p` against `h` )
-                        if( `m` captured no group  )
+                        if( `p` contains no capture groups  )
                             + Append to `tt` the whole text sequence of `m`.
+                        else if( any group fails in `m` to capture a non-empty text sequence )
+                            throw+ incomplete back reference, group captures nothing in the parent head
                         else
                             + Append to `tt` a disjoint text sequence comprising the union
                               of all captured text sequences of `m`.
@@ -312,15 +314,14 @@ Breccia language definition
 
                   ╶──╴‘@’╶── P ── fractum indicant ────▶
 
-            pattern variables
+            interpolation variables
                 - In the fractum-indicant patterns of a referent clause,
-                  the following variables are recognized.
-                    : re `variables` see `^*\$\{⋯\}$` @ `^^pattern language$`i @
-                      `^^regular-expression pattern matching$`i
+                  the following interpolation variables are recognized.
                 ${1}, ${2}, ${3}, … ${9}
-                    - Expands to the correspondingly numbered capture of the referrer clause.
-                    - Valid only in the presence of a referrer clause whose pattern match
-                      includes a correspondingly numbered, non-empty capture.
+                    - Equates to the text sequence captured by the correspondingly numbered capture group
+                      of the referrer-clause pattern.
+                    - Valid only in the presence of a referrer clause whose pattern matcher contains
+                      at least that number of capture groups.
 
             referent( associative reference )
                 : join `^*simulacral reference$` @ `^+Notes$`
@@ -1146,7 +1147,6 @@ Breccia language definition
             ^*
                 - A perfect indent, equivalent to `^(?:    )*`.
                     : re `perfect indent` see @ `^+Separation$`
-                / Constructs `^*`, `^+` and `^^` are called anchored prefixes.
             ^+ 
                 - An anchored prefix to where a division title might start.
                 - Equivalent to `^(?:    )*[\x2500-\x259F].*?\R(?:    )* {1,3}` in Perl syntax.
@@ -1164,9 +1164,10 @@ Breccia language definition
                 : see https://perldoc.perl.org/perlre#Metacharacters
             ${⋯}
                 - Variable interpolator.
-                - Interpolates the value of the named variable.
-                - Valid only in a context that defines the variable.
-                    : e.g. `^^pattern variables`i @ `^^referent clause$`i @ `^^associative reference$`i
+                - Equates to the value of the named interpolation variable.
+                - Valid only in a context that defines that variable.
+                    : e.g. `^^interpolation variables`i @ `^^referent clause$`i @
+                      `^^associative reference$`i
             |
                 - Alternation.
                 : see https://perldoc.perl.org/perlre#Metacharacters

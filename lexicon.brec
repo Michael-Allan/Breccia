@@ -11,6 +11,13 @@ Definition of terms for project Breccia
             : re `Alphabetic` see https://www.unicode.org/reports/tr44/tr44-26.html#Alphabetic
             : re `Decimal_Number`
               see https://www.unicode.org/reports/tr44/tr44-26.html#General_Category_Values
+    anchored prefix
+        : e.g. `^*\^\*$` @ `^^pattern language$`i @ `^^regular-expression pattern matching$`i  @
+          language_definition.brec
+        : e.g. `^*\^\+$` @ `^^pattern language$`i @ `^^regular-expression pattern matching$`i  @
+          language_definition.brec
+        : e.g. `^*\^\^$` @ `^^pattern language$`i @ `^^regular-expression pattern matching$`i  @
+          language_definition.brec
     .brec
         - The file extension for Breccia.
             : see `Filename extension` @ README.html
@@ -23,6 +30,12 @@ Definition of terms for project Breccia
     Breccian
         ─ adjective
             : see `^*Breccia$`
+    capture group
+        : see `^*\(⋯\)$` @ `^^pattern language$`i @ `^^regular-expression pattern matching$`i  @
+          language_definition.brec
+    cluster group
+        : see `^*\(\?:⋯\)$` @ `^^pattern language$`i @ `^^regular-expression pattern matching$`i  @
+          language_definition.brec
     compile
         ─ verb, with object
             - Convert (a text) from source to simulacral form.
@@ -62,6 +75,10 @@ Definition of terms for project Breccia
             - (of a fractal type) Defined in terms of other fractal types.
                 : e.g. `informal type$` @ `^*legend$` @ `^+fractal types$` @ language_definition.brec
         : cf. `^*formal$`
+    interpolation variable
+        - A named value for use in a variable interpolator.
+        : see `equates to.+the named interpolation variable.$`i  @ `^*\$\{⋯\}$` @ `^^pattern language$`i
+          @ `^^regular-expression pattern matching$`i  @ language_definition.brec
     linear order
         ─ mass noun
             - The arrangement in a file of characters and lines in relation to each other
@@ -112,6 +129,9 @@ Definition of terms for project Breccia
     surjoint
         ─ adjective
             - Ancestral by way of a jointer.
+    variable interpolator
+        : see `^*\$\{⋯\}$` @ `^^pattern language$`i @ `^^regular-expression pattern matching$`i  @
+          language_definition.brec
 
 
                                                     \ Copyright © 2019-2022  Michael Allan.  Licence MIT.
