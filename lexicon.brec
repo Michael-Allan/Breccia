@@ -14,7 +14,7 @@ Definition of terms for project Breccia
     anchored prefix
         : e.g. `^*\^\*$` @ `^^pattern language$`i @ `^^regular-expression pattern matching$`i  @
           language_definition.brec
-        : e.g. `^*\^\+$` @ `^^pattern language$`i @ `^^regular-expression pattern matching$`i  @
+        : e.g. `^*\^\+`  @ `^^pattern language$`i @ `^^regular-expression pattern matching$`i  @
           language_definition.brec
         : e.g. `^*\^\^$` @ `^^pattern language$`i @ `^^regular-expression pattern matching$`i  @
           language_definition.brec
@@ -45,7 +45,7 @@ Definition of terms for project Breccia
         - Another term for a file descriptor.
     foregap
         - A type of separator.
-            : see `^*F$` @ `^+Separation$` @ language_definition.brec
+            : see `^*F$` @ `^^separation$`i @ language_definition.brec
     formal
         ─ adjective
             - (of a fractal type) Defined by a form particular to it.
@@ -89,9 +89,15 @@ Definition of terms for project Breccia
         - A character or sequence of characters indicating a line break.
         / In Breccia, it comprises either a line feed, or a carriage return followed by a line feed.
             : see `^*allowed whitespace$` @ language_definition.brec
+    plain whitespace
+        - A sequence of text comprising (one or more) plain spaces, newlines or both.
+            : re `(plain space)s, (newline)s` see `^**• ${1}` @ `^^allowed whitespace$`i @
+              `^^separation$`i @ language_definition.brec
+            : re `(plain space)s, (newline)s` see `^**• ${2}` @ `^^allowed whitespace$`i @
+              `^^separation$`i @ language_definition.brec
     postgap
         - A type of separator.
-            : see `^*P$` @ `^+Separation$` @ language_definition.brec
+            : see `^*P$` @ `^^separation$`i @ language_definition.brec
     private
         ─ adjective
             - (of Breccian text) Pertaining soley to the author, or authors.
@@ -129,6 +135,11 @@ Definition of terms for project Breccia
     surjoint
         ─ adjective
             - Ancestral by way of a jointer.
+    titling label
+        - A division label that precedes any divider drawing character of the same line,
+          making it part of a division title.
+            : re `(division label).+(precedes.+same line).+(division title)`sp see
+              `${3} comprises.+${1}.+${2}`sp @ `^^${3}`i @ `^^division$`i @ language_definition.brec
     variable interpolator
         : see `^*\$\{⋯\}$` @ `^^pattern language$`i @ `^^regular-expression pattern matching$`i  @
           language_definition.brec

@@ -110,7 +110,9 @@ Breccia language definition
                     + Put `p` into multiple-line mode.
                         : re `multiple-line mode` see https://perldoc.perl.org/perlre#m
                     for( each match `m` of `p` against `h` )
-                        if( `p` contains no capture groups  )
+                        if( `m` is an empty text sequence )
+                            throw+ incomplete back reference, `p` matches an empty text sequence
+                        else if( `p` contains no capture groups  )
                             + Append to `tt` the whole text sequence of `m`.
                         else if( any group fails in `m` to capture a non-empty text sequence )
                             throw+ incomplete back reference, group captures nothing in the parent head
@@ -322,6 +324,32 @@ Breccia language definition
                       of the referrer-clause pattern.
                     - Valid only in the presence of a referrer clause whose pattern matcher contains
                       at least that number of capture groups.
+                ${same}
+                    - Equates thus:
+                        if( a referrer clause is present )
+                            : see `^*referrers\( associative reference \)$` @ `^^referrer clause$`i :
+                              for the procedure of applying the pattern matcher
+                            return+ the plain-space-delimited sequence of the captures of its
+                              pattern matcher, if any; otherwise its match modified thus:
+                                ⁃ Trimmed of leading and trailing plain whitespace
+                                ⁃ Any remaining sequences of plain whitespace each collapsed
+                                  to a single plain space ‘ ’ (20)
+                                    : re `20` see `^*character identification$` @ `^+Notes$`
+                                ⁃ Reconstituted, if the above has emptied it, as a single plain space
+                        else if( the parent of the present associative reference is a titled division )
+                            : see `^*division titles\( divider` @ `^^division$`i
+                            return+ the first titling label of the division title
+                                : re `first titling label` cf. `where.+${same}$.+might start`sp @
+                                  `^*\^\+`  @ `^^pattern language$`i @
+                                  `^^regular-expression pattern matching$`i : Compatible by design.
+                        else( the parent is a file fractum or point )
+                            return+ `parental head text()` modified thus:
+                                : see `^*parental head text` @ `^^referrer clause$`i
+                                ⁃ Truncated to the portion prior to any comment carrier or indent blind
+                                ⁃ Trimmed of leading and trailing plain whitespace
+                                ⁃ Any remaining sequences of plain whitespace each collapsed
+                                  to a single plain space ‘ ’ (20)
+                                    : re `20` see `^*character identification$` @ `^+Notes$`
 
             referent( associative reference )
                 : join `^*simulacral reference$` @ `^+Notes$`
@@ -429,7 +457,7 @@ Breccia language definition
                     diagram, The form of each line of a comment block.
 
             - The commentary of a comment block may include one or more no-break spaces (A0).
-                : see `^*character identification$` @ `^+Notes$`
+                    : re `A0` see `^*character identification$` @ `^+Notes$`
                 / An author may, for example, comment out an indent blind, or a point whose bullet
                   contains a no-break space, without thereby introducing an error.
 
@@ -522,7 +550,7 @@ Breccia language definition
                 ⁃ comment carrier,
                 ⁃ indent blind or
                 ⁃ leading or trailing plain space characters (20).
-                    : see `^*character identification$` @ `^+Notes$`
+                    : re `20` see `^*character identification$` @ `^+Notes$`
         division titles( divider `d` )
             : join `^*simulacral reference$` @ `^+Notes$`
             - A list in linear order of character strings, each to be taken as a title
@@ -546,23 +574,27 @@ Breccia language definition
               e.g. showing them in bold face.
             deem+ `tt` a string list, intitally empty
                 / `tt` The list of title strings.
-            deem+ `t` a string, `n` a text line
+            deem+ `bLast` a division label, `bString` a string, `t` a string
                 / `t` The title being assembled, yet to be appended to `tt`.
-                / `n` The line whose division label last contributed to `t`.
+                / `bLast` The division label last contributed to `t`, if any.
             for( each division label `b` of divider `d` )
                 if( `b` leads the line on which it occurs, discounting plain spaces (20) )
-                    : see `^*character identification$` @ `^+Notes$`
+                        : re `20` see `^*character identification$` @ `^+Notes$`
                     - Then `b` is a titling label, meaning it contributes to a title.
-                    if( `n` is unset )
+                    + Set `bString` to the string of `b`.
+                    + Collapse in `bString` each sequence of plain spaces to a single plain space.
+                    if( `bLast` is unset )
                         - Then `b` starts the first title.
-                        + Set `t` to the string of `b`.
-                    else if( `b` occurs on the line succeeding `n` )
+                        + Set `t` to `bString`.
+                    else if( `b` occurs on the line succeeding `bLast` )
+                        / Note that `bLast` must occupy a single line.
+                            : see `a sequence.+within a line`i @ `^^division label$`i
                         - Then `b` appends to the title (`t`) made by its predecessor.
-                        + Set `t` to the concatenation of `t` + space character + string of `b`.
+                        + Set `t` to the concatenation of `t` + space character + `bString`.
                     else( `t` is fully assembled and `b` starts a new title )
                         + Append to `tt` a copy of `t`.
-                        + Set `t` to the string of `b`.
-                    + Set `n` to the line on which `b` occurs.
+                        + Set `t` to `bString`.
+                    + Set `bLast` to `b`.
             if( `t` is set )
                 - Then `d` has a titling label and final title assembly `t`.
                 + Append to `tt` a copy of `t`.
@@ -654,13 +686,21 @@ Breccia language definition
          file title
         ┈┈┈┈┈┈┈┈┈┈┈┈
             - The file title, if any, is determined by the first fractal head in linear order
-              that yields a non-empty result after collapsing the whitespace of the relevant part
-              of its content according to head type:
-                • file head or point head
-                    - The relevant part excludes comment carriers and precedes any indent blind.
-                • divider
-                    - The relevant part is the first division label.
+              whose titling extract is neither null nor empty.
+                - The file title is that extract.
 
+            titling extract( fractal head `h` )
+                if( `h` is a divider )
+                    return+ the first division title of `h`, or null if there is none
+                        : re `division title` see @ `^^division$`i
+                else( `h` is a file head or point head )
+                    return+ `h` modified thus:
+                        ⁃ Truncated to the portion prior to any indent blind
+                        ⁃ Divorced of all comment carriers
+                        ⁃ Trimmed of leading and trailing plain whitespace
+                        ⁃ Any remaining sequences of plain whitespace each collapsed
+                          to a single plain space ‘ ’ (20)
+                            : re `20` see `^*character identification$` @ `^+Notes$`
 
 
     ━━━━━━━━━
@@ -1148,8 +1188,10 @@ Breccia language definition
                 - A perfect indent, equivalent to `^(?:    )*`.
                     : re `perfect indent` see @ `^+Separation$`
             ^+ 
-                - An anchored prefix to where a division title might start.
+                - An anchored prefix to where the first titling label of a division might start.
                 - Equivalent to `^(?:    )*[\x2500-\x259F].*?\R(?:    )* {1,3}` in Perl syntax.
+                    : re `first titling label` cf. `^*return.+${same}$` @ `^*\$\{same\}$` @
+                      `^^interpolation variables$`i @ `^^referent clause$`i : Compatible by design.
             ^^ 
                 - An anchored prefix that first tries to match as `^+`, then as `^*`.
                 - Equivalent to `^(?:    )*(?:[\x2500-\x259F].*?\R(?:    )* {1,3})?` in Perl syntax.
