@@ -240,7 +240,7 @@ Breccia language definition
 
                 default referential form()
                     : join `^*simulacral reference$` @ `^+Notes$`
-                    if( the containing associative reference includes a referrer clause
+                    if( the present associative reference includes a referrer clause
                       and the referential command is not `join` )
                         return+ ‘term’
                     return+ ‘head’
@@ -262,14 +262,18 @@ Breccia language definition
                     if( the referential form `fR` is ‘head’ )
                         + Set `iF` to `inferred pattern matcher()` of `iIR` in space-delimited
                           conjunction with any containment clause of `iIR`.
-                        return+ `indicated fractum( iF )`
+                        return+ `indicated fractum( iF, parent of present associative reference )`
+                            : re `parent` see `^*no associative self-reference$` @ `^+Notes$`
 
                     / It follows that the referential form `fR` is ‘term’.
                     if( `iIR` includes a containment clause )
                         + Set `iF` to the fractum indicant of the containment clause.
-                    deem+ `f` a fractum, that of `indicated fractum( iF if set )`;
+                    deem+ `tt` a list of text sequences, intitally empty;
                           `p` a pattern, that of `inferred pattern matcher()` of `iIR`;
-                          `tt` a list of text sequences, intitally empty
+                          `f` a fractum, that of `indicated fractum( iF if set,
+                             parent of present associative reference )`
+                        : re `indicated fractum.+(parent)`s see `^*no associative self-reference$` @
+                          `^+Notes$`
                     + Put `p` into multiple-line mode.
                         : re `multiple-line mode` see https://perldoc.perl.org/perlre#m
                     for( each match `m` of `p` against the text sequence of the head of `f` )
@@ -351,7 +355,7 @@ Breccia language definition
                                   to a single plain space ‘ ’ (20)
                                     : re `20` see `^*character identification$` @ `^+Notes$`
 
-            referent( associative reference )
+            referent( associative reference `rA` )
                 : join `^*simulacral reference$` @ `^+Notes$`
                 - The text sequence, fractum or other resource to be taken as the referent.
                     : re `text .+ other resource` see `^*original resource$` @ `^+Notes$`
@@ -368,8 +372,10 @@ Breccia language definition
                         break+ `if( a referent clause is present )`
                     else( the referent clause comprises a fractum indicant )
                     + Set `iF` to the fractum indicant.
-                    deem+ `f` a fractum, that of `indicated fractum( iF )`;
+                    deem+ `f` a fractum, that of `indicated fractum( iF, parent of rA )`;
                           `mF` a match, the match of `f` if any occurred
+                        : re `indicated fractum.+(parent)`s see `^*no associative self-reference$` @
+                          `^+Notes$`
                     if( no `mF` occured or `mF` captured no group )
                         return+ `f`
                     return+ a disjoint text sequence comprising the union of all captured
@@ -864,7 +870,8 @@ Breccia language definition
 
                   ╶── P ──╴‘@’╶── P ───▶
 
-        indicated fractum( fractum indicant `i` if present )
+        indicated fractum( fractum indicant `i` if present,
+              any fractum `fIgnore` to be excluded from the indication )
             : join `^*simulacral reference$` @ `^+Notes$`
             - The fractum indicated, together with any match that occurred to pinpoint it.
                 : re `fractum` see `^*original resource$` @ `^+Notes$`
@@ -885,21 +892,24 @@ Breccia language definition
                     : re `multiple-line mode` see https://perldoc.perl.org/perlre#m
                 for( each match `m` of `p` against the body of `fLast` )
                     deem+ `f` the fractum in whose head `m` starts
-                    if( end boundary(`m`) exceeds end boundary(head of `f`)
+                    if( end boundary(`m`) exceeds end boundary(head of `f`) )
                         / Then `m` extends across multiple heads.
                         continue+ `for`, ignoring `m`
                             : re `ignoring .m.` see `^*ignoring a pattern match$` @ `^+Notes$`
                             / Fractum-indicant pattern matches are confined to a single head.
                                 \ Match modifier `s` would tend to match too broadly otherwise,
                                 \ making it largely useless.
-                    if( `p` leads the pattern-matcher series (in linear order)
-                          and `i` lies within the head of `f` )
-                        continue+ `for`, ignoring `m`
-                            : re `ignoring .m.` see `^*ignoring a pattern match$` @ `^+Notes$`
-                            / Fractum indicants do not indicate the fracta in whose heads
-                              they are contained.
-                                \ Patterns would be liable to match themselves otherwise,
-                                \ making them difficult to disambiguate.
+                    if( `p` leads the pattern-matcher series, taken in linear order )
+                        if( `i` lies within the head of `f` )
+                            continue+ `for`, ignoring `m`
+                                : re `ignoring .m.` see `^*ignoring a pattern match$` @ `^+Notes$`
+                                / Fractum indicants do not indicate the fracta in whose heads
+                                  they are contained.
+                                    \ Patterns would be liable to match themselves otherwise,
+                                    \ making them difficult to disambiguate.
+                        if( `i` lies within the head of `fIgnore` )
+                            continue+ `for`, ignoring `m`
+                                : re `ignoring .m.` see `^*ignoring a pattern match$` @ `^+Notes$`
                     if( `mLast` is unset )
                         + Set `mLast` to `m`.
                         + Set `fLast` to `f`.
@@ -1377,6 +1387,13 @@ Breccia language definition
             - The method of ignoring a pattern match is under trial.
                 : see e.g. http://reluk.ca/project/Breccia/Web/imager/BreccianFileTranslator.java :
                   `seek(Matcher, ImagedBodyFractum[], int, int)`
+        no associative self-reference
+            - Fractum indicants of associative references do not indicate the parent
+              of the associative reference.
+                / That would be a self reference, for the parent is considered (by association)
+                  to be part of the reference, its head containing the referrer.
+                \ Allowing such self reference (for whatever slight utility it offers)
+                \ would make the patterns of fractum indicants difficult to disambiguate.
         original resource
             - A text element, text sequence or other resource in its original place,
               not a separate copy of it.
