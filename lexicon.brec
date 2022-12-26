@@ -4,8 +4,7 @@ Definition of terms for project Breccia
 
     @
         - A containment operator.
-        : see `^*containment clause$` @ language_definition.brec
-        : see `^*CS$` @ language_definition.brec
+        : see `containment operator ‘@’` @ `^*CS$` @ language_definition.brec
     alphanumeric
         - (of a character) Having a Unicode property of `Alphabetic` or `Decimal_Number`.
             : re `Alphabetic` see https://www.unicode.org/reports/tr44/tr44-26.html#Alphabetic
@@ -63,10 +62,10 @@ Definition of terms for project Breccia
     hierarchic order
         ─ mass noun
             - The order of hierarchic relata.
-                : re `hierarchic relata` see head @ language_definition.brec
+                : re `hierarchic relata` see @ language_definition.brec
     hierarchy
         - (of fracta) The system of relations among hierarchic relata.
-            : re `hierarchic relata` see head @ language_definition.brec
+            : re `hierarchic relata` see @ language_definition.brec
     informal
         ─ adjective
             - (of a fractal type) Defined in terms of other fractal types.
@@ -88,9 +87,9 @@ Definition of terms for project Breccia
             : see `^*allowed whitespace$` @ language_definition.brec
     plain whitespace
         - A sequence of text comprising (one or more) plain spaces, newlines or both.
-            : re `(plain space)s, (newline)s` see `^**• ${1}` @ `^^allowed whitespace$`i @
+            : re `(plain space)s, (newline)s` see `^*• ${1}` @ `^^allowed whitespace$`i @
               `^^separation$`i @ language_definition.brec
-            : re `(plain space)s, (newline)s` see `^**• ${2}` @ `^^allowed whitespace$`i @
+            : re `(plain space)s, (newline)s` see `^*• ${2}` @ `^^allowed whitespace$`i @
               `^^separation$`i @ language_definition.brec
     postgap
         - A type of separator.

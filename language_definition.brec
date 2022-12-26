@@ -183,7 +183,7 @@ Breccia language definition
         ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
             - The referent clause, if any, explicitly indicates the referent.
                 - Absent a referent clause, any referrer clause *implies* the referent.
-                - Absent a referrer clause, the referent is implied by the fractal head of the parent.
+                - Absent both clauses, the fractal head of the parent implies the referent.
             - The form of a referent clause is:
 
                      ┌── inferential referent indicant ──┐
@@ -191,120 +191,30 @@ Breccia language definition
                      └───────── fractum indicant ────────┘
 
             inferential referent indicant
-                - An inferential referent indicant comprises one or more of three parts that together
-                  define (i) referrer similarity, (ii) referential form and (iii) containment.
 
-                          referrer similarity
-                             ╭┄┄┄ i ┄┄┄┄╮
-                                                   ┌──────────────────────────┐
-                         ┌─────────────────────────┤ ┌──╴‘head’╶──┐           │
-                      ╶──┤ ┌───╴‘same’╶────┐       └─┤            │           │   containment
-                         └─┤               ├─┬── P ──┤            ├─┬─┬── P ──┴──╴  clause   ╶──┬───▶
-                           └──╴‘similar’╶──┘ │       └──╴‘term’╶──┘ │ │                         │
-                                             └──────────────────────┘ └─────────────────────────┘
-                     
-                                                       ╰┄┄ ii ┄┄╯               ╰┄┄┄┄ iii ┄┄┄┄╯
-                                                    referential form              containment
+                - An inferential referent indicant indicates a fractum based on a pattern
+                  constructed by inference from the pattern of the referrer, or referrers.
+                - In form, it comprises a containment clause that delimits the context in which
+                  this inferred pattern is sought.
+
+                      ╶──╴‘@’╶── P ── fractum indicant ────▶
 
                 / Examples of its use are:
 
-                       : re `foo` see same @ `^*bar$`
+                       : re `foo` see @ `^*bar$`
                        : cf. @ `^*foo$`
-
-                  (It reads better with some referential commands than with others.)
-                - Referrer similarity (i) determines how broadly or narrowly the pattern of referential
-                  form (ii) is to be interpreted for purposes of constructing its inferred definition.
-                    : see `^*pattern-matcher construction based on referrer similarity$` @ `^+Notes$`
-                - Referential form (ii) determines the form of the referent and how to locate it:
-                        • ‘head’ defines the referent as a fractum
-                           to be located by the pattern of its head, while
-                        • ‘term’ defines the referent as a text sequence
-                           to be located by its own pattern.
-                    - In either case, the operative pattern that pinpoints the referent is constructed
-                      by inference from the pattern of the referrer, or referrers.
-                - Containment (iii) delimits the context in which the pattern is sought.
-
-                default referrer similarity()
-                    return+ ‘similar’
-
-                default referential form()
-                    if( the present associative reference includes a referrer clause
-                      and the referential command is not `join` )
-                        return+ ‘term’
-                    return+ ‘head’
 
                 indicated referent( inferential referent indicant `iIR` if present )
                     - The fractum or text sequence to be taken as the referent.
                         : re `fractum or text sequence` see `^*original resource$` @ `^+Notes$`
-                    deem+ `iF` a fractum indicant;
-                          `fR` a referential form
-                    if( `iIR` is absent )
-                        + Set `fR` to `default referential form()`.
-                        + Set `iIR` to an an inferential referent indicant comprising `fR`.
-                    else if( `iIR` defines a referential form )
-                        + Set `fR` to that referential form.
+                    deem+ `iF` a fractum indicant,
+                          `defaultPM` a pattern matcher comprising ‘`^^${same}`ip’
+                    if( `iIR` is present )
+                        + Set `iF` to `defaultPM` in space-delimited conjunction with `iIR`.
                     else
-                        + Set `fR` to `default referential form()`.
-
-                    if( the referential form `fR` is ‘head’ )
-                        + Set `iF` to `inferred pattern matcher()` of `iIR` in space-delimited
-                          conjunction with any containment clause of `iIR`.
-                        return+ `indicated fractum( iF, parent of present associative reference )`
-                            : re `parent` see `^*no associative self-reference$` @ `^+Notes$`
-
-                    / It follows that the referential form `fR` is ‘term’.
-                    if( `iIR` includes a containment clause )
-                        + Set `iF` to the fractum indicant of the containment clause.
-                    deem+ `tt` a list of text sequences, intitally empty;
-                          `p` a pattern, that of `inferred pattern matcher()` of `iIR`;
-                          `f` a fractum, that of `indicated fractum( iF if set,
-                             parent of present associative reference )`
-                        : re `indicated fractum.+(parent)`s see `^*no associative self-reference$` @
-                          `^+Notes$`
-                    + Put `p` into multiple-line mode.
-                        : re `multiple-line mode` see https://perldoc.perl.org/perlre#m
-                    for( each match `m` of `p` against the text sequence of the head of `f` )
-                        if( `m` captured no group  )
-                            + Append to `tt` the whole text sequence of `m`.
-                        else
-                            + Append to `tt` each captured text sequence of `m`.
-                    if( `tt` is empty )
-                        throw+ broken reference, pattern `p` not found
-                    return+ a disjoint text sequence comprising the union of all `tt`
-
-                inferred pattern matcher()
-                    - Constructs by inference from the pattern of the referrer, or referrers,
-                      a pattern matcher to pinpoint the referent.
-                    deem+ `fR` the referential form if defined, else `default referential form()`;
-                          `p` a string buffer, initially empty;
-                          `cR` the referrer clause if present;
-                          `sR` the referrer similarity if defined, else `default referrer similarity()`
-                    if( `cR` is present ) then the pattern of the referrer(s) is the pattern of `cR`
-                        : re `pattern of the referrer` see @ `^*- Constructs by inference` @
-                          `^*inferred pattern matcher\(`
-                        + Set `p` to the pattern of `cR`.
-                        + Refine `p` according to referrer similarity `sR` and referential form `fR`.
-                            : see `^*pattern-matcher construction based on referrer similarity$` @
-                              `^+Notes$`
-                    else( the pattern of the referrer(s) is the pattern of the parental head )
-                        : re `pattern of the referrer` see @ `^*- Constructs by inference` @
-                          `^*inferred pattern matcher\(`
-                        + Set `p` to the string of `parental head text()`.
-                        + Trim `p` of comment carriers and indent blinds.
-                        + Trim `p` of leading and trailing whitespace.
-                        + Set `p` to `literalized pattern( p )`.
-                        + Collapse all remaining whitespace of `p` to ‘\s+’.
-                            / Neutralizing differences of indentation and line wrapping.
-                        + Further refine `p` according to referrer similarity `sR`
-                          and referential form `fR`.
-                            : see `^*pattern-matcher construction based on referrer similarity$` @
-                              `^+Notes$`
-                    return+ a pattern matcher comprising the concatenation of ‘`’,
-                      the string of `p`, and ‘`’.
-
-            containment clause
-
-                  ╶──╴‘@’╶── P ── fractum indicant ────▶
+                        + Set `iF` to `defaultPM`.
+                    return+ `indicated fractum( iF, parent of present associative reference )`
+                        : re `parent` see `^*no associative self-reference$` @ `^+Notes$`
 
             interpolation variables
                 - In the fractum-indicant patterns of a referent clause,
@@ -329,8 +239,8 @@ Breccia language definition
                         else if( the parent of the present associative reference is a titled division )
                             : see `^*division titles\( divider` @ `^^division$`i
                             return+ the first titling label of the division title
-                                : re `first titling label` cf. `where.+${same}$.+might start`sp @
-                                  `^*\^\+`  @ `^^pattern language$`i @
+                                : re `first titling label` cf. `where.+${same}.+might start`sp @
+                                  `^*\^\+` @ `^^pattern language$`i @
                                   `^^regular-expression pattern matching$`i : Compatible by design.
                         else( the parent is a file fractum or point )
                             return+ `parental head text()` modified thus:
@@ -344,7 +254,7 @@ Breccia language definition
             referent( associative reference `rA` )
                 - The text sequence, fractum or other resource to be taken as the referent.
                     : re `text .+ other resource` see `^*original resource$` @ `^+Notes$`
-                    : re `other resource` see head @ non-fractal
+                    : re `other resource` see @ non-fractal
                       https://www.rfc-editor.org/rfc/rfc3986#section-1.1
                 / One resolves the referent as follows.
                 if( the referent clause includes a resource indicant with a `non-fractal` qualifier )
@@ -457,7 +367,7 @@ Breccia language definition
                     of  ╶──┬── S ──┬─╴‘\’╶─┴─╴‘\’╶─┴── S ┊╶──┴── character ──┴───▶ ┊╶──┬── S ──┬──╴ of
                    line    │       │                     ┊                         ┊   │       │   line
                            └───────┘                                                   └───────┘
-                    : re `(end).+(of) ─.+(line)\R`s see `^*end of line$`
+                    : re `(end)$.+(of)$.+(line)$`s see
 
 
 
@@ -985,7 +895,7 @@ Breccia language definition
                                                   ┊             │         │
                                                                 └─────────┘
                         : re `A0` see `^*character identification$` @ `^+Notes$`
-                        : re `(comment).+\R.+(appender)` see `^*comment appender$`
+                        : re `(comment)$.+(appender)$`s see
                     diagram, The form of a bullet’s trailing edge.  The bullet
                       itself includes only parts to the left of the dashed line.
 
@@ -1141,10 +1051,10 @@ Breccia language definition
                     : re `perfect indent` see @ `^+Separation$`
             ^+ 
                 - An anchored prefix to where the first titling label of a division might start.
-                - Equivalent to `^(?:    )*[\x2500-\x259F].*?\R(?:    )* {1,3}` in Perl syntax.
-                    : re `first titling label` cf. `^*return.+${same}$` @ `^*\$\{same\}$` @
+                    : re `first titling label` cf. `^*return.+${same}` @ `^*\$\{same\}$` @
                       `^^interpolation variables$`i @ `^^referent clause$`i : Compatible by design.
-            ^^ 
+                - Equivalent to `^(?:    )*[\x2500-\x259F].*?\R(?:    )* {1,3}` in Perl syntax.
+            ^^
                 - An anchored prefix that first tries to match as `^+`, then as `^*`.
                 - Equivalent to `^(?:    )*(?:[\x2500-\x259F].*?\R(?:    )* {1,3})?` in Perl syntax.
             .
@@ -1202,7 +1112,7 @@ Breccia language definition
               or non-Breccian.
 
         indicated resource( resource indicant `i` if present )
-            : re `resource` see head @ non-fractal https://www.rfc-editor.org/rfc/rfc3986#section-1.1
+            : re `resource` see @ non-fractal https://www.rfc-editor.org/rfc/rfc3986#section-1.1
             : re `resource` see `^*original resource$` @ `^+Notes$`
             deem+ `r` a resource, initially the present file
             if( `i` is present )
@@ -1323,12 +1233,6 @@ Breccia language definition
         original resource
             - A text element, text sequence or other resource in its original place,
               not a separate copy of it.
-        pattern-matcher construction based on referrer similarity
-            : see @ http://reluk.ca/project/Breccia/working_notes.brec
-            - How a processor should construct inferred pattern matchers according to referrer similarity
-              (`same` or `similar`) has yet to be defined, pending implementation trials.
-                : re `referrer\R +similarity` see @ `^*- An inferential referent indicant comprises` @
-                  `^*inferential referent indicant$` @ `^+referent clause$`
      \\ [S not P]
      \      - Simple plain-space separators (S) before the command, that parsers may reach the command
      \        and reify the fractal type without having to navigate the complex form of a postgap (P).
