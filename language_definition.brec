@@ -77,13 +77,6 @@ Breccia language definition
           must itself be privatized, else the reference is malformed.
             : re `privatized` see `^+Privatizer$`
 
-        compile( associative reference )
-            : join `^*simulacral reference$` @ `^+Notes$`
-            + `referrers( associative reference )`
-                : re `\`(.+)\`` see same head
-            + `referent( associative reference )`
-                : re `\`(.+)\`` see same head
-
         ─────────────────
          referrer clause
         ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
@@ -97,8 +90,7 @@ Breccia language definition
                     diagram, The form of a referrer clause in an associative reference.
 
             referrers( associative reference )
-                : join `^*simulacral reference$` @ `^+Notes$`
-                / The compiler resolves the referrers of an associative reference as follows.
+                / One resolves the referrers of an associative reference as follows.
                 - A list in linear order of text sequences, each to be taken as a referrer.
                     : re `text sequences` see `^*original resource$` @ `^+Notes$`
                 deem+ `h` a text sequence, that of `parental head text()`;
@@ -124,7 +116,6 @@ Breccia language definition
                 return+ `tt`
 
             parental head text()
-                : join `^*simulacral reference$` @ `^+Notes$`
                 - The text sequence of the head of the source parent of the associative reference.
                     : re `text sequence` see `^*original resource$` @ `^+Notes$`
                 deem+ `p` a fractum, the parent of the associative reference in the source code
@@ -138,10 +129,9 @@ Breccia language definition
          referential command
         ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
             - The referential command determines the overall type of associative reference,
-              with implications for its overall effect.
+              with implications for its meaning.
                 : re `overall type of associative reference` see `^*. associative reference$` @
                   `^+fractal types$`
-                : re `overall effect` see `^*compile\( associative reference \)$`
                     ·
                      ┌── cf.+ ───┐
                      │           │
@@ -235,18 +225,15 @@ Breccia language definition
                 - Containment (iii) delimits the context in which the pattern is sought.
 
                 default referrer similarity()
-                    : join `^*simulacral reference$` @ `^+Notes$`
                     return+ ‘similar’
 
                 default referential form()
-                    : join `^*simulacral reference$` @ `^+Notes$`
                     if( the present associative reference includes a referrer clause
                       and the referential command is not `join` )
                         return+ ‘term’
                     return+ ‘head’
 
                 indicated referent( inferential referent indicant `iIR` if present )
-                    : join `^*simulacral reference$` @ `^+Notes$`
                     - The fractum or text sequence to be taken as the referent.
                         : re `fractum or text sequence` see `^*original resource$` @ `^+Notes$`
                     deem+ `iF` a fractum indicant;
@@ -286,7 +273,6 @@ Breccia language definition
                     return+ a disjoint text sequence comprising the union of all `tt`
 
                 inferred pattern matcher()
-                    : join `^*simulacral reference$` @ `^+Notes$`
                     - Constructs by inference from the pattern of the referrer, or referrers,
                       a pattern matcher to pinpoint the referent.
                     deem+ `fR` the referential form if defined, else `default referential form()`;
@@ -356,12 +342,11 @@ Breccia language definition
                                     : re `20` see `^*character identification$` @ `^+Notes$`
 
             referent( associative reference `rA` )
-                : join `^*simulacral reference$` @ `^+Notes$`
                 - The text sequence, fractum or other resource to be taken as the referent.
                     : re `text .+ other resource` see `^*original resource$` @ `^+Notes$`
                     : re `other resource` see head @ non-fractal
                       https://www.rfc-editor.org/rfc/rfc3986#section-1.1
-                / The compiler resolves the referent as follows.
+                / One resolves the referent as follows.
                 if( the referent clause includes a resource indicant with a `non-fractal` qualifier )
                     return+ `indicated resource( resource indicant )`
                 deem+ `iF` a fractum indicant;
@@ -401,7 +386,6 @@ Breccia language definition
             : re `type of command point` see `^+fractal types$` @ `^+Fractum$`
         - The `privately` modifier, if present, is equivalent to putting a privatizer
           on the command point.
-            : see `^*if.+privately.+is present` @ `^*compile\( command point \)$`
 
         appendage clause
             - A clause of free-form, descriptive text appended to a command point.
@@ -414,12 +398,6 @@ Breccia language definition
                   ╶──╴‘:’╶──┴── P ── term ──┴─┬── P ──┬──▶
                                               │       │
                                               └───────┘
-
-        compile( command point )
-            : join `^*simulacral reference$` @ `^+Notes$`
-            if( `privately` is present )
-                + Remove `privately` and the `S` that follows it.
-                + Append as child of the command point a privatizer.
 
 
 
@@ -483,29 +461,6 @@ Breccia language definition
 
 
 
-    ━━━━━━━━━━━━━
-     Compilation
-    ─────────────
-        - Compilation of a simulacrum from a Breccian file.
-        - Compilation is the transformative work of various tools, all referred to here as ‘compilers’.
-        - Initially equal to the source form, the compiler constructs the simulacral form
-          by the transformative effect of executing its embedded command points, as follows.
-        compile( Breccian file `f` )
-            : join `^*simulacral reference$` @ `^+Notes$`
-            for( each associative reference of `f` in linear order )
-                + `compile( associative reference )`
-                    : re `\`(.+)\`` see same head
-                / Compiled early, associative references find their referents in the simulacrum
-                  before its transformation in later compilations.
-            for( each command point of `f` in linear order )
-                + `compile( command point )`
-                    : re `\`(.+)\`` see same head
-            for( each jointer of `f` in linear order )
-                + `compile( jointer )`
-                    : re `\`(.+)\`` see same head
-
-
-
     ━━━━━━━━━━
      Division
     ──────────
@@ -558,7 +513,6 @@ Breccia language definition
                 ⁃ leading or trailing plain space characters (20).
                     : re `20` see `^*character identification$` @ `^+Notes$`
         division titles( divider `d` )
-            : join `^*simulacral reference$` @ `^+Notes$`
             - A list in linear order of character strings, each to be taken as a title
               of the division headed by `d`.
             - A division title comprises all division labels of contiguous lines (one or more in number)
@@ -872,7 +826,6 @@ Breccia language definition
 
         indicated fractum( fractum indicant `i` if present,
               any fractum `fIgnore` to be excluded from the indication )
-            : join `^*simulacral reference$` @ `^+Notes$`
             - The fractum indicated, together with any match that occurred to pinpoint it.
                 : re `fractum` see `^*original resource$` @ `^+Notes$`
             deem+ `p` a pattern matcher
@@ -962,24 +915,14 @@ Breccia language definition
     ─────────
         - An associative reference with a referential command of `join`.
             : cf. `^+Pointer$`
-        - In effect it stands for the fractal body of its referent.
+        - In effect, it may stand for the fractal body of its referent.
+            - Each parent of the jointer gains for a subjoint child (which is not an actual child)
+              each child of the referent fractum that does not duplicate a pre-existing child.
+                - Here the duplication test ignores differences in whitespacing and comment carriage.
+                - If the referent fractum itself has a jointer as its child,
+                  then the effect applies recursively.
         - Any referrer clause in a jointer indicates the referrer in particular as the rationale
           for writing the jointer into the text.
-        compile( jointer )
-            : join `^*simulacral reference$` @ `^+Notes$`
-            if( the referent of the jointer is a non-fractal resource )
-                return+
-            deem+ `sub` the fractum to subjoin
-            if( the referent is a fractum )
-                + Set `sub` to the referent.
-            else( the referent is a text sequence )
-                + Set `sub` to the fractum whose head contains the referent.
-            - Each parent of the jointer gains for a subjoint child, which is not an actual child,
-              each child of `sub` that does not duplicate a pre-existing child.
-                - Here the duplication test ignores differences in whitespacing and comment carriage.
-                - If in the source code `sub` itself has a jointer as its child,
-                  then the effect applies recursively.
-                / Processors may at times treat subjoint children in a manner similar to actual children.
 
 
 
@@ -1090,8 +1033,8 @@ Breccia language definition
     ━━━━━━━━━━━━
      Privatizer
     ────────────
-        - A command point that privatizes its simulacral parent, marking it (and thereby all text
-          within it) as pertaining soley to the author, or authors.
+        - A command point that privatizes its parent, marking it (and thereby all text within it)
+          as pertaining soley to the author, or authors.
             : cf. `^+Comment carrier$`
         - Its command has this form:
 
@@ -1104,7 +1047,6 @@ Breccia language definition
     ─────────────────────────────────────
 
         literalized pattern( string )
-            : join `^*simulacral reference$` @ `^+Notes$`
             return+ the literally enquoted pattern of `string`, as defined for Perl `quotemeta`
                 : re `quotemeta` see https://perldoc.perl.org/functions/quotemeta.html
 
@@ -1255,14 +1197,13 @@ Breccia language definition
                 diagram, The form of a resource indicant.
 
         - The `non-fractal` qualifier, if present, stops any attempt
-          to distinguish fracta in the referent during compilation.
-            / Authors may use it to forestall compiler errors, e.g. where the referent is malformed
+          to distinguish fracta in the referent during text processing.
+            / Authors may use it to forestall processor errors, e.g. where the referent is malformed
               or non-Breccian.
 
         indicated resource( resource indicant `i` if present )
             : re `resource` see head @ non-fractal https://www.rfc-editor.org/rfc/rfc3986#section-1.1
             : re `resource` see `^*original resource$` @ `^+Notes$`
-            : join `^*simulacral reference$` @ `^+Notes$`
             deem+ `r` a resource, initially the present file
             if( `i` is present )
                 unless( the URI reference of `i` resolves to a referent )
@@ -1336,21 +1277,6 @@ Breccia language definition
                                         : re `20` see `^*character identification$` @ `^+Notes$`
 
 
-    ━━━━━━━━━━━━
-     Simulacrum
-    ────────────
-        - The compiled, executable form of a Breccian file,
-          as opposed to the initial, written form of its source code.
-        - It is a more literal form of the file, one step closer to the meaning of its text.
-        - It results from a process of compilation.
-            : re `compilation` see
-        default referent: source code or simulacrum?
-            - Except where defined otherwise, the default referent in the language definition
-              is the source code.
-            - Where it is unclear whether the definition refers to the simulacum versus the source code,
-              take it as referring to the source code.
-
-
 
     ━━━━━━━━━━━━
      Task point
@@ -1399,13 +1325,10 @@ Breccia language definition
               not a separate copy of it.
         pattern-matcher construction based on referrer similarity
             : see @ http://reluk.ca/project/Breccia/working_notes.brec
-            - How the compiler should construct inferred pattern matchers according to referrer
-              similarity (`same` or `similar`) has yet to be defined, pending implementation trials.
+            - How a processor should construct inferred pattern matchers according to referrer similarity
+              (`same` or `similar`) has yet to be defined, pending implementation trials.
                 : re `referrer\R +similarity` see @ `^*- An inferential referent indicant comprises` @
                   `^*inferential referent indicant$` @ `^+referent clause$`
-        simulacral reference
-            - Herein the default referent is the simulacrum, not the source code.
-                : cf. `^*default referent` @ `^+Simulacrum$`
      \\ [S not P]
      \      - Simple plain-space separators (S) before the command, that parsers may reach the command
      \        and reify the fractal type without having to navigate the complex form of a postgap (P).

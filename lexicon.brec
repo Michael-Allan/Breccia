@@ -36,9 +36,6 @@ Definition of terms for project Breccia
     cluster group
         : see `^*\(\?:⋯\)$` @ `^^pattern language$`i @ `^^regular-expression pattern matching$`i  @
           language_definition.brec
-    compile
-        ─ verb, with object
-            - Convert (a text) from source to simulacral form.
     containment operator
         : see `^*@$`
     file head
@@ -106,23 +103,6 @@ Definition of terms for project Breccia
         ─ verb
             - Mark as private by the use of a privatizer.
             : see `mark.+\R.+pertaining soley.+author` @ `^+Privatizer$` @ language_definition.brec
-    simulacra
-        ─ plural noun
-            : see `^*simulacrum$`
-    simulacral
-        ─ adjective
-            : see `^*simulacrum$`
-    simulacrum
-        ─ noun
-            - The compiled, executable form of a Breccian text,
-              as opposed to the initial, written form of its source code.
-                : see @ `^+Simulacrum$` @ language_definition.brec
-    source
-        ─ mass noun
-            - Source code.
-    source code
-        ─ mass noun
-            - Breccian text in written form, as opposed to simulacral form.
     subjoin
         ─ verb
             - Descend by way of a jointer.
