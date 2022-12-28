@@ -210,8 +210,12 @@ Breccia language definition
                 indicated referent( inferential referent indicant `iIR` if present )
                     - The fractum or text sequence to be taken as the referent.
                         : re `fractum or text sequence` see `^*original resource$` @ `^+Notes$`
-                    deem+ `iF` a fractum indicant,
-                          `defaultPM` a pattern matcher comprising ‘`^^${same}`ip’
+                    deem+ `iF` a fractum indicant;
+                          `defaultPM` a pattern matcher
+                    if( a referrer clause is present )
+                        + Set `defaultPM` to `${same}`ip
+                    else
+                        + Set `defaultPM` to `^^${same}`ip
                     if( `iIR` is present )
                         + Set `iF` to `defaultPM` in space-delimited conjunction with `iIR`.
                     else
