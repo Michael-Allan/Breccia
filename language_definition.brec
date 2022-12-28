@@ -52,8 +52,8 @@ Breccia language definition
      Associative reference
     ───────────────────────
         / A type of command point.
-        - It forms a reference by associating one or more pre-existing text sequences (referrer,
-          or referrers) with a remote object (referent).
+        - It forms a reference by associating one or more pre-existing text sequences
+          (referrer or referrers) with an object (referent).
         - Its command has this form:
 
                     referrer          referential           referent
@@ -73,9 +73,12 @@ Breccia language definition
         - Multiple referrers may be overlapped or nested in any manner.
             / Via multiple, sibling references.
             / Via a single reference that indicates multiple referrers at once.
-        - An associative reference to a privatized referent of the same author, or authors,
-          must itself be privatized, else the reference is malformed.
-            : re `privatized` see `^+Privatizer$`
+        - A local associative reference to a privatized referent must itself be privatized,
+          else the reference is malformed.
+            : cf. `should be possible.+remove.+privatized fracta.+without impairing.+integrity`
+              @ `^^privatizer$`i
+            / In order to correct it, the reference must be privatized, made remote or qualified
+              as non-fractal.
 
         ─────────────────
          referrer clause
@@ -213,8 +216,7 @@ Breccia language definition
                         + Set `iF` to `defaultPM` in space-delimited conjunction with `iIR`.
                     else
                         + Set `iF` to `defaultPM`.
-                    return+ `indicated fractum( iF, parent of present associative reference )`
-                        : re `parent` see `^*no associative self-reference$` @ `^+Notes$`
+                    return+ `indicated fractum( iF )`
 
             interpolation variables
                 - In the fractum-indicant patterns of a referent clause,
@@ -267,15 +269,23 @@ Breccia language definition
                         break+ `if( a referent clause is present )`
                     else( the referent clause comprises a fractum indicant )
                     + Set `iF` to the fractum indicant.
-                    deem+ `f` a fractum, that of `indicated fractum( iF, parent of rA )`;
+                    deem+ `f` a fractum, that of `indicated fractum( iF )`;
                           `mF` a match, the match of `f` if any occurred
-                        : re `indicated fractum.+(parent)`s see `^*no associative self-reference$` @
-                          `^+Notes$`
                     if( no `mF` occured or `mF` captured no group )
                         return+ `f`
                     return+ a disjoint text sequence comprising the union of all captured
                       text sequences of `mF`.
                 return+ `indicated referent( iIR if set )`
+
+        indicated fractum( fractum indicant `i` of an associative reference `rA` )
+            deem+ `f` a fractum, that of `indicated fractum( fractum indicant `i`, parent of `rA` )`
+                : re `indicated fractum.+(parent)`s see `^*no associative self-reference$` @ `^+Notes$`
+            if( `f` is privatized and `rA` local and unprivatized )
+                throw+ malformed local reference: `rA` is unprivatized yet refers
+                  to a privatized referent `f`
+                    : see `local.+reference to.+privatized referent must.+be privatized` @
+                      `^^associative reference$`i
+            return+ `f`
 
 
 
@@ -724,7 +734,7 @@ Breccia language definition
         - Otherwise no fractum is indicated.
             - The only definite indication in the presence of a `non-fractal` resource indicant
               is the indicated resource as a whole, namely the referent of the URI reference.
-                : re `URI reference` see @ `^+Resource indicant$`
+                : re `URI reference` see @ `^^resource indicant$`i
             / It may be left to the reader of the text to determine what more, if anything,
               the author intended.
 
@@ -949,6 +959,9 @@ Breccia language definition
         - Its command has this form:
 
               ╶──╴‘private’╶───▶
+
+        - It should be possible to remove all privatized fracta of a text without impairing its integrity
+          and without substantial loss of meaning to public readers.
 
 
 

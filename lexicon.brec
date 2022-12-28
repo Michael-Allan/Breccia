@@ -81,6 +81,9 @@ Definition of terms for project Breccia
               according to the conventional sequence of reading.
                 / Aka ‘document order’.
                     : see e.g. https://www.w3.org/TR/DOM-Level-3-Core/glossary.html#dt-document-order
+    local
+        ─ adjective
+            - (of an associative reference) Not remote.
     newline
         - A character or sequence of characters indicating a line break.
         / In Breccia, it comprises either a line feed, or a carriage return followed by a line feed.
@@ -102,6 +105,13 @@ Definition of terms for project Breccia
         ─ verb
             - Mark as private by the use of a privatizer.
             : see `mark.+\R.+pertaining soley.+author` @ `^+Privatizer$` @ language_definition.brec
+    remote
+        ─ adjective
+            - (of an associative reference) Containing a resource indicant wherein the URI reference
+              is a formed as a URI or network-path reference.
+                : re `URI reference` see @ `^^resource indicant$`i @ language_definition.brec
+                : re `formed as a (URI)` see https://www.rfc-editor.org/rfc/rfc3986#section-3
+                : re `network-path reference` see https://www.rfc-editor.org/rfc/rfc3986#section-4.2
     subjoin
         ─ verb
             - Descend by way of a jointer.
