@@ -96,7 +96,7 @@ Breccia language definition
                 / One resolves the referrers of an associative reference as follows.
                 - A list in linear order of text sequences, each to be taken as a referrer.
                     : re `text sequences` see `^*original resource$` @ `^+Notes$`
-                deem+ `h` a text sequence, that of `parental head text()`;
+                deem+ `h` a text sequence, that of `parental head text()` trimmed of its perfect indent;
                       `tt` a list of text sequences, intitally empty
                 if( no referrer clause is present )
                     + Append `h` to `tt`.
@@ -252,7 +252,8 @@ Breccia language definition
                             return+ `parental head text()` modified thus:
                                 : see `^*parental head text` @ `^^referrer clause$`i
                                 ⁃ Truncated to the portion prior to any comment carrier or indent blind
-                                ⁃ Trimmed of leading and trailing plain whitespace
+                                ⁃ Trimmed of its perfect indent
+                                ⁃ Trimmed of any trailing plain whitespace
                                 ⁃ Any remaining sequences of plain whitespace each collapsed
                                   to a single plain space ‘ ’ (20)
                                     : re `20` see `^*character identification$` @ `^+Notes$`
