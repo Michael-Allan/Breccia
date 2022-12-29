@@ -382,7 +382,7 @@ Breccia language definition
                     of  ╶──┬── S ──┬─╴‘\’╶─┴─╴‘\’╶─┴── S ┊╶──┴── character ──┴───▶ ┊╶──┬── S ──┬──╴ of
                    line    │       │                     ┊                         ┊   │       │   line
                            └───────┘                                                   └───────┘
-                    : re `(end)$.+(of)$.+(line)$`s see
+                    : re `(end)$.+(of)$.+(line)$`s see `^^${same}$`i
 
 
 
@@ -577,7 +577,7 @@ Breccia language definition
             titling extract( fractal head `h` )
                 if( `h` is a divider )
                     return+ the first division title of `h`, or null if there is none
-                        : re `division title` see @ `^^division$`i
+                        : re `division title` see `^^${same}`i @ `^^division$`i
                 else( `h` is a file head or point head )
                     return+ `h` modified thus:
                         ⁃ Truncated to the portion prior to any indent blind
@@ -739,7 +739,7 @@ Breccia language definition
         - Otherwise no fractum is indicated.
             - The only definite indication in the presence of a `non-fractal` resource indicant
               is the indicated resource as a whole, namely the referent of the URI reference.
-                : re `URI reference` see @ `^^resource indicant$`i
+                : re `URI reference` see @ `^*·$` @ `^^resource indicant$`i
             / It may be left to the reader of the text to determine what more, if anything,
               the author intended.
 
@@ -910,7 +910,7 @@ Breccia language definition
                                                   ┊             │         │
                                                                 └─────────┘
                         : re `A0` see `^*character identification$` @ `^+Notes$`
-                        : re `(comment)$.+(appender)$`s see
+                        : re `(comment)$.+(appender)$`s see `^^${same}$`i
                     diagram, The form of a bullet’s trailing edge.  The bullet
                       itself includes only parts to the left of the dashed line.
 
@@ -1066,7 +1066,7 @@ Breccia language definition
                 : see https://perldoc.perl.org/perlre#Metacharacters
             ^*
                 - A perfect indent, equivalent to `^(?:    )*`.
-                    : re `perfect indent` see @ `^+Separation$`
+                    : re `perfect indent` see `^^${same}$`i @ `^^separation$`i
             ^+ 
                 - An anchored prefix to where the first titling label of a division might start.
                     : re `first titling label` cf. `^*return.+${same}` @ `^*\$\{same\}$` @

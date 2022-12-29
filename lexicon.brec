@@ -109,7 +109,7 @@ Definition of terms for project Breccia
         ─ adjective
             - (of an associative reference) Containing a resource indicant wherein the URI reference
               is a formed as a URI or network-path reference.
-                : re `URI reference` see @ `^^resource indicant$`i @ language_definition.brec
+                : re `URI reference` see @ `^*·$` @ `^^resource indicant$`i @ language_definition.brec
                 : re `formed as a (URI)` see https://www.rfc-editor.org/rfc/rfc3986#section-3
                 : re `network-path reference` see https://www.rfc-editor.org/rfc/rfc3986#section-4.2
     subjoin
