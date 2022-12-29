@@ -237,8 +237,8 @@ Breccia language definition
                               for the procedure of applying the pattern matcher
                             return+ the plain-space-delimited sequence of the captures of its
                               pattern matcher, if any; otherwise its match modified thus:
-                                ⁃ Trimmed of leading and trailing plain whitespace
-                                ⁃ Any remaining sequences of plain whitespace each collapsed
+                                ⁃ Trimmed of leading and trailing whitespace
+                                ⁃ Any remaining sequences of whitespace each collapsed
                                   to a single plain space ‘ ’ (20)
                                     : re `20` see `^*character identification$` @ `^+Notes$`
                                 ⁃ Reconstituted, if the above has emptied it, as a single plain space
@@ -253,8 +253,8 @@ Breccia language definition
                                 : see `^*parental head text` @ `^^referrer clause$`i
                                 ⁃ Truncated to the portion prior to any comment carrier or indent blind
                                 ⁃ Trimmed of its perfect indent
-                                ⁃ Trimmed of any trailing plain whitespace
-                                ⁃ Any remaining sequences of plain whitespace each collapsed
+                                ⁃ Trimmed of any trailing whitespace
+                                ⁃ Any remaining sequences of whitespace each collapsed
                                   to a single plain space ‘ ’ (20)
                                     : re `20` see `^*character identification$` @ `^+Notes$`
 
@@ -1016,10 +1016,10 @@ Breccia language definition
             p
                 - Enables expansive space mode.
                 - The pattern is read such that any sequence of unquoted plain space characters (20)
-                  is effectively interpreted as `(?: |\N{A}|\N{D}\N{A})+`.
+                  is effectively interpreted as `(?: |\N{A}|\N{D}\N{A}|\N{A0})+`.
                     : re `20` see `^*character identification$` @ `^+Notes$`
                     / With this, a single space in the pattern (or sequence of spaces) will match
-                      any number of plain spaces or newlines or both.
+                      any sequence of whitespace.
 
 
         ──────────────────
