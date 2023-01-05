@@ -121,7 +121,7 @@ Breccia language definition
             parental head text()
                 - The text sequence of the head of the source parent of the associative reference.
                     : re `text sequence` see `^*original resource$` @ `^+Notes$`
-                deem+ `p` a fractum, the parent of the associative reference in the source code
+                deem+ `p` a fractum, the parent of the associative reference in the source text
                 if( `p` is headless )
                     / The parent is a headless file fractum.
                     throw+ misplaced back reference, no parent head to refer to
