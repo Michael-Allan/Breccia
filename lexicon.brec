@@ -24,8 +24,8 @@ Definition of terms for project Breccia
         / pronounced /brɛ́kɪə/ as in ‘breckia’ \ Cf. the geologic homograph pronounced /brɛ́tʃə/.
         ─ mass noun
             - A lightweight markup language for point-form outlining and drafting
-              based on sequences and recursions of text elements known as a fracta.
-                : see `lightweight markup.+drafting.+recurs.+fracta` @ README.html
+              based on nestable, sentence-like elements of text known as a fracta.
+                : see README.html
     Breccian
         ─ adjective
             : see `^*Breccia$`
@@ -134,4 +134,4 @@ Definition of terms for project Breccia
           language_definition.brec
 
 
-                                                    \ Copyright © 2019-2022  Michael Allan.  Licence MIT.
+                                                    \ Copyright © 2019-2023  Michael Allan.  Licence MIT.
