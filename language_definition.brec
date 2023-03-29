@@ -1060,12 +1060,11 @@ Breccia language definition
                 - Enables dot-all mode.
                     : see https://perldoc.perl.org/perlre#s
             p
-                - Enables expansive space mode.
-                - The pattern is read such that any sequence of unquoted plain space characters (20)
+                - Enables expansive whitespace mode.
+                - The pattern is read such that any sequence of unquoted plain whitespace
                   is effectively interpreted as `(?: |\N{A}|\N{D}\N{A}|\N{A0})+`.
-                    : re `20` see `^*character identification$` @ `^+Notes$`
-                    / With this, a single space in the pattern (or sequence of spaces) will match
-                      any sequence of whitespace.
+                    / With this, any plain whitespace character in the pattern (or sequence
+                      of plain whitespace) will match any sequence of whitespace.
 
 
         ──────────────────
