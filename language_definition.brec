@@ -80,6 +80,16 @@ Breccia language definition
             / In order to correct it, the reference must be privatized, made remote or qualified
               as non-fractal.
 
+        indicated fractum( fractum indicant `i` of an associative reference `rA` )
+            deem+ `f` a fractum, that of `indicated fractum( fractum indicant `i`, parent of `rA` )`
+                : re `indicated fractum.+(parent)`s see `^*no associative self-reference$` @ `^+Notes$`
+            if( `f` is privatized and `rA` local and unprivatized )
+                throw+ malformed local reference: `rA` is unprivatized yet refers
+                  to a privatized referent `f`
+                    : see `local.+reference to.+privatized referent must.+be privatized` @
+                      `^^associative reference$`i
+            return+ `f`
+
         ─────────────────
          referrer clause
         ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
@@ -257,16 +267,6 @@ Breccia language definition
                     return+ a disjoint text sequence comprising the union of all captured
                       text sequences of `mF`.
                 return+ `indicated referent( iIR if set )`
-
-        indicated fractum( fractum indicant `i` of an associative reference `rA` )
-            deem+ `f` a fractum, that of `indicated fractum( fractum indicant `i`, parent of `rA` )`
-                : re `indicated fractum.+(parent)`s see `^*no associative self-reference$` @ `^+Notes$`
-            if( `f` is privatized and `rA` local and unprivatized )
-                throw+ malformed local reference: `rA` is unprivatized yet refers
-                  to a privatized referent `f`
-                    : see `local.+reference to.+privatized referent must.+be privatized` @
-                      `^^associative reference$`i
-            return+ `f`
 
 
 
