@@ -494,20 +494,20 @@ Breccia language definition
                 + Append to `tt` a copy of `t`.
             return+ `tt`
 
-        ────────────────
-         false division
-        ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
-            - A false division is a group of siblings wherein only the first is a true division
+        ─────────────────
+         pseudo-division
+        ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
+            - A pseudo-division is a group of siblings wherein only the first is a true division
               (often a headless one, a bare divider), the remainder being of other fractal types.
             - Normally a sibling *successor* to a division is itself a division.
                 - Where it is not, it may appear (owing to its placement under the same divider)
                   to be *part* of that division.
-                - Such an apparently *extended* division is called a false division.
+                - Such an apparently *extended* division is called a pseudo-division.
                 / The appearance of extension is false because the successors lie ‘under’
                   the same divider merely in terms of linear order, not hierarchy.
-            - False divisions are a linear form of partition,
+            - Pseudo-divisions are a linear form of partition,
               as opposed to the hierarchic form of true divisions.
-            / The whole of a false division may be transformed to a true division
+            / The whole of a pseudo-division may be transformed to a true division
               by indenting all but the first sibling into the *body* of the first.
 
 
