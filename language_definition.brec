@@ -250,11 +250,11 @@ Breccia language definition
                     : re `other resource` see @ non-fractal
                       https://www.rfc-editor.org/rfc/rfc3986#section-1.1
                     / One resolves it as follows.
-                if( the referent clause includes a resource indicant with a `non-fractal` qualifier )
-                    return+ `indicated resource( resource indicant )`
                 deem+ `iF` a fractum indicant;
                       `iIR` an inferential referent indicant
                 if( a referent clause is present )
+                    if( the referent clause includes a resource indicant with a `non-fractal` qualifier )
+                        return+ `indicated resource( resource indicant )`
                     if( the referent clause comprises an inferential referent indicant )
                         + Set `iIR` to the inferential referent indicant.
                         break+ `if( a referent clause is present )`
