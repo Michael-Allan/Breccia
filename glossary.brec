@@ -30,10 +30,10 @@ Definition of terms for project Breccia
         ─ adjective
             : see `^*Breccia$`
     capture group
-        : see `^*\(⋯\)$` @ `^^pattern language$`i @ `^^regular-expression pattern matching$`i  @
+        : see `^*\(···\)$` @ `^^pattern language$`i @ `^^regular-expression pattern matching$`i  @
           language_definition.brec
     cluster group
-        : see `^*\(\?:⋯\)$` @ `^^pattern language$`i @ `^^regular-expression pattern matching$`i  @
+        : see `^*\(\?:···\)$` @ `^^pattern language$`i @ `^^regular-expression pattern matching$`i  @
           language_definition.brec
     containment operator
         : see `^*@$`
@@ -73,7 +73,7 @@ Definition of terms for project Breccia
         : cf. `^*formal$`
     interpolation variable
         - A named value for use in a variable interpolator.
-        : see `equates to.+the named interpolation variable.$`i  @ `^*\$\{⋯\}$` @ `^^pattern language$`i
+        : see `equates to.+the named interpolation variable`i  @ `^*\$\{···\}$` @ `^^pattern language$`i
           @ `^^regular-expression pattern matching$`i  @ language_definition.brec
     linear order
         ─ mass noun
@@ -130,7 +130,7 @@ Definition of terms for project Breccia
             : re `(division label).+(precedes.+same line).+(division title)`sp see
               `${3} comprises.+${1}.+${2}`sp @ `^^${3}`i @ `^^division$`i @ language_definition.brec
     variable interpolator
-        : see `^*\$\{⋯\}$` @ `^^pattern language$`i @ `^^regular-expression pattern matching$`i  @
+        : see `^*\$\{···\}$` @ `^^pattern language$`i @ `^^regular-expression pattern matching$`i  @
           language_definition.brec
 
 

@@ -1101,7 +1101,7 @@ Breccia language definition
             \R
                 - Line break.
                 : see https://perldoc.perl.org/perlrebackslash#%5CR
-            \N{⋯}
+            \N{···}
                 - Character or character sequence by name or number.
                 : see https://perldoc.perl.org/perlrebackslash#Named-or-numbered-characters-and-character-sequences
             ^
@@ -1129,7 +1129,7 @@ Breccia language definition
                   or of a line if `m` is used.
                     : re `\`(m)\`` see `^*m$` @ `^+match modifier$`
                 : see https://perldoc.perl.org/perlre#Metacharacters
-            ${⋯}
+            ${···}
                 - Variable interpolator.
                 - Equates to the value of the named interpolation variable.
                 - Valid only in a context that defines that variable.
@@ -1138,10 +1138,10 @@ Breccia language definition
             |
                 - Alternation.
                 : see https://perldoc.perl.org/perlre#Metacharacters
-            (⋯)
+            (···)
                 - Capture group.
                 : see https://perldoc.perl.org/perlre#Capture-groups
-            (?:⋯)
+            (?:···)
                 - Cluster group.
                 : see https://perldoc.perl.org/perlre#(?:pattern)
             *
@@ -1302,4 +1302,4 @@ Breccia language definition
 
 
 
-                                                    \ Copyright © 2019-2023  Michael Allan.  Licence MIT.
+                                                    \ Copyright © 2019-2024  Michael Allan.  Licence MIT.
