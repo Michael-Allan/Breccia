@@ -221,8 +221,8 @@ Breccia language definition
                         if( a referrer clause is present )
                             : see `^*referrers\( associative reference \)$` @ `^^referrer clause$`i :
                               for the procedure of applying the pattern matcher
-                            return+ the plain-space-delimited sequence of the captures of its
-                              pattern matcher, if any; otherwise its match modified thus:
+                            return+ the plain-space-delimited sequence of its pattern matcher’s captures,
+                              if any; otherwise its match modified thus:
                                 ⁃ Trimmed of leading and trailing whitespace
                                 ⁃ Any remaining sequences of whitespace each collapsed
                                   to a single plain space ‘ ’ (20)
@@ -312,7 +312,7 @@ Breccia language definition
             for( each match `m` of `p` against `h` )
                 if( `m` is an empty text sequence )
                     throw+ incomplete back reference, `p` matches an empty text sequence
-                else if( `p` contains no capture groups )
+                else if( `p` contains no capture group )
                     + Append to `tt` the whole text sequence of `m`.
                 else if( any group fails in `m` to capture a non-empty text sequence )
                     throw+ incomplete back reference, group captures nothing in the parent head
