@@ -312,7 +312,7 @@ Breccia language definition
             for( each match `m` of `p` against `h` )
                 if( `m` is an empty text sequence )
                     throw+ incomplete back reference, `p` matches an empty text sequence
-                else if( `p` contains no capture groups  )
+                else if( `p` contains no capture groups )
                     + Append to `tt` the whole text sequence of `m`.
                 else if( any group fails in `m` to capture a non-empty text sequence )
                     throw+ incomplete back reference, group captures nothing in the parent head
