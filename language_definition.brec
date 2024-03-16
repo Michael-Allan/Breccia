@@ -93,14 +93,18 @@ Breccia language definition
         ─────────────────
          referrer clause
         ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
-            - The referrer clause, if any, explicitly locates one or more referrers in the head
-              of the reference’s parent.
-            - Absent a referrer clause, the whole head is taken as the sole referrer.
-            - Otherwise the referrers are located in the head by a pattern of text.
+            / An optional clause within an associative reference,
+            - A referrer clause explicitly indicates the referrer or referrers.
+            - Referrers are text sequences within the head
+              of the associative reference’s parent fractum (parental head).
+            - The referrer clause indicates them by a pattern matcher
+              to be applied in the scope of the parental head.
 
                   ╶──╴‘re’╶── P ── pattern matcher ───▶
 
                     diagram, The form of a referrer clause in an associative reference.
+
+            - Absent a referrer clause, the whole parental head is taken implicitly as the referrer.
 
             referrers( associative reference )
                 - A list in linear order of text sequences, each to be taken as a referrer
@@ -170,14 +174,18 @@ Breccia language definition
         ─────────────────
          referent clause
         ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
-            - The referent clause, if any, explicitly indicates the referent.
-                - Absent a referent clause, any referrer clause *implies* the referent.
-                - Absent both clauses, the fractal head of the parent implies the referent.
-            - The form of a referent clause is:
+            / An optional clause within an associative reference,
+            - A referent clause explicitly indicates the referent.
 
                      ┌── inferential referent indicant ──┐
                   ╶──┤                                   ├────▶
                      └───────── fractum indicant ────────┘
+
+                    diagram, The form of a referent clause in an associative reference.
+
+            - Absent a referent clause, the referent is inferred implicitly from the first referrer.
+                : re `referrer` see `^*- ${same}s are text sequences within the.+parental head`is @
+                  `^^referrer clause$`i
 
             inferential referent indicant
 
@@ -221,8 +229,9 @@ Breccia language definition
                         if( a referrer clause is present )
                             : see `^*referrers\( associative reference \)$` @ `^^referrer clause$`i :
                               for the procedure of applying the pattern matcher
-                            return+ the plain-space-delimited sequence of its pattern matcher’s captures,
-                              if any; otherwise its match modified thus:
+                            deem+ ⁠p⁠ its pattern matcher
+                            return+ the plain-space-delimited sequence of ⁠p⁠’s captures, if any;
+                              otherwise ⁠p⁠’s first match modified thus:
                                 ⁃ Trimmed of leading and trailing whitespace
                                 ⁃ Any remaining sequences of whitespace each collapsed
                                   to a single plain space ‘ ’ (20)
@@ -262,7 +271,9 @@ Breccia language definition
                     + Set `iF` to the fractum indicant.
                     deem+ `f` a fractum, that of `indicated fractum( iF )`;
                           `mF` a match, the match of `f` if any occurred
-                    if( no `mF` occured or `mF` captured no group )
+                    if( no `mF` occured )
+                        return+ `f`
+                    if( `mF` captured no group )
                         return+ `f`
                     return+ a disjoint text sequence comprising the union of all captured
                       text sequences of `mF`.
@@ -1113,13 +1124,13 @@ Breccia language definition
                 - A perfect indent, equivalent to `^(?:    )*`.
                     : re `perfect indent` see `^^${same}$`i @ `^^separation$`i
             ^+ 
-                - An anchored prefix to where the first titling label of a division might start.
+                - Matches a divider up to where its first titling label might start.
                     : re `first titling label` cf. `^*return.+${same}` @ `^*\$\{same\}$` @
                       `^^interpolation variables$`i @ `^^referent clause$`i : Compatible by design.
-                - Equivalent to `^(?:    )*[\x2500-\x259F].*?\R(?:    )* {1,3}` in Perl syntax.
+                - Equivalent to Perl `^(?:    )*[\x2500-\x259F].*?\R(?:    )* {1,3}`.
             ^^
-                - An anchored prefix that first tries to match as `^+`, then as `^*`.
-                - Equivalent to `^(?:    )*(?:[\x2500-\x259F].*?\R(?:    )* {1,3})?` in Perl syntax.
+                - Matches as `^+` if it can, otherwise as `^*`.
+                - Equivalent to Perl `^(?:    )*(?:[\x2500-\x259F].*?\R(?:    )* {1,3})?`.
             .
                 - Any character except a newline, or any including a newline if `s` is used.
                     : re `\`(s)\`` see `^*s$` @ `^+match modifier$`
