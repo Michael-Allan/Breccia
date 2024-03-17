@@ -1065,7 +1065,7 @@ Breccia language definition
                 - Enables case-insensitive matching.
                     : see https://perldoc.perl.org/perlre#i
             m
-                - Enables multiline mode.
+                - Enables multi-line mode.
                     : see https://perldoc.perl.org/perlre#m
             s
                 - Enables dot-all mode.
