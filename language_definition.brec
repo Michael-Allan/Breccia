@@ -183,16 +183,18 @@ Breccia language definition
 
                     diagram, The form of a referent clause in an associative reference.
 
-            - Absent a referent clause, the referent is inferred implicitly from the first referrer.
-                : re `referrer` see `^*- ${same}s are text sequences within the.+parental head`is @
-                  `^^referrer clause$`i
+            - Absent a referent clause, the referent is inferred from the first referrer.
+                : re `first referrer` see `^*- referrers are text sequences.+in the.+parental head`is
+                  @ `^^referrer clause$`i
 
             inferential referent indicant
 
                 - An inferential referent indicant indicates a fractum based on a pattern
-                  constructed by inference from the pattern of the referrer, or referrers.
-                - In form, it comprises a containment clause that delimits the context in which
-                  this inferred pattern is sought.
+                  constructed from the first referrer.
+                    : re `first referrer` see `^*- referrers are text sequences.+in the.+parental head`is
+                      @ `^^referrer clause$`i
+                - In form, it comprises a containment clause that delimits the context
+                  in which the pattern is sought.
 
                       ╶──╴‘@’╶── P ── fractum indicant ────▶
 
@@ -229,14 +231,19 @@ Breccia language definition
                         if( a referrer clause is present )
                             : see `^*referrers\( associative reference \)$` @ `^^referrer clause$`i :
                               for the procedure of applying the pattern matcher
-                            deem+ ⁠p⁠ its pattern matcher
-                            return+ the plain-space-delimited sequence of ⁠p⁠’s captures, if any;
-                              otherwise ⁠p⁠’s first match modified thus:
-                                ⁃ Trimmed of leading and trailing whitespace
-                                ⁃ Any remaining sequences of whitespace each collapsed
-                                  to a single plain space ‘ ’ (20)
+                            deem+ ⁠r⁠ the first referrer
+                            if( ⁠r⁠ is disjoint )
+                                : re `disjoint` see `${same} text sequence` @ `^^parental head match`i @
+                                  `^^command point$`i
+                                return+ a text sequence comprising the parts of ⁠r⁠ in order
+                                  separated by plain spaces ‘ ’ (20)
                                     : re `20` see `^*character identification$` @ `^+Notes$`
-                                ⁃ Reconstituted, if the above has emptied it, as a single plain space
+                            else
+                                return+ a copy of ⁠r⁠ modified thus:
+                                    ⁃ Trimmed of leading and trailing whitespace
+                                    ⁃ Any remaining sequences of whitespace each collapsed
+                                      to a single plain space ‘ ’ (20)
+                                    ⁃ Reconstituted, if the above has emptied it, as a single plain space
                         else if( the parent of the present associative reference is a titled division )
                             : see `^*division titles\( divider` @ `^^division$`i
                             return+ the first titling label of the division title
@@ -275,8 +282,7 @@ Breccia language definition
                         return+ `f`
                     if( `mF` captured no group )
                         return+ `f`
-                    return+ a disjoint text sequence comprising the union of all captured
-                      text sequences of `mF`.
+                    return+ a disjoint text sequence comprising all captured sequences of `mF`.
                 return+ `indicated referent( iIR if set )`
 
 
@@ -318,8 +324,6 @@ Breccia language definition
                 / One resolves the list as follows.
             deem+ `h` a text sequence, that of `parental head text()` trimmed of its perfect indent;
                   `tt` a list of text sequences, intitally empty
-            + Put `p` into multiple-line mode.
-                : re `multiple-line mode` see https://perldoc.perl.org/perlre#m
             for( each match `m` of `p` against `h` )
                 if( `m` is an empty text sequence )
                     throw+ incomplete back reference, `p` matches an empty text sequence
@@ -328,8 +332,7 @@ Breccia language definition
                 else if( any group fails in `m` to capture a non-empty text sequence )
                     throw+ incomplete back reference, group captures nothing in the parent head
                 else
-                    + Append to `tt` a disjoint text sequence comprising the union
-                      of all captured text sequences of `m`.
+                    + Append to `tt` a disjoint text sequence comprising all captured sequences of `m`.
             if( `tt` is empty )
                 throw+ broken back reference, no such text `p` in parent head
             return+ `tt`
@@ -743,11 +746,6 @@ Breccia language definition
           the fractum indicant indicates a fractum.
             - Any pattern-matcher series pinpoints with each matcher a fractal head, while any
               resource indicant resolves to a Breccian file and therewith a file fractum.
-                - Each pattern matcher of the series operates in multiple-line mode,
-                  regardless of whether match modifier `m` is given.
-                    : re `multiple-line mode` see https://perldoc.perl.org/perlre#m
-                    : re `match modifier .m.` see `^*m$` @ `^+match modifier$` @
-                      `^+Regular-expression pattern matching$`
             - The overall indicated fractum is the one resolved leftmost in the indicant
               and so deepest in the fractal hierarchy.
             / For example, here is a fractum indicant for the present fractum:
@@ -787,8 +785,6 @@ Breccia language definition
             deem+ `fLast` a fractum, initially the file fractum of `r`;
                   `mLast` a match
             while( `p` is set )
-                + Put `p` into multiple-line mode.
-                    : re `multiple-line mode` see https://perldoc.perl.org/perlre#m
                 for( each match `m` of `p` against the body of `fLast` )
                     deem+ `f` the fractum in whose head `m` starts
                     if( end boundary(`m`) exceeds end boundary(head of `f`) )
@@ -1054,8 +1050,6 @@ Breccia language definition
             - A parameter that dictates how a pattern matcher operates.
 
                      ┌──╴‘i’╶──┐
-                     │         │
-                     ├──╴‘m’╶──┤
                   ╶──┤         ├───▶
                      ├──╴‘s’╶──┤
                      │         │
@@ -1064,9 +1058,6 @@ Breccia language definition
             i
                 - Enables case-insensitive matching.
                     : see https://perldoc.perl.org/perlre#i
-            m
-                - Enables multi-line mode.
-                    : see https://perldoc.perl.org/perlre#m
             s
                 - Enables dot-all mode.
                     : see https://perldoc.perl.org/perlre#s
@@ -1116,10 +1107,10 @@ Breccia language definition
                 - Character or character sequence by name or number.
                 : see https://perldoc.perl.org/perlrebackslash#Named-or-numbered-characters-and-character-sequences
             ^
-                - The beginning (zero width) of the text in which a match is sought,
-                  or of a line if `m` is used.
-                    : re `\`(m)\`` see `^*m$` @ `^+match modifier$`
-                : see https://perldoc.perl.org/perlre#Metacharacters
+                - The beginning (zero width) of a line.
+                : cf. https://perldoc.perl.org/perlre#Metacharacters
+                : note : This is consistent with Perl’s multi-line mode.
+                    : see https://perldoc.perl.org/perlre#m
             ^*
                 - A perfect indent, equivalent to `^(?:    )*`.
                     : re `perfect indent` see `^^${same}$`i @ `^^separation$`i
@@ -1136,10 +1127,10 @@ Breccia language definition
                     : re `\`(s)\`` see `^*s$` @ `^+match modifier$`
                 : see https://perldoc.perl.org/perlre#Metacharacters
             $
-                - The end (zero width) of the text in which a match is sought,
-                  or of a line if `m` is used.
-                    : re `\`(m)\`` see `^*m$` @ `^+match modifier$`
-                : see https://perldoc.perl.org/perlre#Metacharacters
+                - The end (zero width) of a line.
+                : cf. https://perldoc.perl.org/perlre#Metacharacters
+                : note : This is consistent with Perl’s multi-line mode.
+                    : see https://perldoc.perl.org/perlre#m
             ${···}
                 - Variable interpolator.
                 - Equates to the value of the named interpolation variable.
