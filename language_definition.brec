@@ -188,7 +188,6 @@ Breccia language definition
                   @ `^^referrer clause$`i
 
             inferential referent indicant
-
                 - An inferential referent indicant indicates a fractum based on a pattern
                   constructed from the first referrer.
                     : re `first referrer` see `^*- referrers are text sequences.+in the.+parental head`is
@@ -203,20 +202,16 @@ Breccia language definition
                        : re `foo` see @ `^*bar$`
                        : cf. @ `^*foo$`
 
-                indicated referent( inferential referent indicant `iIR` if present )
+                indicated referent( inferential referent indicant ⁠r⁠ if present )
                     - The fractum or text sequence to be taken as the referent.
                         : re `fractum or text sequence` see `^*original resource$` @ `^+Notes$`
-                    deem+ `iF` a fractum indicant;
-                          `defaultPM` a pattern matcher
-                    if( a referrer clause is present )
-                        + Set `defaultPM` to `${same}`ip
+                    deem+ ⁠f⁠ a fractum indicant,
+                          ⁠m⁠ the pattern matcher `^^${same}`ip
+                    if( ⁠r⁠ is present )
+                        + Set ⁠f⁠ to ⁠m⁠ in space-delimited conjunction with ⁠r⁠.
                     else
-                        + Set `defaultPM` to `^^${same}`ip
-                    if( `iIR` is present )
-                        + Set `iF` to `defaultPM` in space-delimited conjunction with `iIR`.
-                    else
-                        + Set `iF` to `defaultPM`.
-                    return+ `indicated fractum( iF )`
+                        + Set ⁠f⁠ to ⁠m⁠.
+                    return+ `indicated fractum( ⁠r⁠ )`
 
             interpolation variables
                 - In the fractum-indicant patterns of a referent clause,
@@ -405,7 +400,7 @@ Breccia language definition
                     of  ╶──┬── S ──┬─╴‘\’╶─┴─╴‘\’╶─┴── S ┊╶──┴── character ──┴───▶ ┊╶──┬── S ──┬──╴ of
                    line    │       │                     ┊                         ┊   │       │   line
                            └───────┘                                                   └───────┘
-                    : re `(end)$.+(of)$.+(line)$`s see `^^${same}$`i
+                    : re `(end)$.+(of)$.+(line)$`s see
 
 
 
@@ -758,7 +753,7 @@ Breccia language definition
         - Otherwise no fractum is indicated.
             - The only definite indication in the presence of a `non-fractal` resource indicant
               is the indicated resource as a whole, namely the referent of the URI reference.
-                : re `URI reference` see @ `^*·$` @ `^^resource indicant$`i
+                : re `URI reference` see `${same}` @ `^*·$` @ `^^resource indicant$`i
             / It may be left to the reader of the text to determine what more, if anything,
               the author intended.
 
@@ -963,7 +958,7 @@ Breccia language definition
                                                   ┊             │         │
                                                                 └─────────┘
                         : re `A0` see `^*character identification$` @ `^+Notes$`
-                        : re `(comment)$.+(appender)$`s see `^^${same}$`i
+                        : re `(comment)$.+(appender)$`s see
                     diagram, The form of a bullet’s trailing edge.  The bullet
                       itself includes only parts to the left of the dashed line.
 
@@ -1113,7 +1108,7 @@ Breccia language definition
                     : see https://perldoc.perl.org/perlre#m
             ^*
                 - A perfect indent, equivalent to `^(?:    )*`.
-                    : re `perfect indent` see `^^${same}$`i @ `^^separation$`i
+                    : re `perfect indent` see @ `^^separation$`i
             ^+ 
                 - Matches a divider up to where its first titling label might start.
                     : re `first titling label` cf. `^*return.+${same}` @ `^*\$\{same\}$` @
