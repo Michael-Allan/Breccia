@@ -787,10 +787,10 @@ Breccia language definition
 
                   ╶── P ──╴‘@’╶── P ───▶
 
-        located fractum( fractum locant ⁠o_r⁠, owning associative reference ⁠r_a⁠ )
+        located fractum( fractum locant ⁠o_f⁠, owning associative reference ⁠r_a⁠ )
             - The fractum located, together with any match that occurred to pinpoint it.
                 : re `fractum` N.B. `^*original referent$` @ `^+Notes$`
-            deem+ ⁠f⁠ a fractum, that of `located fractum( ⁠o_r⁠, ⁠fIgnore⁠ = parent of ⁠r_a⁠ )`
+            deem+ ⁠f⁠ a fractum, that of `located fractum( ⁠o_f⁠, ⁠fIgnore⁠ = parent of ⁠r_a⁠ )`
                 : re `⁠fIgnore⁠ = parent of ⁠r_a⁠`s see `^*no associative self-reference$` @ `^+Notes$`
             if( ⁠f⁠ is privatized and ⁠r_a⁠ local and unprivatized )
                 throw+ malformed local reference: ⁠r_a⁠ is unprivatized yet refers
