@@ -3,8 +3,8 @@ Definition of terms for project Breccia
     : see also http://reluk.ca/project/index.brec
 
     @
-        - A containment operator.
-        : see `containment operator ‘@’` @ `^*CS$` @ language_definition.brec
+        - A context operator.
+        : see `context operator ‘@’` @ `^*CS$` @ language_definition.brec
     alphanumeric
         - (of a character) Having a Unicode property of `Alphabetic` or `Decimal_Number`.
             : re `Alphabetic` see https://www.unicode.org/reports/tr44/tr44-26.html#Alphabetic
@@ -35,7 +35,7 @@ Definition of terms for project Breccia
     cluster group
         : see `^*\(\?:···\)$` @ `^^pattern language$`i @ `^^regular-expression pattern matching$`i  @
           language_definition.brec
-    containment operator
+    context operator
         : see `^*@$`
     file head
         - Another term for a file descriptor.
@@ -107,10 +107,9 @@ Definition of terms for project Breccia
             : see `mark.+\R.+pertaining soley.+author` @ `^+Privatizer$` @ language_definition.brec
     remote
         ─ adjective
-            - (of an associative reference) Containing a resource indicant wherein the URI reference
-              is a formed as a URI or network-path reference.
-                : re `URI reference` see `${same}` @ `^*·$` @ `^^resource indicant$`i @
-                  language_definition.brec
+            - (of an associative reference) Containing a URI reference
+              formed as a URI or network-path reference.
+                : re `URI reference` see https://www.rfc-editor.org/rfc/rfc3986#section-4.1
                 : re `formed as a (URI)` see https://www.rfc-editor.org/rfc/rfc3986#section-3
                 : re `network-path reference` see https://www.rfc-editor.org/rfc/rfc3986#section-4.2
     subjoin
@@ -135,4 +134,4 @@ Definition of terms for project Breccia
           language_definition.brec
 
 
-                                                    \ Copyright © 2019-2023  Michael Allan.  Licence MIT.
+                                                    \ Copyright © 2019-2024  Michael Allan.  Licence MIT.
