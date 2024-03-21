@@ -4,7 +4,8 @@ Definition of terms for project Breccia
 
     @
         - A context operator.
-        : see `context operator ‘@’` @ `^*CS$` @ language_definition.brec
+        : see `─╴‘(@)’╶─` @ `^^fractum locant$`i @
+          http://reluk.ca/project/Breccia/language_definition.brec
     alphanumeric
         - (of a character) Having a Unicode property of `Alphabetic` or `Decimal_Number`.
             : re `Alphabetic` see https://www.unicode.org/reports/tr44/tr44-26.html#Alphabetic

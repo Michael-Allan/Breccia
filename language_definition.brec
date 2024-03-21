@@ -142,7 +142,7 @@ Breccia language definition
 
                         : ad `q.v.` : Referential command `q.v.` is of limited use.  It makes grammatical
                           sense only when a) the referrer clause is absent, and b) the referent clause
-                          is either absent or comprises an inferential fractum locant (for example,
+                          is either absent or comprises a fractal context locant (for example,
                           `q.v. @ foo.brec`).
 
             cf.+ 
@@ -168,71 +168,50 @@ Breccia language definition
             / An optional clause within an associative reference,
             - A referent clause explicitly locates the referent.
 
-                     ┌──────── URI reference ─────────┐
-                  ╶──┤                                ├────▶
-                     ├──────── fractum locant ────────┤
-                     │                                │
-                     └── inferential fractum locant ──┘
+                     ┌────── URI reference ───────┐
+                  ╶──┤                            ├───▶
+                     ├────── fractum locant ──────┤
+                     │                            │
+                     └── fractal context locant ──┘
 
                         : re `URI reference` see https://www.rfc-editor.org/rfc/rfc3986#section-4.1
-                        : ad `fractum locant` : Not in the form of a URI reference.  It follows that a
-                          referent clause in the form of a URI reference *comprises* a URI reference
-                          (as opposed comprising to a fractum locant in the same form).
                     diagram, The form of a referent clause in an associative reference.
 
-            - Absent a referent clause, the referent is inferred from the first referrer.
-                : re `first referrer` see `^*- referrers are text sequences.+in the.+parental head`is
-                  @ `^^referrer clause$`i
+            - It happens that a URI reference and a fractum locant may have the same form.
+            - A referent clause in the form of a URI reference is taken to comprise a URI reference,
+              not a fractum locant.
 
             referent( referent clause ⁠c_r⁠ if present, owning associative reference ⁠r_a⁠ )
                 - The text sequence, fractum or other resource to be taken as the referent, as follows.
                     : re `text .+ other resource` N.B. `^*original referent$` @ `^+Notes$`
-                deem+ ⁠o_f⁠ a fractum locant;
-                      `oIF` an inferential fractum locant
+                deem+ ⁠o_c⁠ a fractal context locant
                 if( ⁠c_r⁠ is present )
-                    if( ⁠c_r⁠ includes a file locant with a `non-fractal` qualifier )
-                        return+ the referent of its URI reference
                     if( ⁠c_r⁠ comprises a URI reference )
                         return+ the referent of the URI reference
-                    if( ⁠c_r⁠ comprises an inferential fractum locant )
-                        + Set `oIF` to the inferential fractum locant.
+                    if( ⁠c_r⁠ includes a URI reference with a `non-fractal` qualifier )
+                        return+ the referent of the URI reference
+                        / It falls to the caller or reader to determine what more, if anything,
+                          the author intended by this atypical form of reference.
+                        : re `non-fractal. qualifier` e.g. `\N{U+A0}.+‘(non-fractal)’.+URI` @
+                          `^^Fractum locant$`i
+                    if( ⁠c_r⁠ comprises a fractal context locant )
+                        + Set ⁠o_c⁠ to the fractal context locant.
                         break+ `if( ⁠c_r⁠ is present )`
                     / ⁠c_r⁠ comprises a fractum locant
-                    + Set ⁠o_f⁠ to the fractum locant that constitutes ⁠c_r⁠.
-                    deem+ `f` a fractum, that of `located fractum( ⁠o_f⁠, ⁠r_a⁠ )`;
-                          `mF` a match, the match of `f` if any occurred
+                    deem+ ⁠o_f⁠ the fractum locant that constitutes ⁠c_r⁠;
+                          `f` a fractum, `mF` a possible match, those of `located fractum( ⁠o_f⁠, ⁠r_a⁠ )`
                     if( no `mF` occured )
                         return+ `f`
                     if( `mF` captured no group )
                         return+ `f`
                     return+ a disjoint text sequence comprising all captured sequences of `mF`.
-                return+ `located fractum( oIF if set )`
-
-            inferential fractum locant
-                - An inferential fractum locant locates a fractum based on a pattern
-                  constructed from the first referrer.
-                    : re `first referrer` see `^*- referrers are text sequences.+in the.+parental head`is
-                      @ `^^referrer clause$`i
-                - In form, it comprises a context locant that locates the context
-                  in which the pattern is sought.
-
-                      ╶──╴‘@’╶── P ── fractum locant ────▶
-
-                / Examples of its use are:
-
-                       : re `foo` see @ `^*bar$`
-                       : cf. @ `^*foo$`
-
-                located fractum( inferential fractum locant ⁠r⁠ if present )
-                    - The fractum located.
-                        : N.B. `^*original referent$` @ `^+Notes$`
-                    deem+ ⁠f⁠ a fractum locant,
-                          ⁠m⁠ the pattern matcher `^^${same}`ip
-                    if( ⁠r⁠ is present )
-                        + Set ⁠f⁠ to ⁠m⁠ in space-delimited conjunction with ⁠r⁠.
-                    else
-                        + Set ⁠f⁠ to ⁠m⁠.
-                    return+ `located fractum( ⁠f⁠ )`
+                / ⁠c_r⁠ is absent or comprises a fractal context locant
+                deem+ ⁠o_f⁠ a fractum locant, ⁠m⁠ the pattern matcher `^^${same}`ip
+                if( ⁠o_c⁠ is set )
+                    + Set ⁠o_f⁠ to ⁠m⁠ in space-delimited conjunction with ⁠o_c⁠.
+                else
+                    + Set ⁠o_f⁠ to ⁠m⁠.
+                return+ `located fractum( ⁠o_f⁠, ⁠r_a⁠ )`
 
             interpolation variables
                 - In the fractum-locant patterns of a referent clause,
@@ -286,7 +265,7 @@ Breccia language definition
               `^*. One purpose of placing a no-break space.+in this position` @ `^*bullet$`
         - Its descriptor has this form:
 
-              ╶── S ──┬──╴‘privately’╶─ S ──┬── command ──┬── P ──┬── appendage clause ──┬──▶
+              ╶── S ──┬──╴‘privately’╶─ S ──┬── command ──┬── P ──┬── appendage clause ──┬───▶
                       │                     │             │       │                      │
                       └─────────────────────┘             │       └──┬───────────────────┘
                                                           └──────────┘                      \ [S not P]
@@ -304,7 +283,7 @@ Breccia language definition
                  
                             ┌─────╴◀────────┐
                             │               │
-                  ╶──╴‘:’╶──┴── P ── term ──┴─┬── P ──┬──▶
+                  ╶──╴‘:’╶──┴── P ── term ──┴─┬── P ──┬───▶
                                               │       │
                                               └───────┘
 
@@ -314,7 +293,8 @@ Breccia language definition
                 : re `text sequences` N.B. `^*original referent$` @ `^+Notes$`
                 / One resolves the list as follows.
             deem+ `h` a text sequence, that of `parental head text()` trimmed of its perfect indent;
-                  `tt` a list of text sequences, intitally empty
+                  `tt` a list of text sequences, intitally empty;
+                  `m` a match
             for( each match `m` of `p` against `h` )
                 if( `m` is an empty text sequence )
                     throw+ incomplete back reference, `p` matches an empty text sequence
@@ -473,7 +453,7 @@ Breccia language definition
               e.g. showing them in bold face.
             deem+ `tt` a string list, intitally empty
                 / `tt` The list of title strings.
-            deem+ `bLast` a division label, `bString` a string, `t` a string
+            deem+ `b` and `bLast` division labels, `bString` a string, `t` a string
                 / `t` The title being assembled, yet to be appended to `tt`.
                 / `bLast` The division label last contributed to `t`, if any.
             for( each division label `b` of divider `d` )
@@ -602,33 +582,6 @@ Breccia language definition
                             : re `20` see `^*character identification$` @ `^+Notes$`
 
 
-    ━━━━━━━━━━━━━
-     File locant
-    ─────────────
-        / Part of an associative reference or other reference.
-        - A file locant locates a file.
-
-              ╶──┬──╴‘non-fractal’╶── P ──┬── URI reference ───▶
-                 │                        │
-                 └────────────────────────┘
-                    : re `URI reference` see https://www.rfc-editor.org/rfc/rfc3986#section-4.1
-                diagram, The form of a file locant.
-
-        - The `non-fractal` qualifier, if present, means that the located file does not comprise Breccia.
-            / Authors may use it to forestall processor errors, e.g. where the content
-              is known to be non-Breccian or malformed.
-
-        located file( file locant ⁠o_f⁠ if present )
-            : re `file` N.B. `^*original referent$` @ `^+Notes$`
-            deem+ `file` a file, initially the present file
-            if( ⁠o_f⁠ is present )
-                unless( the URI reference of ⁠o_f⁠ resolves to a referent readable as a file )
-                    throw+ broken reference
-                + Set `file` to the referent.
-            return+ `file`
-
-
-
     ━━━━━━━━━
      Fractum
     ─────────
@@ -751,108 +704,90 @@ Breccia language definition
     ━━━━━━━━━━━━━━━━
      Fractum locant
     ────────────────
-        / Part of an associative reference or other referential text.
-        - A fractum locant locates a fractum.
-        - Formally it comprises one or both of a pattern-matcher series and a file locant.
+        / Part of an associative or other reference.
+        - A fractum locant locates a fractum (typical case) or a non-fractal resource (atypical).
 
-                 ┌────────────────────────────────────┐
-              ╶──┤                                    │
-                 └──┬── pattern matcher ──┬──┬── CS ──┴── file locant ──┬───▶
-                    │                     │  │                          │
-                    └───────╴◀── CS ──────┘  └──────────────────────────┘
+                                              fractal
+                                           context locant
+                                        ╭┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄╮
+                       pattern
+                   ┌── matcher ──┬── P ─╴‘@’╶─ P ── fractum ───▶
+                   │             │                  locant
+              ╶────┤             └───▶
+                ╭  │                                            ╮
+                ┊  └─┬──╴‘non-fractal’╶── P ──┬───  URI  ────▶  ┊ file locant
+                ┊    │                        │  reference      ┊
+                ╰    └────────────────────────┘                 ╯
 
-        - In the namesake case — absent a `non-fractal` file locant, that is —
-          the fractum locant locates a fractum.
-            - Any pattern-matcher series pinpoints with each matcher a fractal head, while any
-              file locant resolves to a Breccian file and therewith a file fractum.
-            - The overall located fractum is the one resolved leftmost in the locant
-              and so deepest in the fractal hierarchy.
-            / For example, here is a fractum locant for the present fractum:
+                diagram, The form of a fractum locant.
 
-                   `^*/ For example, here is`  @  `^+Fractum locant$`  @  ./language_definition.brec
-                 
-                   ╰┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄╯╰┄┄┄╯╰┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄╯╰┄┄┄╯╰┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄╯
-                        pattern matcher       CS    pattern matcher   CS        file locant
-
-        - Otherwise no fractum is located.
-            - The only definite location in the presence of a `non-fractal` file locant
-              is the located file as a whole, namely the referent of the URI reference.
-                : re `URI reference` see `${same}` @ `file locant locates a file` @ `^^file locant$`i
-            / It may be left to the reader of the text to determine what more, if anything,
-              the author intended.
-
-        CS
-            - A context separator.
-            - It comprises a context operator ‘@’ between two postgaps.
-
-                  ╶── P ──╴‘@’╶── P ───▶
+        - The `non-fractal` qualifier, if present, warns that the referent of the URI reference
+          does not comprise Breccia.
+            - Readers and processors should not, in this case, expect to actually locate a fractum.
+                : re `processors.+actually (locate a fractum)` see e.g. `attempt to ${same}` @
+                  `^^located fractum\(.+⁠o_f⁠.+⁠fIgnore⁠.+\)$`
 
         located fractum( fractum locant ⁠o_f⁠, owning associative reference ⁠r_a⁠ )
-            - The fractum located, together with any match that occurred to pinpoint it.
+            - Return the located fractum, together with any match that occurred to pinpoint it.
                 : re `fractum` N.B. `^*original referent$` @ `^+Notes$`
-            deem+ ⁠f⁠ a fractum, that of `located fractum( ⁠o_f⁠, ⁠fIgnore⁠ = parent of ⁠r_a⁠ )`
+            deem+ ⁠f⁠ a fractum, ⁠m⁠ a possible match,
+              those of `located fractum( ⁠o_f⁠, ⁠fIgnore⁠ = parent of ⁠r_a⁠ )`
                 : re `⁠fIgnore⁠ = parent of ⁠r_a⁠`s see `^*no associative self-reference$` @ `^+Notes$`
             if( ⁠f⁠ is privatized and ⁠r_a⁠ local and unprivatized )
                 throw+ malformed local reference: ⁠r_a⁠ is unprivatized yet refers
                   to a privatized referent ⁠f⁠
                     : see `local.+reference to.+privatized referent must.+be privatized` @
                       `^^associative reference$`i
-            return+ ⁠f⁠
+            return+ ⁠f⁠ and any ⁠m⁠
 
-        located fractum( fractum locant ⁠o_f⁠ if present,
-              any fractum ⁠fIgnore⁠ to be excluded from the location )
-            - The fractum located, together with any match that occurred to pinpoint it.
+        located fractum( fractum locant ⁠o_f⁠, any fractum ⁠fIgnore⁠ to exclude as the located fractum )
+            - Return the located fractum, together with any match that occurred to pinpoint it.
                 : re `fractum` N.B. `^*original referent$` @ `^+Notes$`
-            deem+ ⁠p⁠ a pattern matcher
-                / The one defining the next pattern to seek in the body of fractum ⁠f⁠.
-            if( ⁠o_f⁠ is present )
-                if( ⁠o_f⁠ includes a file locant with a `non-fractal` qualifier )
-                    throw+ non-fractal file
-                if( ⁠o_f⁠ includes a pattern-matcher series )
-                    + Set ⁠p⁠ to its final pattern matcher in linear order.
-            deem+ `file` a file, namely `located file( any file locant of i )`
-            if( `file` contains no file fractum )
-                throw+ non-Breccian file
-            deem+ ⁠f_0⁠ a fractum, initially the file fractum of `file`;
-                  ⁠m_0⁠ a match
+            deem+ ⁠f_0⁠ a fractum
+            if( ⁠o_f⁠ includes a file locant )
+                if( a `non-fractal` qualifier is present )
+                    throw+ attempt to locate a fractum in a referent marked ‘non-fractal’
+                if( no referent can be resolved from the URI reference )
+                    throw+ unable to resolve URI reference
+                if( the resolved referent contains no file fractum )
+                    throw+ non-Breccian URI referent
+                + Set ⁠f_0⁠ to the file fractum of the resolved referent.
+            else
+                + Set ⁠f_0⁠ to the file fractum in which ⁠o_f⁠ is contained.
+            deem+ ⁠p⁠ a pattern matcher, ⁠m⁠ and ⁠m_0⁠ matches
+            if( ⁠o_f⁠ includes a pattern matcher )
+                + Set ⁠p⁠ to its final pattern matcher.
             while( ⁠p⁠ is set )
                 for( each match ⁠m⁠ of ⁠p⁠ against the body of ⁠f_0⁠ )
                     deem+ ⁠f⁠ the fractum in whose head ⁠m⁠ starts
                     if( end boundary(⁠m⁠) exceeds end boundary(head of ⁠f⁠) )
-                        / Then ⁠m⁠ extends across multiple heads.
-                        continue+ `for`, ignoring ⁠m⁠
-                            : re `ignoring .m.` see `^*ignoring a pattern match$` @ `^+Notes$`
-                            / Fractum-locant pattern matches are confined to a single head.
-                                \ Match modifier `s` would tend to match too broadly otherwise,
-                                \ making it largely useless.
-                    if( ⁠p⁠ leads the pattern-matcher series, taken in linear order )
+                        / Then match ⁠m⁠ extends across multiple heads.  Ignore it.
+                        \ Else matchers with dot-all modifier `s` would tend to match too broadly.
+                        continue+ `for`
+                    if( ⁠p⁠ is the first pattern matcher of ⁠o_f⁠ )
+                        if( ⁠fIgnore⁠ is set and equals ⁠f⁠ )
+                            / Then ignore this match.
+                            continue+ `for`
                         if( ⁠o_f⁠ lies within the head of ⁠f⁠ )
-                            continue+ `for`, ignoring ⁠m⁠
-                                : re `ignoring .m.` see `^*ignoring a pattern match$` @ `^+Notes$`
-                                / Fractum locants do not locate the fracta in whose heads
-                                  they are contained.
-                                    \ Patterns would be liable to match themselves otherwise,
-                                    \ making them difficult to disambiguate.
-                        if( ⁠o_f⁠ lies within the head of ⁠fIgnore⁠ )
-                            continue+ `for`, ignoring ⁠m⁠
-                                : re `ignoring .m.` see `^*ignoring a pattern match$` @ `^+Notes$`
+                            / Then ignore this match.  Fractum locants do not locate the fracta
+                              in whose heads they are contained.
+                            \ Else too often their matchers would match themselves by accident.
+                            continue+ `for`
                     if( ⁠m_0⁠ is unset )
                         + Set ⁠m_0⁠ to ⁠m⁠.
                         + Set ⁠f_0⁠ to ⁠f⁠.
                     else
-                        if( ⁠f_0⁠ is equal to ⁠f⁠ )
-                            / Then ⁠m⁠ is a further match in the same head.
-                            continue+ `for`, ignoring ⁠m⁠
-                                : re `ignoring .m.` see `^*ignoring a pattern match$` @ `^+Notes$`
-                                / In the context of a single fractal head, match ambiguity is allowed.
-                        throw+ ambiguous reference, ⁠p⁠ matches multiple fracta
-                            / Outside the narrow context of a single fractal head,
-                              pattern ambiguity is disallowed. \ Else faced with mutable
-                                \ referent texts, patterns would be too liable to silently
-                                \ miss their targets and match the wrong fracta.
+                        if( ⁠f_0⁠ equals ⁠f⁠ )
+                            / Then ignore this match.  It is a further match in the same head,
+                              and the first match takes precedence.
+                            continue+ `for`
+                        throw+ ambiguous reference, ⁠p⁠ matches multiple fractal heads
+                            / Such ambiguity is disallowed.  \ Else pattern matchers that fail to match
+                            \ their intended targets would be too liable to match elsewhere
+                            \ and thus fail silently.
                 if( ⁠m_0⁠ is unset )
                     throw+ broken reference, pattern of ⁠p⁠ not found
-                if( ⁠p⁠ has a predecessor in ⁠o_f⁠ )
+                if( pattern matcher ⁠p⁠ has a predecessor in ⁠o_f⁠ )
                     + Set ⁠p⁠ to the predecessor.
                     + Unset ⁠m_0⁠.
                 else
@@ -987,8 +922,8 @@ Breccia language definition
                                             ┌───▶ ┊╶─── end of line
                          non-alphanumeric   │     ┊
                      ┌──╴ non-whitespace ╶──┼───▶ ┊╶──╴‘ ’
-                     │      character       │     ┊                            comment
-                  ╶──┤                      └───▶ ┊╶── A0 ──┐           ┌────▶ appender
+                     │      character       │     ┊                           comment
+                  ╶──┤                      └───▶ ┊╶── A0 ──┐           ┌───▶ appender
                      │     alphanumeric           ┊         │           │
                      └────  character   ────────▶ ┊╶────────┴───┬── S ──┴─┬───▶ end of line
                                                   ┊             │         │
@@ -1092,7 +1027,7 @@ Breccia language definition
             p
                 - Enables expansive whitespace mode.
                 - The pattern is read such that any sequence of unquoted plain whitespace
-                  is effectively interpreted as `(?: |\N{A}|\N{D}\N{A}|\N{A0})+`.
+                  is effectively interpreted as `(?: |\N{U+A}|\N{U+D}\N{U+A}|\N{U+A0})+`.
                     / With this, any plain whitespace character in the pattern (or sequence
                       of plain whitespace) will match any sequence of whitespace.
             s
@@ -1287,10 +1222,6 @@ Breccia language definition
      \\ [graphical syntax notation]
      \      - The present text uses syntax diagrams because it is aimed at Breccian authors in general,
      \        who are not expected to be comfortable with a textual notation such as Backus-Naur Form.
-        ignoring a pattern match
-            - The method of ignoring a pattern match is under trial.
-                : see e.g. http://reluk.ca/project/Breccia/Web/imager/BreccianFileTranslator.java :
-                  `seek(Matcher, ImagedBodyFractum[], int, int)`
         no associative self-reference
             - Fractum locants of associative references do not locate the parent
               of the associative reference.
