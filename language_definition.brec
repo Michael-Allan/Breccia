@@ -20,101 +20,52 @@ Breccia language definition
 
 
     ━━━━━━━━━━━━━
-     Alarm point
+     Afterlinker
     ─────────────
-        - A point wherein the bullet comprises ‘!!’ or ends with ‘!!’ and is not directly followed
-          by a no-break space (A0).
-            : re `A0` see `^*character identification$` @ `^+Notes$`
-        - Nominally it forms urgent matter for the attention of authors.
-            / E.g. indicating a problem with the text.
-        - Its descriptor, if present, is largely free in form.
-            / It may not start with a no-break space, however, as then the point would instead
-              be a plain point.
-                : see `^*. One purpose of placing a no-break space.+in this position` @ `^*bullet$`
-
-
-
-    ━━━━━━━━━━━━━
-     Aside point
-    ─────────────
-        - A point wherein the bullet comprises ‘/’ and is not directly followed by a no-break space (A0).
-            : re `A0` see `^*character identification$` @ `^+Notes$`
-        - Nominally it forms matter of less import than its place would otherwise suggest.
-            / E.g. matter to which the reader should give less attention on a first reading.
-        - Its descriptor, if present, is largely free in form.
-            / It may not start with a no-break space, however, as then the point would instead
-              be a plain point.
-                : see `^*. One purpose of placing a no-break space.+in this position` @ `^*bullet$`
-
-
-
-    ━━━━━━━━━━━━━━━━━━━━━━━
-     Associative reference
-    ───────────────────────
         / A type of command point.
         - It forms a reference by associating one or more pre-existing text sequences
-          (referrer or referrers) with an object (referent).
+          (subject or subjects) with an object (object).
         - Its command has this form:
 
-                    referrer          referential           referent
-              ╶──┬─╴ clause ── P ──┬─╴  command  ───┬─ P ──╴ clause  ──┬───▶
-                 │                 │                │                  │
-                 └─────────────────┘                └──────────────────┘
+                     subject          referential           object
+              ╶──┬── clause ── P ──┬──  command  ──┬── P ── clause ──┬───▶
+                 │                 │               │                 │
+                 └─────────────────┘               └─────────────────┘
 
-                : re `(referrer).*(clause)`s see `^+referrer clause$`
-                : re `(referential).*(command)`s see `^+referential command$`
-                : re `(referent)\b.*clause.*(clause)`s see `^+referent clause$`
-                diagram, The form of the command in an associative reference.
+                diagram, The form of the command in an afterlinker.
 
-        - The referrer clause, if any, locates the referrer or referrers,
-          while the referent clause locates the referent.
-        - A single referrer may be associated with multiple referents.
-            / Via multiple, sibling references that locate the same referrer.
-        - Multiple referrers may be overlapped or nested in any manner.
-            / Via multiple, sibling references.
-            / Via a single reference that locates multiple referrers at once.
-        - A local associative reference to a privatized referent must itself be privatized,
-          else the reference is malformed.
-            : cf. `should be possible.+remove.+privatized fracta.+without impairing.+integrity`
-              @ `^^privatizer$`i
-            / In order to correct it, the reference must be privatized, made remote or qualified
-              as non-fractal.
-
-        ─────────────────
-         referrer clause
-        ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
-            / An optional clause within an associative reference,
-            - A referrer clause explicitly locates the referrer or referrers.
-            - Referrers are text sequences within the head
-              of the associative reference’s parent fractum (parental head).
-            - The referrer clause locates them by a pattern matcher
+        ────────────────
+         subject clause
+        ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
+            / An optional clause within an afterlinker,
+            - The subject clause, if present, explicitly locates the subject or subjects.
+            - Subjects are text sequences within the head
+              of the afterlinker’s parent fractum (parental head).
+            - The subject clause locates them by a pattern matcher
               to be applied in the scope of the parental head.
 
                   ╶──╴‘re’╶── P ── pattern matcher ───▶
 
-                    diagram, The form of a referrer clause in an associative reference.
+                    diagram, The form of a subject clause in an afterlinker.
 
-            - Absent a referrer clause, the whole parental head is taken implicitly as the referrer.
+            - Absent a subject clause, the whole parental head is taken implicitly as the subject.
 
-            referrers( associative reference )
-                - A list in linear order of text sequences, each to be taken as a referrer
-                  of the associative reference.
-                    : re `text sequences` N.B. `^*original referent$` @ `^+Notes$`
-                    / One resolves the list as follows.
-                if( no referrer clause is present )
+            subjects( afterlinker )
+                / A list in linear order of text sequences, each to be taken as a subject
+                  of the afterlinker.
+                if( no subject clause is present )
                     + Return a list of text sequences comprising the sequence `parental head text()`.
                         : re `parental head text` see `^*${same}` @ `^^command point$`i
-                return+ `parental head match( pattern matcher of the referrer clause )`
+                return+ `parental head match( pattern matcher of the subject clause )`
                     : see `^*parental head match` @ `^^command point$`i
 
 
         ─────────────────────
          referential command
         ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
-            - The referential command determines the overall type of associative reference,
-              with implications for its meaning.
-                : re `overall type of associative reference` see `^*. associative reference$` @
-                  `^+fractal types$`
+            - The referential command determines the type of afterlinker,
+              with implications for its interpretation.
+                : re `type of afterlinker` see `^*. afterlinker$` @ `^+fractal types$`
                     ·
                      ┌── cf.+ ───┐
                      │           │
@@ -141,7 +92,7 @@ Breccia language definition
                      └─╴‘viz.’╶──┘
 
                         : ad `q.v.` : Referential command `q.v.` is of limited use.  It makes grammatical
-                          sense only when a) the referrer clause is absent, and b) the referent clause
+                          sense only when a) the subject clause is absent, and b) the object clause
                           is either absent or comprises a fractal context locant (for example,
                           `q.v. @ foo.brec`).
 
@@ -162,11 +113,11 @@ Breccia language definition
                     \ https://english.stackexchange.com/q/491883/371457
 
 
-        ─────────────────
-         referent clause
-        ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
-            / An optional clause within an associative reference,
-            - A referent clause explicitly locates the referent.
+        ───────────────
+         object clause
+        ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
+            / An optional clause within an afterlinker,
+            - The object clause, if present, explicitly locates the object.
 
                      ┌────── URI reference ───────┐
                   ╶──┤                            ├───▶
@@ -175,85 +126,146 @@ Breccia language definition
                      └── fractal context locant ──┘
 
                         : re `URI reference` see https://www.rfc-editor.org/rfc/rfc3986#section-4.1
-                    diagram, The form of a referent clause in an associative reference.
+                    diagram, The form of an object clause in an afterlinker.
 
             - It happens that a URI reference and a fractum locant may have the same form.
-            - A referent clause in the form of a URI reference is taken to comprise a URI reference,
-              not a fractum locant.
+                - Yet an object clause in the form of a URI reference must unambiguously be taken
+                  either as a URI reference or as a fractum locant, not both.
+                - The following method disambiguates the two cases.
+                    : note : Always an author may use a `non-fractal` qualifier
+                      to forestall a URI referent being interpreted as Breccia.
 
-            referent( referent clause ⁠c_r⁠ if present, owning associative reference ⁠r_a⁠ )
-                - The text sequence, fractum or other resource to be taken as the referent, as follows.
-                    : re `text .+ other resource` N.B. `^*original referent$` @ `^+Notes$`
-                deem+ ⁠o_c⁠ a fractal context locant
-                if( ⁠c_r⁠ is present )
-                    if( ⁠c_r⁠ comprises a URI reference )
-                        return+ the referent of the URI reference
-                    if( ⁠c_r⁠ includes a URI reference with a `non-fractal` qualifier )
+                comprises a URI reference( an object clause ⁠c_o⁠ in the form of a URI reference )
+                    / Answers whether ⁠c_o⁠ is to be taken to comprise a URI reference
+                      as opposed to a fractum locant.
+                    deem+ ⁠u⁠ a URI reference
+                    unless( ⁠c_o⁠ has just the form of a URI reference ⁠u⁠ )
+                        throw+ not in the form of a URI reference: ⁠c_o⁠
+                    deem+ ⁠p⁠ the path component of ⁠u⁠;
+                          ⁠s⁠ a segment
+                        : re `(path component).+(segment)`s see
+                          https://www.rfc-editor.org/rfc/rfc3986#section-3.3
+                    if( ⁠p⁠ ends with a segment ⁠s⁠ )
+                        / It follows that ⁠p⁠ does not end with ‘/’.
+                        if( ⁠s⁠ ends with ‘.brec’ )
+                            / Then take ⁠c_o⁠ to comprise a fractum locant.
+                            return+ false
+                    if( the referent of ⁠u⁠ is known or given to comprise Breccia )
+                        / Then take ⁠c_o⁠ to comprise a fractum locant.
+                        return+ false
+                    return+ true
+
+            object( afterlinker ⁠li⁠ )
+                / Locates or identifies the object.
+                deem+ ⁠lo_f⁠ a fractum locant, ⁠⁠m_0⁠ the pattern matcher `^^${same}`ip
+                if( ⁠li⁠ includes an object clause )
+                    deem+ ⁠c_o⁠ the object clause
+                    if( ⁠c_o⁠ has just the form of a URI reference )
+                        if( `comprises a URI reference( ⁠c_o⁠ )` )
+                            return+ the referent of the URI reference
+                    if( ⁠c_o⁠ includes a URI reference with a `non-fractal` qualifier )
                         return+ the referent of the URI reference
                         / It falls to the caller or reader to determine what more, if anything,
                           the author intended by this atypical form of reference.
-                        : re `non-fractal. qualifier` e.g. `\N{U+A0}.+‘(non-fractal)’.+URI` @
-                          `^^Fractum locant$`i
-                    if( ⁠c_r⁠ comprises a fractal context locant )
-                        + Set ⁠o_c⁠ to the fractal context locant.
-                        break+ `if( ⁠c_r⁠ is present )`
-                    / ⁠c_r⁠ comprises a fractum locant
-                    deem+ ⁠o_f⁠ the fractum locant that constitutes ⁠c_r⁠;
-                          `f` a fractum, `mF` a possible match, those of `located fractum( ⁠o_f⁠, ⁠r_a⁠ )`
-                    if( no `mF` occured )
-                        return+ `f`
-                    if( `mF` captured no group )
-                        return+ `f`
-                    return+ a disjoint text sequence comprising all captured sequences of `mF`.
-                / ⁠c_r⁠ is absent or comprises a fractal context locant
-                deem+ ⁠o_f⁠ a fractum locant, ⁠m⁠ the pattern matcher `^^${same}`ip
-                if( ⁠o_c⁠ is set )
-                    + Set ⁠o_f⁠ to ⁠m⁠ in space-delimited conjunction with ⁠o_c⁠.
-                else
-                    + Set ⁠o_f⁠ to ⁠m⁠.
-                return+ `located fractum( ⁠o_f⁠, ⁠r_a⁠ )`
+                    if( ⁠c_o⁠ comprises a fractal context locant )
+                        + Set ⁠lo_f⁠ to ⁠m_0⁠ in space-delimited conjunction with the fractal context locant.
+                        return+ a fractum, that of `locate fractum( ⁠li⁠, ⁠lo_f⁠ )`
+                    / It happens ⁠c_o⁠ comprises a fractum locant.
+                    + Set ⁠lo_f⁠ to the fractum locant that constitutes ⁠c_o⁠.
+                    deem+ ⁠f⁠ a fractum, ⁠m⁠ a possible match, those of `locate fractum( ⁠li⁠, ⁠lo_f⁠ )`
+                    if( no ⁠m⁠ occured, or no capture group of ⁠m⁠ captured a text sequence )
+                        return+ ⁠f⁠
+                    return+ a disjoint text sequence comprising all captures of ⁠m⁠.
+                / No object clause is present.
+                + Set ⁠lo_f⁠ to ⁠m_0⁠.
+                return+ a fractum, that of `locate fractum( ⁠li⁠, ⁠lo_f⁠ )`
+
+            locate fractum( afterlinker ⁠li⁠, fractum locant ⁠lo_f⁠ )
+                / Returns the located fractum, together with any match that served to pinpoint it.
+                deem+ ⁠f⁠ a fractum, ⁠m⁠ a possible match,
+                  those of `locate fractum( ⁠lo_f⁠, ⁠fIgnore⁠ = parent of ⁠li⁠ )`
+                    : ad `⁠fIgnore⁠ = parent of ⁠li⁠` : Exclude from the search area the head
+                      of linker ⁠li⁠’s parent, wherein the link subject is mentioned.
+                        \ Else too often locant matchers formed on the pattern of the mention
+                        \ — e.g. using `${same}` — will inadvertently match the mention.
+                if( ⁠f⁠ is privatized, ⁠li⁠ unprivatized, and ⁠li⁠ links locally to ⁠f⁠ )
+                    throw+ malformed linker: ⁠li⁠ is unprivatized yet links locally to privatized object ⁠f⁠
+                        : N.B. `should be able.+remove.+privatized fracta.+without impairing.+integrity`
+                          @ `^^privatizer$`i
+                    / To correct this, ⁠li⁠ must be privatized, or its link made remote,
+                      or its object qualified as non-fractal.
+                return+ ⁠f⁠ and any ⁠m⁠
 
             interpolation variables
-                - In the fractum-locant patterns of a referent clause,
+                - In the fractum-locant patterns of an object clause,
                   the following interpolation variables are recognized.
                 ${1}, ${2}, ${3}, … ${9}
                     - Equates to the text sequence captured by the correspondingly numbered capture group
-                      of the referrer-clause pattern.
-                    - Valid only in the presence of a referrer clause whose pattern matcher contains
+                      of the subject-clause pattern.
+                    - Valid only in the presence of a subject clause whose pattern matcher contains
                       at least that number of capture groups.
                 ${same}
-                    - Equates thus:
-                        if( a referrer clause is present )
-                            : see `^*referrers\( associative reference \)$` @ `^^referrer clause$`i :
-                              for the procedure of applying the pattern matcher
-                            deem+ ⁠r⁠ the first referrer
-                            if( ⁠r⁠ is disjoint )
-                                : re `disjoint` see `${same} text sequence` @ `^^parental head match`i @
-                                  `^^command point$`i
-                                return+ a text sequence comprising the parts of ⁠r⁠ in order
-                                  separated by plain spaces ‘ ’ (20)
-                                    : re `20` see `^*character identification$` @ `^+Notes$`
-                            else
-                                return+ a copy of ⁠r⁠ modified thus:
-                                    ⁃ Trimmed of leading and trailing whitespace
-                                    ⁃ Any remaining sequences of whitespace each collapsed
-                                      to a single plain space ‘ ’ (20)
-                                    ⁃ Reconstituted, if the above has emptied it, as a single plain space
-                        else if( the parent of the present associative reference is a titled division )
-                            : see `^*division titles\( divider` @ `^^division$`i
-                            return+ the first titling label of the division title
-                                : re `first titling label` cf. `where.+${same}.+might start`sp @
-                                  `^*\^\+` @ `^^pattern language$`i @
-                                  `^^regular-expression pattern matching$`i : Compatible by design.
-                        else( the parent is a file fractum or point )
-                            return+ `parental head text()` modified thus:
-                                : see `^*parental head text` @ `^^command point$`i
-                                ⁃ Truncated to the portion prior to any comment carrier or indent blind
-                                ⁃ Trimmed of its perfect indent
-                                ⁃ Trimmed of any trailing whitespace
+                    / Equates as follows.
+                    if( a subject clause is present )
+                        : see `^*subjects\( afterlinker \)$` @ `^^subject clause$`i :
+                          for the procedure of applying the pattern matcher
+                        deem+ ⁠r⁠ the first subject
+                        if( ⁠r⁠ is disjoint )
+                            : re `disjoint` see `${same} text sequence` @ `^^parental head match`i @
+                              `^^command point$`i
+                            return+ a text sequence comprising the parts of ⁠r⁠ in order
+                              separated by plain spaces ‘ ’ (20)
+                                : re `20` see `^*character identification$` @ `^+Notes$`
+                        else
+                            return+ a copy of ⁠r⁠ modified thus:
+                                ⁃ Trimmed of leading and trailing whitespace
                                 ⁃ Any remaining sequences of whitespace each collapsed
                                   to a single plain space ‘ ’ (20)
-                                    : re `20` see `^*character identification$` @ `^+Notes$`
+                                ⁃ Reconstituted, if the above has emptied it, as a single plain space
+                    else if( the parent of the present afterlinker is a titled division )
+                        : see `^*division titles\( divider` @ `^^division$`i
+                        return+ the first titling label of the division title
+                            : re `first titling label` cf. `where.+${same}.+might start`sp @
+                              `^*\^\+` @ `^^pattern language$`i @
+                              `^^regular-expression pattern matching$`i : Compatible by design.
+                    else( the parent is a file fractum or point )
+                        return+ `parental head text()` modified thus:
+                            : see `^*parental head text` @ `^^command point$`i
+                            ⁃ Truncated to the portion prior to any comment carrier or indent blind
+                            ⁃ Trimmed of its perfect indent
+                            ⁃ Trimmed of any trailing whitespace
+                            ⁃ Any remaining sequences of whitespace each collapsed
+                              to a single plain space ‘ ’ (20)
+                                : re `20` see `^*character identification$` @ `^+Notes$`
+
+
+
+    ━━━━━━━━━━━━━
+     Alarm point
+    ─────────────
+        - A point wherein the bullet comprises ‘!!’ or ends with ‘!!’ and is not directly followed
+          by a no-break space (A0).
+            : re `A0` see `^*character identification$` @ `^+Notes$`
+        - Nominally it forms urgent matter for the attention of authors.
+            / E.g. indicating a problem with the text.
+        - Its descriptor, if present, is largely free in form.
+            / It may not start with a no-break space, however, as then the point would instead
+              be a plain point.
+                : see `^*. One purpose of placing a no-break space.+in this position` @ `^*bullet$`
+
+
+
+    ━━━━━━━━━━━━━
+     Aside point
+    ─────────────
+        - A point wherein the bullet comprises ‘/’ and is not directly followed by a no-break space (A0).
+            : re `A0` see `^*character identification$` @ `^+Notes$`
+        - Nominally it forms matter of less import than its place would otherwise suggest.
+            / E.g. matter to which the reader should give less attention on a first reading.
+        - Its descriptor, if present, is largely free in form.
+            / It may not start with a no-break space, however, as then the point would instead
+              be a plain point.
+                : see `^*. One purpose of placing a no-break space.+in this position` @ `^*bullet$`
 
 
 
@@ -288,10 +300,8 @@ Breccia language definition
                                               └───────┘
 
         parental head match( pattern matcher `p` )
-            - A list in linear order of the text sequences matched by `p` within the head
+            / A list in linear order of the text sequences matched by `p` within the head
               of the source parent of the command point.
-                : re `text sequences` N.B. `^*original referent$` @ `^+Notes$`
-                / One resolves the list as follows.
             deem+ `h` a text sequence, that of `parental head text()` trimmed of its perfect indent;
                   `tt` a list of text sequences, intitally empty;
                   `m` a match
@@ -300,8 +310,8 @@ Breccia language definition
                     throw+ incomplete back reference, `p` matches an empty text sequence
                 else if( `p` contains no capture group )
                     + Append to `tt` the whole text sequence of `m`.
-                else if( any group fails in `m` to capture a non-empty text sequence )
-                    throw+ incomplete back reference, group captures nothing in the parent head
+                else if( any capture group fails in `m` to capture a non-empty text sequence )
+                    throw+ incomplete back reference, this group captures nothing in the parent head
                 else
                     + Append to `tt` a disjoint text sequence comprising all captured sequences of `m`.
             if( `tt` is empty )
@@ -309,9 +319,7 @@ Breccia language definition
             return+ `tt`
 
         parental head text()
-            - The text sequence of the head of the source parent of the command point.
-                : re `text sequence` N.B. `^*original referent$` @ `^+Notes$`
-                / One resolves the sequence as follows.
+            / The text sequence of the head of the source parent of the command point.
             deem+ `p` a fractum, the parent of the command point in the source text
             if( `p` is headless )
                 / The parent is a headless file fractum.
@@ -423,6 +431,7 @@ Breccia language definition
         divider drawing character
             - A character in the Unicode range 2500-259F.
                 : re `2500-259F` see `^*character identification$` @ `^+Notes$`
+
         division label
             / Part of a divider segment.
             - A sequence of non-divider-drawing characters within a line of a divider segment,
@@ -431,9 +440,8 @@ Breccia language definition
                 ⁃ indent blind or
                 ⁃ leading or trailing plain space characters (20).
                     : re `20` see `^*character identification$` @ `^+Notes$`
-        division titles( divider `d` )
-            - A list in linear order of character strings, each to be taken as a title
-              of the division headed by `d`.
+
+        division title
             - A division title comprises all division labels of contiguous lines (one or more in number)
               each of which precedes any divider drawing character of the same line.
             / Consider for example this divider:
@@ -449,8 +457,11 @@ Breccia language definition
                 / Calling `division titles( example divider )` would yield:
                    ⇒  ‘This is a division title, and it includes this’
                       ‘This is a 2nd division title’
-            / Presenters may give greater prominence to division titles,
-              e.g. showing them in bold face.
+            - Presenters may give greater prominence to division titles, e.g. showing them in bold face.
+
+        division titles( divider `d` )
+            / A list in linear order of character strings, each to be taken as a title
+              of the division headed by `d`.
             deem+ `tt` a string list, intitally empty
                 / `tt` The list of title strings.
             deem+ `b` and `bLast` division labels, `bString` a string, `t` a string
@@ -478,6 +489,7 @@ Breccia language definition
                 - Then `d` has a titling label and final title assembly `t`.
                 + Append to `tt` a copy of `t`.
             return+ `tt`
+
 
         ─────────────────
          pseudo-division
@@ -571,7 +583,7 @@ Breccia language definition
             titling extract( fractal head `h` )
                 if( `h` is a divider )
                     return+ the first division title of `h`, or null if there is none
-                        : re `division title` see @ `^^division$`i
+                        : re `division title` see `^^${same}$`i @ `^^division$`i
                 else( `h` is a file head or point head )
                     return+ `h` modified thus:
                         ⁃ Truncated to the portion prior to any indent blind
@@ -653,7 +665,7 @@ Breccia language definition
                     ◆ alarm point
                     ◆ aside point
                     ◇ command point
-                        ◇ associative reference
+                        ◇ afterlinker
                             ◆ jointer
                             ◆ pointer
                         ◆ note carrier
@@ -725,26 +737,13 @@ Breccia language definition
           does not comprise Breccia.
             - Readers and processors should not, in this case, expect to actually locate a fractum.
                 : re `processors.+actually (locate a fractum)` see e.g. `attempt to ${same}` @
-                  `^^located fractum\(.+⁠o_f⁠.+⁠fIgnore⁠.+\)$`
+                  `^^locate fractum\(.+⁠lo_f⁠.+⁠fIgnore⁠.+\)$`s
 
-        located fractum( fractum locant ⁠o_f⁠, owning associative reference ⁠r_a⁠ )
-            - Return the located fractum, together with any match that occurred to pinpoint it.
-                : re `fractum` N.B. `^*original referent$` @ `^+Notes$`
-            deem+ ⁠f⁠ a fractum, ⁠m⁠ a possible match,
-              those of `located fractum( ⁠o_f⁠, ⁠fIgnore⁠ = parent of ⁠r_a⁠ )`
-                : re `⁠fIgnore⁠ = parent of ⁠r_a⁠`s see `^*no associative self-reference$` @ `^+Notes$`
-            if( ⁠f⁠ is privatized and ⁠r_a⁠ local and unprivatized )
-                throw+ malformed local reference: ⁠r_a⁠ is unprivatized yet refers
-                  to a privatized referent ⁠f⁠
-                    : see `local.+reference to.+privatized referent must.+be privatized` @
-                      `^^associative reference$`i
-            return+ ⁠f⁠ and any ⁠m⁠
-
-        located fractum( fractum locant ⁠o_f⁠, any fractum ⁠fIgnore⁠ to exclude as the located fractum )
-            - Return the located fractum, together with any match that occurred to pinpoint it.
-                : re `fractum` N.B. `^*original referent$` @ `^+Notes$`
+        locate fractum( fractum locant ⁠lo_f⁠,
+                  any fractum ⁠fIgnore⁠ whose head to exclude from the search area )
+            / Returns the located fractum, together with any match that served to pinpoint it.
             deem+ ⁠f_0⁠ a fractum
-            if( ⁠o_f⁠ includes a file locant )
+            if( ⁠lo_f⁠ includes a file locant )
                 if( a `non-fractal` qualifier is present )
                     throw+ attempt to locate a fractum in a referent marked ‘non-fractal’
                 if( no referent can be resolved from the URI reference )
@@ -753,9 +752,9 @@ Breccia language definition
                     throw+ non-Breccian URI referent
                 + Set ⁠f_0⁠ to the file fractum of the resolved referent.
             else
-                + Set ⁠f_0⁠ to the file fractum in which ⁠o_f⁠ is contained.
+                + Set ⁠f_0⁠ to the file fractum in which ⁠lo_f⁠ is contained.
             deem+ ⁠p⁠ a pattern matcher, ⁠m⁠ and ⁠m_0⁠ matches
-            if( ⁠o_f⁠ includes a pattern matcher )
+            if( ⁠lo_f⁠ includes a pattern matcher )
                 + Set ⁠p⁠ to its final pattern matcher.
             while( ⁠p⁠ is set )
                 for( each match ⁠m⁠ of ⁠p⁠ against the body of ⁠f_0⁠ )
@@ -764,11 +763,11 @@ Breccia language definition
                         / Then match ⁠m⁠ extends across multiple heads.  Ignore it.
                         \ Else matchers with dot-all modifier `s` would tend to match too broadly.
                         continue+ `for`
-                    if( ⁠p⁠ is the first pattern matcher of ⁠o_f⁠ )
+                    if( ⁠p⁠ is the first pattern matcher of ⁠lo_f⁠ )
                         if( ⁠fIgnore⁠ is set and equals ⁠f⁠ )
                             / Then ignore this match.
                             continue+ `for`
-                        if( ⁠o_f⁠ lies within the head of ⁠f⁠ )
+                        if( ⁠lo_f⁠ lies within the head of ⁠f⁠ )
                             / Then ignore this match.  Fractum locants do not locate the fracta
                               in whose heads they are contained.
                             \ Else too often their matchers would match themselves by accident.
@@ -787,7 +786,7 @@ Breccia language definition
                             \ and thus fail silently.
                 if( ⁠m_0⁠ is unset )
                     throw+ broken reference, pattern of ⁠p⁠ not found
-                if( pattern matcher ⁠p⁠ has a predecessor in ⁠o_f⁠ )
+                if( pattern matcher ⁠p⁠ has a predecessor in ⁠lo_f⁠ )
                     + Set ⁠p⁠ to the predecessor.
                     + Unset ⁠m_0⁠.
                 else
@@ -821,15 +820,15 @@ Breccia language definition
     ━━━━━━━━━
      Jointer
     ─────────
-        - An associative reference with a referential command of `join`.
+        - An afterlinker with a referential command of `join`.
             : cf. `^+Pointer$`
-        - In effect, it may stand for the fractal body of its referent.
+        - In effect, it may stand for the fractal body of its object.
             - Each parent of the jointer gains for a subjoint child (which is not an actual child)
-              each child of the referent fractum that does not duplicate a pre-existing child.
+              each child of the object fractum that does not duplicate a pre-existing child.
                 - Here the duplication test ignores differences in whitespacing and comment carriage.
-                - If the referent fractum itself has a jointer as its child,
+                - If the object fractum itself has a jointer as its child,
                   then the effect applies recursively.
-        - Any referrer clause in a jointer locates the referrer in particular as the rationale
+        - Any subject clause in a jointer locates the subject in particular as the rationale
           for writing the jointer into the text.
 
 
@@ -860,9 +859,7 @@ Breccia language definition
           within the carrier parent’s head the text to which the note pertains.
 
         pertinent text( note carrier )
-            - A list in linear order of the text sequences to which a note explicitly pertains.
-                : re `text sequences` N.B. `^*original referent$` @ `^+Notes$`
-                / One resolves the list as follows.
+            / A list in linear order of the text sequences to which a note explicitly pertains.
             if( no pertainment clause is present in the note carrier )
                 return+ an empty list
             return+ `parental head match( pattern matcher of the pertainment clause )`
@@ -911,7 +908,6 @@ Breccia language definition
               by a single no-break space (A0).
                 / Authors may use such a no-break space in lieu of a plain space in order to avoid
                   the formation of a trailing edge that would prematurely terminate the bullet.
-                : re `alphanumeric` see `^*alphanumeric$` @ `^+Notes$`
                 : re `A0` see `^*character identification$` @ `^+Notes$`
             - The two edge diagrams (above and below) are not mutually exclusive,
               their bullet characters may overlap.
@@ -969,7 +965,7 @@ Breccia language definition
     ━━━━━━━━━
      Pointer
     ─────────
-        - An associative reference whose referential command is other than ‘join’.
+        - An afterlinker whose referential command is other than ‘join’.
         : cf. `^+Jointer$`
 
 
@@ -984,7 +980,7 @@ Breccia language definition
 
               ╶──╴‘private’╶───▶
 
-        - It should be possible to remove all privatized fracta of a text without impairing its integrity
+        - One should be able to remove all privatized fracta of a text without impairing its integrity
           and without substantial loss of meaning to public readers.
 
 
@@ -1066,12 +1062,12 @@ Breccia language definition
             \d
                 - Decimal digit.
                 : see https://perldoc.perl.org/perlrebackslash#Character-classes
-            \R
-                - Line break.
-                : see https://perldoc.perl.org/perlrebackslash#%5CR
             \N{···}
                 - Character or character sequence by name or number.
                 : see https://perldoc.perl.org/perlrebackslash#Named-or-numbered-characters-and-character-sequences
+            \R
+                - Line break.
+                : see https://perldoc.perl.org/perlrebackslash#%5CR
             ^
                 - The beginning (zero width) of a line.
                 : cf. https://perldoc.perl.org/perlre#Metacharacters
@@ -1083,7 +1079,7 @@ Breccia language definition
             ^+ 
                 - Matches a divider up to where its first titling label might start.
                     : re `first titling label` cf. `^*return.+${same}` @ `^*\$\{same\}$` @
-                      `^^interpolation variables$`i @ `^^referent clause$`i : Compatible by design.
+                      `^^interpolation variables$`i @ `^^object clause$`i : Compatible by design.
                 - Equivalent to Perl `^(?:    )*[\x2500-\x259F].*?\R(?:    )* {1,3}`.
             ^^
                 - Matches as `^+` if it can, otherwise as `^*`.
@@ -1101,8 +1097,7 @@ Breccia language definition
                 - Variable interpolator.
                 - Equates to the value of the named interpolation variable.
                 - Valid only in a context that defines that variable.
-                    : e.g. `^^interpolation variables`i @ `^^referent clause$`i @
-                      `^^associative reference$`i
+                    : e.g. `^^interpolation variables`i @ `^^object clause$`i @ `^^afterlinker$`i
             |
                 - Alternation.
                 : see https://perldoc.perl.org/perlre#Metacharacters
@@ -1211,26 +1206,12 @@ Breccia language definition
     ━━━━━━━
      Notes
     ───────
-        alphanumeric
-            - An alphanumeric character is a grapheme cluster wherein the base character either
-              has Unicode property `alphabetic` or belongs to general category `Nd`.
-                : re `alphabetic` see https://www.unicode.org/reports/tr44/tr44-26.html#Alphabetic
-                : re `Nd` see https://www.unicode.org/reports/tr44/tr44-26.html#General_Category_Values
         character identification
             - Characters are identified by the hexadecimal codes of the Unicode standard.
                 : re `Unicode standard` see https://www.unicode.org/standard/standard.html
      \\ [graphical syntax notation]
      \      - The present text uses syntax diagrams because it is aimed at Breccian authors in general,
      \        who are not expected to be comfortable with a textual notation such as Backus-Naur Form.
-        no associative self-reference
-            - Fractum locants of associative references do not locate the parent
-              of the associative reference.
-                / That would be a self reference, for the parent is considered (by association)
-                  to be part of the reference, its head containing the referrer.
-                \ Allowing such self reference (for whatever slight utility it offers)
-                \ would make the patterns of fractum locants difficult to disambiguate.
-        original referent
-            - The referent in its original place, not a separate copy of it.
      \\ [S not P]
      \      - Simple plain-space separators (S) before the command, that parsers may reach the command
      \        and reify the fractal type without having to navigate the complex form of a postgap (P).

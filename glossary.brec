@@ -86,7 +86,7 @@ Definition of terms for project Breccia
                     : see e.g. https://www.w3.org/TR/DOM-Level-3-Core/glossary.html#dt-document-order
     local
         ─ adjective
-            - (of an associative reference) Not remote.
+            - (of an afterlinker) Not remote.
     newline
         - A character or sequence of characters indicating a line break.
         / In Breccia, it comprises either a line feed, or a carriage return followed by a line feed.
@@ -110,7 +110,7 @@ Definition of terms for project Breccia
             : see `mark.+\R.+pertaining soley.+author` @ `^+Privatizer$` @ language_definition.brec
     remote
         ─ adjective
-            - (of an associative reference) Containing a URI reference
+            - (of an afterlinker) Containing a URI reference
               formed as a URI or network-path reference.
                 : re `URI reference` see https://www.rfc-editor.org/rfc/rfc3986#section-4.1
                 : re `formed as a (URI)` see https://www.rfc-editor.org/rfc/rfc3986#section-3
@@ -131,7 +131,7 @@ Definition of terms for project Breccia
         - A division label that precedes any divider drawing character of the same line,
           making it part of a division title.
             : re `(division label).+(precedes.+same line).+(division title)`sp see
-              `${3} comprises.+${1}.+${2}`sp @ `^^${3}`i @ `^^division$`i @ language_definition.brec
+              `${3} comprises.+${1}.+${2}`sp @ `^^${3}$`i @ `^^division$`i @ language_definition.brec
     variable interpolator
         : see `^*\$\{···\}$` @ `^^pattern language$`i @ `^^regular-expression pattern matching$`i  @
           language_definition.brec
