@@ -306,7 +306,7 @@ Breccia language definition
 
         parental head match( pattern matcher `p` )
             / A list in linear order of the text sequences matched by `p` within the head
-              of the source parent of the command point.
+              of the parent of the command point.
             deem+ `h` a text sequence, that of `parental head text()` trimmed of its perfect indent;
                   `tt` a list of text sequences, intitally empty;
                   `m` a match
@@ -324,8 +324,8 @@ Breccia language definition
             return+ `tt`
 
         parental head text()
-            / The text sequence of the head of the source parent of the command point.
-            deem+ `p` a fractum, the parent of the command point in the source text
+            / The text sequence of the head of the parent of the command point.
+            deem+ `p` the parent of the command point
             if( `p` is headless )
                 / The parent is a headless file fractum.
                 throw+ misplaced back reference, no parent head to refer to
