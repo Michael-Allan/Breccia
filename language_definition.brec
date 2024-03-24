@@ -157,7 +157,7 @@ Breccia language definition
 
             object( afterlinker ⁠li⁠ )
                 / Locates or identifies the object.
-                deem+ ⁠lo_f⁠ a fractum locant, ⁠⁠m_0⁠ the pattern matcher `^^${same}`ip
+                deem+ ⁠lo_f⁠ a fractum locant, ⁠m_0⁠ the pattern matcher `^^${same}`ip
                 if( ⁠li⁠ includes an object clause )
                     deem+ ⁠c_o⁠ the object clause
                     if( ⁠c_o⁠ has just the form of a URI reference )
