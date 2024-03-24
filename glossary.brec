@@ -94,7 +94,7 @@ Definition of terms for project Breccia
     owning fractum
         - (of a text sequence) The nearest fractal ancestor.
     plain whitespace
-        - A sequence of text comprising (one or more) plain spaces, newlines or both.
+        - A text sequence comprising (one or more) plain spaces, newlines or both.
             : re `(plain space)s, (newline)s` see `^*• ${1}` @ `^^allowed whitespace$`i @
               `^^separation$`i @ language_definition.brec
             : re `(plain space)s, (newline)s` see `^*• ${2}` @ `^^allowed whitespace$`i @
