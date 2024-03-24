@@ -865,19 +865,19 @@ Breccia language definition
                  └────────────────────────────────────────────────┘  ╰┄┄┄┄┄┄╯
                                                                       label
                    ╰┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄╯
-                            pertainment clause
+                               purview clause
 
                 diagram, The form of the command in a note carrier.
 
         - The note itself is placed in the appendage of the command point.
-        - If a pertainment clause is present, then its pattern matcher locates
+        - If a purview clause is present, then its pattern matcher locates
           within the carrier parent’s head the text to which the note pertains.
 
-        pertinent text( note carrier )
+        purview( note carrier )
             / A list in linear order of the text sequences to which a note explicitly pertains.
-            if( no pertainment clause is present in the note carrier )
+            if( no purview clause is present in the note carrier )
                 return+ an empty list
-            return+ `parental head match( pattern matcher of the pertainment clause )`
+            return+ `parental head match( pattern matcher of the purview clause )`
                 : see `^*parental head match` @ `^^command point$`i
 
 
