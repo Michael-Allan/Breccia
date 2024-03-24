@@ -22,10 +22,9 @@ Breccia language definition
     ━━━━━━━━━━━━━
      Afterlinker
     ─────────────
-        / A type of command point.
-        - It forms a reference by associating one or more pre-existing text sequences
-          (subject or subjects) with an object (object).
-        - Its command has this form:
+        - An afterlinker formulates a connection between a subject just mentioned
+          and an object to which it refers the reader.
+        - A type of command point, its command has this form:
 
                      subject          referential           object
               ╶──┬── clause ── P ──┬──  command  ──┬── P ── clause ──┬───▶
@@ -63,9 +62,10 @@ Breccia language definition
         ─────────────────────
          referential command
         ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
-            - The referential command determines the type of afterlinker,
-              with implications for its interpretation.
-                : re `type of (afterlinker)` see `${same}` @ `^+fractal types$`
+            - The referential command of an afterlinker refers the reader to the object,
+              and determines the type of the afterlinker.
+                : re `type of (afterlinker)` see `${same}` @ `^+fractal types$` :
+                  Which in turn determines its interpretation.
                     ·
                      ┌── cf.+ ───┐
                      │           │
@@ -117,7 +117,7 @@ Breccia language definition
          object clause
         ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
             / An optional clause within an afterlinker,
-            - The object clause, if present, explicitly locates the object.
+            - The object clause, if present, explicitly locates or identifies the object.
 
                      ┌────── URI reference ───────┐
                   ╶──┤                            ├───▶
@@ -154,6 +154,10 @@ Breccia language definition
                         / Then take ⁠c_o⁠ to comprise a fractum locant.
                         return+ false
                     return+ true
+
+            - Absent an object clause, the object is located implicitly by the form
+              in which the subject was mentioned.
+                : see `^*/ No object clause is present.$` @ `^*object\( afterlinker ⁠li⁠ \)$`
 
             object( afterlinker ⁠li⁠ )
                 / Locates or identifies the object.
@@ -844,8 +848,8 @@ Breccia language definition
     ━━━━━━━━━━━━━━
      Note carrier
     ──────────────
-        / A type of command point.
-        - Its command has this form:
+        - A note carrier is used to place a note.
+        - It is a type of command point, and its command has this form:
 
                      preposition
                    ╭┄┄┄┄┄┄┄┄┄┄┄┄╮
@@ -861,8 +865,7 @@ Breccia language definition
 
                 diagram, The form of the command in a note carrier.
 
-        - Ordinarily the carrier holds a note.
-            - The note comprises the appendage of the command point.
+        - The note itself is placed in the appendage of the command point.
         - If a pertainment clause is present, then its pattern matcher locates
           within the carrier parent’s head the text to which the note pertains.
 
@@ -981,10 +984,10 @@ Breccia language definition
     ━━━━━━━━━━━━
      Privatizer
     ────────────
-        - A command point that privatizes its parent, marking it (and thereby all text within it)
+        - A privatizer privatizes its parent, thereby marking the parent (both head and body)
           as pertaining soley to the author, or authors.
             : cf. `^+Comment carrier$`
-        - Its command has this form:
+        - A type of command point, its command has this form:
 
               ╶──╴‘private’╶───▶
 
