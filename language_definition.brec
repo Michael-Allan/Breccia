@@ -5,7 +5,7 @@ Breccia language definition
               │
               │
               ├─────┐
-              ╵     │     \ [graphical syntax notation], q.v. at end note
+              ╵     │
              file   │
            fractum  ▲
               ╷     │
@@ -65,7 +65,7 @@ Breccia language definition
         ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
             - The referential command determines the type of afterlinker,
               with implications for its interpretation.
-                : re `type of afterlinker` see `^*. afterlinker$` @ `^+fractal types$`
+                : re `type of (afterlinker)` see `${same}` @ `^+fractal types$`
                     ·
                      ┌── cf.+ ───┐
                      │           │
@@ -215,7 +215,7 @@ Breccia language definition
                               `^^command point$`i
                             return+ a text sequence comprising the parts of ⁠r⁠ in order
                               separated by plain spaces ‘ ’ (20)
-                                : re `20` see `^*character identification$` @ `^+Notes$`
+                                : re `20` see https://www.unicode.org/charts/PDF/U0000.pdf
                         else
                             return+ a copy of ⁠r⁠ modified thus:
                                 ⁃ Trimmed of leading and trailing whitespace
@@ -236,7 +236,7 @@ Breccia language definition
                             ⁃ Trimmed of any trailing whitespace
                             ⁃ Any remaining sequences of whitespace each collapsed
                               to a single plain space ‘ ’ (20)
-                                : re `20` see `^*character identification$` @ `^+Notes$`
+                                : re `20` see https://www.unicode.org/charts/PDF/U0000.pdf
 
 
 
@@ -245,7 +245,7 @@ Breccia language definition
     ─────────────
         - A point wherein the bullet comprises ‘!!’ or ends with ‘!!’ and is not directly followed
           by a no-break space (A0).
-            : re `A0` see `^*character identification$` @ `^+Notes$`
+            : re `A0` see https://www.unicode.org/charts/PDF/U0080.pdf
         - Nominally it forms urgent matter for the attention of authors.
             / E.g. indicating a problem with the text.
         - Its descriptor, if present, is largely free in form.
@@ -259,7 +259,7 @@ Breccia language definition
      Aside point
     ─────────────
         - A point wherein the bullet comprises ‘/’ and is not directly followed by a no-break space (A0).
-            : re `A0` see `^*character identification$` @ `^+Notes$`
+            : re `A0` see https://www.unicode.org/charts/PDF/U0080.pdf
         - Nominally it forms matter of less import than its place would otherwise suggest.
             / E.g. matter to which the reader should give less attention on a first reading.
         - Its descriptor, if present, is largely free in form.
@@ -280,10 +280,11 @@ Breccia language definition
               ╶── S ──┬──╴‘privately’╶─ S ──┬── command ──┬── P ──┬── appendage clause ──┬───▶
                       │                     │             │       │                      │
                       └─────────────────────┘             │       └──┬───────────────────┘
-                                                          └──────────┘                      \ [S not P]
-
+                                                          └──────────┘
+                \ S not P before the command, in order that parsers may reach the command and identify
+                \ the type of command point without having to navigate the formal complexity of P.
         - The form of the command varies with the type of command point.
-            : re `type of command point` see `^+fractal types$` @ `^+Fractum$`
+            : re `type of (command point)` see `${same}` @ `^+fractal types$`
         - The `privately` modifier, if present, is equivalent to putting a privatizer
           on the command point.
 
@@ -349,7 +350,7 @@ Breccia language definition
                    -plain-space ╶── S ┊╶──┴─╴‘\’╶─┴─┬── S ──┴── character ──┴─┬─┬── S ──┬──╴ of ───▶
                    (non-20)           ┊             │                         │ │       │   line
                                                     └─────────────────────────┘ └───────┘
-                        : re `20` see `^*character identification$` @ `^+Notes$`
+                        : re `20` see https://www.unicode.org/charts/PDF/U0000.pdf
                         : re `(end).+(of) ─.+(line)\R`s see `^*end of line$`
                     diagram, The form of a comment appender.
 
@@ -364,11 +365,11 @@ Breccia language definition
                     of   ┊╶──┬── S ──┬─┴─╴‘\’╶─┴─┬── S ──┴── character ──┴─┬─┬── S ──┬──╴ of ───▶
                    line  ┊   │       │           │                         │ │       │   line
                              └───────┘           └─────────────────────────┘ └───────┘
-                        : re `(end).+(of) ─.+(line)\R`s see `^*end of line$`
+                        : re `(end).+(of) ─.+(line)\R`s see
                     diagram, The form of each line of a comment block.
 
             - The commentary of a comment block may include one or more no-break spaces (A0).
-                    : re `A0` see `^*character identification$` @ `^+Notes$`
+                    : re `A0` see https://www.unicode.org/charts/PDF/U0080.pdf
                 / An author may, for example, comment out an indent blind, or a point whose bullet
                   contains a no-break space, without thereby introducing an error.
 
@@ -422,15 +423,16 @@ Breccia language definition
                    line  ┊               character  │                 │     ┊ or end of file
                                                     └─────────────────┘     ┊
 
-                    : re `(perfect).+\R.+(indent)` see `^*perfect indent$` @ `^+Separation$`
-                    : re `(divider).+\R.+(drawing).+\R.+(character)` see `^*divider drawing character$`
+                    : re `(perfect).+\R.+(indent)` see @ `^+Separation$`
+                    : re `(divider).+\R.+(drawing).+\R.+(character)` see
             - Outside of comment carriers and indent blinds, characters between the leading,
               divider drawing character and the end boundary of the segment (rightmost in diagram)
               are unconstrained in form.
 
         divider drawing character
             - A character in the Unicode range 2500-259F.
-                : re `2500-259F` see `^*character identification$` @ `^+Notes$`
+                : re `2500-259F` see https://www.unicode.org/charts/PDF/U2500.pdf
+                : re `2500-259F` see https://www.unicode.org/charts/PDF/U2580.pdf
 
         division label
             / Part of a divider segment.
@@ -439,7 +441,7 @@ Breccia language definition
                 ⁃ comment carrier,
                 ⁃ indent blind or
                 ⁃ leading or trailing plain space characters (20).
-                    : re `20` see `^*character identification$` @ `^+Notes$`
+                    : re `20` see https://www.unicode.org/charts/PDF/U0000.pdf
 
         division title
             - A division title comprises all division labels of contiguous lines (one or more in number)
@@ -469,7 +471,7 @@ Breccia language definition
                 / `bLast` The division label last contributed to `t`, if any.
             for( each division label `b` of divider `d` )
                 if( `b` leads the line on which it occurs, discounting plain spaces (20) )
-                        : re `20` see `^*character identification$` @ `^+Notes$`
+                        : re `20` see https://www.unicode.org/charts/PDF/U0000.pdf
                     - Then `b` is a titling label, meaning it contributes to a title.
                     + Set `bString` to the string of `b`.
                     + Collapse in `bString` each sequence of plain spaces to a single plain space.
@@ -541,8 +543,8 @@ Breccia language definition
                ┄┄┄┄┄┄┄┄┄┄┄┄┄
                 end of file
 
-                    : re `(file).*(descriptor)`s see `^+file descriptor$`
-                    : re `(body).*(fractum)`s see `^+fractal types$`
+                    : re `(file).*(descriptor)`s see
+                    : re `(body).*(fractum)`s see `${same}` @ `^+fractal types$`
                 diagram, The form of a file fractum.
 
         - Either the head or the body may be absent, not both.
@@ -591,7 +593,7 @@ Breccia language definition
                         ⁃ Trimmed of leading and trailing plain whitespace
                         ⁃ Any remaining sequences of plain whitespace each collapsed
                           to a single plain space ‘ ’ (20)
-                            : re `20` see `^*character identification$` @ `^+Notes$`
+                            : re `20` see https://www.unicode.org/charts/PDF/U0000.pdf
 
 
     ━━━━━━━━━
@@ -622,6 +624,7 @@ Breccia language definition
                       │
                       ▼
 
+                    : re `(body).*(fractum)`s see `${same}` @ `^+fractal types$`
                 diagram, The abstract form of a fractum.
 
         head
@@ -731,6 +734,9 @@ Breccia language definition
                 ┊    │                        │  reference      ┊
                 ╰    └────────────────────────┘                 ╯
 
+                    : re `(pattern).*(matcher)`s see
+                    : re `(fractum).*(locant)`s see
+                    : re `(URI).*(reference)`s see https://www.rfc-editor.org/rfc/rfc3986#section-4.1
                 diagram, The form of a fractum locant.
 
         - The `non-fractal` qualifier, if present, warns that the referent of the URI reference
@@ -799,14 +805,16 @@ Breccia language definition
      Indent blind
     ──────────────
         - A sequence of lines whose first non-plain-space character (non-20) is a no-break space (A0).
-            : see `^*character identification$` @ `^+Notes$`
-                ·
+
                                             ┌───╴◀────────┐
                start ┊                      │             │    ┌─── end of line ───┐
                 of   ┊╶──┬── S ──┬── A0 ──┬─┴─ character ─┴─┬──┤                   ├───▶
                line  ┊   │       │        │                 │  └── S ── comment ───┘
                          └───────┘        └─────────────────┘           appender
-                    : re `(comment).+\R.+(appender)` see `^*comment appender$`
+
+                    : re `20` see https://www.unicode.org/charts/PDF/U0000.pdf
+                    : re `A0` see https://www.unicode.org/charts/PDF/U0080.pdf
+                    : re `(comment).+\R.+(appender)` see
                 diagram, The form of each line in an indent blind.  This diagram
                   itself is an example of a blind comprising several such lines.
 
@@ -871,7 +879,7 @@ Breccia language definition
      Plain point
     ─────────────
         - A catch-all designation for points of no defined subtype.
-            : see `^+fractal types$`
+            : re `defined subtype` see `^*◇ point` @ `^+fractal types$`
         - A plain point is largely free in form.
 
 
@@ -886,6 +894,7 @@ Breccia language definition
                line  ┊                         │                │     ┊
                                                └────────────────┘
                     : re `(perfect).+\R.+(indent)` see `^*perfect indent$` @ `^+Separation$`
+                    : re `(point).*(descriptor)`s see
                     : re `(end boundary)\R.+(of head)`
                       see `^*- Always its end boundary` @ `^*head$` @ `^+Fractum$`
                 diagram, The form of a point head.
@@ -901,14 +910,13 @@ Breccia language definition
                                   │       │     non-plain-space character
                                   └─╴◀────┘
                         : re `(perfect).+\R.+(indent)` see `^*perfect indent$` @ `^+Separation$`
-                        : re `divider-drawing character` see `^*divider drawing character$`
                     diagram, The form of a bullet’s leading edge.
 
             - Between the edges, any non-alphanumeric, non-whitespace character may be followed
               by a single no-break space (A0).
                 / Authors may use such a no-break space in lieu of a plain space in order to avoid
                   the formation of a trailing edge that would prematurely terminate the bullet.
-                : re `A0` see `^*character identification$` @ `^+Notes$`
+                : re `A0` see https://www.unicode.org/charts/PDF/U0080.pdf
             - The two edge diagrams (above and below) are not mutually exclusive,
               their bullet characters may overlap.
                 / The bullet may, for example, comprise a single character that alone occupies
@@ -924,7 +932,7 @@ Breccia language definition
                      └────  character   ────────▶ ┊╶────────┴───┬── S ──┴─┬───▶ end of line
                                                   ┊             │         │
                                                                 └─────────┘
-                        : re `A0` see `^*character identification$` @ `^+Notes$`
+                        : re `A0` see https://www.unicode.org/charts/PDF/U0080.pdf
                         : re `(comment)$.+(appender)$`s see
                     diagram, The form of a bullet’s trailing edge.  The bullet
                       itself includes only parts to the left of the dashed line.
@@ -951,13 +959,13 @@ Breccia language definition
                                         └──────────────┘
                         : re `(end boundary)\R.+(of head)`
                           see `^*- Always its end boundary` @ `^*head$` @ `^+Fractum$`
-                        : re `A0` see `^*character identification$` @ `^+Notes$`
+                        : re `A0` see https://www.unicode.org/charts/PDF/U0080.pdf
                     diagram, The form of a point descriptor.
 
             / The option of a leading no-break space (A0) occurs only for a bullet ending with
               a non-alphanumeric, non-whitespace character,
             - Point descriptors of particular types may be further constrained.
-                : re `particular types` see `^*. point$` @ `^+fractal types$` @ `^+Fractum$`
+                : re `particular types` see `^*◇ point` @ `^+fractal types$`
                 : e.g. `^+Command point$`
 
 
@@ -1125,13 +1133,15 @@ Breccia language definition
      Separation
     ────────────
         allowed whitespace
-            : see `^*character identification$` @ `^+Notes$`
             • plain space ‘ ’ (20)
+                : re `20` see https://www.unicode.org/charts/PDF/U0000.pdf
             • newline comprising either a line feed (A),
               or carriage return followed by a line feed (D, A)
+                : re `A|D` see https://www.unicode.org/charts/PDF/U0000.pdf
             • no-break space (A0) as described for use in bullets, indent blinds and comment blocks
-            \ Allowing other horizontal whitespace characters (e.g. 9, 2000-200A, 202F, 205F, 3000)
-            \ might lead to confusion, considering that indentation determines syntax.
+                \ Allowing other horizontal whitespace characters (e.g. 9, 2000-200A, 202F, 205F, 3000)
+                \ might lead to confusion, considering that indentation determines syntax.
+                : re `A0` see https://www.unicode.org/charts/PDF/U0080.pdf
 
         end of line
             - Each line end is formed either as a line break indicated by a newline,
@@ -1161,7 +1171,7 @@ Breccia language definition
                              │     appender      │       │
                              │                   └──┬────┘
                              └──────────────────────┘
-                    : re `(comment).+\R.+(appender)` see `^*comment appender$`
+                    : re `(comment).+\R.+(appender)` see
 
         perfect indent
             - A separator comprising zero or more tetrads of plain space characters (20)
@@ -1172,7 +1182,7 @@ Breccia language definition
                     of   ┊╶──┬─┴─╴‘ ’╶─╴‘ ’╶─╴‘ ’╶─╴‘ ’╶─┴─┬───▶ ┊ non-whitespace
                    line  ┊   │                             │     ┊ character
                              └─────────────────────────────┘
-                    : re `20` see `^*character identification$` @ `^+Notes$`
+                    : re `20` see https://www.unicode.org/charts/PDF/U0000.pdf
             / A perfect indent marks the start of a body fractum.  Specifically it marks
               the start of a point head or divider segment.
 
@@ -1182,7 +1192,7 @@ Breccia language definition
                      ┌─╴◀────┐
                      │       │
                   ╶──┴─╴‘ ’╶─┴───▶
-                                        : re `20` see `^*character identification$` @ `^+Notes$`
+                                        : re `20` see https://www.unicode.org/charts/PDF/U0000.pdf
 
 
 
@@ -1191,7 +1201,7 @@ Breccia language definition
     ────────────
         - A point wherein the bullet comprises ‘+’ or ends with ‘+’ and is not directly followed
           by a no-break space (A0).
-            : re `A0` see `^*character identification$` @ `^+Notes$`
+            : re `A0` see https://www.unicode.org/charts/PDF/U0080.pdf
         - Nominally it describes or indicates work to be done.
         \ Defining a specialized point for tasking is justified by the Breccian purpose of text drafting
         \ for which in-line tasking is an important capability.
@@ -1200,21 +1210,6 @@ Breccia language definition
             / It may not start with a no-break space, however, as then the point would instead
               be a plain point.
                 : see `^*. One purpose of placing a no-break space.+in this position` @ `^*bullet$`
-
-
-
-    ━━━━━━━
-     Notes
-    ───────
-        character identification
-            - Characters are identified by the hexadecimal codes of the Unicode standard.
-                : re `Unicode standard` see https://www.unicode.org/standard/standard.html
-     \\ [graphical syntax notation]
-     \      - The present text uses syntax diagrams because it is aimed at Breccian authors in general,
-     \        who are not expected to be comfortable with a textual notation such as Backus-Naur Form.
-     \\ [S not P]
-     \      - Simple plain-space separators (S) before the command, that parsers may reach the command
-     \        and reify the fractal type without having to navigate the complex form of a postgap (P).
 
 
 
