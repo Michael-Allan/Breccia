@@ -91,6 +91,8 @@ Definition of terms for project Breccia
         - A character or sequence of characters indicating a line break.
         / In Breccia, it comprises either a line feed, or a carriage return followed by a line feed.
             : see `^*allowed whitespace$` @ language_definition.brec
+    owning fractum
+        - (of a text sequence) The nearest fractal ancestor.
     plain whitespace
         - A sequence of text comprising (one or more) plain spaces, newlines or both.
             : re `(plain space)s, (newline)s` see `^*• ${1}` @ `^^allowed whitespace$`i @
