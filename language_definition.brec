@@ -140,10 +140,10 @@ Breccia language definition
                     unless( ⁠c_o⁠ has just the form of a URI reference ⁠u⁠ )
                         throw+ not in the form of a URI reference: ⁠c_o⁠
                     deem+ ⁠p⁠ the path component of ⁠u⁠;
-                          ⁠s⁠ a segment
-                        : re `(path component).+(segment)`s see
+                          ⁠s⁠ a path segment
+                        : re `(path component).+(path segment)`s see
                           https://www.rfc-editor.org/rfc/rfc3986#section-3.3
-                    if( ⁠p⁠ ends with a segment ⁠s⁠ )
+                    if( ⁠p⁠ ends with a path segment ⁠s⁠ )
                         / It follows that ⁠p⁠ does not end with ‘/’.
                         if( ⁠s⁠ ends with ‘.brec’ )
                             / Then take ⁠c_o⁠ to comprise a fractum locant.
