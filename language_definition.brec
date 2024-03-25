@@ -190,12 +190,13 @@ Breccia language definition
                       of linker ⁠li⁠’s parent, wherein the link subject is mentioned.
                         \ Else too often locant matchers formed on the pattern of the mention
                         \ — e.g. using `${same}` — will inadvertently match the mention.
-                if( ⁠f⁠ is privatized, ⁠li⁠ unprivatized, and ⁠li⁠ links locally to ⁠f⁠ )
-                    throw+ malformed linker: ⁠li⁠ is unprivatized yet links locally to privatized object ⁠f⁠
+                if( ⁠f⁠ is privatized and local to ⁠li⁠, and ⁠li⁠ is unprivatized )
+                    throw+ malformed linker: ⁠li⁠ is unprivatized yet makes a local reference
+                      to privatized fractum ⁠f⁠
                         : N.B. `should be able.+remove.+privatized fracta.+without impairing.+integrity`
                           @ `^^privatizer$`i
-                    / To correct this, ⁠li⁠ must be privatized, or its link made remote,
-                      or its object qualified as non-fractal.
+                    / To repair this, either privatize ⁠li⁠, make its reference remote or non-fractal,
+                      or deprivatize ⁠f⁠.
                 return+ ⁠f⁠ and any ⁠m⁠
 
 
