@@ -9,10 +9,10 @@ Definition of terms for project Breccia
     alphanumeric
         - (of a character) Having a Unicode property of `alphabetic`
           or belonging to Unicode general category `Nd`.
-            : re `alphabetic` see https://www.unicode.org/reports/tr44/tr44-26.html#Alphabetic
-            : re `Nd` see https://www.unicode.org/reports/tr44/tr44-26.html#GC_Values_Table
+            : re `alphabetic` see http://unicode.org/reports/tr44/tr44-26.html#Alphabetic
+            : re `Nd` see http://unicode.org/reports/tr44/tr44-26.html#GC_Values_Table
         - (of a grapheme cluster) Having a base character that is alphanumeric.
-            : re `grapheme cluster` see https://unicode.org/reports/tr29/#Grapheme_Cluster_Boundaries
+            : re `grapheme cluster` see http://unicode.org/reports/tr29/#Grapheme_Cluster_Boundaries
     anchored prefix
         : e.g. `^*\^\*$` @ `^^pattern language$`i @ `^^regular-expression pattern matching$`i  @
           language_definition.brec

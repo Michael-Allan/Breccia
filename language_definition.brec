@@ -229,7 +229,7 @@ Breccia language definition
                     if( ⁠m⁠ includes a capture )
                         return+ a text sequence comprising all captured sequences of ⁠m⁠,
                           in capture order, separated by spaces ‘ ’ (20)
-                            : re `20` see https://www.unicode.org/charts/PDF/U0000.pdf
+                            : re `20` see http://unicode.org/charts/PDF/U0000.pdf
                     return+ a copy of the whole text sequence of ⁠m⁠ modified thus:
                         ⁃ Trimmed of leading and trailing whitespace
                         ⁃ Any remaining sequences of whitespace each collapsed to a single space ‘ ’ (20)
@@ -247,7 +247,7 @@ Breccia language definition
                         ⁃ Trimmed of its perfect indent
                         ⁃ Trimmed of any trailing whitespace
                         ⁃ Any remaining sequences of whitespace each collapsed to a single space ‘ ’ (20)
-                            : re `20` see https://www.unicode.org/charts/PDF/U0000.pdf
+                            : re `20` see http://unicode.org/charts/PDF/U0000.pdf
 
 
 
@@ -256,7 +256,7 @@ Breccia language definition
     ─────────────
         - A point wherein the bullet comprises ‘!!’ or ends with ‘!!’ and is not directly followed
           by a no-break space (A0).
-            : re `A0` see https://www.unicode.org/charts/PDF/U0080.pdf
+            : re `A0` see http://unicode.org/charts/PDF/U0080.pdf
         - Nominally it forms urgent matter for the attention of authors.
             / E.g. indicating a problem with the text.
         - Its descriptor, if present, is largely free in form.
@@ -270,7 +270,7 @@ Breccia language definition
      Aside point
     ─────────────
         - A point wherein the bullet comprises ‘/’ and is not directly followed by a no-break space (A0).
-            : re `A0` see https://www.unicode.org/charts/PDF/U0080.pdf
+            : re `A0` see http://unicode.org/charts/PDF/U0080.pdf
         - Nominally it forms matter of less import than its place would otherwise suggest.
             / E.g. matter to which the reader should give less attention on a first reading.
         - Its descriptor, if present, is largely free in form.
@@ -321,7 +321,7 @@ Breccia language definition
         - Each comment carrier is formed as either a comment appender or a comment block,
           as shown in the diagrams that follow.
             - In these diagrams, no commentary part begins or ends with a plain space character (20).
-                : re `20` see https://www.unicode.org/charts/PDF/U0000.pdf
+                : re `20` see http://unicode.org/charts/PDF/U0000.pdf
             - Any such space at the leading or trailing edge is separate from the commentary proper.
 
         comment appender
@@ -335,7 +335,7 @@ Breccia language definition
                    -plain-space ╶── S ┊╶──┴─╴‘\’╶─┴─┬── S ──┴── character ──┴─┬─┬── S ──┬──╴ of ───▶
                    (non-20)           ┊             │                         │ │       │   line
                                                     └─────────────────────────┘ └───────┘
-                        : re `20` see https://www.unicode.org/charts/PDF/U0000.pdf
+                        : re `20` see http://unicode.org/charts/PDF/U0000.pdf
                         : re `(end).+(of) ─.+(line)\R`s see `^*end of line$`
                     diagram, The form of a comment appender.
 
@@ -354,7 +354,7 @@ Breccia language definition
                     diagram, The form of each line of a comment block.
 
             - The commentary of a comment block may include one or more no-break spaces (A0).
-                    : re `A0` see https://www.unicode.org/charts/PDF/U0080.pdf
+                    : re `A0` see http://unicode.org/charts/PDF/U0080.pdf
                 / An author may, for example, comment out an indent blind, or a point whose bullet
                   contains a no-break space, without thereby introducing an error.
 
@@ -416,8 +416,8 @@ Breccia language definition
 
         divider drawing character
             - A character in the Unicode range 2500-259F.
-                : re `2500-259F` see https://www.unicode.org/charts/PDF/U2500.pdf
-                : re `2500-259F` see https://www.unicode.org/charts/PDF/U2580.pdf
+                : re `2500-259F` see http://unicode.org/charts/PDF/U2500.pdf
+                : re `2500-259F` see http://unicode.org/charts/PDF/U2580.pdf
 
         division label
             / Part of a divider segment.
@@ -426,7 +426,7 @@ Breccia language definition
                 ⁃ comment carrier,
                 ⁃ indent blind or
                 ⁃ leading or trailing plain space characters (20).
-                    : re `20` see https://www.unicode.org/charts/PDF/U0000.pdf
+                    : re `20` see http://unicode.org/charts/PDF/U0000.pdf
 
         division title
             - A division title comprises all division labels of contiguous lines (one or more in number)
@@ -456,7 +456,7 @@ Breccia language definition
                 / `bLast` The division label last contributed to `t`, if any.
             for( each division label `b` of divider `d` )
                 if( `b` leads the line on which it occurs, discounting plain spaces (20) )
-                        : re `20` see https://www.unicode.org/charts/PDF/U0000.pdf
+                        : re `20` see http://unicode.org/charts/PDF/U0000.pdf
                     - Then `b` is a titling label, meaning it contributes to a title.
                     + Set `bString` to the string of `b`.
                     + Collapse in `bString` each sequence of plain spaces to a single plain space.
@@ -578,7 +578,7 @@ Breccia language definition
                         ⁃ Trimmed of leading and trailing plain whitespace
                         ⁃ Any remaining sequences of plain whitespace each collapsed
                           to a single plain space ‘ ’ (20)
-                            : re `20` see https://www.unicode.org/charts/PDF/U0000.pdf
+                            : re `20` see http://unicode.org/charts/PDF/U0000.pdf
 
 
     ━━━━━━━━━
@@ -825,8 +825,8 @@ Breccia language definition
                line  ┊   │       │        │                 │  └── S ── comment ───┘
                          └───────┘        └─────────────────┘           appender
 
-                    : re `20` see https://www.unicode.org/charts/PDF/U0000.pdf
-                    : re `A0` see https://www.unicode.org/charts/PDF/U0080.pdf
+                    : re `20` see http://unicode.org/charts/PDF/U0000.pdf
+                    : re `A0` see http://unicode.org/charts/PDF/U0080.pdf
                     : re `(comment).+\R.+(appender)` see
                 diagram, The form of each line in an indent blind.  This diagram
                   itself is an example of a blind comprising several such lines.
@@ -931,7 +931,7 @@ Breccia language definition
               by a single no-break space (A0).
                 / Authors may use such a no-break space in lieu of a plain space in order to avoid
                   the formation of a trailing edge that would prematurely terminate the bullet.
-                : re `A0` see https://www.unicode.org/charts/PDF/U0080.pdf
+                : re `A0` see http://unicode.org/charts/PDF/U0080.pdf
             - The two edge diagrams (above and below) are not mutually exclusive,
               their bullet characters may overlap.
                 / The bullet may, for example, comprise a single character that alone occupies
@@ -947,7 +947,7 @@ Breccia language definition
                      └────  character   ────────▶ ┊╶────────┴───┬── S ──┴─┬───▶ end of line
                                                   ┊             │         │
                                                                 └─────────┘
-                        : re `A0` see https://www.unicode.org/charts/PDF/U0080.pdf
+                        : re `A0` see http://unicode.org/charts/PDF/U0080.pdf
                         : re `(comment)$.+(appender)$`s see
                     diagram, The form of a bullet’s trailing edge.  The bullet
                       itself includes only parts to the left of the dashed line.
@@ -974,7 +974,7 @@ Breccia language definition
                                         └──────────────┘
                         : re `(end boundary)\R.+(of head)`
                           see `^*- Always its end boundary` @ `^*head$` @ `^+Fractum$`
-                        : re `A0` see https://www.unicode.org/charts/PDF/U0080.pdf
+                        : re `A0` see http://unicode.org/charts/PDF/U0080.pdf
                     diagram, The form of a point descriptor.
 
             / The option of a leading no-break space (A0) occurs only for a bullet ending with
@@ -1149,14 +1149,14 @@ Breccia language definition
     ────────────
         allowed whitespace
             • plain space ‘ ’ (20)
-                : re `20` see https://www.unicode.org/charts/PDF/U0000.pdf
+                : re `20` see http://unicode.org/charts/PDF/U0000.pdf
             • newline comprising either a line feed (A),
               or carriage return followed by a line feed (D, A)
-                : re `A|D` see https://www.unicode.org/charts/PDF/U0000.pdf
+                : re `A|D` see http://unicode.org/charts/PDF/U0000.pdf
             • no-break space (A0) as described for use in bullets, indent blinds and comment blocks
                 \ Allowing other horizontal whitespace characters (e.g. 9, 2000-200A, 202F, 205F, 3000)
                 \ might lead to confusion, considering that indentation determines syntax.
-                : re `A0` see https://www.unicode.org/charts/PDF/U0080.pdf
+                : re `A0` see http://unicode.org/charts/PDF/U0080.pdf
 
         end of line
             - Each line end is formed either as a line break indicated by a newline,
@@ -1197,7 +1197,7 @@ Breccia language definition
                     of   ┊╶──┬─┴─╴‘ ’╶─╴‘ ’╶─╴‘ ’╶─╴‘ ’╶─┴─┬───▶ ┊ non-whitespace
                    line  ┊   │                             │     ┊ character
                              └─────────────────────────────┘
-                    : re `20` see https://www.unicode.org/charts/PDF/U0000.pdf
+                    : re `20` see http://unicode.org/charts/PDF/U0000.pdf
             / A perfect indent marks the start of a body fractum.  Specifically it marks
               the start of a point head or divider segment.
 
@@ -1207,7 +1207,7 @@ Breccia language definition
                      ┌─╴◀────┐
                      │       │
                   ╶──┴─╴‘ ’╶─┴───▶
-                                        : re `20` see https://www.unicode.org/charts/PDF/U0000.pdf
+                                        : re `20` see http://unicode.org/charts/PDF/U0000.pdf
 
 
 
@@ -1216,7 +1216,7 @@ Breccia language definition
     ────────────
         - A point wherein the bullet comprises ‘+’ or ends with ‘+’ and is not directly followed
           by a no-break space (A0).
-            : re `A0` see https://www.unicode.org/charts/PDF/U0080.pdf
+            : re `A0` see http://unicode.org/charts/PDF/U0080.pdf
         - Nominally it describes or indicates work to be done.
         \ Defining a specialized point for tasking is justified by the Breccian purpose of text drafting
         \ for which in-line tasking is an important capability.
