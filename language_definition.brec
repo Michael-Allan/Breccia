@@ -1228,4 +1228,8 @@ Breccia language definition
 
 
 
+                                                                     \ Local Variables:
+                                                                     \ brec-to-collapse-indent-blinds: t
+                                                                     \ End:
+
                                                     \ Copyright © 2019-2024  Michael Allan.  Licence MIT.
