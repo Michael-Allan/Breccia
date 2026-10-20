@@ -89,10 +89,16 @@ Breccia language definition
                      │           │
                      └─╴‘viz.’╶──┘
 
-                        : ad `q.v.` : Referential command `q.v.` is of limited use.  It makes grammatical
-                          sense only when a) the subject clause is absent, and b) the object clause
-                          is either absent or comprises a fractal context locant (for example,
-                          `q.v. @ foo.brec`).
+                        : ad `q.v.` : Referential command `q.v.` makes grammatical sense in relatively
+                          few cases.  One case that makes sense is when the subject and object clauses
+                          are both absent.
+
+                                : q.v.
+
+                          Another is when the subject clause is absent and the object clause
+                          comprises a fractal context locant.
+
+                                : q.v. @ foo.brec
 
             cf.+ 
 
@@ -1232,4 +1238,4 @@ Breccia language definition
                                                                      \ brec-to-collapse-indent-blinds: t
                                                                      \ End:
 
-                                                    \ Copyright © 2019-2024  Michael Allan.  Licence MIT.
+                                              \ Copyright © 2019-2024, 2026  Michael Allan.  Licence MIT.
